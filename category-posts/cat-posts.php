@@ -1,12 +1,23 @@
 <?php
 /*
 Plugin Name: Category Posts Widget
-Plugin URI: http://jameslao.com/2009/07/29/category-posts-widget-2-0/
-Description: Adds a widget that can display a specified number of posts from a single category. Can also set how many widgets to show.
+Plugin URI: http://jameslao.com/2009/12/30/category-posts-widget-3-0/
+Description: Adds a widget that can display posts from a single category.
 Author: James Lao	
-Version: 2.3
+Version: 3.1
 Author URI: http://jameslao.com/
 */
+
+// Register thumbnail sizes.
+if ( function_exists('add_image_size') )
+{
+	$sizes = get_option('jlao_cat_post_thumb_sizes');
+	if ( $sizes )
+	{
+		foreach ( $sizes as $id=>$size )
+			add_image_size( 'cat_post_thumb_size' . $id, $size[0], $size[1], true );
+	}
+}
 
 class CategoryPosts extends WP_Widget {
 
@@ -18,8 +29,12 @@ function CategoryPosts() {
  * Displays category posts widget on blog.
  */
 function widget($args, $instance) {
-	global $post, $wp_query;
+	global $post;
+	$post_old = $post; // Save the post object.
+	
 	extract( $args );
+	
+	$sizes = get_option('jlao_cat_post_thumb_sizes');
 	
 	// If not title, use the name of the category.
 	if( !$instance["title"] ) {
@@ -29,13 +44,17 @@ function widget($args, $instance) {
 	
 	// Get array of post info.
 	$cat_posts = new WP_Query("showposts=" . $instance["num"] . "&cat=" . $instance["cat"]);
+
+	// Excerpt length filter
+	$new_excerpt_length = create_function('$length', "return " . $instance["excerpt_length"] . ";");
+	if ( $instance["excerpt_length"] > 0 )
+		add_filter('excerpt_length', $new_excerpt_length);
 	
 	echo $before_widget;
 	
 	// Widget title
-
 	echo $before_title;
-	if( (bool) $instance["title_link"] )
+	if( $instance["title_link"] )
 		echo '<a href="' . get_category_link($instance["cat"]) . '">' . $instance["title"] . '</a>';
 	else
 		echo $instance["title"];
@@ -44,35 +63,72 @@ function widget($args, $instance) {
 	// Post list
 	echo "<ul>\n";
 	
-	while ( $cat_posts->have_posts() ) : $cat_posts->the_post();
+	while ( $cat_posts->have_posts() )
+	{
+		$cat_posts->the_post();
 	?>
-		<li class='cat-post-item'>
+		<li class="cat-post-item">
+			<a class="post-title" href="<?php the_permalink(); ?>" rel="bookmark" title="Permanent link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a>
+			
+			<?php
+				if (
+					function_exists('the_post_thumbnail') &&
+					current_theme_supports("post-thumbnails") &&
+					$instance["thumb"] &&
+					has_post_thumbnail()
+				) :
+			?>
+				<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
+				<?php the_post_thumbnail( 'cat_post_thumb_size'.$this->id ); ?>
+				</a>
+			<?php endif; ?>
 
-		<?php if ( (bool) $instance["thumbnail"] && function_exists('p75HasThumbnail') && p75HasThumbnail($cat_posts->post->ID) ) { ?>
-		
-			<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><img class='alignleft' src='<?php echo p75GetThumbnail($post->ID, $instance["thumbnail_width"], $instance["thumbnail_height"]); ?>' alt='<?php the_title_attribute(); ?>' /></a>
-		
-		<?php } // end thumbnail function check ?>
-
-			<a class="post-title" href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a>
-
-			<?php if ( $instance['excerpt'] ) the_excerpt(); ?>
+			<?php if ( $instance['date'] ) : ?>
+			<p class="post-date"><?php the_time("j M Y"); ?></p>
+			<?php endif; ?>
+			
+			<?php if ( $instance['excerpt'] ) : ?>
+			<?php the_excerpt(); ?> 
+			<?php endif; ?>
+			
+			<?php if ( $instance['comment_num'] ) : ?>
+			<p class="comment-num">(<?php comments_number(); ?>)</p>
+			<?php endif; ?>
 		</li>
-<?php
-	endwhile;
+	<?php
+	}
 	
 	echo "</ul>\n";
 	
 	echo $after_widget;
+
+	remove_filter('excerpt_length', $new_excerpt_length);
+	
+	$post = $post_old; // Restore the post object.
 }
 
 /**
  * Form processing... Dead simple.
  */
 function update($new_instance, $old_instance) {
-    $new_instance["cat"] = absint( $new_instance["cat"] );
-    $new_instance["exclude"] = (bool) $new_instance["exclude"];
-    
+	/**
+	 * Save the thumbnail dimensions outside so we can
+	 * register the sizes easily. We have to do this
+	 * because the sizes must registered beforehand
+	 * in order for WP to hard crop images (this in
+	 * turn is because WP only hard crops on upload).
+	 * The code inside the widget is executed only when
+	 * the widget is shown so we register the sizes
+	 * outside of the widget class.
+	 */
+	if ( function_exists('the_post_thumbnail') )
+	{
+		$sizes = get_option('jlao_cat_post_thumb_sizes');
+		if ( !$sizes ) $sizes = array();
+		$sizes[$this->id] = array($new_instance['thumb_w'], $new_instance['thumb_h']);
+		update_option('jlao_cat_post_thumb_sizes', $sizes);
+	}
+	
 	return $new_instance;
 }
 
@@ -116,22 +172,43 @@ function form($instance) {
 			</label>
 		</p>
 		
-		<?php if ( function_exists("p75GetThumbnail") ) : ?>
 		<p>
-			<label for="<?php echo $this->get_field_id("thumbnail"); ?>">
-				<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id("thumbnail"); ?>" name="<?php echo $this->get_field_name("thumbnail"); ?>"<?php checked( (bool) $instance["thumbnail"], true ); ?> />
+			<label for="<?php echo $this->get_field_id("excerpt_length"); ?>">
+				<?php _e( 'Excerpt length (in words):' ); ?>
+			</label>
+			<input style="text-align: center;" type="text" id="<?php echo $this->get_field_id("excerpt_length"); ?>" name="<?php echo $this->get_field_name("excerpt_length"); ?>" value="<?php echo $instance["excerpt_length"]; ?>" size="3" />
+		</p>
+		
+		<p>
+			<label for="<?php echo $this->get_field_id("comment_num"); ?>">
+				<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id("comment_num"); ?>" name="<?php echo $this->get_field_name("comment_num"); ?>"<?php checked( (bool) $instance["comment_num"], true ); ?> />
+				<?php _e( 'Show number of comments' ); ?>
+			</label>
+		</p>
+		
+		<p>
+			<label for="<?php echo $this->get_field_id("date"); ?>">
+				<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id("date"); ?>" name="<?php echo $this->get_field_name("date"); ?>"<?php checked( (bool) $instance["date"], true ); ?> />
+				<?php _e( 'Show post date' ); ?>
+			</label>
+		</p>
+		
+		<?php if ( function_exists('the_post_thumbnail') && current_theme_supports("post-thumbnails") ) : ?>
+		<p>
+			<label for="<?php echo $this->get_field_id("thumb"); ?>">
+				<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id("thumb"); ?>" name="<?php echo $this->get_field_name("thumb"); ?>"<?php checked( (bool) $instance["thumb"], true ); ?> />
 				<?php _e( 'Show post thumbnail' ); ?>
 			</label>
 		</p>
 		<p>
 			<label>
 				<?php _e('Thumbnail dimensions'); ?>:<br />
-				<label for="<?php echo $this->get_field_id("thumbnail_width"); ?>">
-					W: <input class="widefat" style="width:40%;" type="text" id="<?php echo $this->get_field_id("thumbnail_width"); ?>" name="<?php echo $this->get_field_name("thumbnail_width"); ?>" value="<?php echo $instance["thumbnail_width"]; ?>" />
+				<label for="<?php echo $this->get_field_id("thumb_w"); ?>">
+					W: <input class="widefat" style="width:40%;" type="text" id="<?php echo $this->get_field_id("thumb_w"); ?>" name="<?php echo $this->get_field_name("thumb_w"); ?>" value="<?php echo $instance["thumb_w"]; ?>" />
 				</label>
 				
-				<label for="<?php echo $this->get_field_id("thumbnail_height"); ?>">
-					H: <input class="widefat" style="width:40%;" type="text" id="<?php echo $this->get_field_id("thumbnail_height"); ?>" name="<?php echo $this->get_field_name("thumbnail_height"); ?>" value="<?php echo $instance["thumbnail_height"]; ?>" />
+				<label for="<?php echo $this->get_field_id("thumb_h"); ?>">
+					H: <input class="widefat" style="width:40%;" type="text" id="<?php echo $this->get_field_id("thumb_h"); ?>" name="<?php echo $this->get_field_name("thumb_h"); ?>" value="<?php echo $instance["thumb_h"]; ?>" />
 				</label>
 			</label>
 		</p>

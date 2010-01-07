@@ -2,9 +2,9 @@
 Contributors: joostdevalk
 Donate link: http://yoast.com/donate/
 Tags: meta,search engines,seo
-Requires at least: 2.5
-Tested up to: 2.8.2
-stable tag: 3.2.2
+Requires at least: 2.8
+Tested up to: 2.9
+stable tag: 3.2.5
 
 This plugin makes it easy to add the appropriate meta robots tags to your pages, disable unused archives, nofollow unnecessary links as well as do some other SEO related actions.
 
@@ -40,6 +40,16 @@ More info:
 2. Screenshot of the right column block this plugin adds to the edit post and edit page admin areas.
 
 == Changelog ==
+
+= 3.2.5 =
+* Added check to see whether Blog Privacy is set to block Search Engines and throw a warning if it is.
+
+= 3.2.4 =
+* Fixed saving noindex / index option on post / page edit screens.
+* Fixed some image links.
+
+= 3.2.3 =
+* Changed Google verification tag to match new standard.
 
 = 3.2.2 =
 * Upgraded backend class.

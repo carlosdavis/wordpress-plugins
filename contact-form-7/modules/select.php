@@ -5,6 +5,9 @@
 
 /* Shortcode handler */
 
+wpcf7_add_shortcode( 'select', 'wpcf7_select_shortcode_handler', true );
+wpcf7_add_shortcode( 'select*', 'wpcf7_select_shortcode_handler', true );
+
 function wpcf7_select_shortcode_handler( $tag ) {
 	global $wpcf7_contact_form;
 
@@ -15,6 +18,7 @@ function wpcf7_select_shortcode_handler( $tag ) {
 	$name = $tag['name'];
 	$options = (array) $tag['options'];
 	$values = (array) $tag['values'];
+	$labels = (array) $tag['labels'];
 
 	if ( empty( $name ) )
 		return '';
@@ -50,8 +54,10 @@ function wpcf7_select_shortcode_handler( $tag ) {
 	$include_blank = (bool) preg_grep( '%^include_blank$%', $options );
 
 	$empty_select = empty( $values );
-	if ( $empty_select || $include_blank )
+	if ( $empty_select || $include_blank ) {
+		array_unshift( $labels, '---' );
 		array_unshift( $values, '---' );
+	}
 
 	$html = '';
 
@@ -72,8 +78,8 @@ function wpcf7_select_shortcode_handler( $tag ) {
 
 		$selected = $selected ? ' selected="selected"' : '';
 
-		if ( is_array( $tag['labels'] ) && isset( $tag['labels'][$key] ) )
-			$label = $tag['labels'][$key];
+		if ( isset( $labels[$key] ) )
+			$label = $labels[$key];
 		else
 			$label = $value;
 
@@ -94,11 +100,11 @@ function wpcf7_select_shortcode_handler( $tag ) {
 	return $html;
 }
 
-wpcf7_add_shortcode( 'select', 'wpcf7_select_shortcode_handler', true );
-wpcf7_add_shortcode( 'select*', 'wpcf7_select_shortcode_handler', true );
-
 
 /* Validation filter */
+
+add_filter( 'wpcf7_validate_select', 'wpcf7_select_validation_filter', 10, 2 );
+add_filter( 'wpcf7_validate_select*', 'wpcf7_select_validation_filter', 10, 2 );
 
 function wpcf7_select_validation_filter( $result, $tag ) {
 	global $wpcf7_contact_form;
@@ -131,7 +137,53 @@ function wpcf7_select_validation_filter( $result, $tag ) {
 	return $result;
 }
 
-add_filter( 'wpcf7_validate_select', 'wpcf7_select_validation_filter', 10, 2 );
-add_filter( 'wpcf7_validate_select*', 'wpcf7_select_validation_filter', 10, 2 );
+
+/* Tag generator */
+
+add_action( 'admin_init', 'wpcf7_add_tag_generator_menu', 25 );
+
+function wpcf7_add_tag_generator_menu() {
+	wpcf7_add_tag_generator( 'menu', __( 'Drop-down menu', 'wpcf7' ),
+		'wpcf7-tg-pane-menu', 'wpcf7_tg_pane_menu' );
+}
+
+function wpcf7_tg_pane_menu( &$contact_form ) {
+?>
+<div id="wpcf7-tg-pane-menu" class="hidden">
+<form action="">
+<table>
+<tr><td><input type="checkbox" name="required" />&nbsp;<?php echo esc_html( __( 'Required field?', 'wpcf7' ) ); ?></td></tr>
+<tr><td><?php echo esc_html( __( 'Name', 'wpcf7' ) ); ?><br /><input type="text" name="name" class="tg-name oneline" /></td><td></td></tr>
+</table>
+
+<table>
+<tr>
+<td><code>id</code> (<?php echo esc_html( __( 'optional', 'wpcf7' ) ); ?>)<br />
+<input type="text" name="id" class="idvalue oneline option" /></td>
+
+<td><code>class</code> (<?php echo esc_html( __( 'optional', 'wpcf7' ) ); ?>)<br />
+<input type="text" name="class" class="classvalue oneline option" /></td>
+</tr>
+
+<tr>
+<td><?php echo esc_html( __( 'Choices', 'wpcf7' ) ); ?><br />
+<textarea name="values"></textarea><br />
+<span style="font-size: smaller"><?php echo esc_html( __( "* One choice per line.", 'wpcf7' ) ); ?></span>
+</td>
+
+<td>
+<br /><input type="checkbox" name="multiple" class="option" />&nbsp;<?php echo esc_html( __( 'Allow multiple selections?', 'wpcf7' ) ); ?>
+<br /><input type="checkbox" name="include_blank" class="option" />&nbsp;<?php echo esc_html( __( 'Insert a blank item as the first option?', 'wpcf7' ) ); ?>
+</td>
+</tr>
+</table>
+
+<div class="tg-tag"><?php echo esc_html( __( "Copy this code and paste it into the form left.", 'wpcf7' ) ); ?><br /><input type="text" name="select" class="tag" readonly="readonly" onfocus="this.select()" /></div>
+
+<div class="tg-mail-tag"><?php echo esc_html( __( "And, put this code into the Mail fields below.", 'wpcf7' ) ); ?><br /><span class="arrow">&#11015;</span>&nbsp;<input type="text" class="mail-tag" readonly="readonly" onfocus="this.select()" /></div>
+</form>
+</div>
+<?php
+}
 
 ?>

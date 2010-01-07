@@ -4,7 +4,7 @@ Plugin Name: Robots Meta
 Plugin URI: http://yoast.com/wordpress/robots-meta/
 Description: This plugin allows you to add all the appropriate robots meta tags to your pages and feeds, disable unused archives and nofollow unnecessary links.
 Author: Joost de Valk
-Version: 3.2.2
+Version: 3.2.5
 Author URI: http://yoast.com/
 */
 
@@ -38,6 +38,10 @@ if ( ! class_exists( 'RobotsMeta_Admin' ) ) {
 			add_action('wp_dashboard_setup', array(&$this,'widget_setup'));	
 			add_action('admin_menu', array('RobotsMeta_Admin','meta_box'));
 			add_action('wp_insert_post', array('RobotsMeta_Admin','robotsmeta_insert_post'));
+
+			if ( '0' == get_option('blog_public') )
+				add_action('admin_footer', array(&$this,'blog_public_warning'));
+			
 		}
 		
 		function robots_meta_admin_script() {
@@ -62,6 +66,10 @@ if ( ! class_exists( 'RobotsMeta_Admin' ) ) {
 			<label for="meta_robots_noindex_follow" class="selectit"><input id="meta_robots_noindex_follow" name="robotsmeta" type="radio" value="noindex,follow" <?php if ($robotsmeta == "noindex,follow") echo 'checked="checked"'?>/> noindex, follow</label><br/>
 			<label for="meta_robots_noindex_nofollow" class="selectit"><input id="meta_robots_noindex_nofollow" name="robotsmeta" type="radio" value="noindex,nofollow" <?php if ($robotsmeta == "noindex,nofollow") echo 'checked="checked"'?>/> noindex, nofollow</label><br/>
 			<?php
+		}
+		
+		function blog_public_warning() {
+			echo "<div id='message' class='error'><p><strong>Robots Meta Issue: You're blocking access to robots.</strong> You must <a href='options-privacy.php'>go to your Privacy settings</a> and set your blog visible to everyone.</p></div>";
 		}
 		
 		function config_page() {
@@ -145,7 +153,7 @@ if ( ! class_exists( 'RobotsMeta_Admin' ) ) {
 			
 			?>
 			<div class="wrap">
-				<a href="http://yoast.com/"><div id="yoast-icon" style="background: url(http://cdn.yoast.com/theme/yoast-32x32.png) no-repeat;" class="icon32"><br /></div></a>
+				<a href="http://yoast.com/"><div id="yoast-icon" style="background: url(http://netdna.yoast.com/wp-content/themes/yoast-v2/images/yoast-32x32.png) no-repeat;" class="icon32"><br /></div></a>
 				<h2><?php _e("Robots Meta Configuration", 'robots-meta'); ?></h2>
 				<div class="postbox-container" style="width:70%;">
 					<div class="metabox-holder">	
@@ -425,7 +433,7 @@ function nofollow_category_listing($output) {
 function google_verify() {
 	if (is_home() || (function_exists('is_frontpage') && is_frontpage()) || (function_exists('is_front_page') && is_front_page()) ) {
 		$options = get_option('RobotsMeta');
-		echo '<meta name="verify-v1" content="'.$options['googleverify'].'" />'."\n";
+		echo '<meta name="google-site-verification" content="'.$options['googleverify'].'" />'."\n";
 	}
 }
 

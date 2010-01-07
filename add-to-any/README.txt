@@ -3,16 +3,16 @@ Contributors: micropat
 Donate link: http://www.addtoany.com/contact/
 Tags: bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, sharing, share, sharethis, saving, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, e-mail, email, seo, button, delicious, google, digg, reddit, facebook, myspace, twitter, stumbleupon, technorati, wpmu, addtoany, add, any
 Requires at least: 2.0
-Tested up to: 2.8
-Stable tag: 0.9.9.3.5
+Tested up to: 2.9
+Stable tag: 0.9.9.4.6
 
-Help readers share, save, bookmark, and email your posts and pages using any service, such as Facebook, Twitter, Digg, Delicious and over 100 more.
+Help readers share, bookmark, and email your posts and pages using any service, such as Facebook, Twitter, Digg, Delicious and over 100 more.
 
 == Description ==
 
-Help readers **share**, **save**, **bookmark**, and **email** your posts and pages using **any service**, such as Facebook, Twitter, Digg, Delicious, and over 100 more social bookmarking and sharing sites. The button comes with AddToAny's customizable **Smart Menu**, which **places the services visitors use at the top of the menu**, based on each visitor's browsing history.
+Help readers **share**, **save**, **bookmark**, and **email** your posts and pages using **any service**, such as Facebook, Twitter, Digg, Delicious, and over 100 more social bookmarking and sharing sites. The button comes with AddToAny's customizable **Smart Menu**, which **places the services visitors use at the top of the menu**, based on each visitor's browsing and usage history.
 
-<a href="http://www.addtoany.com/" title="Sharing button widget" target="_blank">Share Button</a> (demo)
+<a href="http://www.addtoany.com/" title="Sharing and bookmarking button widget" target="_blank">Share Button</a> (demo)
 
 The E-mail tab makes it easy to share via Google Mail, Yahoo! Mail, Hotmail, AOL, and any other web-based e-mailer or desktop program. The **Add to Favorites** button (or Bookmark tab) helps users bookmark using any browser (Internet Explorer, Firefox, Chrome, Safari, Opera, etc.).
 
@@ -20,9 +20,9 @@ Individual **service icons** let you optimize your blog posts for specific socia
 
 * AddToAny <a href="http://www.addtoany.com/blog/smart-menus-the-services-your-visitors-use-displayed-first/" target="_blank">Smart Menu</a>
 * Individual service links (like Sociable)
-* Includes all services
+* Includes all <a href="http://www.addtoany.com/services/" target="_blank">services</a>
 * Menu updated automatically
-* WordPress optimized, localized (English, Chinese, Spanish, Portuguese, Italian, Danish, Catalan, Russian, Belarusian)
+* WordPress optimized, localized (English, Chinese, Spanish, Portuguese, Italian, Danish, Catalan, Russian, Albanian, Romanian, Belarusian)
 * Google Analytics integration
 * Many more publisher and user features!
 
@@ -30,6 +30,7 @@ See also:
 
 * The <a href="/extend/plugins/add-to-any-subscribe/" title="WordPress RSS Subscribe widget plugin">Subscribe button</a> plugin
 * The <a href="http://www.addtoany.com/buttons/for/wordpress_com" title="WordPress.com sharing button widget" target="_blank">Share button for WordPress.com</a> blogs
+* The standard <a href="http://www.addtoany.com/buttons/">Share button</a> widget
 
 <a href="http://www.addtoany.com/share_save" title="Share" target="_blank">Share this plugin</a>
 
@@ -50,7 +51,7 @@ Go to `Settings` > `Share/Save Buttons`.
 
 = Why isn't the drop-down menu appearing? =
 
-It's likely because your your theme wasn't <a href="http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks" target="_blank">coded properly</a>.  Using the Theme Editor, make sure that the following piece of code is included in your theme's `footer.php` file just before the `</body>` line:
+It's likely because your theme wasn't <a href="http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks" target="_blank">coded properly</a>.  Using the Theme Editor, make sure that the following piece of code is included in your theme's `footer.php` file just before the `</body>` line:
 
 `<?php wp_footer(); ?>`
 
@@ -84,6 +85,21 @@ Or you can place the icons as individual links (without being wrapped in an HTML
 
 `<?php if( function_exists('ADDTOANY_SHARE_SAVE_ICONS') ) { ADDTOANY_SHARE_SAVE_ICONS(); } ?>`
 
+= How can I add a new custom standalone service? =
+You can create a plugin or customize the following PHP sample code to add to your theme's function.php file:
+
+`function addtoany_add_services( $services ) {
+  $services['google_example'] = array(
+    'name' => 'Google Example',
+    'icon_url' => 'http://www.google.com/favicon.ico',
+	'icon_width' => 16,
+	'icon_height' => 16,
+    'href' => 'http://www.example.com/add?linkurl=A2A_LINKURL&amp;linkname=A2A_LINKNAME'
+  );
+  return $services;
+}
+add_filter('A2A_SHARE_SAVE_services', 'addtoany_add_services', 10, 1);`
+
 = How can I force the button to appear in individual posts and pages? =
 
 If your button isn't already set up to appear (it is by default), type the following tag into the page or post that you want the button to appear in: `<!--sharesave-->`
@@ -106,11 +122,56 @@ This is done to overcome browser limitations that prevent the drop-down menu fro
 
 == Changelog ==
 
+= .9.9.4.6 =
+* Updated standalone service URIs and code names
+* Renamed service codes; must re-add if you have selected
+ * Ask.com
+ * Gmail
+ * Identi.ca
+ * Mozillaca
+* New standalone services
+ * Box.net
+ * Orkut
+ * Posterous
+* Removed standalone service
+ * Furl
+ * Yahoo! MyWeb
+
+= .9.9.4.5 =
+* Fixing standalone services admin panel because version .9.9.4.4 broke this feature
+ * Standalone services are available for WordPress version 2.6+
+
+= .9.9.4.4 =
+* Backwards compatibile to version 2.0
+ * Fixes PHP is_tag error
+ * Fixes PHP wp_enqueue_script error in settings panel
+
+= .9.9.4.3 =
+* Automatic support for over 50 languages
+ * The drop-down menu automatically detects the visitor's set language and localizes accordingly
+* Less JavaScript output; removed redundant code
+ * No longer outputs language strings if WordPress locale is set to the default "en_US"
+* Forward support for WordPress 2.9
+
+= .9.9.4.2 =
+* Updated button text
+* Further localized strings
+
+= .9.9.4.1 =
+* Twitter icon included in standard sharing button
+* Albanian translation (by <a href="http://www.romeolab.com/" target="_blank">Romeo Shuka</a>)
+* Romanian translation (by <a href="http://www.stefandes.com/" target="_blank">Stefan</a>)
+
+= .9.9.4 =
+* Custom standalone service support
+* Custom icon support
+* Updated Twitter icon
+
 = .9.9.3.5 =
 * New standalone services
  * DailyMe
  * Google Reader
- * Mozilla.ca
+ * Mozillaca
  * NewsTrust
  * Plurk
  * PrintFriendly

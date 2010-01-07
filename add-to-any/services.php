@@ -58,13 +58,13 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "Bookmarks.fr",
 		"icon" => "bookmarks_fr",
 	),
+	"box_net" => Array(
+		"name" => "Box.net",
+		"icon" => "box",
+	),
 	"buddymarks" => Array(
 		"name" => "BuddyMarks",
 		"icon" => "buddymarks",
-	),
-	"buzzster" => Array(
-		"name" => "Buzzster",
-		"icon" => "bzzster",
 	),
 	"care2_news" => Array(
 		"name" => "Care2 News",
@@ -146,10 +146,6 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "FunP",
 		"icon" => "funp",
 	),
-	"furl" => Array(
-		"name" => "Furl",
-		"icon" => "furl",
-	),
 	"gabbr" => Array(
 		"name" => "Gabbr",
 		"icon" => "gabbr",
@@ -158,13 +154,13 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "Global Grind",
 		"icon" => "global_grind",
 	),
-	"gmail" => Array(
-		"name" => "Gmail",
-		"icon" => "gmail",
-	),
 	"google_bookmarks" => Array(
 		"name" => "Google Bookmarks",
 		"icon" => "google",
+	),
+	"google_gmail" => Array(
+		"name" => "Google Gmail",
+		"icon" => "gmail",
 	),
 	"google_reader" => Array(
 		"name" => "Google Reader",
@@ -254,7 +250,7 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "MindBodyGreen",
 		"icon" => "mindbodygreen",
 	),
-	"mister-wong" => Array(
+	"mister_wong" => Array(
 		"name" => "Mister-Wong",
 		"icon" => "mister-wong",
 	),
@@ -306,6 +302,10 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "Oneview",
 		"icon" => "oneview",
 	),
+	"orkut" => Array(
+		"name" => "Orkut",
+		"icon" => "orkut",
+	),
 	"phonefavs" => Array(
 		"name" => "PhoneFavs",
 		"icon" => "phonefavs",
@@ -321,6 +321,10 @@ $A2A_SHARE_SAVE_services = Array(
 	"plurk" => Array(
 		"name" => "Plurk",
 		"icon" => "plurk",
+	),
+	"posterous" => Array(
+		"name" => "Posterous",
+		"icon" => "posterous",
 	),
 	"printfriendly" => Array(
 		"name" => "PrintFriendly",

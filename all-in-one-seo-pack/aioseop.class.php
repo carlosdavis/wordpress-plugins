@@ -2,7 +2,7 @@
 
 class All_in_One_SEO_Pack {
 	
- 	var $version = "1.6.4";
+ 	var $version = "1.6.10";
  	
  	/** Max numbers of chars in auto-generated description */
  	var $maximum_description_length = 160;
@@ -85,6 +85,10 @@ class All_in_One_SEO_Pack {
 
 		$post = $wp_query->get_queried_object();
 
+		if( $this->aioseop_mrt_exclude_this_page()){
+			return;
+		}
+
 		if (is_feed()) {
 			return;
 		}
@@ -96,9 +100,32 @@ class All_in_One_SEO_Pack {
 		    }
 		}
 
+
+
 		if ($aioseop_options['aiosp_rewrite_titles']) {
 			ob_start(array($this, 'output_callback_for_title'));
 		}
+	}
+	
+	function aioseop_mrt_exclude_this_page(){
+			global $aioseop_options;
+			$currenturl = trim($_SERVER['REQUEST_URI'],'/');
+	/*		echo "<br /><br />";
+			echo $aioseop_options['aiosp_ex_pages'];
+			echo "<br /><br />";
+*/
+		
+			$excludedstuff = explode(',',$aioseop_options['aiosp_ex_pages']);
+			foreach($excludedstuff as $exedd){
+				//echo $exedd;
+			    $exedd = trim($exedd);
+			            if($exedd){
+			                if(stristr($currenturl, $exedd)){
+			                    return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	function output_callback_for_title($content) {
@@ -177,6 +204,10 @@ if (function_exists('load_plugin_textdomain')) {
 		    }
 		}
 		
+			if( $this->aioseop_mrt_exclude_this_page()==TRUE ){
+				return;
+			}
+		
 		if ($aioseop_options['aiosp_rewrite_titles']) {
 			// make the title rewrite as short as possible
 			if (function_exists('ob_list_handlers')) {
@@ -200,6 +231,28 @@ if (function_exists('load_plugin_textdomain')) {
 			}
 		}
 		
+		/*
+		
+		echo trim($_SERVER['REQUEST_URI'],'/');
+		$currenturl = trim($_SERVER['REQUEST_URI'],'/');
+		echo "<br /><br />";
+		
+		echo $aioseop_options['aiosp_ex_pages'];
+		
+		echo "<br /><br />";
+		
+		$excludedstuff = explode(',',$aioseop_options['aiosp_ex_pages']);
+		foreach($excludedstuff as $exedd){
+			echo $exedd;
+			//echo "<br /><br />substring: ". stristr($currenturl,trim($exedd)) . "<br />";
+			if(stristr($currenturl, trim($exedd))){
+				echo "<br />match, should not display<br /><br />";
+			}else{
+				echo "<br />( " . $exedd . " was not found in " . $currenturl . " ) - no match<br /><br />";
+			}
+		}
+		//print_r($excludedstuff);
+		*/
 		echo "\n<!-- All in One SEO Pack $this->version by Michael Torbert of Semper Fi Web Design";
 		if ($this->ob_start_detected) {
 			echo "ob_start_detected ";
@@ -660,7 +713,12 @@ if (function_exists('load_plugin_textdomain')) {
 			$authordata = get_userdata($post->post_author);
 			if ($this->is_static_front_page()) {
 				if ($this->internationalize($aioseop_options['aiosp_home_title'])) {
-					$header = $this->replace_title($header, $this->internationalize($aioseop_options['aiosp_home_title']));
+							
+							//home title filter
+							$home_title = $this->internationalize($aioseop_options['aiosp_home_title']);
+							$home_title = apply_filters('aioseop_home_page_title',$home_title);
+							$header = $this->replace_title($header, $home_title);
+
 				}
 			} else {
 				$title = $this->internationalize(get_post_meta($post->ID, "_aioseop_title", true));
@@ -821,6 +879,7 @@ if (function_exists('load_plugin_textdomain')) {
 	                }
 	                
 	                // WP 2.3 tags
+				if ($aioseop_options['aiosp_use_tags_as_keywords']){
 	                if (function_exists('get_the_tags')) {
 	                	//$tags = get_the_tags($post->ID);
 						$tags = get_the_tags($id);
@@ -830,7 +889,7 @@ if (function_exists('load_plugin_textdomain')) {
 		                	}
 	                	}
 	                }
-
+				}
 	                // Ultimate Tag Warrior integration
 	                global $utw;
 	                if ($utw) {
@@ -1273,7 +1332,7 @@ if (function_exists('load_plugin_textdomain')) {
 
 	function options_panel() {
 		$message = null;
-		$message_updated = __("All in One SEO Options Updated.", 'all_in_one_seo_pack');
+		//$message_updated = __("All in One SEO Options Updated.", 'all_in_one_seo_pack');
 		global $aioseop_options;
 		
 		
@@ -1281,11 +1340,54 @@ if (function_exists('load_plugin_textdomain')) {
 			$aioseop_options['aiosp_cap_cats'] = '1';
 		}
 		
+		
+			if ($_POST['action'] && $_POST['action'] == 'aiosp_update' && $_POST['Submit_Default']!='') {
+				$nonce = $_POST['nonce-aioseop'];
+				if (!wp_verify_nonce($nonce, 'aioseop-nonce')) die ( 'Security Check - If you receive this in error, log out and back in to WordPress');
+				$message = __("All in One SEO Options Reset.", 'all_in_one_seo_pack');
+				delete_option('aioseop_options');
+				$res_aioseop_options = array(
+				"aiosp_can"=>1,
+				"aiosp_donate"=>0,
+				"aiosp_home_title"=>null,
+				"aiosp_home_description"=>'',
+				"aiosp_home_keywords"=>null,
+				"aiosp_max_words_excerpt"=>'something',
+				"aiosp_rewrite_titles"=>1,
+				"aiosp_post_title_format"=>'%post_title% | %blog_title%',
+				"aiosp_page_title_format"=>'%page_title% | %blog_title%',
+				"aiosp_category_title_format"=>'%category_title% | %blog_title%',
+				"aiosp_archive_title_format"=>'%date% | %blog_title%',
+				"aiosp_tag_title_format"=>'%tag% | %blog_title%',
+				"aiosp_search_title_format"=>'%search% | %blog_title%',
+				"aiosp_description_format"=>'%description%',
+				"aiosp_404_title_format"=>'Nothing found for %request_words%',
+				"aiosp_paged_format"=>' - Part %page%',
+				"aiosp_use_categories"=>0,
+				"aiosp_dynamic_postspage_keywords"=>1,
+				"aiosp_category_noindex"=>1,
+				"aiosp_archive_noindex"=>1,
+				"aiosp_tags_noindex"=>0,
+				"aiosp_cap_cats"=>1,
+				"aiosp_generate_descriptions"=>1,
+				"aiosp_debug_info"=>null,
+				"aiosp_post_meta_tags"=>'',
+				"aiosp_page_meta_tags"=>'',
+				"aiosp_home_meta_tags"=>'',
+				"aiosp_enabled" =>0,
+				"aiosp_use_tags_as_keywords" =>1,
+				"aiosp_do_log"=>null);
+				update_option('aioseop_options', $res_aioseop_options);
+				
+			}
+		
+		
+		
 		// update options
-		if ($_POST['action'] && $_POST['action'] == 'aiosp_update') {
+		if ($_POST['action'] && $_POST['action'] == 'aiosp_update' && $_POST['Submit']!='') {
 			$nonce = $_POST['nonce-aioseop'];
 			if (!wp_verify_nonce($nonce, 'aioseop-nonce')) die ( 'Security Check - If you receive this in error, log out and back in to WordPress');
-			$message = $message_updated;
+			$message = __("All in One SEO Options Updated.", 'all_in_one_seo_pack');
 			$aioseop_options['aiosp_can'] = $_POST['aiosp_can'];
 			$aioseop_options['aiosp_donate'] = $_POST['aiosp_donate'];
 			$aioseop_options['aiosp_home_title'] = $_POST['aiosp_home_title'];
@@ -1313,8 +1415,10 @@ if (function_exists('load_plugin_textdomain')) {
 			$aioseop_options['aiosp_post_meta_tags'] = $_POST['aiosp_post_meta_tags'];
 			$aioseop_options['aiosp_page_meta_tags'] = $_POST['aiosp_page_meta_tags'];
 			$aioseop_options['aiosp_home_meta_tags'] = $_POST['aiosp_home_meta_tags'];
+			$aioseop_options['aiosp_ex_pages'] = $_POST['aiosp_ex_pages'];
 			$aioseop_options['aiosp_do_log'] = $_POST['aiosp_do_log'];
-			$aioseop_options['aiosp_enabled'] = $_POST['aiosp_enabled'];			
+			$aioseop_options['aiosp_enabled'] = $_POST['aiosp_enabled'];
+			$aioseop_options['aiosp_use_tags_as_keywords'] = $_POST['aiosp_use_tags_as_keywords'];			
 			
 			update_option('aioseop_options', $aioseop_options);
 			
@@ -1341,6 +1445,7 @@ if (function_exists('load_plugin_textdomain')) {
 <div id="dropmessage" class="updated" style="display:none;"></div>
 <div class="wrap">
 <h2><?php _e('All in One SEO Plugin Options', 'all_in_one_seo_pack'); ?></h2>
+by <strong>Michael Torbert</strong> of <strong>Semper Fi Web Design</strong>
 <p>
 <?php //_e("This is version ", 'all_in_one_seo_pack') ?><?php //_e("$this->version ", 'all_in_one_seo_pack') ?>
 &nbsp;<a target="_blank" title="<?php _e('All in One SEO Plugin Release History', 'all_in_one_seo_pack')?>"
@@ -1352,20 +1457,59 @@ href="http://semperfiwebdesign.com/documentation/all-in-one-seo-pack/all-in-one-
 href="http://semperfiwebdesign.com/portfolio/wordpress/wordpress-plugins/forum/"><?php _e('Support', 'all_in_one_seo_pack') ?></a>
 | <a target="_blank" title="<?php _e('All in One SEO Plugin Translations', 'all_in_one_seo_pack') ?>"
 href="http://semperfiwebdesign.com/documentation/all-in-one-seo-pack/translations-for-all-in-one-seo-pack/"><?php _e('Translations', 'all_in_one_seo_pack') ?></a>
+| <strong><a target="_blank" title="<?php _e('Pro Version', 'all_in_one_seo_pack') ?>"
+href="http://wpplugins.com/plugin/50/all-in-one-seo-pack-pro-version"><?php _e('UPGRADE TO PRO VERSION', 'all_in_one_seo_pack') ?></a></strong>
 <br />
-<div style="width:75%;background-color:yellow;">
+
+<!--<div style="width:75%;background-color:yellow;">
 <em>Thank you for using <strong>All in One SEO Pack</strong> by <strong>Michael Torbert</strong> of <strong>Semper Fi Web Design</strong>.  If you like this plugin and find it useful, feel free to click the <strong>donate</strong> button or send me a gift from my <strong>Amazon wishlist</strong>.  Also, don't forget to follow me on <strong>Twitter</strong>.</em>
 </div>
-<br />
-<a target="_blank" title="<?php echo 'Donate' ?>"
+-->
+<!--
+<a target="_blank" title="<?php //echo 'Donate' ?>"
 href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtorbert%40gmail%2ecom&item_name=All%20In%20One%20SEO%20Pack&item_number=Support%20Open%20Source&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8"><img src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" width="" alt="Donate" /><?php //echo 'Donate' ?></a>
 | <a target="_blank" title="Amazon Wish List" href="https://www.amazon.com/wishlist/1NFQ133FNCOOA/ref=wl_web"><img src="https://images-na.ssl-images-amazon.com/images/G/01/gifts/registries/wishlist/v2/web/wl-btn-74-b._V46774601_.gif" width="74" alt="My Amazon.com Wish List" height="42" border="0" /></a>
-| <a target="_blank" title="<?php _e('Follow us on Twitter', 'all_in_one_seo_pack') ?>"
-href="http://twitter.com/michaeltorbert/"><img src="<?php echo WP_PLUGIN_URL; ?>/all-in-one-seo-pack/images/twitter.png" alt="<?php _e('Follow Us on Twitter', 'all_in_one_seo_pack') ?>" height="47px" /></a>
-
+| <a target="_blank" title="<?php //_e('Follow us on Twitter', 'all_in_one_seo_pack') ?>"
+href="http://twitter.com/michaeltorbert/"><img src="<?php //echo WP_PLUGIN_URL; ?>/all-in-one-seo-pack/images/twitter.png" alt="<?php //_e('Follow Us on Twitter', 'all_in_one_seo_pack') ?>" height="47px" /></a>
+-->
 </p>
 
+<div style="width:832px;">
+<div style="float:left;background-color:white;padding: 10px 10px 10px 10px;margin-right:15px;border: 1px solid #ddd;">
+<div style="width:350px;height:130px;">
+	<h3>Donate</h3>
+<em>If you like this plugin and find it useful, help keep this plugin free and actively developed by clicking the <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtorbert%40gmail%2ecom&item_name=All%20In%20One%20SEO%20Pack&item_number=Support%20Open%20Source&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8" target="_blank"><strong>donate</strong></a> button or send me a gift from my <a href="https://www.amazon.com/wishlist/1NFQ133FNCOOA/ref=wl_web" target="_blank"><strong>Amazon wishlist</strong></a>.  Also, don't forget to follow me on <a href="http://twitter.com/michaeltorbert/" target="_blank"><strong>Twitter</strong></a>.</em>
+</div>
+	<a target="_blank" title="<?php echo 'Donate' ?>"
+	href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtorbert%40gmail%2ecom&item_name=All%20In%20One%20SEO%20Pack&item_number=Support%20Open%20Source&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8">
+	<img src="<?php echo WP_PLUGIN_URL; ?>/all-in-one-seo-pack/images/donate.jpg" alt="<?php _e('Donate with Paypal', 'all_in_one_seo_pack') ?>" />	</a>
 
+	<a target="_blank" title="Amazon Wish List" href="https://www.amazon.com/wishlist/1NFQ133FNCOOA/ref=wl_web">
+	<img src="<?php echo WP_PLUGIN_URL; ?>/all-in-one-seo-pack/images/amazon.jpg" alt="<?php _e('My Amazon Wish List', 'all_in_one_seo_pack') ?>" /> </a>
+
+	<a target="_blank" title="<?php _e('Follow us on Twitter', 'all_in_one_seo_pack') ?>" href="http://twitter.com/michaeltorbert/">
+	<img src="<?php echo WP_PLUGIN_URL; ?>/all-in-one-seo-pack/images/twitter.jpg" alt="<?php _e('Follow Us on Twitter', 'all_in_one_seo_pack') ?>" />	</a>
+	
+	
+</div>
+
+<div style="float:left;background-color:white;padding: 10px 10px 10px 10px;border: 1px solid #ddd;">
+<div style="width:423px;height:130px;">
+	<h3>PageLines Themes</h3>
+	We would also like to recommend <a href="http://www.pagelines.com/wpthemes/" target="_blank">PageLines</a> for Professional WordPress Themes.  They are attractive, affordable, performance optimized CMS themes that integrate perfectly with All in One SEO Pack to put your professional website at the top of the rankings.
+</div>
+	<a target="_blank" title="iBlogPro" href="http://www.pagelines.com/wpthemes/">
+	<img src="<?php echo WP_PLUGIN_URL; ?>/all-in-one-seo-pack/images/iblogpro.jpg" alt="<?php _e('iBlogPro theme', 'all_in_one_seo_pack') ?>" />	</a>
+
+	<a target="_blank" title="PageLines Themes" href="http://www.pagelines.com/wpthemes/">	
+	<img src="<?php echo WP_PLUGIN_URL; ?>/all-in-one-seo-pack/images/pagelines.jpg" alt="<?php _e('Pagelines Themes', 'all_in_one_seo_pack') ?>" /> </a>	
+
+	<a target="_blank" title="WhiteHouse" href="http://www.pagelines.com/wpthemes/">	
+	<img src="<?php echo WP_PLUGIN_URL; ?>/all-in-one-seo-pack/images/whitehouse.jpg" alt="<?php _e('WhiteHouse theme', 'all_in_one_seo_pack') ?>" />	</a>
+
+</div>
+</div>
+<div style="clear:both";></div>
 <!--
 <p>
 <?php
@@ -1402,6 +1546,68 @@ href="http://twitter.com/michaeltorbert/"><img src="<?php echo WP_PLUGIN_URL; ?>
 <h3><?php _e('Click on option titles to get help!', 'all_in_one_seo_pack') ?></h3>
 
 <?php
+function aioseop_mrt_df(){
+	
+if(function_exists('fetch_feed')){ 
+	// start new feed
+ echo "Highest Donations"; 
+  // Get RSS Feed(s)
+include_once(ABSPATH . WPINC . '/feed.php');
+
+// Get a SimplePie feed object from the specified feed source.
+$rss = fetch_feed('feed://donations.semperfiwebdesign.com/category/highest-donations/feed/');
+
+// Figure out how many total items there are, but limit it to 5. 
+$maxitems = $rss->get_item_quantity(3); 
+
+// Build an array of all the items, starting with element 0 (first element).
+$rss_items = $rss->get_items(0, $maxitems); 
+?>
+
+<ul>
+    <?php if ($maxitems == 0) echo '<li>No items.</li>';
+    else
+    // Loop through each feed item and display each item as a hyperlink.
+    foreach ( $rss_items as $item ) : ?>
+    <li>
+        <a href='<?php echo $item->get_permalink(); ?>'
+        title='<?php echo 'Posted '.$item->get_date('j F Y | g:i a'); ?>'>
+        <?php echo $item->get_title(); ?></a>
+    </li>
+    <?php endforeach; ?>
+</ul>
+
+<?php echo "Latest Donations"; ?>
+<?php // Get RSS Feed(s)
+include_once(ABSPATH . WPINC . '/feed.php');
+
+// Get a SimplePie feed object from the specified feed source.
+$rss = fetch_feed('feed://donations.semperfiwebdesign.com/category/all-in-one-seo-pack/feed/');
+
+// Figure out how many total items there are, but limit it to 5. 
+$maxitems = $rss->get_item_quantity(3); 
+
+// Build an array of all the items, starting with element 0 (first element).
+$rss_items = $rss->get_items(0, $maxitems); 
+?>
+
+<ul>
+    <?php if ($maxitems == 0) echo '<li>No items.</li>';
+    else
+    // Loop through each feed item and display each item as a hyperlink.
+    foreach ( $rss_items as $item ) : ?>
+    <li>
+        <a href='<?php echo $item->get_permalink(); ?>'
+        title='<?php echo 'Posted '.$item->get_date('j F Y | g:i a'); ?>'>
+        <?php echo $item->get_title(); ?></a>
+    </li>
+    <?php endforeach; ?>
+</ul>
+
+
+<?php // end new feed
+}else{
+
 $uri = "feed://donations.semperfiwebdesign.com/category/highest-donations/feed/";
 include_once(ABSPATH . WPINC . '/rss.php');
 $rss = fetch_rss($uri);
@@ -1450,7 +1656,15 @@ title='<?php echo $item['title']; ?>'>
 </ul>
 <?php } }else{
 	//fall back on something else for feed here
-}?>
+}
+}
+}
+
+//aioseop_mrt_df();
+
+?>
+
+
 
 <?php
 global $wpdb;
@@ -1816,6 +2030,25 @@ _e('Check this if you want your categories for a given post used as the META key
 </td>
 </tr>
 
+
+<tr>
+<th scope="row" style="text-align:right; vertical-align:top;">
+<a style="cursor:pointer;" title="<?php _e('Click for Help!', 'all_in_one_seo_pack')?>" onclick="toggleVisibility('aiosp_use_tags_as_keywords_tip');">
+<?php _e('Use Tags for META keywords:', 'all_in_one_seo_pack')?>
+</td>
+<td>
+<input type="checkbox" name="aiosp_use_tags_as_keywords" <?php if ($aioseop_options['aiosp_use_tags_as_keywords']) echo "checked=\"1\""; ?>/>
+<div style="max-width:500px; text-align:left; display:none" id="aiosp_use_tags_as_keywords_tip">
+<?php
+_e('Check this if you want your tags for a given post used as the META keywords for this post (in addition to any keywords you specify on the post edit page).', 'all_in_one_seo_pack');
+ ?>
+</div>
+</td>
+</tr>
+
+
+
+
 <tr>
 <th scope="row" style="text-align:right; vertical-align:top;">
 <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'all_in_one_seo_pack')?>" onclick="toggleVisibility('aiosp_dynamic_postspage_keywords_tip');">
@@ -1911,6 +2144,24 @@ _e("Check this and Category Titles will have the first letter of each word capit
 </td>
 </tr>
 
+<!-- new crap start -->
+<tr>
+<th scope="row" style="text-align:right; vertical-align:top;">
+<a style="cursor:pointer;" title="<?php _e('Click for Help!', 'all_in_one_seo_pack')?>" onclick="toggleVisibility('aiosp_ex_pages_tip');">
+<?php _e('Exclude Pages:', 'all_in_one_seo_pack')?>
+</a>
+</td>
+<td>
+	<textarea cols="57" rows="2" name="aiosp_ex_pages"><?php echo stripcslashes($aioseop_options['aiosp_ex_pages']); ?></textarea>
+<div style="max-width:500px; text-align:left; display:none" id="aiosp_ex_pages_tip">
+<?php
+_e("Enter any comma separated pages here to be excluded by All in One SEO Pack.  This is helpful when using plugins which generate their own non-WordPress dynamic pages.  Ex: <em>/forum/,/contact/</em>  For instance, if you want to exclude the virtual pages generated by a forum plugin, all you have to do is give forum or /forum or /forum/ or and any URL with the word \"forum\" in it, such as http://mysite.com/forum or http://mysite.com/forum/someforumpage will be excluded from All in One SEO Pack.", 'all_in_one_seo_pack');
+ ?>
+</div>
+</td>
+</tr>
+<!--  new crap end -->
+
 <tr>
 <th scope="row" style="text-align:right; vertical-align:top;">
 <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'all_in_one_seo_pack')?>" onclick="toggleVisibility('aiosp_post_meta_tags_tip');">
@@ -2001,6 +2252,7 @@ _e('All donations support continued development of this free software.', 'all_in
 <input type="hidden" name="nonce-aioseop" value="<?php echo wp_create_nonce('aioseop-nonce'); ?>" />
 <input type="hidden" name="page_options" value="aiosp_home_description" /> 
 <input type="submit" class='button-primary' name="Submit" value="<?php _e('Update Options', 'all_in_one_seo_pack')?> &raquo;" /> 
+<input type="submit" class='button-primary' name="Submit_Default" value="<?php _e('Reset Settings to Defaults', 'all_in_one_seo_pack')?> &raquo;" /> 
 </p>
 <?php } ?>
 

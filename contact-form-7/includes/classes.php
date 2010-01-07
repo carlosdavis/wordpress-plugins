@@ -20,6 +20,8 @@ class WPCF7_ContactForm {
 	var $posted_data;
 	var $uploaded_files;
 
+	var $skip_mail = false;
+
 	// Return true if this form is the same one as currently POSTed.
 	function is_posted() {
 		if ( ! isset( $_POST['_wpcf7_unit_tag'] ) || empty( $_POST['_wpcf7_unit_tag'] ) )
@@ -36,17 +38,28 @@ class WPCF7_ContactForm {
 	function form_html() {
 		$form = '<div class="wpcf7" id="' . $this->unit_tag . '">';
 
-		$url = parse_url( $_SERVER['REQUEST_URI'] );
-		$url = $url['path'] . ( empty( $url['query'] ) ? '' : '?' . $url['query'] ) . '#' . $this->unit_tag;
+		$url = wpcf7_get_request_uri();
+
+		if ( $frag = strstr( $uri, '#' ) )
+			$uri = substr( $uri, 0, -strlen( $frag ) );
+
+		$url .= '#' . $this->unit_tag;
+
+		$url = apply_filters( 'wpcf7_form_action_url', $url );
+		$url = esc_url_raw( $url );
 
 		$enctype = apply_filters( 'wpcf7_form_enctype', '' );
 
-		$form .= '<form action="' . $url . '" method="post" class="wpcf7-form"' . $enctype . '>';
-		$form .= '<div style="display: none;">';
-		$form .= '<input type="hidden" name="_wpcf7" value="' . $this->id . '" />';
-		$form .= '<input type="hidden" name="_wpcf7_version" value="' . WPCF7_VERSION . '" />';
-		$form .= '<input type="hidden" name="_wpcf7_unit_tag" value="' . $this->unit_tag . '" />';
-		$form .= '</div>';
+		$form .= '<form action="' . $url
+			. '" method="post" class="wpcf7-form"' . $enctype . '>' . "\n";
+		$form .= '<div style="display: none;">' . "\n";
+		$form .= '<input type="hidden" name="_wpcf7" value="'
+			. esc_attr( $this->id ) . '" />' . "\n";
+		$form .= '<input type="hidden" name="_wpcf7_version" value="'
+			. esc_attr( WPCF7_VERSION ) . '" />' . "\n";
+		$form .= '<input type="hidden" name="_wpcf7_unit_tag" value="'
+			. esc_attr( $this->unit_tag ) . '" />' . "\n";
+		$form .= '</div>' . "\n";
 		$form .= $this->form_elements();
 
 		if ( ! $this->responses_count )
@@ -88,7 +101,9 @@ class WPCF7_ContactForm {
 
 	function validation_error( $name ) {
 		if ( $this->is_posted() && $ve = $_POST['_wpcf7_validation_errors']['messages'][$name] )
-			return '<span class="wpcf7-not-valid-tip-no-ajax">' . esc_html( $ve ) . '</span>';
+			return apply_filters( 'wpcf7_validation_error',
+				'<span class="wpcf7-not-valid-tip-no-ajax">' . esc_html( $ve ) . '</span>',
+				$name, $this );
 
 		return '';
 	}
@@ -156,7 +171,7 @@ class WPCF7_ContactForm {
 	}
 
 	function form_elements() {
-		$form = $this->form_do_shortcode();
+		$form = apply_filters( 'wpcf7_form_elements', $this->form_do_shortcode() );
 
 		// Response output
 		$response_regex = '%\[\s*response\s*\]%';
@@ -179,13 +194,7 @@ class WPCF7_ContactForm {
 		$result = array( 'valid' => true, 'reason' => array() );
 
 		foreach ( $fes as $fe ) {
-			$type = $fe['type'];
-			$name = $fe['name'];
-
-			if ( empty( $name ) )
-				continue;
-
-			$result = apply_filters( 'wpcf7_validate_' . $type, $result, $fe );
+			$result = apply_filters( 'wpcf7_validate_' . $fe['type'], $result, $fe );
 		}
 
 		return $result;
@@ -302,6 +311,14 @@ class WPCF7_ContactForm {
 			$this->posted_data[$name] = $value;
 		}
 
+		if ( $this->in_demo_mode() )
+			$this->skip_mail = true;
+
+		do_action_ref_array( 'wpcf7_before_send_mail', array( &$this ) );
+
+		if ( $this->skip_mail )
+			return true;
+
 		if ( $this->compose_and_send_mail( $this->mail ) ) {
 			if ( $this->mail_2['active'] )
 				$this->compose_and_send_mail( $this->mail_2 );
@@ -316,19 +333,22 @@ class WPCF7_ContactForm {
 		$regex = '/\[\s*([a-zA-Z][0-9a-zA-Z:._-]*)\s*\]/';
 		$callback = array( &$this, 'mail_callback' );
 
-		$mail_subject = preg_replace_callback( $regex, $callback, $mail_template['subject'] );
-		$mail_sender = preg_replace_callback( $regex, $callback, $mail_template['sender'] );
-		$mail_body = preg_replace_callback( $regex, $callback, $mail_template['body'] );
-		$mail_recipient = preg_replace_callback( $regex, $callback, $mail_template['recipient'] );
+		$subject = preg_replace_callback( $regex, $callback, $mail_template['subject'] );
+		$sender = preg_replace_callback( $regex, $callback, $mail_template['sender'] );
+		$body = preg_replace_callback( $regex, $callback, $mail_template['body'] );
+		$recipient = preg_replace_callback( $regex, $callback, $mail_template['recipient'] );
+		$additional_headers =
+			preg_replace_callback( $regex, $callback, $mail_template['additional_headers'] );
 
-		$mail_headers = "From: $mail_sender\n";
+		extract( apply_filters( 'wpcf7_mail_components',
+			compact( 'subject', 'sender', 'body', 'recipient', 'additional_headers' ) ) );
+
+		$headers = "From: $sender\n";
 
 		if ( $mail_template['use_html'] )
-			$mail_headers .= "Content-Type: text/html\n";
+			$headers .= "Content-Type: text/html\n";
 
-		$mail_additional_headers = preg_replace_callback( $regex, $callback,
-			$mail_template['additional_headers'] );
-		$mail_headers .= trim( $mail_additional_headers ) . "\n";
+		$headers .= trim( $additional_headers ) . "\n";
 
 		if ( $this->uploaded_files ) {
 			$for_this_mail = array();
@@ -338,10 +358,9 @@ class WPCF7_ContactForm {
 				$for_this_mail[] = $path;
 			}
 
-			return @wp_mail( $mail_recipient, $mail_subject, $mail_body, $mail_headers,
-				$for_this_mail );
+			return @wp_mail( $recipient, $subject, $body, $headers, $for_this_mail );
 		} else {
-			return @wp_mail( $mail_recipient, $mail_subject, $mail_body, $mail_headers );
+			return @wp_mail( $recipient, $subject, $body, $headers );
 		}
 	}
 
@@ -354,25 +373,19 @@ class WPCF7_ContactForm {
 
 			return stripslashes( $submitted );
 
-		} else {
-			// Special [wpcf7.remote_ip] tag
-			if ( 'wpcf7.remote_ip' == $matches[1] )
-				return preg_replace( '/[^0-9a-f.:, ]/', '', $_SERVER['REMOTE_ADDR'] );
-
-			return $matches[0];
 		}
+
+		if ( $special = apply_filters( 'wpcf7_special_mail_tags', '', $matches[1] ) )
+			return $special;
+
+		return $matches[0];
 	}
 
 	/* Message */
 
 	function message( $status ) {
 		$messages = $this->messages;
-		$message = '';
-
-		if ( ! is_array( $messages ) || ! isset( $messages[$status] ) )
-			$message = wpcf7_default_message( $status );
-		else
-			$message = $messages[$status];
+		$message = $messages[$status];
 
 		return apply_filters( 'wpcf7_display_message', $message );
 	}
@@ -400,6 +413,17 @@ class WPCF7_ContactForm {
 		return $values;
 	}
 
+	function in_demo_mode() {
+		$settings = $this->additional_setting( 'demo_mode', false );
+
+		foreach ( $settings as $setting ) {
+			if ( in_array( $setting, array( 'on', 'true', '1' ) ) )
+				return true;
+		}
+
+		return false;
+	}
+
 	/* Upgrade */
 
 	function upgrade() {
@@ -410,14 +434,10 @@ class WPCF7_ContactForm {
 		if ( ! is_array( $this->messages ) )
 			$this->messages = array();
 
-		$messages = array(
-			'mail_sent_ok', 'mail_sent_ng', 'akismet_says_spam', 'validation_error', 'accept_terms',
-			'invalid_email', 'invalid_required', 'captcha_not_match', 'upload_failed', 'upload_file_type_invalid',
-			'upload_file_too_large', 'quiz_answer_not_correct' );
 
-		foreach ($messages as $message) {
-			if ( ! isset( $this->messages[$message] ) )
-				$this->messages[$message] = wpcf7_default_message( $message );
+		foreach ( wpcf7_messages() as $key => $arr ) {
+			if ( ! isset( $this->messages[$key] ) )
+				$this->messages[$key] = $arr['default'];
 		}
 	}
 
@@ -428,14 +448,17 @@ class WPCF7_ContactForm {
 
 		$table_name = wpcf7_table_name();
 
+		$fields = array(
+			'title' => maybe_serialize( stripslashes_deep( $this->title ) ),
+			'form' => maybe_serialize( stripslashes_deep( $this->form ) ),
+			'mail' => maybe_serialize( stripslashes_deep( $this->mail ) ),
+			'mail_2' => maybe_serialize ( stripslashes_deep( $this->mail_2 ) ),
+			'messages' => maybe_serialize( stripslashes_deep( $this->messages ) ),
+			'additional_settings' =>
+				maybe_serialize( stripslashes_deep( $this->additional_settings ) ) );
+
 		if ( $this->initial ) {
-			$result = $wpdb->insert( $table_name, array(
-				'title' => $this->title,
-				'form' => maybe_serialize( $this->form ),
-				'mail' => maybe_serialize( $this->mail ),
-				'mail_2' => maybe_serialize ( $this->mail_2 ),
-				'messages' => maybe_serialize( $this->messages ),
-				'additional_settings' => maybe_serialize( $this->additional_settings ) ) );
+			$result = $wpdb->insert( $table_name, $fields );
 
 			if ( $result ) {
 				$this->initial = false;
@@ -450,14 +473,8 @@ class WPCF7_ContactForm {
 			if ( ! (int) $this->id )
 				return false; // Missing ID
 
-			$result = $wpdb->update( $table_name, array(
-				'title' => $this->title,
-				'form' => maybe_serialize( $this->form ),
-				'mail' => maybe_serialize( $this->mail ),
-				'mail_2' => maybe_serialize ( $this->mail_2 ),
-				'messages' => maybe_serialize( $this->messages ),
-				'additional_settings' => maybe_serialize( $this->additional_settings )
-				), array( 'cf7_unit_id' => absint( $this->id) ) );
+			$result = $wpdb->update( $table_name, $fields,
+				array( 'cf7_unit_id' => absint( $this->id ) ) );
 
 			if ( false !== $result ) {
 				do_action_ref_array( 'wpcf7_after_update', array( &$this ) );
@@ -517,19 +534,34 @@ function wpcf7_contact_form( $id ) {
 
 	$contact_form = new WPCF7_ContactForm();
 	$contact_form->id = $row->cf7_unit_id;
-	$contact_form->title = stripslashes_deep( $row->title );
-	$contact_form->form = stripslashes_deep( maybe_unserialize( $row->form ) );
-	$contact_form->mail = stripslashes_deep( maybe_unserialize( $row->mail ) );
-	$contact_form->mail_2 = stripslashes_deep( maybe_unserialize( $row->mail_2 ) );
-	$contact_form->messages = stripslashes_deep( maybe_unserialize( $row->messages ) );
-	$contact_form->additional_settings = stripslashes_deep( maybe_unserialize( $row->additional_settings ) );
+	$contact_form->title = maybe_unserialize( $row->title );
+	$contact_form->form = maybe_unserialize( $row->form );
+	$contact_form->mail = maybe_unserialize( $row->mail );
+	$contact_form->mail_2 = maybe_unserialize( $row->mail_2 );
+	$contact_form->messages = maybe_unserialize( $row->messages );
+	$contact_form->additional_settings = maybe_unserialize( $row->additional_settings );
 
 	$contact_form->upgrade();
 
 	return $contact_form;
 }
 
-function wpcf7_contact_form_default_pack() {
+function wpcf7_contact_form_default_pack( $locale = null ) {
+	global $l10n;
+
+	if ( $locale && $locale != get_locale() ) {
+		$mo_orig = $l10n['wpcf7'];
+		unset( $l10n['wpcf7'] );
+
+		if ( 'en_US' != $locale ) {
+			$mofile = wpcf7_plugin_path( 'languages/wpcf7-' . $locale . '.mo' );
+			if ( ! load_textdomain( 'wpcf7', $mofile ) ) {
+				$l10n['wpcf7'] = $mo_orig;
+				unset( $mo_orig );
+			}
+		}
+	}
+
 	$contact_form = new WPCF7_ContactForm();
 	$contact_form->initial = true;
 
@@ -539,7 +571,49 @@ function wpcf7_contact_form_default_pack() {
 	$contact_form->mail_2 = wpcf7_default_mail_2_template();
 	$contact_form->messages = wpcf7_default_messages_template();
 
+	if ( isset( $mo_orig ) )
+		$l10n['wpcf7'] = $mo_orig;
+
 	return $contact_form;
+}
+
+/* Default Filters */
+
+add_filter( 'wpcf7_special_mail_tags', 'wpcf7_special_mail_tag_for_remote_ip', 10, 2 );
+
+function wpcf7_special_mail_tag_for_remote_ip( $output, $name ) {
+	// Special [wpcf7.remote_ip] tag
+	if ( 'wpcf7.remote_ip' == $name )
+		$output = preg_replace( '/[^0-9a-f.:, ]/', '', $_SERVER['REMOTE_ADDR'] );
+
+	return $output;
+}
+
+add_filter( 'wpcf7_special_mail_tags', 'wpcf7_special_mail_tag_for_post_data', 10, 2 );
+
+function wpcf7_special_mail_tag_for_post_data( $output, $name ) {
+	if ( ! isset( $_POST['_wpcf7_unit_tag'] ) || empty( $_POST['_wpcf7_unit_tag'] ) )
+		return $output;
+
+	if ( ! preg_match( '/^wpcf7-f(\d+)-p(\d+)-o(\d+)$/', $_POST['_wpcf7_unit_tag'], $matches ) )
+		return $output;
+
+	$post_id = (int) $matches[2];
+
+	if ( ! $post = get_post( $post_id ) )
+		return $output;
+
+	if ( 'wpcf7.post_id' == $name ) { // Special [wpcf7.post_id] tag
+		$output = (string) $post->ID;
+	} elseif ( 'wpcf7.post_name' == $name ) { // Special [wpcf7.post_name] tag
+		$output = $post->post_name;
+	} elseif ( 'wpcf7.post_title' == $name ) { // Special [wpcf7.post_title] tag
+		$output = $post->post_title;
+	} elseif ( 'wpcf7.post_url' == $name ) { // Special [wpcf7.post_url] tag
+		$output = get_permalink( $post->ID );
+	}
+
+	return $output;
 }
 
 ?>
