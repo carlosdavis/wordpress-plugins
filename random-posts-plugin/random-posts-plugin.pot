@@ -1,0 +1,115 @@
+# SOME DESCRIPTIVE TITLE.
+# This file is put in the public domain.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/random-posts-plugin\n"
+"POT-Creation-Date: 2008-09-09 13:53+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: random-posts-admin.php:6
+msgid "Random Posts Options"
+msgstr ""
+
+#: random-posts-admin.php:6 random-posts-admin.php:233
+#: random-posts-admin.php:236 random-posts.php:177
+msgid "Random Posts"
+msgstr ""
+
+#: random-posts-admin.php:13
+msgid "Random Posts "
+msgstr ""
+
+#: random-posts-admin.php:15
+msgid "help and instructions"
+msgstr ""
+
+#: random-posts-admin.php:17
+msgid ""
+"<h1>Please install the <a href=\"http://downloads.wordpress.org/plugin/post-"
+"plugin-library.zip\">Post Plugin Library</a> plugin.</h1>"
+msgstr ""
+
+#: random-posts-admin.php:44 random-posts-admin.php:84
+#: random-posts-admin.php:129 random-posts-admin.php:164
+#: random-posts-admin.php:197
+msgid "Options saved"
+msgstr ""
+
+#: random-posts-admin.php:49
+msgid "General Settings"
+msgstr ""
+
+#: random-posts-admin.php:51 random-posts-admin.php:67
+msgid "Save General Settings"
+msgstr ""
+
+#: random-posts-admin.php:89
+msgid "Output Settings"
+msgstr ""
+
+#: random-posts-admin.php:91 random-posts-admin.php:112
+msgid "Save Output Settings"
+msgstr ""
+
+#: random-posts-admin.php:134
+msgid "Filter Settings"
+msgstr ""
+
+#: random-posts-admin.php:136 random-posts-admin.php:147
+msgid "Save Filter Settings"
+msgstr ""
+
+#: random-posts-admin.php:169
+msgid "Placement Settings"
+msgstr ""
+
+#: random-posts-admin.php:171 random-posts-admin.php:180
+msgid "Save Placement Settings"
+msgstr ""
+
+#: random-posts-admin.php:202
+msgid "Other Settings"
+msgstr ""
+
+#: random-posts-admin.php:204 random-posts-admin.php:210
+msgid "Save Other Settings"
+msgstr ""
+
+#: random-posts-admin.php:248
+msgid "None Found"
+msgstr ""
+
+#: random-posts.php:55
+msgid "Post-Plugin Library missing"
+msgstr ""
+
+#: random-posts.php:209
+msgid "Title:"
+msgstr ""
+
+#: random-posts.php:210
+msgid "Number of posts to show:"
+msgstr ""
+
+#: random-posts.php:210
+msgid "(at most 15)"
+msgstr ""
+
+#: random-posts.php:211
+msgid ""
+"Show only if page: (e.g., <a href=\"http://codex.wordpress.org/"
+"Conditional_Tags/\" title=\"help\">is_single()</a>)"
+msgstr ""
+
+#: random-posts.php:216 random-posts.php:217
+msgid "Random Posts +"
+msgstr ""

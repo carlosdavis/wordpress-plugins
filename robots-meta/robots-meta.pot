@@ -1,0 +1,462 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Joost de Valk
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/robots-meta\n"
+"POT-Creation-Date: 2009-07-27 07:52+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: robots-meta.php:69
+msgid "You cannot edit the robots.txt file."
+msgstr ""
+
+#: robots-meta.php:84 robots-meta.php:99
+msgid "You cannot edit the .htaccess file."
+msgstr ""
+
+#: robots-meta.php:114
+msgid "You cannot edit the Robots Meta options."
+msgstr ""
+
+#: robots-meta.php:149
+msgid "Robots Meta Configuration"
+msgstr ""
+
+#: robots-meta.php:157
+msgid "Plugin Settings"
+msgstr ""
+
+#: robots-meta.php:157
+msgid "Hide verbose explanations of settings"
+msgstr ""
+
+#: robots-meta.php:159
+msgid "<code>noindex</code> the comment RSS feeds"
+msgstr ""
+
+#: robots-meta.php:160
+msgid "This will prevent the search engines from indexing your comment feeds."
+msgstr ""
+
+#: robots-meta.php:162
+msgid "<code>noindex</code> <strong>all</strong> RSS feeds"
+msgstr ""
+
+#: robots-meta.php:163
+msgid ""
+"This will prevent the search engines from indexing <strong>all your</strong> "
+"feeds. Highly discouraged."
+msgstr ""
+
+#: robots-meta.php:165
+msgid "RSS Feeds"
+msgstr ""
+
+#: robots-meta.php:167
+msgid "This site's search result pages"
+msgstr ""
+
+#: robots-meta.php:168
+msgid ""
+"Prevents the search engines from indexing your search result pages, by a "
+"<code>noindex,follow</code> robots tag to them. The <code>follow</code> part "
+"means that search engine crawlers <em>will</em> spider the pages listed in "
+"the search results."
+msgstr ""
+
+#: robots-meta.php:169
+msgid "The login and register pages"
+msgstr ""
+
+#: robots-meta.php:170
+msgid ""
+"(warning: don't enable this if you have the <a href=\"http://wordpress.org/"
+"extend/plugins/minimeta-widget/\">minimeta widget</a> installed!)"
+msgstr ""
+
+#: robots-meta.php:171
+msgid "All admin pages"
+msgstr ""
+
+#: robots-meta.php:172
+msgid ""
+"The above two options prevent the search engines from indexing your login, "
+"register and admin pages."
+msgstr ""
+
+#: robots-meta.php:173
+msgid "Subpages of the homepage"
+msgstr ""
+
+#: robots-meta.php:174
+msgid ""
+"Prevent the search engines from indexing your subpages, if you want them to "
+"only index your category and / or tag archives."
+msgstr ""
+
+#: robots-meta.php:175
+msgid "Author archives"
+msgstr ""
+
+#: robots-meta.php:176
+msgid ""
+"By default, WordPress creates author archives for each user, usually "
+"available under <code>/author/username</code>. If you have sufficient other "
+"archives, or yours is a one person blog, there's no need and you can best "
+"disable them or prevent search engines from indexing them."
+msgstr ""
+
+#: robots-meta.php:178
+msgid "Date-based archives"
+msgstr ""
+
+#: robots-meta.php:179
+msgid ""
+"If you want to offer your users the option of crawling your site by date, "
+"but have ample other ways for the search engines to find the content on your "
+"site, I highly encourage you to prevent your date-based archives from being "
+"indexed."
+msgstr ""
+
+#: robots-meta.php:180
+msgid "Category archives"
+msgstr ""
+
+#: robots-meta.php:181
+msgid ""
+"If you're using tags as your only way of structure on your site, you would "
+"probably be better off when you prevent your categories from being indexed."
+msgstr ""
+
+#: robots-meta.php:183
+msgid "Tag archives"
+msgstr ""
+
+#: robots-meta.php:184
+msgid ""
+"Read the categories explanation above for categories and switch the words "
+"category and tag around ;)"
+msgstr ""
+
+#: robots-meta.php:185
+msgid "Add <code>noarchive</code> meta tag"
+msgstr ""
+
+#: robots-meta.php:186
+msgid ""
+"Prevents archive.org and Google from putting copies of your pages into their "
+"archive/cache.to put copies of your pages into their archive/cache."
+msgstr ""
+
+#: robots-meta.php:188
+msgid "Prevent Indexing"
+msgstr ""
+
+#: robots-meta.php:190
+msgid "Add <code>noodp</code> meta robots tag"
+msgstr ""
+
+#: robots-meta.php:191
+msgid ""
+"Prevents all search engines from using the DMOZ description for this site in "
+"the search results."
+msgstr ""
+
+#: robots-meta.php:192
+msgid "Add <code>noydir</code> meta robots tag"
+msgstr ""
+
+#: robots-meta.php:193
+msgid ""
+"Prevents Yahoo! from using the Yahoo! directory description for this site in "
+"the search results."
+msgstr ""
+
+#: robots-meta.php:195
+msgid "DMOZ and Yahoo! Directory"
+msgstr ""
+
+#: robots-meta.php:198
+msgid ""
+"If you choose a permalink for your posts with <code>.html</code>, or "
+"anything else but a / on the end, this will force WordPress to add a "
+"trailing slash to non-post pages nonetheless."
+msgstr ""
+
+#: robots-meta.php:201
+msgid ""
+"Attachments to posts are stored in the database as posts, this means they're "
+"accessible under their own URL's if you do not redirect them, enabling this "
+"will redirect them to the post they were attached to."
+msgstr ""
+
+#: robots-meta.php:203
+msgid "Permalink Settings"
+msgstr ""
+
+#: robots-meta.php:205
+msgid "Disable the author archives"
+msgstr ""
+
+#: robots-meta.php:206
+msgid ""
+"If you're running a one author blog, the author archive will always look "
+"exactly the same as your homepage. And even though you may not link to it, "
+"others might, to do you harm. Disabling them here will make sure any link to "
+"those archives will be 301 redirected to the blog homepage."
+msgstr ""
+
+#: robots-meta.php:208
+msgid "Disable the date-based archives"
+msgstr ""
+
+#: robots-meta.php:209
+msgid ""
+"For the date based archives, the same applies: they probably look a lot like "
+"your homepage, and could thus be seen as duplicate content."
+msgstr ""
+
+#: robots-meta.php:211
+msgid "Redirect search results pages when referrer is external"
+msgstr ""
+
+#: robots-meta.php:212
+msgid ""
+"Redirect people coming to a search page on your site from elsewhere to your "
+"homepage, prevents people from linking to search results on your site."
+msgstr ""
+
+#: robots-meta.php:214
+msgid "Archive Settings"
+msgstr ""
+
+#: robots-meta.php:216
+msgid "Nofollow category listings on pages"
+msgstr ""
+
+#: robots-meta.php:217
+msgid "Nofollow category listings on single posts"
+msgstr ""
+
+#: robots-meta.php:218
+msgid ""
+"If you're showing a category listing on all your single posts and pages, "
+"you're \"leaking\" quite a bit of PageRank towards these pages, whereas you "
+"probably want your single posts to rank. To prevent that from happening, "
+"check the two boxes above, and you will nofollow all the links to your "
+"categories from single posts and/or pages."
+msgstr ""
+
+#: robots-meta.php:220
+msgid "Nofollow outbound links on the frontpage"
+msgstr ""
+
+#: robots-meta.php:221
+msgid ""
+"If you want to keep the link-juice on your front page to yourself, enable "
+"this, and you will only pass link-juice from your post pages."
+msgstr ""
+
+#: robots-meta.php:223
+msgid "Nofollow the links to your tag pages"
+msgstr ""
+
+#: robots-meta.php:224
+msgid ""
+"If you've decided to keep your tag pages from being indexed, you might as "
+"well stop throwing link-juice at them on each post..."
+msgstr ""
+
+#: robots-meta.php:226
+msgid "Nofollow login and registration links"
+msgstr ""
+
+#: robots-meta.php:227
+msgid ""
+"This might have happened to you: logging in to your admin panel to notice "
+"that it has become PR6... Nofollow those admin and login links, there's no "
+"use flowing PageRank to those pages!"
+msgstr ""
+
+#: robots-meta.php:229
+msgid "Nofollow comments links"
+msgstr ""
+
+#: robots-meta.php:230
+msgid ""
+"Simple way to decrease the number of links on your pages: nofollow all the "
+"links pointing to comment sections."
+msgstr ""
+
+#: robots-meta.php:232
+msgid "Replace the Meta Widget with a nofollowed one"
+msgstr ""
+
+#: robots-meta.php:233
+msgid ""
+"By default the Meta widget links to your RSS feeds and to WordPress.org with "
+"a follow link, this will replace that widget by a custom one in which all "
+"these links are nofollowed."
+msgstr ""
+
+#: robots-meta.php:235
+msgid "Internal nofollow settings"
+msgstr ""
+
+#: robots-meta.php:237
+msgid "Verify meta value for Google Webmaster Tools"
+msgstr ""
+
+#: robots-meta.php:238
+msgid "Verify meta value for Yahoo! Site Explorer"
+msgstr ""
+
+#: robots-meta.php:239
+msgid "Verify meta value for Microsoft Webmaster Portal"
+msgstr ""
+
+#: robots-meta.php:241
+msgid "Webmaster Tools"
+msgstr ""
+
+#: robots-meta.php:243
+msgid "Save Robots Meta Settings"
+msgstr ""
+
+#: robots-meta.php:254
+msgid "If your robots.txt were writable, you could edit it from here."
+msgstr ""
+
+#: robots-meta.php:259
+msgid "Edit the content of your robots.txt:"
+msgstr ""
+
+#: robots-meta.php:261
+msgid "Save changes to Robots.txt"
+msgstr ""
+
+#: robots-meta.php:264
+msgid "Robots.txt"
+msgstr ""
+
+#: robots-meta.php:274
+msgid "If your .htaccess were writable, you could edit it from here."
+msgstr ""
+
+#: robots-meta.php:281 robots-meta.php:301
+msgid "Save changes to .htaccess"
+msgstr ""
+
+#: robots-meta.php:284
+msgid ".htaccess file"
+msgstr ""
+
+#: robots-meta.php:294
+msgid "If your"
+msgstr ""
+
+#: robots-meta.php:294
+msgid "were writable, you could edit it from here."
+msgstr ""
+
+#: robots-meta.php:299
+msgid "Edit the content of your cache directory's .htaccess:"
+msgstr ""
+
+#: robots-meta.php:304
+msgid "wp-super-cache cache dir .htaccess file"
+msgstr ""
+
+#: robots-meta.php:316
+msgid ""
+"If you haven't read it yet, my <a href=\"http://yoast.com/articles/wordpress-"
+"seo/\">article on WordPress SEO</a> is probably a good place to start "
+"learning about how to optimize your WordPress."
+msgstr ""
+
+#: robots-meta.php:484
+msgid "Meta"
+msgstr ""
+
+#: robots-meta.php:491
+msgid "Syndicate this site using RSS 2.0"
+msgstr ""
+
+#: robots-meta.php:491
+msgid "Entries <abbr title=\"Really Simple Syndication\">RSS</abbr>"
+msgstr ""
+
+#: robots-meta.php:492
+msgid "The latest comments to all posts in RSS"
+msgstr ""
+
+#: robots-meta.php:492
+msgid "Comments <abbr title=\"Really Simple Syndication\">RSS</abbr>"
+msgstr ""
+
+#: robots-meta.php:493
+msgid ""
+"Powered by WordPress, state-of-the-art semantic personal publishing platform."
+msgstr ""
+
+#: yst_plugin_tools.php:61
+msgid "Settings"
+msgstr ""
+
+#: yst_plugin_tools.php:137
+msgid "Why not do any or all of the following:"
+msgstr ""
+
+#: yst_plugin_tools.php:139
+msgid "Link to it so other folks can find out about it."
+msgstr ""
+
+#: yst_plugin_tools.php:140
+msgid "Give it a good rating on WordPress.org."
+msgstr ""
+
+#: yst_plugin_tools.php:141
+msgid "Donate a token of your appreciation."
+msgstr ""
+
+#: yst_plugin_tools.php:150
+msgid ""
+"If you have any problems with this plugin or good ideas for improvements or "
+"new features, please talk about them in the"
+msgstr ""
+
+#: yst_plugin_tools.php:150
+msgid "Support forums"
+msgstr ""
+
+#. Plugin Name of an extension
+msgid "Robots Meta"
+msgstr ""
+
+#. Plugin URI of an extension
+msgid "http://yoast.com/wordpress/robots-meta/"
+msgstr ""
+
+#. Description of an extension
+msgid ""
+"This plugin allows you to add all the appropriate robots meta tags to your "
+"pages and feeds, disable unused archives and nofollow unnecessary links."
+msgstr ""
+
+#. Author of an extension
+msgid "Joost de Valk"
+msgstr ""
+
+#. Author URI of an extension
+msgid "http://yoast.com/"
+msgstr ""

@@ -1,0 +1,1529 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: stray-quotes1.8.5【WGMking:::2say.hi.cn】\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-04-17 00:26+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: WGMking <wgmking@163.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Chinese\n"
+"X-Poedit-Country: CHINA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: ../stray_quotes.php:168
+#, fuzzy
+msgid "<p>You just installed a new version of <strong>Stray Random Quotes</strong>. All changes are addressed in the <a href=\"%1\">changelog</a>, but you should know that: </p>"
+msgstr "<p>您好啊！欢迎使用最新版本的<strong>Stray Random Quotes</strong>。所有的更新都在<a href=\"%1\">changelog</a>里列出了，但你应该知道这些：</p>"
+
+#: ../stray_quotes.php:202
+#, fuzzy, php-format
+msgid "<li>I changed the old table \"%s1\" into a new one called \"%s2\" but don't worry, all your quotes are still there.</li>"
+msgstr "<li># 我将旧表由\"%s1\"改为 \"%s2\" 但请不要担心，所有的引用还在。</li>"
+
+#: ../stray_quotes.php:224
+#, fuzzy, php-format
+msgid "<li>This plugin now comes with \"categories\", which should make for a more intelligent way to organize, maintain and display quotes on your blog. I updated the table \"%s1\" but all your quotes <a href=\"%s2\">are still there</a>.</li>"
+msgstr "<li>#本插件具有的\"分类\"功能，提供更合理的方法，在你的博客上管理、组织及展示你的引用。我更新了表 \"%s1\" 但你的引用<a href=\"%s2\">仍在</a>。</li>"
+
+#: ../stray_quotes.php:254
+#, fuzzy, php-format
+msgid "<p>Hey. This seems to be your first time with this plugin. I've just created the database table \"%s1\" to store your quotes, and added one to start you off.</p>"
+msgstr "您好！这好像是您首次用本插件。我在数据库创建中创建了表 \"%s1\"用来储存你的引用，并添加了一条引用作用开始。"
+
+#: ../stray_quotes.php:365
+msgid "<br/>source:&nbsp;"
+msgstr "<br/>source:&nbsp;"
+
+#: ../stray_quotes.php:386
+#: ../stray_quotes.php:500
+#: ../inc/stray_tools.php:120
+msgid "loading..."
+msgstr "loading..."
+
+#: ../stray_quotes.php:444
+#, fuzzy
+msgid "<li> hopefully the mess caused by version 1.7.8 has now been corrected... If you changed the categories assigned to quotes using the 1.7.8 version, you might find now that the changes made are lost. All the rest will stay the same, including that \"groups\" are now called \"categories\".</li>"
+msgstr "<li># 希望1.7.8版本留下来的混乱问题已得到更正……此问题不再详述。 其它的没多大改变！</li>"
+
+#: ../stray_quotes.php:448
+#, fuzzy
+msgid "<li> spaces are not allowed within categories names, because they created all sorts of problems. I replaced them with dashes. I hope it's okay.</li>"
+msgstr "<li>#空格不允许用于分类名称，因为它将产生很多麻烦。所以我用破折号来代替空格， 希望它可行。</li>"
+
+#: ../stray_quotes.php:519
+#, php-format
+msgid "<li> Stray Random Quotes is now multiuser, which means that multiple contributors can have individual sets of quotes. Administrators are obviously enabled to manage, edit and delete everyone's quotes. All the other users will deal with their own. To enable multiuser capabilites, use the <a href=\"%s1\">settings page</a>.</li>"
+msgstr "<li> Stray Random Quotes is now multiuser, which means that multiple contributors can have individual sets of quotes. Administrators are obviously enabled to manage, edit and delete everyone's quotes. All the other users will deal with their own. To enable multiuser capabilites, use the <a href=\"%s1\">settings page</a>.</li>"
+
+#: ../stray_quotes.php:583
+msgid "Quotes"
+msgstr "我的引用："
+
+#: ../stray_quotes.php:584
+msgid "Overview for the Quotes"
+msgstr "查看引用概况"
+
+#: ../stray_quotes.php:584
+#: ../inc/stray_overview.php:38
+msgid "Overview"
+msgstr "概况页面"
+
+#: ../stray_quotes.php:585
+msgid "Manage Quotes"
+msgstr "管理所有引用"
+
+#: ../stray_quotes.php:585
+msgid "Manage"
+msgstr "管理页面"
+
+#: ../stray_quotes.php:586
+msgid "Add New Quote"
+msgstr "添加新的引用"
+
+#: ../stray_quotes.php:586
+msgid "Add New"
+msgstr "添加新引用"
+
+#: ../stray_quotes.php:587
+msgid "Settings of the Quotes"
+msgstr "设置相关引用"
+
+#: ../stray_quotes.php:587
+#: ../inc/stray_settings.php:167
+msgid "Settings"
+msgstr "设置页面"
+
+#: ../stray_quotes.php:588
+msgid "Tools for your quotes"
+msgstr "您的引用工具箱"
+
+#: ../stray_quotes.php:588
+msgid "Tools"
+msgstr "工具页面"
+
+#: ../stray_quotes.php:589
+msgid "Help with the Quotes"
+msgstr "相关帮助"
+
+#: ../stray_quotes.php:589
+msgid "Help"
+msgstr "帮助页面"
+
+#: ../stray_quotes.php:590
+msgid "Remove Stray Random Quotes"
+msgstr "移除Stray Random Quotes"
+
+#: ../stray_quotes.php:590
+msgid "Remove"
+msgstr "移除页面"
+
+#: ../inc/stray_help.php:8
+msgid "The help page"
+msgstr "帮助页面是也！"
+
+#: ../inc/stray_help.php:9
+msgid " ~ where <strong>ico</strong> answers questions, as you click on them."
+msgstr " ~ where <strong>ico</strong> answers questions, as you click on them."
+
+#: ../inc/stray_help.php:14
+msgid "So, how do I display a random quote on this blog?"
+msgstr "要怎样在我的博客上展示随机引用呢？"
+
+#: ../inc/stray_help.php:15
+#, fuzzy, php-format
+msgid "Stray Random Quotes comes with <strong>Widgets</strong>. You can use all the widgets you want. Each widget has its own set of options. Just drag a \"Quotes\" widget to the sidebar on the <a href=\"%s1\">widget page</a>, and change its settings accordingly.<br />Note: <em>Your template must be widget compatible.</em></p>"
+msgstr "Stray Random Quotes 具有<strong>Widgets(挂件)</strong>功能。 根据你的要求，随机引用挂件可设置显示部分分类, 或显示全部。您可以使用多个挂件。每个都可以独立设置。 在<a href=\"%s1\">挂件页面</a>只能同时使用一个挂件， 并相应地设置挂件。<br />注意：<em>你的模板必须支持挂件</em>。</p>"
+
+#: ../inc/stray_help.php:18
+msgid "Can I add quotes directly to the template?"
+msgstr "Can I add quotes directly to the template?"
+
+#: ../inc/stray_help.php:19
+msgid "If your template <strong>does not</strong> use widgets, or you want to display random quotes on your template <strong>elsewhere</strong> other than the sidebar, you can use <strong>template tags</strong>. These are PHP snippets that can be added directly to your template pages (in the header, the footer etc). You can use as many snippets as you need. They accept variables, but these have to be inserted in order. For example, if you want to set only the second variable, you have to set the first one too, but you can skip all those that follow if you don't need them."
+msgstr "If your template <strong>does not</strong> use widgets, or you want to display random quotes on your template <strong>elsewhere</strong> other than the sidebar, you can use <strong>template tags</strong>. These are PHP snippets that can be added directly to your template pages (in the header, the footer etc). You can use as many snippets as you need. They accept variables, but these have to be inserted in order. For example, if you want to set only the second variable, you have to set the first one too, but you can skip all those that follow if you don't need them."
+
+#: ../inc/stray_help.php:21
+#, fuzzy
+msgid "To get one or more random quotes: "
+msgstr "Stray Random Quotes 工具"
+
+#: ../inc/stray_help.php:25
+#: ../inc/stray_help.php:53
+#, fuzzy
+msgid "Variables :"
+msgstr "可见性："
+
+#: ../inc/stray_help.php:29
+msgid "category1,category2"
+msgstr "category1,category2"
+
+#: ../inc/stray_help.php:29
+msgid "A comma-separated list of the categories from which to extract the random quote. <code>'all'</code> or <code>''</code> uses all the categories. Default is 'all'."
+msgstr "A comma-separated list of the categories from which to extract the random quote. <code>'all'</code> or <code>''</code> uses all the categories. Default is 'all'."
+
+#: ../inc/stray_help.php:31
+msgid "Loads the quotes in order if \"true\", randomly if \"false\". Default is \"false\"."
+msgstr "Loads the quotes in order if \"true\", randomly if \"false\". Default is \"false\"."
+
+#: ../inc/stray_help.php:33
+#: ../inc/stray_help.php:89
+#: ../inc/stray_help.php:109
+#: ../inc/stray_help.php:138
+msgid "\"another quote &amp;raquo;\""
+msgstr "\"another quote &amp;raquo;\""
+
+#: ../inc/stray_help.php:33
+msgid "The phrase to dynamically load another quote (overrides the one in the settings). If this value is empty, and the one in the settings is empty too, clicking on the quote area will reload the quote. Default is empty."
+msgstr "The phrase to dynamically load another quote (overrides the one in the settings). If this value is empty, and the one in the settings is empty too, clicking on the quote area will reload the quote. Default is empty."
+
+#: ../inc/stray_help.php:35
+#: ../inc/stray_help.php:61
+msgid "Disables AJAX for the present template tag if \"true\". default is \"false\"."
+msgstr "Disables AJAX for the present template tag if \"true\". default is \"false\"."
+
+#: ../inc/stray_help.php:37
+msgid "How many quotes to retrieve at a time. Default is 1."
+msgstr "How many quotes to retrieve at a time. Default is 1."
+
+#: ../inc/stray_help.php:39
+msgid "Reloads the quote automatically after the given interval (in seconds). Hides the linkphrase. Use 0 or '' to disable. Default is 0."
+msgstr "Reloads the quote automatically after the given interval (in seconds). Hides the linkphrase. Use 0 or '' to disable. Default is 0."
+
+#: ../inc/stray_help.php:41
+msgid "Orders the quotes according to \"quoteID\" or \"Author\" or \"Source\" or \"Visible\" or \"Category\". Default is \"quoteID\"."
+msgstr "Orders the quotes according to \"quoteID\" or \"Author\" or \"Source\" or \"Visible\" or \"Category\". Default is \"quoteID\"."
+
+#: ../inc/stray_help.php:43
+msgid "Sorts the quotes ascending \"ASC\" or descending \"DESC\". Default is \"ASC\"."
+msgstr "Sorts the quotes ascending \"ASC\" or descending \"DESC\". Default is \"ASC\"."
+
+#: ../inc/stray_help.php:45
+#: ../inc/stray_help.php:63
+msgid "Disables the aspect settings (how the quotes look) if \"true\". default is \"false\"."
+msgstr "Disables the aspect settings (how the quotes look) if \"true\". default is \"false\"."
+
+#: ../inc/stray_help.php:49
+msgid "To get a specific quote: "
+msgstr "To get a specific quote: "
+
+#: ../inc/stray_help.php:57
+msgid "31"
+msgstr "31"
+
+#: ../inc/stray_help.php:57
+msgid "The ID number of the quote to be retrieved. Default is 1."
+msgstr "The ID number of the quote to be retrieved. Default is 1."
+
+#: ../inc/stray_help.php:59
+msgid "Next quote &amp;raquo;"
+msgstr "Next quote &amp;raquo;"
+
+#: ../inc/stray_help.php:59
+msgid "The phrase to dynamically load the next quote in sequence. If this value is empty, and the one in the settings is empty too, clicking on the quote area will reload the quote. Default is empty."
+msgstr "The phrase to dynamically load the next quote in sequence. If this value is empty, and the one in the settings is empty too, clicking on the quote area will reload the quote. Default is empty."
+
+#: ../inc/stray_help.php:66
+msgid "Unlike widgets, template tags do not generate a title for the quote area. If you want specific titles for different tags, enter them directly in the template HTML, before the tag."
+msgstr "Unlike widgets, template tags do not generate a title for the quote area. If you want specific titles for different tags, enter them directly in the template HTML, before the tag."
+
+#: ../inc/stray_help.php:73
+msgid "What about posts and pages?"
+msgstr "关于页面及文章相关问题？"
+
+#: ../inc/stray_help.php:75
+#, fuzzy
+msgid "How do I add quotes to posts and pages?"
+msgstr "关于页面及文章相关问题？"
+
+#: ../inc/stray_help.php:79
+msgid "Posts and pages accept <strong>shortcodes</strong>. Wordpress shortcodes can have many variables, in no particular order.<br/> They go like this:"
+msgstr "Posts and pages accept <strong>shortcodes</strong>. Wordpress shortcodes can have many variables, in no particular order.<br/> They go like this:"
+
+#: ../inc/stray_help.php:81
+#, fuzzy
+msgid "To <strong>insert a random quote</strong> in a post or page use:"
+msgstr "如要插入到文章请用代码："
+
+#: ../inc/stray_help.php:83
+#: ../inc/stray_help.php:103
+#: ../inc/stray_help.php:132
+msgid "Variables (use quotations if there are spaces in the value):"
+msgstr "Variables (use quotations if there are spaces in the value):"
+
+#: ../inc/stray_help.php:85
+#: ../inc/stray_help.php:105
+msgid "A comma-separated list of the categories from which to extract the random quote. If none is set, quotes will be taken from all categories."
+msgstr "A comma-separated list of the categories from which to extract the random quote. If none is set, quotes will be taken from all categories."
+
+#: ../inc/stray_help.php:87
+#: ../inc/stray_help.php:107
+msgid "Loads the quotes in order if \"true\", randomly if \"false\". Default is \"false\""
+msgstr "Loads the quotes in order if \"true\", randomly if \"false\". Default is \"false\""
+
+#: ../inc/stray_help.php:89
+#: ../inc/stray_help.php:109
+#: ../inc/stray_help.php:138
+msgid "The phrase to dynamically load another quote (overrides the one in the settings). Without this value, clicking on the quote area will reload the quote."
+msgstr "The phrase to dynamically load another quote (overrides the one in the settings). Without this value, clicking on the quote area will reload the quote."
+
+#: ../inc/stray_help.php:91
+#: ../inc/stray_help.php:119
+msgid "Disables AJAX for the present shortcode if \"true\"."
+msgstr "Disables AJAX for the present shortcode if \"true\"."
+
+#: ../inc/stray_help.php:93
+msgid "Reloads the quote automatically after the given interval (in seconds). Hides the linkphrase. "
+msgstr "Reloads the quote automatically after the given interval (in seconds). Hides the linkphrase. "
+
+#: ../inc/stray_help.php:95
+#: ../inc/stray_help.php:123
+#: ../inc/stray_help.php:140
+msgid "Disable the aspect settings if \"true\". Default is \"false\""
+msgstr "Disable the aspect settings if \"true\". Default is \"false\""
+
+#: ../inc/stray_help.php:99
+msgid "All these settings are optional. If you don't indicate anything, a random quote from all the categories will be displayed, with ajax according to the general settings.<br/><br/>"
+msgstr "All these settings are optional. If you don't indicate anything, a random quote from all the categories will be displayed, with ajax according to the general settings.<br/><br/>"
+
+#: ../inc/stray_help.php:101
+msgid "To <strong>insert more than one or all the quotes</strong> in a post or page use:"
+msgstr "To <strong>insert more than one or all the quotes</strong> in a post or page use:"
+
+#: ../inc/stray_help.php:111
+msgid "How many quotes to retrieve at a time."
+msgstr "How many quotes to retrieve at a time."
+
+#: ../inc/stray_help.php:113
+msgid "Orders the quotes according to \"quoteID\" or \"Author\" or \"Source\" or \"Visible\" or \"Category\"."
+msgstr "Orders the quotes according to \"quoteID\" or \"Author\" or \"Source\" or \"Visible\" or \"Category\"."
+
+#: ../inc/stray_help.php:115
+msgid "Sorts the quotes ascending \"ASC\" or descending \"DESC\"."
+msgstr "Sorts the quotes ascending \"ASC\" or descending \"DESC\"."
+
+#: ../inc/stray_help.php:117
+msgid "Generates complete pagination links (with page numbers) if \"true\", only next and previous links if \"false\". Not considered if AJAX is enabled."
+msgstr "Generates complete pagination links (with page numbers) if \"true\", only next and previous links if \"false\". Not considered if AJAX is enabled."
+
+#: ../inc/stray_help.php:121
+msgid "Reloads the quotes automatically after the given interval (in seconds). Hides the linkphrase. "
+msgstr "Reloads the quotes automatically after the given interval (in seconds). Hides the linkphrase. "
+
+#: ../inc/stray_help.php:127
+msgid "All these settings are optional. Without them, AJAX is disabled in the shortcode and the values you see in this example are used as defaults."
+msgstr "All these settings are optional. Without them, AJAX is disabled in the shortcode and the values you see in this example are used as defaults."
+
+#: ../inc/stray_help.php:130
+msgid "To <strong>insert a specific quote</strong> in a post or page (with AJAX, a sequence of quotes starting from a given one) use:"
+msgstr "To <strong>insert a specific quote</strong> in a post or page (with AJAX, a sequence of quotes starting from a given one) use:"
+
+#: ../inc/stray_help.php:134
+msgid "The ID of the quote to be retrieved. This number appears in the first column on the management page."
+msgstr "The ID of the quote to be retrieved. This number appears in the first column on the management page."
+
+#: ../inc/stray_help.php:136
+msgid "Disables AJAX for the present shortcode if \"true\". Default is true."
+msgstr "Disables AJAX for the present shortcode if \"true\". Default is true."
+
+#: ../inc/stray_help.php:149
+msgid "What about other areas of the blog, such as post titles, or even the blog title?"
+msgstr "关于博客的其它区域，如文章标题，甚至博客标题？"
+
+#: ../inc/stray_help.php:150
+#, php-format
+msgid "Well, actually, on the <a href=\"%s1\">tools page</a> you can enable shortcodes for a number of extra areas where shortcodes aren't normally allowed. This will entitle you to some quite extraordinary things, such as random taglines or random category names. Cool examples can be found <a href=\"http://www.italyisfalling.com/cool-things-you-can-do-with-stray-random-quotes\">here</a>.<br/><br/><strong><em>Please Note:</em></strong> it is <strong>highly recommended to disable AJAX</strong> for all these unconventional uses. This take it easy on your server, plus AJAX adds a DIV tag around the quotes that would mess with your layout in most cases where the random word is inline with the text.<br/><br/> <strong><em>Please Note:</em></strong> This trick will apply to all shortcodes, not just those of Stray Random Quotes: so pay attention before you enable it for areas where the user has access, such as the comments."
+msgstr "Well, actually, on the <a href=\"%s1\">tools page</a> you can enable shortcodes for a number of extra areas where shortcodes aren't normally allowed. This will entitle you to some quite extraordinary things, such as random taglines or random category names. Cool examples can be found <a href=\"http://www.italyisfalling.com/cool-things-you-can-do-with-stray-random-quotes\">here</a>.<br/><br/><strong><em>Please Note:</em></strong> it is <strong>highly recommended to disable AJAX</strong> for all these unconventional uses. This take it easy on your server, plus AJAX adds a DIV tag around the quotes that would mess with your layout in most cases where the random word is inline with the text.<br/><br/> <strong><em>Please Note:</em></strong> This trick will apply to all shortcodes, not just those of Stray Random Quotes: so pay attention before you enable it for areas where the user has access, such as the comments."
+
+#: ../inc/stray_help.php:153
+msgid "How do I change the appearance of the quotes?"
+msgstr "How do I change the appearance of the quotes?"
+
+#: ../inc/stray_help.php:154
+#, php-format
+msgid "To change how the quotes look, you can use the <a href=\"%s1\">settings page</a>. Here you will be able to set what comes before and after every part of the quote area (source, author, the quote etc). With little HTML, all sorts of customizations are possible, such as assigning styles, set the alignment of text, specify font or font color, adding images, quotation marks and many other entities. Just remember to close all the tags you opened before a part.<br/><br/><em><strong>Please note:</strong></em> the aspect options in the settings page normally apply to <em>ALL</em> quotes in every area of your blog, but they can be disabled within each widget, shortcode or template tag. When aspect settings are disabled, the only element added is a whitespace between the quote and the author or source."
+msgstr "To change how the quotes look, you can use the <a href=\"%s1\">settings page</a>. Here you will be able to set what comes before and after every part of the quote area (source, author, the quote etc). With little HTML, all sorts of customizations are possible, such as assigning styles, set the alignment of text, specify font or font color, adding images, quotation marks and many other entities. Just remember to close all the tags you opened before a part.<br/><br/><em><strong>Please note:</strong></em> the aspect options in the settings page normally apply to <em>ALL</em> quotes in every area of your blog, but they can be disabled within each widget, shortcode or template tag. When aspect settings are disabled, the only element added is a whitespace between the quote and the author or source."
+
+#: ../inc/stray_help.php:157
+msgid "The IDs of the quotes are getting ridiculously high. Can I do something about it?"
+msgstr "引用ID编号出奇地高且不连续，要怎样做呢？"
+
+#: ../inc/stray_help.php:158
+#, fuzzy, php-format
+msgid "Over time, deleting quotes and adding quotes, the IDs of new quotes can get to be much higher of the total of the quotes. Some folks are bothered by this. It is the way MySQL works, gaps are not important in an index. Anyway, there is a workaround. On the <a href=\"%s1\">tools page</a> there's a button to <strong>reset all quoteID numbers in your table</strong>, after which the numbering will look fine again. There is a downside, though: few or even none of the old ID numbers will still correspond to the same quotes, which means that if you called a quote in a post <strong>by its ID</strong> (as explained above on this very page), there's a chance a different quote will be called afterwards. It is up to you to accept this and go and fix it later."
+msgstr "这是MySQL的工作方式，不连续在索引中是不很重要的。不管怎样，这里有个解决方案。在<a href=\"%s1\">工具页面</a>里有个按钮<strong>重置索引</strong>，应用之后引用就重新连续排列了。但有个不足之处：部分或者全部引用的编号改变了，意味着您通过<strong>引用ID编号</strong>的引用出现混乱。(如quote ID=5的引用，之前内容为“555”，现在可能刚变为“666”了)。能不能接受就随便您了。"
+
+#: ../inc/stray_help.php:161
+msgid "I want a bookmarklet to quote things on the fly when I browse!"
+msgstr "浏览网页时，您需要一个书签按钮来快速引用书签来引用所选!"
+
+#: ../inc/stray_help.php:162
+#, php-format
+msgid "You have it. It is on the <a href=\"%s1\">tools page</a>. Place the link on your browser toolbar, select text in a page and click on the link. The \"add new quote\" page will open with the selected text in it."
+msgstr "您已经拥有它了。它在<a href=\"%s1\">工具页面</a>里。在你的浏览器的链接收藏栏中添加其为链接，选择好文字然后点击链接。之后\"添加新引用\" 页面将的打开，你所选的文字就是你要引用的内容。"
+
+#: ../inc/stray_help.php:165
+msgid "I am about to upgrade and I am scared. Should I backup my quotes?"
+msgstr "I am about to upgrade and I am scared. Should I backup my quotes?"
+
+#: ../inc/stray_help.php:166
+#, php-format
+msgid "It is normally not necessary to backup the quotes before a upgrade. Usually when a new version of Stray Random Quotes is activated the database table that contains the quotes is untouched. Exceptionally it may be necessary to manipulate it, in which case a backup is probably advisable. To know when this rare case applies you can check the changelog on <a href=\"%s1\">this page</a>, or, more simply, you can follow the <a href=\"%s2\">plugins feed</a> on my blog.<br/>How to backup, you ask? There are exceptional plugins out there to do that."
+msgstr "It is normally not necessary to backup the quotes before a upgrade. Usually when a new version of Stray Random Quotes is activated the database table that contains the quotes is untouched. Exceptionally it may be necessary to manipulate it, in which case a backup is probably advisable. To know when this rare case applies you can check the changelog on <a href=\"%s1\">this page</a>, or, more simply, you can follow the <a href=\"%s2\">plugins feed</a> on my blog.<br/>How to backup, you ask? There are exceptional plugins out there to do that."
+
+#: ../inc/stray_help.php:171
+#, fuzzy
+msgid "Hey. Something isn't working!"
+msgstr "出错了！"
+
+#: ../inc/stray_help.php:172
+#, php-format
+msgid "Well, that figures. See, I am not a professional developer... I work on this plugin on my free time. So there's always going to be a bug. If you want to help me catch it, and to get further help, you are welcome to trash the comments <a href=\"%s1\">on this post</a>. Before you do, though, check if the problem you are experiencing isn't caused by a conflicting plugin or some other issue of which Stray Random Quotes itself might not be responsible. Thanks."
+msgstr "Well, that figures. See, I am not a professional developer... I work on this plugin on my free time. So there's always going to be a bug. If you want to help me catch it, and to get further help, you are welcome to trash the comments <a href=\"%s1\">on this post</a>. Before you do, though, check if the problem you are experiencing isn't caused by a conflicting plugin or some other issue of which Stray Random Quotes itself might not be responsible. Thanks."
+
+#: ../inc/stray_help.php:175
+msgid "Anything I can do to help?"
+msgstr "Anything I can do to help?"
+
+#: ../inc/stray_help.php:176
+msgid "Well, yeah. If you have some spare change..."
+msgstr "Well, yeah. If you have some spare change..."
+
+#: ../inc/stray_manage.php:76
+msgid "Edit quote "
+msgstr "编辑引用"
+
+#: ../inc/stray_manage.php:80
+msgid "Something is wrong. No quote ID from the query string."
+msgstr "出错了。 查询字符串中没有该引用ID。"
+
+#: ../inc/stray_manage.php:90
+msgid "Something is wrong. I can't find a quote linked up with that ID."
+msgstr "出错了。找不到一个引用与该ID相连。"
+
+#: ../inc/stray_manage.php:133
+#: ../inc/stray_new.php:173
+msgid "Quote:"
+msgstr "引用内容："
+
+#: ../inc/stray_manage.php:135
+msgid "To insert this quote in a post use:"
+msgstr "如要插入到文章请用代码："
+
+#: ../inc/stray_manage.php:138
+#: ../inc/stray_new.php:177
+msgid "* Other than the few offered in the toolbar above, many HTML and non-HTML formatting elements can be used for the quote. Lines can be broken traditionally or using <code>&lt;br/&gt;</code>, etcetera."
+msgstr "#除工具栏上的少数功能可用外，许多HTML和非HTML格式的内容都可用于引用。换行可用传统方法或用 <code>&lt;br/&gt;</code>, 等等。"
+
+#: ../inc/stray_manage.php:140
+#: ../inc/stray_new.php:179
+msgid "Author:"
+msgstr "作者："
+
+#: ../inc/stray_manage.php:145
+#: ../inc/stray_new.php:184
+msgid "Source:"
+msgstr "来源："
+
+#: ../inc/stray_manage.php:149
+#: ../inc/stray_new.php:188
+msgid "* By adding a link to the author or the source, the default links specified on the settings page are ignored. Make sure the link is closed by a <code>&lt;/a&gt;</code> tag."
+msgstr "#添加一个链接的作者或来源，指定设置页中的默认的链接将被忽略。确保链接最后有<code>&lt;/a&gt;</code> 标签。"
+
+#: ../inc/stray_manage.php:151
+#: ../inc/stray_new.php:190
+msgid "Category:&nbsp;"
+msgstr "分类：&nbsp;"
+
+#: ../inc/stray_manage.php:161
+msgid "new category:&nbsp;"
+msgstr "增加到新分类:&nbsp;"
+
+#: ../inc/stray_manage.php:164
+#: ../inc/stray_new.php:203
+msgid "Visible:"
+msgstr "可见性："
+
+#: ../inc/stray_manage.php:165
+#: ../inc/stray_new.php:204
+msgid "Yes"
+msgstr "是"
+
+#: ../inc/stray_manage.php:166
+#: ../inc/stray_new.php:205
+msgid "No"
+msgstr "否"
+
+#: ../inc/stray_manage.php:168
+#: ../inc/stray_manage.php:633
+msgid "Cancel"
+msgstr "取消"
+
+#: ../inc/stray_manage.php:169
+msgid "Update quote"
+msgstr "更新引用"
+
+#: ../inc/stray_manage.php:177
+msgid "Manage quotes"
+msgstr "管理页面"
+
+#: ../inc/stray_manage.php:179
+msgid "Please select something first."
+msgstr "您什么也没有选，请选择。"
+
+#: ../inc/stray_manage.php:180
+msgid "Something went wrong."
+msgstr "出错了！"
+
+#: ../inc/stray_manage.php:210
+msgid "<strong>Failure:</strong> No quote ID given."
+msgstr "<strong>失败：</strong> 没有给出引用ID。"
+
+#: ../inc/stray_manage.php:242
+#, php-format
+msgid "Quote <strong>%s</strong> updated."
+msgstr "引用<strong>%s</strong>已更新。"
+
+#: ../inc/stray_manage.php:257
+#, php-format
+msgid "Quote <strong>%s</strong> deleted."
+msgstr "引用<strong>%s</strong>已删除。"
+
+#: ../inc/stray_manage.php:288
+#, php-format
+msgid "<strong>%s</strong> quotes deleted."
+msgstr "<strong>%s</strong>引用已删除。"
+
+#: ../inc/stray_manage.php:329
+#, php-format
+msgid "Visibility toggled for <strong>%s</strong> quotes."
+msgstr "Visibility toggled（切换） for <strong>%s</strong> quotes."
+
+#: ../inc/stray_manage.php:362
+#, php-format
+msgid "Category changed for <strong>%s</strong> quotes."
+msgstr "分类 changed for <strong>%s</strong> quotes."
+
+#: ../inc/stray_manage.php:373
+msgid "Please select something in the 'Bulk Actions' menu first."
+msgstr "请先在‘批量动作(Bulk Actions)’下选择某一动作。"
+
+#: ../inc/stray_manage.php:481
+msgid "Bulk Actions"
+msgstr "Bulk Actions"
+
+#: ../inc/stray_manage.php:482
+#, fuzzy
+msgid "delete"
+msgstr "删除"
+
+#: ../inc/stray_manage.php:483
+#, fuzzy
+msgid "toggle visibility"
+msgstr "可见性"
+
+#: ../inc/stray_manage.php:484
+#, fuzzy
+msgid "change category"
+msgstr "1个分类"
+
+#: ../inc/stray_manage.php:495
+msgid "Apply"
+msgstr "Apply"
+
+#: ../inc/stray_manage.php:499
+msgid "display "
+msgstr "显示"
+
+#: ../inc/stray_manage.php:501
+msgid "10 quotes"
+msgstr "10条引用"
+
+#: ../inc/stray_manage.php:502
+msgid "15 quotes"
+msgstr "15条引用"
+
+#: ../inc/stray_manage.php:503
+msgid "20 quotes"
+msgstr "20条引用"
+
+#: ../inc/stray_manage.php:504
+msgid "30 quotes"
+msgstr "30条引用"
+
+#: ../inc/stray_manage.php:505
+msgid "50 quotes"
+msgstr "50条引用"
+
+#: ../inc/stray_manage.php:506
+msgid "100 quotes"
+msgstr "100条引用"
+
+#: ../inc/stray_manage.php:507
+msgid " from "
+msgstr "从"
+
+#: ../inc/stray_manage.php:510
+#, fuzzy
+msgid "all categories"
+msgstr "所有分类"
+
+#: ../inc/stray_manage.php:522
+#: ../inc/stray_manage.php:648
+#, php-format
+msgid "<span class=\"displaying-num\">Page %s1 of %s2</span>"
+msgstr "<span class=\"displaying-num\">Page <em>%s1 </em> of %s2</span>"
+
+#: ../inc/stray_manage.php:539
+#: ../inc/stray_manage.php:540
+#: ../inc/stray_manage.php:546
+msgid "ID"
+msgstr "ID"
+
+#: ../inc/stray_manage.php:549
+#: ../inc/stray_settings.php:181
+msgid "Quote"
+msgstr "引用内容"
+
+#: ../inc/stray_manage.php:552
+#: ../inc/stray_manage.php:553
+#: ../inc/stray_manage.php:558
+#: ../inc/stray_settings.php:188
+msgid "Author"
+msgstr "作者"
+
+#: ../inc/stray_manage.php:562
+#: ../inc/stray_manage.php:563
+#: ../inc/stray_manage.php:568
+#: ../inc/stray_settings.php:203
+msgid "Source"
+msgstr "来源"
+
+#: ../inc/stray_manage.php:572
+#: ../inc/stray_manage.php:573
+#: ../inc/stray_manage.php:578
+msgid "Category"
+msgstr "分类"
+
+#: ../inc/stray_manage.php:582
+#: ../inc/stray_manage.php:583
+#: ../inc/stray_manage.php:588
+msgid "Visible"
+msgstr "可见性"
+
+#: ../inc/stray_manage.php:596
+#: ../inc/stray_manage.php:597
+#: ../inc/stray_manage.php:602
+msgid "User"
+msgstr "User"
+
+#: ../inc/stray_manage.php:624
+msgid "yes"
+msgstr "是"
+
+#: ../inc/stray_manage.php:624
+msgid "no"
+msgstr "否"
+
+#: ../inc/stray_manage.php:628
+msgid "Edit"
+msgstr "编辑"
+
+#: ../inc/stray_manage.php:633
+msgid "You are about to delete quote "
+msgstr "你将要删除引用"
+
+#: ../inc/stray_manage.php:633
+msgid "to stop"
+msgstr "放弃"
+
+#: ../inc/stray_manage.php:633
+msgid "to delete"
+msgstr "删除"
+
+#: ../inc/stray_manage.php:633
+msgid "Delete"
+msgstr "删除"
+
+#: ../inc/stray_manage.php:652
+#, php-format
+msgid "<br/>No quotes here. Maybe you want to <a href=\"%s1\">reopen</a> this page."
+msgstr "<br/>没有引用。或许你想<a href=\"%s1\">重开</a>本页面。"
+
+#: ../inc/stray_new.php:87
+msgid "<strong>Failure:</strong> Something went wrong when trying to insert the quote. Try again?"
+msgstr "<strong>失败：</strong> 尝试添加引用时出错，再试一次?"
+
+#: ../inc/stray_new.php:98
+#, php-format
+msgid "Quote no. <strong>%s1</strong> was added to the database. To insert it in a post use: <code>[quote id=%s1]</code>. To review use the <a href=\"%s2\">Manage page</a>."
+msgstr "第<strong>%s1</strong>条引用已添加到数据库。如要插入到文章请使用代码：<code>[quote id=%s1]</code>。 请到<a href=\"%s2\">管理页面</a>预览本条引用。"
+
+#: ../inc/stray_new.php:104
+msgid "Add new quote"
+msgstr "添加新引用"
+
+#: ../inc/stray_new.php:114
+msgid "The Quote ID seems to be invalid."
+msgstr "该引用ID似乎是无效的。"
+
+#: ../inc/stray_new.php:120
+msgid "Something is wrong. Sorry."
+msgstr "对不起，出错了！"
+
+#: ../inc/stray_new.php:200
+msgid "&nbsp;new category:&nbsp;"
+msgstr "&nbsp;添加新分类:&nbsp;"
+
+#: ../inc/stray_new.php:208
+msgid "Add quote"
+msgstr "添加引用"
+
+#: ../inc/stray_overview.php:44
+msgid "one category"
+msgstr "1个分类"
+
+#: ../inc/stray_overview.php:47
+msgid "categories"
+msgstr "分类"
+
+#: ../inc/stray_overview.php:52
+msgid ", distributed as follows:"
+msgstr "， 分布情况如下："
+
+#: ../inc/stray_overview.php:56
+#, php-format
+msgid "<p>Right now you have <strong>%s1 quotes</strong> in <strong>%s2</strong>%s3</p>"
+msgstr "<p>现在你有<strong>%s1条引用</strong>在<strong>%s2</strong>%s3</p>"
+
+#: ../inc/stray_overview.php:77
+msgid "All your quotes "
+msgstr "所有的引用"
+
+#: ../inc/stray_overview.php:78
+#, php-format
+msgid "<p><strong>%s3</strong> are visible.</p>"
+msgstr "<p><strong>%s3</strong>设置为可见。</p>"
+
+#: ../inc/stray_overview.php:82
+#, php-format
+msgid "<p>Your most quoted author is <strong>%s5</strong>.</p>"
+msgstr "<p>您引用最多的作者是<strong>%s5</strong>。</p>"
+
+#: ../inc/stray_overview.php:86
+#, php-format
+msgid "<p>Your most used source is <strong>%s5</strong>.</p>"
+msgstr "<p>您最常用的来源是<strong>%s5</strong>。</p>"
+
+#: ../inc/stray_overview.php:88
+msgid "There is nothing to report."
+msgstr "没有任何报告。"
+
+#: ../inc/stray_overview.php:94
+#, php-format
+msgid "To start doing stuff, you can <a href=\"%s1\"><strong>add new quotes</strong></a>;<br />use the <a href=\"%s2\"><strong>manage</strong></a> page to edit or delete existing quotes;"
+msgstr "To start doing stuff, you can <a href=\"%s1\"><strong>add new quotes</strong></a>;<br />use the <a href=\"%s2\"><strong>manage</strong></a> page to edit or delete existing quotes;"
+
+#: ../inc/stray_overview.php:96
+#, php-format
+msgid "<br />change the <a href=\"%s3\"><strong>settings</strong></a> to control how the quotes are displayed on your blog;"
+msgstr "<br />change the <a href=\"%s3\"><strong>settings</strong></a> to control how the quotes are displayed on your blog;"
+
+#: ../inc/stray_overview.php:100
+#, php-format
+msgid "<br/>a <a href=\"%s5\"><strong>tools page</strong></a> can help you do more;<br/>if you're new to all this, visit the <a href=\"%s4\"><strong>help page</strong></a>."
+msgstr "<br/>a <a href=\"%s5\"><strong>tools page</strong></a> can help you do more;<br/>if you're new to all this, visit the <a href=\"%s4\"><strong>help page</strong></a>."
+
+#: ../inc/stray_overview.php:104
+msgid "Happy quoting."
+msgstr "希望您引用快乐啊。<a href=\"http://2say.hi.cn\"><strong>WGMking 汉化初版</strong></a><a href=\"http://2say.hi.cn\"><strong>【2say.hi.cn】</strong></a>"
+
+#: ../inc/stray_remove.php:34
+#: ../inc/stray_remove.php:48
+msgid "Remove and deactivate"
+msgstr "移除 & 停用"
+
+#: ../inc/stray_remove.php:36
+msgid "Click Here</a> to deactivate Stray Random Quotes."
+msgstr "点击这里</a>停用Stray Random Quotes。"
+
+#: ../inc/stray_remove.php:38
+msgid "The <strong>quotes</strong> AND the <strong>options</strong> will be removed."
+msgstr "所有的的<strong>引用</strong>和<strong>设置项</strong>将被删除。"
+
+#: ../inc/stray_remove.php:39
+msgid "The <strong>plugin options</strong> will be removed."
+msgstr "所有的<strong>插件设置</strong>将被删除。"
+
+#: ../inc/stray_remove.php:40
+msgid "The <strong>quotes</strong> will be removed."
+msgstr "所有的<strong>引用</strong>将被删除。"
+
+#: ../inc/stray_remove.php:49
+msgid "\"Patch grief with proverbs.\" ~ William Shakespeare"
+msgstr "\"If no me, who? If not now, when?\" ~ </a><a href=\"http://2say.hi.cn\"><strong>WGMking</strong></a>【对于stray-quotes中文应用中有疑问？可以<a href=\"http://2say.hi.cn\"><strong>问我</strong></a>】"
+
+#: ../inc/stray_remove.php:52
+msgid "When deactivating Stray Random Quotes"
+msgstr "当停用Stray Random Quotes插件时"
+
+#: ../inc/stray_remove.php:55
+msgid "Remove the options from the database."
+msgstr "从数据库中删除所有设置数据。"
+
+#: ../inc/stray_remove.php:57
+msgid "Remove all the quotes from the database."
+msgstr "从数据库中移除所有引用。"
+
+#: ../inc/stray_remove.php:63
+msgid "Deactivate Stray Random Quotes &raquo;"
+msgstr "停用Stray Random Quotes插件&raquo；"
+
+#: ../inc/stray_settings.php:86
+msgid "<strong>Options saved...</strong> "
+msgstr "<strong>设置已保存…</strong> "
+
+#: ../inc/stray_settings.php:87
+msgid "No problems. Well,  except that the links you provided for the author and source were invalid. I had to discard them."
+msgstr "设置已成功更新。好吧，但你提供的作者和来源的链接是无效的，所以不得不丢弃它们。"
+
+#: ../inc/stray_settings.php:88
+msgid "No problems. Well, except that there was no variable in the author link. I discared it."
+msgstr "设置已成功更新。好吧，但作者链接不可用，所以丢弃了它。"
+
+#: ../inc/stray_settings.php:89
+msgid "No problems. Well,  except that there was no variable in the source link. I discared it."
+msgstr "设置已成功更新。好吧，但来源链接不可用，所以丢弃了它。"
+
+#: ../inc/stray_settings.php:90
+msgid "No problems."
+msgstr "设置已成功更新。"
+
+#: ../inc/stray_settings.php:94
+msgid "<strong>Something went wrong!</strong> The links you provided for the Author and Source had no variables.</strong> "
+msgstr "<strong>出错了！</strong> 你所提供的作者及来源链接不可用，所以丢弃了它们。</strong> "
+
+#: ../inc/stray_settings.php:95
+msgid "<strong>Something went wrong!</strong> There was no variable in the author link. I discared it. "
+msgstr "<strong>出错了！</strong>  你所提供的作者链接不可用，所以丢弃了它。"
+
+#: ../inc/stray_settings.php:96
+msgid "<strong>Something went wrong!</strong> There was no variable in the source link. I discared it. "
+msgstr "<strong>出错了！</strong>  你所提供的来源链接不可用，所以丢弃了它。"
+
+#: ../inc/stray_settings.php:97
+msgid "<strong>The options could not be saved</strong>. Either the operation went wrong, or you didn't make any changes.</strong> "
+msgstr "<strong>设置保存失败</strong>！是你操作错误或者设置没有任何更改。</strong> "
+
+#: ../inc/stray_settings.php:169
+msgid "How the quotes look"
+msgstr "引用样式设置"
+
+#: ../inc/stray_settings.php:170
+msgid "Default settings to change how the quotes appear in your blog. These settings apply to ALL widgets, shortcodes or template tags, but they can be disabled from those if needed."
+msgstr "Default settings to change how the quotes appear in your blog. These settings apply to ALL widgets, shortcodes or template tags, but they can be disabled from those if needed."
+
+#: ../inc/stray_settings.php:174
+msgid "The Quote Area"
+msgstr "The Quote Area"
+
+#: ../inc/stray_settings.php:176
+#, fuzzy
+msgid "<br/>HTML or other elements <strong>before the quote area</strong>, which comes after the widget title and includes Quote, Author and Source. If more than one quote is listed, Quote Area is considered the entire list.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML或其他因素代码的前面部分，作用于 <strong>来源为空</strong>时的来源部分。<br/>Overrides the field above when no author is present.<br/><strong>例如：</strong>"
+
+#: ../inc/stray_settings.php:178
+#, fuzzy
+msgid "<br/>HTML or other elements <strong>after the quote area</strong>.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML或其他因素代码的后面部分，只作用于引用的读取。<br/><strong>例如：</strong>"
+
+#: ../inc/stray_settings.php:183
+msgid "<br/>HTML or other elements before the quote.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML或其他因素代码的前面部分，只作用于引用部分。<br/><strong>例如：</strong>"
+
+#: ../inc/stray_settings.php:185
+msgid "<br/>HTML or other elements after the quote.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML或其他因素代码的后面部分，只作用于引用部分。<br/><strong>例如：</strong>"
+
+#: ../inc/stray_settings.php:190
+msgid "<br/>HTML or other elements before the author.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML或其他因素代码的前面部分，只作用于作者部分。<br/><strong>例如：</strong>"
+
+#: ../inc/stray_settings.php:190
+msgid "by"
+msgstr "或"
+
+#: ../inc/stray_settings.php:193
+msgid "<br/>HTML or other elements after the author."
+msgstr "<br/>HTML或其他因素代码的后面部分，只作用于作者部分。"
+
+#: ../inc/stray_settings.php:195
+msgid ""
+"<br/>You can link the Author to a website of your choice.\n"
+"\t\t<br/>Use this variable in your link: <code>%AUTHOR%</code><br/>\n"
+"\t\t<strong>Sample values:</strong>"
+msgstr ""
+"<br/>你可以给作者加上链接。\n"
+"\t\t<br/>可以在链接中使用如下变量：<code>%AUTHOR%</code><br/>\n"
+"\t\t<strong>例如：</strong>"
+
+#: ../inc/stray_settings.php:199
+msgid "Replace spaces within %AUTHOR% with "
+msgstr "%AUTHOR%变量中的空格替代为："
+
+#: ../inc/stray_settings.php:205
+msgid "<br/>HTML or other elements before the source.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML或其他因素代码的前面部分，只作用于来源部分。<br/><strong>例如：</strong>"
+
+#: ../inc/stray_settings.php:207
+msgid "<br/>HTML or other elements before the source <strong>if there is no author</strong>.<br/>Overrides the field above when no author is present.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML或其他因素代码的前面部分，作用于 <strong>来源为空</strong>时的来源部分。<br/>Overrides the field above when no author is present.<br/><strong>例如：</strong>"
+
+#: ../inc/stray_settings.php:210
+msgid "<br/>HTML or other elements after the source.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML或其他因素代码的后面部分，只作用于来源部分。<br/><strong>例如：</strong>"
+
+#: ../inc/stray_settings.php:212
+msgid ""
+"<br/>You can link the Source to a website of your choice.\n"
+"\t\t<br/>Use this variable in your link: <code>%SOURCE%</code><br/>\n"
+"\t\t<strong>Sample values:</strong>"
+msgstr ""
+"<br/>你可以给来源加上链接。\n"
+"\t\t<br/>可以在链接中使用如下变量：<code>%SOURCE%</code><br/>\n"
+"\t\t<strong>例如：</strong>"
+
+#: ../inc/stray_settings.php:216
+msgid "Replace spaces within %SOURCE% with "
+msgstr "%SOURCE%变量中的空格替代为："
+
+#: ../inc/stray_settings.php:221
+msgid "Quote before Author and Source"
+msgstr "引用内容位置设置"
+
+#: ../inc/stray_settings.php:223
+msgid "If checked, returns the quote before author and source (The opposite is NOT considered by the <code>[all-quotes]</code> shortcode)."
+msgstr "如果选中， 引用的内容将显示在作者与来源的上方（本选项不适用于<code>[all-quotes]</code>简码中)。"
+
+#: ../inc/stray_settings.php:230
+#: ../inc/stray_settings.php:256
+#: ../inc/stray_settings.php:293
+#: ../inc/stray_settings.php:347
+#: ../inc/stray_settings.php:367
+msgid "Update all Settings"
+msgstr "更新所有设置"
+
+#: ../inc/stray_settings.php:236
+#, fuzzy
+msgid "AJAX settings"
+msgstr "设置页面"
+
+#: ../inc/stray_settings.php:237
+#, fuzzy
+msgid "Default settings for the dynamic loader."
+msgstr "增加新引用的默认设置。"
+
+#: ../inc/stray_settings.php:241
+msgid "Enable/Disable AJAX"
+msgstr "Enable/Disable AJAX"
+
+#: ../inc/stray_settings.php:242
+#, fuzzy, php-format
+msgid "&nbsp;If checked, <strong>disables the AJAX loader</strong> entirely. If unchecked, AJAX can still be disabled from the widgets, the template tags or the shortcodes (see <a href=\"%s\">help page</a>)."
+msgstr "&nbsp；如果选中，就完成地<strong>取消AJAX读取功能</strong>。 如果没有选中，AJAX依然能在根据每个挂件或在模板标签里取消 (详情看<a href=\"%s\">帮助页面</a>)。"
+
+#: ../inc/stray_settings.php:244
+#, fuzzy
+msgid "The AJAX loader"
+msgstr "AJAX引用读取项"
+
+#: ../inc/stray_settings.php:245
+#, fuzzy, php-format
+msgid "<br/>Enter here the <strong>link phrase</strong> used to dynamically load another quote. HTML not allowed. If you leave this empty, the quote will be reloaded by clicking on it. You can <strong>override</strong> this setting in widgets, shortcodes or in the template (see <a href=\"%s\">help page</a>), <strong>only</strong> if you leave this field empty.<br/><strong>Sample value:</strong>"
+msgstr "<br/>点击<strong>链接文字</strong>去更换与查看引用。 不能使用HTML。如果留空，将通过点击引用内容来更换引用。你可以<strong>重设</strong>本链接文字在小工具里或在你的模板上（查看<a href=\"%s\">帮助页面</a>）， <strong>只有</strong> 你留空本项。<br/><strong>例如：</strong>"
+
+#: ../inc/stray_settings.php:246
+msgid "<br/>HTML or other elements before the quote loader.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML或其他因素代码的前面部分，只作用于引用的读取。<br/><strong>例如：</strong>"
+
+#: ../inc/stray_settings.php:247
+msgid "<br/>HTML or other elements after the quote loader.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML或其他因素代码的后面部分，只作用于引用的读取。<br/><strong>例如：</strong>"
+
+#: ../inc/stray_settings.php:249
+msgid "The loading message"
+msgstr "The loading message"
+
+#: ../inc/stray_settings.php:250
+#, fuzzy
+msgid "<br/>The loading message in between quotes.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML或其他因素代码的后面部分，只作用于引用部分。<br/><strong>例如：</strong>"
+
+#: ../inc/stray_settings.php:262
+msgid "New quotes"
+msgstr "新的引用"
+
+#: ../inc/stray_settings.php:263
+msgid "Default settings when you create a new quote."
+msgstr "增加新引用的默认设置。"
+
+#: ../inc/stray_settings.php:267
+msgid "Visibility"
+msgstr "可见性"
+
+#: ../inc/stray_settings.php:269
+msgid "If checked, will set \"Visible\" to \"Yes\" for all new quotes."
+msgstr "如果选中，所有新引用将\"可见性\"项设为\"是\"。 "
+
+#: ../inc/stray_settings.php:272
+msgid "Default category"
+msgstr "默认分类"
+
+#: ../inc/stray_settings.php:281
+msgid "This category will be the default for all new quotes."
+msgstr "这个分类将是所有新增引用的默认分类。"
+
+#: ../inc/stray_settings.php:284
+msgid "Clear the form"
+msgstr "表格清除项"
+
+#: ../inc/stray_settings.php:286
+msgid "If checked, will clear the values from the form after adding a new quote."
+msgstr "如果选中，将在添加完新引用后立即清除当前表格内的内容。"
+
+#: ../inc/stray_settings.php:299
+msgid "Management of the quotes"
+msgstr "在这里管理所有的引用"
+
+#: ../inc/stray_settings.php:300
+msgid "Default settings for the management page.  They can be changed on the management page as well."
+msgstr "管理页面的默认设置。部分也可以在管理页面上更改。"
+
+#: ../inc/stray_settings.php:303
+msgid "Order by"
+msgstr "排列项"
+
+#: ../inc/stray_settings.php:311
+msgid "<br/>The list of quotes in the management page will be ordered by this value."
+msgstr "<br/>在管理页面的引用列表将根据这个值来排列。"
+
+#: ../inc/stray_settings.php:317
+msgid "<br/>The sorting of quotes will take this direction."
+msgstr "<br/>引用列表将按这个顺序排列。"
+
+#: ../inc/stray_settings.php:319
+msgid "Quotes per page"
+msgstr "每页引用数"
+
+#: ../inc/stray_settings.php:328
+msgid "The list of quotes in the management page will display this much quotes per page."
+msgstr "管理页面显示的引用条数为这个值。"
+
+#: ../inc/stray_settings.php:330
+msgid "Show categories"
+msgstr "显示的分类"
+
+#: ../inc/stray_settings.php:333
+msgid "All categories"
+msgstr "所有分类"
+
+#: ../inc/stray_settings.php:341
+msgid "The list of quotes in the management page will present quotes from this category only."
+msgstr "管理页面的引用列表只显示选择的分类。"
+
+#: ../inc/stray_settings.php:355
+msgid "Multiuser settings"
+msgstr "Multiuser settings"
+
+#: ../inc/stray_settings.php:356
+msgid "Allow contributors to access a restricted version of Stray Random Quotes."
+msgstr "Allow contributors to access a restricted version of Stray Random Quotes."
+
+#: ../inc/stray_settings.php:360
+msgid "Enable multiuser capability"
+msgstr "Enable multiuser capability"
+
+#: ../inc/stray_settings.php:361
+msgid " If checked a contributor (non-administrator) to the blog will be enabled to: create new quotes, edit and manage his own, and access a limited version of the help page."
+msgstr " If checked a contributor (non-administrator) to the blog will be enabled to: create new quotes, edit and manage his own, and access a limited version of the help page."
+
+#: ../inc/stray_tools.php:28
+msgid "<strong>Bookmarklet options saved.</strong>"
+msgstr "<strong>书签设置已保存。</strong> "
+
+#: ../inc/stray_tools.php:31
+msgid "<strong>Bookmarklet options not saved. Something went wrong!</strong>"
+msgstr "<strong>书签设置失败，出错了！</strong>"
+
+#: ../inc/stray_tools.php:54
+msgid "<strong>Shortcodes enabled.</strong>"
+msgstr "<strong>简码已启用。</strong> "
+
+#: ../inc/stray_tools.php:57
+msgid "<strong>Shortcodes not enabled. Something went wrong!</strong>"
+msgstr "<strong>简码设置未应用，出错了！</strong> 或者你做任何改变。"
+
+#: ../inc/stray_tools.php:71
+#, php-format
+msgid "<strong>Quote IDs have been reset.</strong> To review use the <a href=\"%s\">Manage page</a>."
+msgstr "<strong>引用IDs已经重置。</strong>预览请看<a href=\"%s\">管理页面</a>。"
+
+#: ../inc/stray_tools.php:74
+msgid "<strong>Failure.</strong> It was not possible to reset the ID numbers."
+msgstr "<strong>失败：</strong> 这是不可行的重置ID号码。"
+
+#: ../inc/stray_tools.php:130
+msgid "<strong>The settings have been reset to factory defaults.</strong>"
+msgstr "<strong>The settings have been reset to factory defaults.</strong>"
+
+#: ../inc/stray_tools.php:133
+#, fuzzy
+msgid "<strong>Settings not reset. Something went wrong!</strong>"
+msgstr "<strong>书签设置失败，出错了！</strong>"
+
+#: ../inc/stray_tools.php:149
+msgid "Tools for Stray Random Quotes"
+msgstr "Stray Random Quotes 工具"
+
+#: ../inc/stray_tools.php:154
+msgid "To create quotes on the fly, drag the link below to your bowser toolbar."
+msgstr "要快速添加引用，增加下面的链接到你的浏览器收藏工具栏中。"
+
+#: ../inc/stray_tools.php:155
+msgid "How to use: When you find some text in a web page that you want to turn into a quote, select the text and click on the link."
+msgstr "用法：当发现您想引用某网页里的文字时，选择您想引用的文字并点击快速引用链接。"
+
+#: ../inc/stray_tools.php:155
+msgid "Quote this"
+msgstr "快速引用："
+
+#: ../inc/stray_tools.php:158
+msgid "Default category for bookmarklet quotes: "
+msgstr "书签引用默认分类："
+
+#: ../inc/stray_tools.php:166
+msgid "If checked, will add a link to the web page as source for the quote."
+msgstr "如果选中，将添加引用文字所在的网页链接作为新引用的来源。"
+
+#: ../inc/stray_tools.php:166
+msgid "Note: no matter how you change these options, the bookmarklet will stay the same"
+msgstr "注意：无论你如何改变这些选项，本书签都保持不变"
+
+#: ../inc/stray_tools.php:168
+msgid "Apply bookmarklet options"
+msgstr "应用书签设置"
+
+#: ../inc/stray_tools.php:175
+msgid "Add shortcodes everywhere"
+msgstr "让简码无处不在："
+
+#: ../inc/stray_tools.php:177
+msgid "For some reason, you might want to add random things <em>via shortcodes</em> to other parts of your blog other than posts and pages. Wordpress does not support this, but a patch is pretty easy to apply. All you have to do is select here below the areas where you want to be able to use shortcodes. This method will allow you to have things such as random taglines or random category names the easiest way."
+msgstr "由于某种原因，你可能想通过<em>简码</em>添加引用到你博客的某个地方而不只限于文章和页面中。Wordpress不支持这些，但有简单的方法去实现。所有你要做的就是在下面选择你想要应用简码的地方。这个办法将使你轻易地拥有这些：随机博客副标题或者随机分类名等。"
+
+#: ../inc/stray_tools.php:179
+msgid "Note that this will apply to all sorts of shortcodes and not only to those of Stray Random Quotes. Consider this carefully when you enable it for an area accessible to everyone, such as comments. If you don't understand any of this, don't use it."
+msgstr "请注意，这些区域将能应用所有简码，而不只是Stray Random Quotes的。细心地考虑要不要在别人也可以用到的地方启用简码吧，如评论里。如果你不明白这些，请不要使用它。"
+
+#: ../inc/stray_tools.php:181
+msgid "Enable shortcodes in <strong>comments</strong>"
+msgstr "在<strong>评论</strong>中启用简码"
+
+#: ../inc/stray_tools.php:183
+msgid "Enable shortcodes in <strong>post titles</strong>"
+msgstr "在<strong>文章标题</strong>中启用简码"
+
+#: ../inc/stray_tools.php:185
+msgid "Enable shortcodes in <strong>post excerpts</strong>"
+msgstr "在<strong>文章摘要</strong>中启用简码"
+
+#: ../inc/stray_tools.php:187
+msgid "Enable shortcodes in <strong>categories</strong>"
+msgstr "在<strong>分类</strong>中启用简码"
+
+#: ../inc/stray_tools.php:189
+msgid "Enable shortcodes in <strong>tags</strong>"
+msgstr "在<strong>标签</strong>中启用简码"
+
+#: ../inc/stray_tools.php:191
+msgid "Enable shortcodes in <strong>bloginfo (such as blog title or the tagline)</strong>"
+msgstr "在<strong>博客信息(在标题和副标题)</strong>中启用简码"
+
+#: ../inc/stray_tools.php:193
+msgid "Enable shortcodes in <strong>text widgets</strong>"
+msgstr "在<strong>文字挂件</strong>中启用简码"
+
+#: ../inc/stray_tools.php:194
+msgid "Toggle shortcodes"
+msgstr "应用简码设置"
+
+#: ../inc/stray_tools.php:199
+msgid "Reset the index"
+msgstr "重置引用编号索引"
+
+#: ../inc/stray_tools.php:201
+#, fuzzy
+msgid "If you want to reset the numbering of your quotes, click on the button below. If you are the cautious type, maybe you want to backup first."
+msgstr "如果你想重置引用的编号，请点击下面的重置按钮。"
+
+#: ../inc/stray_tools.php:202
+msgid "Note that after this some (or all) IDs might not correspond to the same quotes."
+msgstr "注意，重置之后部分(或全部)引用ID可能与之前不同。"
+
+#: ../inc/stray_tools.php:203
+msgid "Reset index"
+msgstr "重置索引"
+
+#: ../inc/stray_tools.php:208
+#, fuzzy
+msgid "Reset the Settings"
+msgstr "重置引用编号索引"
+
+#: ../inc/stray_tools.php:210
+#, fuzzy
+msgid "If you want the defaults settings back, click on the button below."
+msgstr "如果你想重置引用的编号，请点击下面的重置按钮。"
+
+#: ../inc/stray_tools.php:212
+msgid "This will revert all the settings to factory defaults according to recent issues of the plugin. They might differ from what they were many versions ago."
+msgstr "This will revert all the settings to factory defaults according to recent issues of the plugin. They might differ from what they were many versions ago."
+
+#: ../inc/stray_tools.php:214
+#, fuzzy
+msgid "Reset Settings"
+msgstr "设置页面"
+
+#: ../inc/stray_widgets.php:132
+#, fuzzy
+msgid "Random Quote"
+msgstr "管理所有引用"
+
+#: ../inc/stray_widgets.php:158
+msgid "all settings are for this Quotes widget only."
+msgstr "all settings are for this Quotes widget only."
+
+#: ../inc/stray_widgets.php:159
+#, fuzzy
+msgid "Title"
+msgstr "标题"
+
+#: ../inc/stray_widgets.php:166
+#, fuzzy
+msgid "Categories"
+msgstr "分类"
+
+#: ../inc/stray_widgets.php:166
+msgid "Quotes are taken from these categories. Drag the mouse or ctrl-click to multi-select"
+msgstr "Quotes are taken from these categories. Drag the mouse or ctrl-click to multi-select"
+
+#: ../inc/stray_widgets.php:184
+msgid "Random"
+msgstr "Random"
+
+#: ../inc/stray_widgets.php:184
+msgid "Leave unckecked to load the quotes in order beginning from a random one."
+msgstr "Leave unckecked to load the quotes in order beginning from a random one."
+
+#: ../inc/stray_widgets.php:186
+msgid "Show"
+msgstr "Show"
+
+#: ../inc/stray_widgets.php:186
+#, fuzzy
+msgid "quotes at a time"
+msgstr "每页的引用数："
+
+#: ../inc/stray_widgets.php:188
+msgid "Disable aspect settings"
+msgstr "Disable aspect settings"
+
+#: ../inc/stray_widgets.php:188
+#, php-format
+msgid "As set in the \"How the quotes look\" section of the <a href=\"%s1\">settings page</a>."
+msgstr "As set in the \"How the quotes look\" section of the <a href=\"%s1\">settings page</a>."
+
+#: ../inc/stray_widgets.php:192
+msgid "AJAX functionality:"
+msgstr "AJAX functionality:"
+
+#: ../inc/stray_widgets.php:193
+msgid "Reload phrase"
+msgstr "Reload phrase"
+
+#: ../inc/stray_widgets.php:193
+msgid "if left empty, reloading is done by clicking on the quote area."
+msgstr "if left empty, reloading is done by clicking on the quote area."
+
+#: ../inc/stray_widgets.php:198
+msgid "Rotate every"
+msgstr "Rotate every"
+
+#: ../inc/stray_widgets.php:198
+msgid "seconds"
+msgstr "seconds"
+
+#: ../inc/stray_widgets.php:198
+msgid "Reloads the quote after the set interval. Hides the link phrase. Leave this empty or enter 0 to disable."
+msgstr "Reloads the quote after the set interval. Hides the link phrase. Leave this empty or enter 0 to disable."
+
+#: ../inc/stray_widgets.php:200
+msgid "Disable AJAX"
+msgstr "Disable AJAX"
+
+#: ../inc/stray_widgets.php:200
+msgid "Check to disable any dynamic reloading of the quote."
+msgstr "Check to disable any dynamic reloading of the quote."
+
+#~ msgid ""
+#~ "<li>* I converted your old settings into new ones that will take less "
+#~ "room in your database and be faster to load.</li>"
+#~ msgstr ""
+#~ "<li>#用新的设置覆盖您的旧设置将减少占用你的数据库空间及更快地读取数据。</"
+#~ "li>"
+#~ msgid "What if I don't use widgets?"
+#~ msgstr "如果不用挂件，要怎样做？"
+#~ msgid ""
+#~ "If your template <strong>does not</strong> use widgets, or you want to "
+#~ "display the quotes on your template <strong>elsewhere</strong> other than "
+#~ "the sidebar, you can add this piece of code to your template (in the "
+#~ "header, the footer etc):"
+#~ msgstr ""
+#~ "如果你的模板<strong>不支持</strong>widgets, 或者您是把引用用在<strong>网页"
+#~ "</strong>上，而不是侧边栏，你可以添加一小段代码在你的模板上 (可加在header"
+#~ "或footer页等等)："
+#~ msgid ""
+#~ "<code>&lt;?php if (function_exists('stray_random_quote')) "
+#~ "stray_random_quote('category1,category2', false, 'another quote &amp;"
+#~ "raquo;', false); ?&gt;</code><br/><br/>Note that <code>'category1,"
+#~ "category2'</code> is where you add a comma separated list of the "
+#~ "categories from which to extract the random quote. This setting is "
+#~ "optional. If you don't indicate anything, a random quote from all the "
+#~ "categories will be displayed. <code>true</code> or <code>false</code>, "
+#~ "without brackets, indicates whether to load the quotes in order (true) or "
+#~ "randomly (false). If you don't indicate anything the quotes will be "
+#~ "loaded randomly. <code>'another quote &amp;raquo;'</code> allows to "
+#~ "optionally indicate a special link phrase for the AJAX loader, or none at "
+#~ "all. For this to work, the default link phrase in the <a href=\"%s1"
+#~ "\">settings page</a> must be left empty (and AJAX must be enabled). The "
+#~ "last <code>false</code> indicates whether to optionally disable ajax "
+#~ "entirely for this tag (if true). A default title, such as 'Random quote', "
+#~ "is set through the <a href=\"%s1\">settings page</a>. If you want "
+#~ "specific titles for different categories, you will have to put that "
+#~ "directly in the HTML of the template. For example:<br/><br/><code>&lt;"
+#~ "h2&gt;Random Mark Twain quote:&lt;/h2&gt;&lt;?php if (function_exists"
+#~ "('stray_random_quote')) stray_random_quote('mark twain'); ?&gt;</code>, "
+#~ "you got the idea."
+#~ msgstr ""
+#~ "<code>&lt;?php if (function_exists('stray_random_quote')) "
+#~ "stray_random_quote('category1,category2', false, 'another quote &amp;"
+#~ "raquo;', false); ?&gt;</code><br/><br/>注意：<code>'category1,category2'</"
+#~ "code> 是要显示的引用的分类。如果您添加了逗号分隔的列表类，届时将提取随机引"
+#~ "用。如果留空，将显示所有分类的引用。 <code>true</code>或<code>false</"
+#~ "code>, 选择是按序(true)或者随机(false)地显示。如留空，刚默认是随机的。 "
+#~ "<code>'another quote &amp;raquo;'</code> 可设置AJAX读时取显示的链接文字, "
+#~ "也可以什么也不写。 要让其起作用， 在<a href=\"%s1\">设置页面</a>的链接文字"
+#~ "项必须留空 (还有AJAX必须启用)。最后的<code>false</code>表明是否选择完全禁"
+#~ "用Ajax（如果选true） 。默认的标题，例如'Random quote', 也可以在<a href=\"%"
+#~ "s1\">设置页面</a>更改。如果你想要个特别的标题给不同的分类，你要把它们直接"
+#~ "放到你模板的HTML里。例如：<br/><br/><code>&lt;h2&gt;Random Mark Twain "
+#~ "quote:&lt;/h2&gt;&lt;?php if (function_exists('stray_random_quote')) "
+#~ "stray_random_quote('mark twain'); ?&gt;</code>, 你有想法了吗！"
+#~ msgid ""
+#~ "To <strong>insert a random quote</strong> in a post or page, write in the "
+#~ "post editor <code><strong>[random-quote]</strong></code>.<br/><br/>This "
+#~ "shortcode accepts many variables: <code>[random-quote categories="
+#~ "\"category1,category2\" sequence=\"false\" linkphrase=\"another quote "
+#~ "&amp;raquo;\" noajax=\"false\"]</code>. <code>categories</code> is where "
+#~ "you add the categories separated by commas from which to extract the "
+#~ "random quote. <code>sequence</code> loads the quotes in order if \"true"
+#~ "\", randomly if \"false\". <code>linkphrase</code> displays a phrase to "
+#~ "dynamically load another quote (overriding the one given in the "
+#~ "settings). <code>noajax</code> if \"true\" optionally disables the ajax "
+#~ "for this shortcode. All these settings are optional. If you don't "
+#~ "indicate anything, a random quote from all the categories will be "
+#~ "displayed, with ajax according to the general settings.<br/><br/>"
+#~ msgstr ""
+#~ "要<strong>插入一个含有部分或全部引用的列表</strong>到文章或页面，只要在编"
+#~ "辑区加入<code><strong>[random-quote]</strong></code>。<br/><br/>本简码接受"
+#~ "如下变量：<code>[random-quote categories=\"category1,category2\" sequence="
+#~ "\"false\" linkphrase=\"another quote &amp;raquo;\" noajax=\"false\"]</"
+#~ "code>。<code>categories</code>用逗号分隔，随机引用将从这些分类中提取。"
+#~ "<code>sequence</code>是指如果选\"true\"则按序显示引用，如果选\"false\"则随"
+#~ "机显示。<code>linkphrase</code>即链接文字，点击来动态切换与查看引用处的文"
+#~ "字。 (比设置页面里的链接文字项优先)。<code>noajax</code> 选 \"true\" 停用"
+#~ "千军万马的Ajax效果。所有这些变量都是可选的，如果没有声明，则从全部分类中随"
+#~ "机显示引用，而Ajax则根据首要设置来定。<br/><br/>"
+#~ msgid ""
+#~ "To <strong>insert a list of many or all the quotes</strong> in a post or "
+#~ "page, just write in the editor <code><strong>[all-quotes]</strong></"
+#~ "code><br/><br/>This shortcode accepts many variables: <code>[all-quotes "
+#~ "rows=10 orderby=\"quoteID\" sort=\"ASC\" categories=\"all\"]</code>. "
+#~ "<code>rows</code> is how many quotes you want per page; <code>orderby</"
+#~ "code> if you want to order the quotes by \"quoteID\", \"author\" \"source"
+#~ "\" or \"category\"; <code>sort</code> is whether the quotes will be "
+#~ "sorted ascending \"ASC\" or descending \"DESC\". Finally "
+#~ "<code>categories</code> is from which category you want the quotes to be. "
+#~ "Use \"all\" for all the categories, or use the names of the categories "
+#~ "separated by comma. All these settings are optional. Without them, the "
+#~ "values you see in this example are used as defaults."
+#~ msgstr ""
+#~ "要<strong>插入一个含有部分或全部引用的列表</strong>到文章或页面，只要在编"
+#~ "辑区加入<code><strong>[all-quotes]</strong></code>。<br/><br/>本简码接受如"
+#~ "下变量：<code>[all-quotes rows=10 orderby=\"quoteID\" sort=\"ASC\" "
+#~ "categories=\"all\"]</code>.。这里的一些变量我相信是非常简单明了的，但还是"
+#~ "说明一下好：<code>rows</code>指每页要显示的条数； <code>orderby</code>指是"
+#~ "根据 \"quoteID\", \"author\" \"source\" or \"category\"来排列；"
+#~ "<code>sort</code>指排序方式：升序用\"ASC\" ，降序用\"DESC\".。最后"
+#~ "<code>categories</code>指要显示的引用分类，用\"all\"显示全部分类，或者选定"
+#~ "某一特定分类显示。所有这些变量都是可选的，如果没有给出，则会以默认方式显"
+#~ "示。"
+#~ msgid ""
+#~ "Well, actually, on the <a href=\"%s1\">tools page</a> you can enable "
+#~ "shortcodes for a number of extra areas where shortcodes aren't normally "
+#~ "allowed. This will entitle you to some pretty extraordinary things, such "
+#~ "as random taglines or random category names. Note that this will enable "
+#~ "all shortcodes and not only those of Stray Random Quotes. More examples "
+#~ "can be found <a href=\"http://www.italyisfalling.com/cool-things-you-can-"
+#~ "do-with-stray-random-quotes\">here</a>."
+#~ msgstr ""
+#~ "好啦！实际上，在<a href=\"%s1\">工具页面</a>你可以给额外许多不允许使用简码"
+#~ "地方启用简码支持。这能使你做很多非凡的东西，比如随机博客副标题或随机分类"
+#~ "名。请注意，这些区域将能应用所有简码，而不只是Stray Random Quotes的。更多"
+#~ "例子请查看<a href=\"http://www.italyisfalling.com/cool-things-you-can-do-"
+#~ "with-stray-random-quotes\">这里</a>。"
+#~ msgid "What else can I do?"
+#~ msgstr "还有什么可以帮您的？"
+#~ msgid ""
+#~ "Well you could <strong>insert a given quote in a post or a page</strong>, "
+#~ "in which case you should just write in the editor <code>[quote id=x]</"
+#~ "code>, where <code>x</code> is the id number of the quote as it appears "
+#~ "on the management page. This will outupt the quote and also a \"next quote"
+#~ "\" link that will let the user browse between quotes of the same category "
+#~ "as the first one indicated. I will enable more variables here in the "
+#~ "future."
+#~ msgstr ""
+#~ "要<strong>插入已有引用</strong> 到文章或页面？只要在编辑区加入<code>"
+#~ "[quote id=x]</code>, 其中<code>x</code>是在管理页面中的引用的编号数。届时"
+#~ "将会显示该条引用及 \"next quote\" 链接，以便让用户浏览同一分类的其它引用。"
+#~ "（有吗，WGMking？）我以后会启用更多的变量。"
+#~ msgid ""
+#~ "To insert <strong>a given quote in your template</strong> use the "
+#~ "following: <code>&lt;?php if (function_exists('stray_a_quote')) "
+#~ "stray_a_quote(x);?&gt;</code>, where <code>x</code> is the id number of "
+#~ "the quote as it appears on the management page. This will outupt the "
+#~ "quote and also a \"next quote\" link that will let the user browse "
+#~ "between quotes of the same category as the first one indicated."
+#~ msgstr ""
+#~ "要<strong>插入已有引用</strong>到模板？使用以下代码：<code>&lt;?php if "
+#~ "(function_exists('stray_a_quote')) stray_a_quote(x);?&gt;</code>，其中"
+#~ "<code>x</code>其中<code>x</code>是在管理页面中的引用的编号数。届时将会显示"
+#~ "该条引用及 \"next quote\" 链接，以便让用户浏览同一分类的其它引用。"
+#~ msgid "Hey. There is a bug!"
+#~ msgstr "哈，这是一个BUG！"
+#~ msgid ""
+#~ "I knew it! See, I am not a programmer or anything. There's always a bug. "
+#~ "If you want to help me catch it, and for further help, please come and "
+#~ "trash the comments <a href=\"%s1\">on this post</a>. Thanks.<br /><br />"
+#~ msgstr ""
+#~ "众所周知，BUG是无穷无尽的（有点夸张），如果你发现了BUG或想得到更多帮助，来"
+#~ "<a href=\"%s1\">这里</a>发表评论吧。谢谢。<br /><br />"
+#~ msgid ""
+#~ "To start doing stuff, you can <a href=\"%s1\"><strong>add new quotes</"
+#~ "strong></a>;<br />use the <a href=\"%s2\"><strong>manage</strong></a> "
+#~ "page to edit or delete existing quotes;<br />change the <a href=\"%s3"
+#~ "\"><strong>settings</strong></a> to control how the quotes are displayed "
+#~ "on your blog.<br/>There's also a <a href=\"%s5\"><strong>tools page</"
+#~ "strong></a> that might interest you.<br/>If you're new to all this, "
+#~ "there's a <a href=\"%s4\"><strong>help page</strong></a> as well."
+#~ msgstr ""
+#~ "首先，你可以<a href=\"%s1\"><strong>添加新的引用</strong></a>；<br />用 "
+#~ "<a href=\"%s2\"><strong>管理页面</strong></a> 去编辑或删除现有的引用；"
+#~ "<br />或更改<a href=\"%s3\"><strong>设置页面</strong></a>的设置去控制引用"
+#~ "在你WP上的展示。<br/>同时，你还可能对<a href=\"%s5\"><strong>工具页面</"
+#~ "strong></a> 感兴趣，希望它可以帮到你。<br/>新手可以通过<a href=\"%s4"
+#~ "\"><strong>帮助页面</strong></a>获取必要的帮助。"
+#~ msgid "Default settings to change how the quotes appear in your blog."
+#~ msgstr "改变默认设置让引用更好地在您的博客上展示吧！"
+#~ msgid ""
+#~ "<br/>The default title for all the quote widgets. Single settings can be "
+#~ "changed on the <a href=\"%s\">widget page</a>. HTML is not needed here."
+#~ "<br /><strong>Sample value:</strong> <code>Random Quote</code>"
+#~ msgstr ""
+#~ "<br/>引用挂件的默认标题。 可以在<a href=\"%s\">小工具</a>页单独设置。 不需"
+#~ "用到HTML代码。<br /><strong>例如：</strong> <code>Random Quote</code>"
+#~ msgid ""
+#~ "<br/>The default title for when the widget functionality is not being "
+#~ "used. On how to work with the code added to your template, refer to <a "
+#~ "href=\"%s\">this page</a>.<br/><strong>Sample value:</strong> <code>&lt;"
+#~ "h2&gt;Random Quote&lt;/h2&gt;</code>"
+#~ msgstr ""
+#~ "<br/>不使用挂件时的默认标题。 怎样加代码进模板请查看<a href=\"%s\">这个页"
+#~ "面</a>。<br/><strong>例如：</strong> <code>&lt;h2&gt;Random Quote&lt;/"
+#~ "h2&gt;</code>"
+#~ msgid "Author, Quote and Source"
+#~ msgstr "作者，引用及来源项"
+#~ msgid ""
+#~ "<br/>HTML or other elements before this whole category, which comes after "
+#~ "the title.<br/><strong>Sample value:</strong>"
+#~ msgstr ""
+#~ "<br/>HTML或其他因素代码的前面部分,用于设置整个挂件内容部分，也就是挂件标题"
+#~ "下面的部分。<br/><strong>例如：</strong>"
+#~ msgid ""
+#~ "<br/>HTML or other elements after this category.<br/><strong>Sample value:"
+#~ "</strong>"
+#~ msgstr "<br/>HTML或其他因素代码的后面部分。<br/><strong>例如：</strong>"
+#~ msgid ""
+#~ "<li>* this version introduces for the first time bits of automation that "
+#~ "will allow the visitor of your blog to load new quotes without reloading "
+#~ "the blog pages. Check out the <a href=\"%s1\">settings</a> and <a href=\"%"
+#~ "s2\">help</a> pages for more.</li>"
+#~ msgstr ""
+#~ "<li>#本版本中您大可以不重新载入页面就能查看新的引用。 点击<a href=\"%s1\">"
+#~ "设置页</a>和<a href=\"%s2\">帮助页</a> 知道更多。</li>"
+#~ msgid "What \"categories\" are for?"
+#~ msgstr "关于\"分类\"的问题 ？"
+#~ msgid ""
+#~ "Categories are groups into which your quotes can be divided. They can "
+#~ "have all sorts of use, from easily managing a large number of quotes, to "
+#~ "displaying quotes of different categories in different areas of the blog."
+#~ "<br/>Note: <em>Categories were called originally \"groups\", then I "
+#~ "decided \"group\" was lame. I do things like that.</em></p>"
+#~ msgstr ""
+#~ "分类是划分你的引用的群组。它们可以有多种的用途，不但使你更方便容易地管理众"
+#~ "多的引用，还可以在博客不同区域显示不同分类的引用。<br/>注意：<em>分类原来"
+#~ "是叫做\"群组\"的，个人喜好……</em></p>"
+#~ msgid ""
+#~ "To <strong>insert a random quote</strong> in a post or page, just write "
+#~ "in the editor <code>[random-quote \"category1\" \"category2\"]</code>. "
+#~ "Note that <code>\"category1\" \"category2\"</code> is where you add the "
+#~ "categories from which to extract the random quote. This setting is "
+#~ "optional. If you don't indicate anything, a random quote from all the "
+#~ "categories will be displayed. At the moment it is not possible to have "
+#~ "these quotes loaded in order instead than randomly, the way you can with "
+#~ "widgets."
+#~ msgstr ""
+#~ "要<strong>插入随机引用</strong> 到文章或页面？只要在编辑区加入<code>"
+#~ "[random-quote \"category1\" \"category2\"]</code>。注意：<code>\"category1"
+#~ "\" \"category2\"</code>是要显示的引用的分类。如果什么分类也不选，将显示所"
+#~ "有分类的引用。 At the moment it is not possible to have these quotes "
+#~ "loaded in order instead than randomly, the way you can with widgets."
+#~ msgid "the numbering of the quotes."
+#~ msgstr "引用的编号。"
+#~ msgid "<strong>Failure:</strong> No quote ID given. Nothing deleted."
+#~ msgstr "<strong>失败：</strong> 没有给出引用ID。删除失败。"
+#~ msgid "<strong>Failure:</strong> Nothing deleted."
+#~ msgstr "<strong>失败：</strong> 删除失败。"
+#~ msgid "show category: "
+#~ msgstr "显示的分类："
+#~ msgid "<br/>No quotes yet."
+#~ msgstr "<br/>还没有引用。"
+#~ msgid ""
+#~ "&nbsp;If checked, <strong>disables the AJAX loader</strong> entirely."
+#~ msgstr "&nbsp;如果选中，就完全<strong>不能使用AJAX读取</strong>效果。"
+

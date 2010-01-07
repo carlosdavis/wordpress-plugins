@@ -1,0 +1,1541 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: stray-quotes\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-04-16 07:38+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Marijan Rajić <marijan@atrium.hr>\n"
+"Language-Team: Atrium <www.atrium.hr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Croatian\n"
+"X-Poedit-Country: CROATIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: ../stray_quotes.php:174
+msgid "<p>You just installed a new version of <strong>Stray Random Quotes</strong>. All changes are addressed in the <a href=\"%1\">changelog</a>, but you should know that: </p>"
+msgstr "<p>Upravo ste instalirali novu inačicu <strong>Stray Random Quotes</strong>. Sve promjene su navedene u  <a href=\"%1\">dnevniku promijena</a>, ali trebali bi znati da: </p>"
+
+#: ../stray_quotes.php:208
+#, php-format
+msgid "<li>I changed the old table \"%s1\" into a new one called \"%s2\" but don't worry, all your quotes are still there.</li>"
+msgstr "<li>Promijenio sam staru tablicu \"%s1\" u novu nazvanu \"%s2\" ali ne brinite, svi Vaši citati su još tu.</li>"
+
+#: ../stray_quotes.php:230
+#, php-format
+msgid "<li>This plugin now comes with \"categories\", which should make for a more intelligent way to organize, maintain and display quotes on your blog. I updated the table \"%s1\" but all your quotes <a href=\"%s2\">are still there</a>.</li>"
+msgstr "<li>* Ovaj plugin sada dolazi s \"kategorijama\", koje će doprinijeti inteligentnijem načinu organiziranja, održavanja i prikazivanja citata na Vašim stranicama. Ažurirao sam tablicu \"%s1\" ali svi vaši citati su <a href=\"%s2\">još uvijek ovdje</a>.</li>"
+
+#: ../stray_quotes.php:260
+#, php-format
+msgid "<p>Hey. This seems to be your first time with this plugin. I've just created the database table \"%s1\" to store your quotes, and added one to start you off.</p>"
+msgstr "Hej. Izgleda da je ovo prvi put da koristite ovaj plugin. Upravo sam kreirao tablicu u bazi podataka \"%s1\" za pohranu Vaših citata i dodao prvi citat kao primjer za početak.</p>"
+
+#: ../stray_quotes.php:371
+msgid "<br/>source:&nbsp;"
+msgstr "<br/>izvor:&nbsp;"
+
+#: ../stray_quotes.php:392
+#: ../stray_quotes.php:506
+#: ../inc/stray_tools.php:120
+msgid "loading..."
+msgstr "učitavanje..."
+
+#: ../stray_quotes.php:450
+msgid "<li> hopefully the mess caused by version 1.7.8 has now been corrected... If you changed the categories assigned to quotes using the 1.7.8 version, you might find now that the changes made are lost. All the rest will stay the same, including that \"groups\" are now called \"categories\".</li>"
+msgstr "<li>nadam se da je nered izazvan verzijom 1.7.8 sada ispravljen... Ukoliko ste promijenili kategoriju namijenjenu citatima koristeći verziju 1.7.8 , možda ćete sada primjetiti da su promjene izgubljene. Sve ostalo će ostati isto, uključujući da su \"grupe\" sada nazvane \"kategorije\".</li>"
+
+#: ../stray_quotes.php:454
+msgid "<li> spaces are not allowed within categories names, because they created all sorts of problems. I replaced them with dashes. I hope it's okay.</li>"
+msgstr "<li> prazna mjesta nisu dozvoljena unutar imena kategorija jer stvaraju razne vrste problema. Zamijenio sam ih crticama. Nadam se da je to u redu.</li>"
+
+#: ../stray_quotes.php:525
+#, php-format
+msgid "<li> Stray Random Quotes is now multiuser, which means that multiple contributors can have individual sets of quotes. Administrators are obviously enabled to manage, edit and delete everyone's quotes. All the other users will deal with their own. To enable multiuser capabilites, use the <a href=\"%s1\">settings page</a>.</li>"
+msgstr "<li> Stray Random Quotes su sada višekorisnički sustav, što znači da više korisnika mogu stvarati vlastite setove citata. Administratori očito mogu upravljati, uređivati i brisati sve citate, a svi ostali mogu se baviti vlastitim. Za uključivanje višekorisničkog načina rada posjetite <a href=\"%s1\">stranicu postavki</a>.</li>"
+
+#: ../stray_quotes.php:589
+msgid "Quotes"
+msgstr "Citati"
+
+#: ../stray_quotes.php:590
+msgid "Overview for the Quotes"
+msgstr "Pregled vezano za citate"
+
+#: ../stray_quotes.php:590
+#: ../inc/stray_overview.php:38
+msgid "Overview"
+msgstr "Pregled"
+
+#: ../stray_quotes.php:591
+msgid "Manage Quotes"
+msgstr "Upravljanje citatima"
+
+#: ../stray_quotes.php:591
+msgid "Manage"
+msgstr "Upravljanje"
+
+#: ../stray_quotes.php:592
+msgid "Add New Quote"
+msgstr "Dodaj novi citat"
+
+#: ../stray_quotes.php:592
+msgid "Add New"
+msgstr "Dodaj novi"
+
+#: ../stray_quotes.php:593
+msgid "Settings of the Quotes"
+msgstr "Postavke citata"
+
+#: ../stray_quotes.php:593
+#: ../inc/stray_settings.php:167
+msgid "Settings"
+msgstr "Postavke"
+
+#: ../stray_quotes.php:594
+msgid "Tools for your quotes"
+msgstr "Alati za vaše citate"
+
+#: ../stray_quotes.php:594
+msgid "Tools"
+msgstr "Alati"
+
+#: ../stray_quotes.php:595
+msgid "Help with the Quotes"
+msgstr "Pomoć vezano za Citate"
+
+#: ../stray_quotes.php:595
+msgid "Help"
+msgstr "Pomoć"
+
+#: ../stray_quotes.php:596
+msgid "Remove Stray Random Quotes"
+msgstr "Uklonite Stray Random Quotes"
+
+#: ../stray_quotes.php:596
+msgid "Remove"
+msgstr "Ukloni"
+
+#: ../inc/stray_help.php:8
+msgid "The help page"
+msgstr "Stranice za pomoć"
+
+#: ../inc/stray_help.php:9
+msgid " ~ where <strong>ico</strong> answers questions, as you click on them."
+msgstr " ~ gdje <strong>ico</strong> odgovara na pitanja kako klikate na njih."
+
+#: ../inc/stray_help.php:14
+msgid "So, how do I display a random quote on this blog?"
+msgstr "Dakle, kako da prikažem nasumični citat na ovom webu?"
+
+#: ../inc/stray_help.php:15
+#, php-format
+msgid "Stray Random Quotes comes with <strong>Widgets</strong>. You can use all the widgets you want. Each widget has its own set of options. Just drag a \"Quotes\" widget to the sidebar on the <a href=\"%s1\">widget page</a>, and change its settings accordingly.<br />Note: <em>Your template must be widget compatible.</em></p>"
+msgstr "Stray Random Quotes dolazi s <strong>widgetima</strong>. Možete koristiti koliko god widgeta želite. Svaki widget ima vlastiti set opcija. Samo povucite \"Citati\" widget u rubni stupac na <a href=\"%s1\">widget stranici</a> i promjenite njegove postavke prema želji.<br />Primjetite: <em>Vaš predložak mora biti kompatibilan s widgetima.</em></p>"
+
+#: ../inc/stray_help.php:18
+msgid "Can I add quotes directly to the template?"
+msgstr "Mogu li dodati citate direktno na predložak?"
+
+#: ../inc/stray_help.php:19
+msgid "If your template <strong>does not</strong> use widgets, or you want to display random quotes on your template <strong>elsewhere</strong> other than the sidebar, you can use <strong>template tags</strong>. These are PHP snippets that can be added directly to your template pages (in the header, the footer etc). You can use as many snippets as you need. They accept variables, but these have to be inserted in order. For example, if you want to set only the second variable, you have to set the first one too, but you can skip all those that follow if you don't need them."
+msgstr "Ukoliko Vaš predložak <strong>ne koristi</strong>  widgete, ili želite prikazati nasumične citate <strong>drugdje</strong> na vašem predlošku osim na rubnom stupcu, možete koristiti <strong>oznake predloška</strong>. Riječ je o PHP snippetima koji mogu biti dodani direktno u stranice predloška (u zaglavlje, podnožje itd...). Možete koristiti koliko god snippeta trebate. Oni prihvaćaju varijable, ali one trebaju biti ubacivane po redoslijedu. Na primjer, ako želite postaviti samo drugu varijablu, prvo također morate postaviti i prvu, ali možete preskočiti sve koje slijede ukoliko ih ne trebate."
+
+#: ../inc/stray_help.php:21
+msgid "To get one or more random quotes: "
+msgstr "Za dobivanje jednog ili više nasumičnih citata:"
+
+#: ../inc/stray_help.php:25
+#: ../inc/stray_help.php:53
+msgid "Variables :"
+msgstr "Varijable:"
+
+#: ../inc/stray_help.php:29
+msgid "category1,category2"
+msgstr "category1,category2"
+
+#: ../inc/stray_help.php:29
+msgid "A comma-separated list of the categories from which to extract the random quote. <code>'all'</code> or <code>''</code> uses all the categories. Default is 'all'."
+msgstr "Lista kategorija odvojena zarezima iz kojih se izvlače nasumični citati.  <code>'all'</code> ili <code>''</code> koristi sve kategorije. Standardno je 'all'."
+
+#: ../inc/stray_help.php:31
+msgid "Loads the quotes in order if \"true\", randomly if \"false\". Default is \"false\"."
+msgstr "Učitava citate po redoslijedu ukoliko je \"true\", nasumično ako je \"false\". Standardno je \"false\"."
+
+#: ../inc/stray_help.php:33
+#: ../inc/stray_help.php:89
+#: ../inc/stray_help.php:109
+#: ../inc/stray_help.php:138
+msgid "\"another quote &amp;raquo;\""
+msgstr "\"naredni citat &amp;raquo;\""
+
+#: ../inc/stray_help.php:33
+msgid "The phrase to dynamically load another quote (overrides the one in the settings). If this value is empty, and the one in the settings is empty too, clicking on the quote area will reload the quote. Default is empty."
+msgstr "Fraza za dinaično učitavanje narednog citata (nadjačava onu navedenu u postavkama). Ukoliko je vrijednost ovdje prazna i ukoliko je ona u postavkama također prazna, klik na površinu citata će učitati naredni citat. Standardno su vrijednosti prazne."
+
+#: ../inc/stray_help.php:35
+#: ../inc/stray_help.php:61
+msgid "Disables AJAX for the present template tag if \"true\". default is \"false\"."
+msgstr "Onemogućava AJAX za prisutnu oznaku (tag) predloška ako je \"true\". Standardno je \"false\"."
+
+#: ../inc/stray_help.php:37
+msgid "How many quotes to retrieve at a time. Default is 1."
+msgstr "Koliko citata povući odjednom. Standardno je 1."
+
+#: ../inc/stray_help.php:39
+msgid "Reloads the quote automatically after the given interval (in seconds). Hides the linkphrase. Use 0 or '' to disable. Default is 0."
+msgstr "Učitava citate automatski nakon danog intervala (u sekundama). Fraza učitavanja se sakriva. Koristite vrijednost  0 ili '' za isključivanje. Standardno je 0."
+
+#: ../inc/stray_help.php:41
+msgid "Orders the quotes according to \"quoteID\" or \"Author\" or \"Source\" or \"Visible\" or \"Category\". Default is \"quoteID\"."
+msgstr "Sortira citate prema \"quoteID\" ili \"Author\" ili \"Source\" ili \"Visible\" ili \"Category\". Standardno je \"quoteID\"."
+
+#: ../inc/stray_help.php:43
+msgid "Sorts the quotes ascending \"ASC\" or descending \"DESC\". Default is \"ASC\"."
+msgstr "Sortira citate uzlazno \"ASC\" ili silazno \"DESC\". Standardno je \"ASC\"."
+
+#: ../inc/stray_help.php:45
+#: ../inc/stray_help.php:63
+msgid "Disables the aspect settings (how the quotes look) if \"true\". default is \"false\"."
+msgstr "Isključuje aspektne postavke (kako citat izgleda) ukoliko je \"true\". Standardno je \"false\"."
+
+#: ../inc/stray_help.php:49
+msgid "To get a specific quote: "
+msgstr "Za dobavljanje određenog citata:"
+
+#: ../inc/stray_help.php:57
+msgid "31"
+msgstr "31"
+
+#: ../inc/stray_help.php:57
+msgid "The ID number of the quote to be retrieved. Default is 1."
+msgstr "ID broj citata kojeg treba dobaviti. Standardno je 1."
+
+#: ../inc/stray_help.php:59
+msgid "Next quote &amp;raquo;"
+msgstr "Slijedeći citat &amp;raquo;"
+
+#: ../inc/stray_help.php:59
+msgid "The phrase to dynamically load the next quote in sequence. If this value is empty, and the one in the settings is empty too, clicking on the quote area will reload the quote. Default is empty."
+msgstr "Fraza za dinamčno učitavanje slijedećeg citata u nizu. Ukoliko je vrijednost prazna ovdje i ukoliko je također prazna vrijednost u postavkama, klik na površinu citata će učitati naredni citat. Standardno je prazno."
+
+#: ../inc/stray_help.php:66
+msgid "Unlike widgets, template tags do not generate a title for the quote area. If you want specific titles for different tags, enter them directly in the template HTML, before the tag."
+msgstr "Za razliku od widgeta, oznake predloška ne generiraju naslov za područje citata. Ukoliko želite postaviti određene naslove za različite oznake, unesite ih direktno u HTML predloška prije oznake."
+
+#: ../inc/stray_help.php:73
+msgid "What about posts and pages?"
+msgstr "A što je sa člancima i stranicama?"
+
+#: ../inc/stray_help.php:75
+msgid "How do I add quotes to posts and pages?"
+msgstr "Kako mogu dodati citate na članke i stranice?"
+
+#: ../inc/stray_help.php:79
+msgid "Posts and pages accept <strong>shortcodes</strong>. Wordpress shortcodes can have many variables, in no particular order.<br/> They go like this:"
+msgstr "Članci i stranice prihvaćaju <strong>kratke kodove</strong>. Wordpress kratki kodovi mogu imati puno varijabli bez predefiniranog redoslijeda.<br/> Izgledaju poput ovih:"
+
+#: ../inc/stray_help.php:81
+msgid "To <strong>insert a random quote</strong> in a post or page use:"
+msgstr "Za <strong>umetanje nasumičnog citata</strong> unutar članka ili stranice koristite:"
+
+#: ../inc/stray_help.php:83
+#: ../inc/stray_help.php:103
+#: ../inc/stray_help.php:132
+msgid "Variables (use quotations if there are spaces in the value):"
+msgstr "Varijable (koristite navodnike ukoliko vrijednost sadrži razmake):"
+
+#: ../inc/stray_help.php:85
+#: ../inc/stray_help.php:105
+msgid "A comma-separated list of the categories from which to extract the random quote. If none is set, quotes will be taken from all categories."
+msgstr "Lista kategorija odvojena zarezima iz kojih će se izvlačiti nasumični citati. Ukoliko nijedna nije navedena, citati će se izvlačiti iz svih kategorija."
+
+#: ../inc/stray_help.php:87
+#: ../inc/stray_help.php:107
+msgid "Loads the quotes in order if \"true\", randomly if \"false\". Default is \"false\""
+msgstr "Učitava citate po redoslijedu ukoliko je \"true\", nasumično ukoliko je \"false\". Standardno je \"false\""
+
+#: ../inc/stray_help.php:89
+#: ../inc/stray_help.php:109
+#: ../inc/stray_help.php:138
+msgid "The phrase to dynamically load another quote (overrides the one in the settings). Without this value, clicking on the quote area will reload the quote."
+msgstr "Fraza za dinamično učitavanje narednog citata (nadjačava onu navedenu u postavkama). Bez ove vrijednosti, klik na površinu citata će učitati naredni citat."
+
+#: ../inc/stray_help.php:91
+#: ../inc/stray_help.php:119
+msgid "Disables AJAX for the present shortcode if \"true\"."
+msgstr "Isključuje AJAX za trenutni kratki kod ukoliko je \"true\"."
+
+#: ../inc/stray_help.php:93
+msgid "Reloads the quote automatically after the given interval (in seconds). Hides the linkphrase. "
+msgstr "Automatski učitava citate prema navedenom intervalu (u sekundama). Sakriva frazu za učitavanje."
+
+#: ../inc/stray_help.php:95
+#: ../inc/stray_help.php:123
+#: ../inc/stray_help.php:140
+msgid "Disable the aspect settings if \"true\". Default is \"false\""
+msgstr "Isključuje postavke aspekta ukoliko je \"true\". Standardno je \"false\""
+
+#: ../inc/stray_help.php:99
+msgid "All these settings are optional. If you don't indicate anything, a random quote from all the categories will be displayed, with ajax according to the general settings.<br/><br/>"
+msgstr "Sve ove postavke su opcionalne. Ukoliko ne navedete ništa, biti će prikazan nasumični citat iz svih kategorij, uz ajax prema općim postavkama.<br/><br/>"
+
+#: ../inc/stray_help.php:101
+msgid "To <strong>insert more than one or all the quotes</strong> in a post or page use:"
+msgstr "Za <strong>umetanje više od jednog ili svih citata</strong> unutarn članka ili stranice koristite:"
+
+#: ../inc/stray_help.php:111
+msgid "How many quotes to retrieve at a time."
+msgstr "Koliko će citata biti dobavljeno odjednom."
+
+#: ../inc/stray_help.php:113
+msgid "Orders the quotes according to \"quoteID\" or \"Author\" or \"Source\" or \"Visible\" or \"Category\"."
+msgstr "Sortira citate prema \"quoteID\" ili \"Author\" ili \"Source\" ili \"Visible\" ili \"Category\"."
+
+#: ../inc/stray_help.php:115
+msgid "Sorts the quotes ascending \"ASC\" or descending \"DESC\"."
+msgstr "Sortira citate uzlazno \"ASC\" ili silazno \"DESC\"."
+
+#: ../inc/stray_help.php:117
+msgid "Generates complete pagination links (with page numbers) if \"true\", only next and previous links if \"false\". Not considered if AJAX is enabled."
+msgstr "Generira kompletne stranične linkove (sa brojevima stranica) ukoliko je \"true\", samo linkove slijedeći i prethodni ukoliko je \"false\". Ne uzima se u obzir ukoliko je AJAX aktivan."
+
+#: ../inc/stray_help.php:121
+msgid "Reloads the quotes automatically after the given interval (in seconds). Hides the linkphrase. "
+msgstr "Ponovo automatski učitava citate nakon zadanog intervala (u sekundama). Sakriva frazu za dinamično učitavanje."
+
+#: ../inc/stray_help.php:127
+msgid "All these settings are optional. Without them, AJAX is disabled in the shortcode and the values you see in this example are used as defaults."
+msgstr "Sve ove postavke su opcionalne. Bez njih, AJAX je isključen u kratkim kodovima i vrijednosti koje vidite u ovom primjeru se koriste kao standardne."
+
+#: ../inc/stray_help.php:130
+msgid "To <strong>insert a specific quote</strong> in a post or page (with AJAX, a sequence of quotes starting from a given one) use:"
+msgstr "Za <strong>ubacivanje određenog citata</strong> unutar članka ili stranice (uz AJAX, niz citata koji počinje od zadanog) koristite:"
+
+#: ../inc/stray_help.php:134
+msgid "The ID of the quote to be retrieved. This number appears in the first column on the management page."
+msgstr "ID citata koji treba dohvatiti. Ovaj broj se pojavljuje u prvoj koloni na upravljačkoj stranici."
+
+#: ../inc/stray_help.php:136
+msgid "Disables AJAX for the present shortcode if \"true\". Default is true."
+msgstr "Isključuje AJAX za trenutni kratki kod ukoliko je \"true\". Standardno je true."
+
+#: ../inc/stray_help.php:149
+msgid "What about other areas of the blog, such as post titles, or even the blog title?"
+msgstr "Što je sa ostalim dijelovima weba, poput naslova članaka ili čak naslova stranica?"
+
+#: ../inc/stray_help.php:150
+#, php-format
+msgid "Well, actually, on the <a href=\"%s1\">tools page</a> you can enable shortcodes for a number of extra areas where shortcodes aren't normally allowed. This will entitle you to some quite extraordinary things, such as random taglines or random category names. Cool examples can be found <a href=\"http://www.italyisfalling.com/cool-things-you-can-do-with-stray-random-quotes\">here</a>.<br/><br/><strong><em>Please Note:</em></strong> it is <strong>highly recommended to disable AJAX</strong> for all these unconventional uses. This take it easy on your server, plus AJAX adds a DIV tag around the quotes that would mess with your layout in most cases where the random word is inline with the text.<br/><br/> <strong><em>Please Note:</em></strong> This trick will apply to all shortcodes, not just those of Stray Random Quotes: so pay attention before you enable it for areas where the user has access, such as the comments."
+msgstr "Pa, ustvari, na <a href=\"%s1\">stranici alata</a> možete aktivirati kratke kodove za cijeli niz dodatnih područja gdje kratki kodovi nisu normalno dozvoljeni. Ovo će vam omogućiti neke izvrsne stvari poput nasumičnih imena oznaka ili kategorija. Super primjeri mogu se naći <a href=\"http://www.italyisfalling.com/cool-things-you-can-do-with-stray-random-quotes\">ovdje</a>.<br/><br/><strong><em>Molim primjetite:</em></strong> vrlo je  <strong>preporučljivo isključiti AJAX</strong> za sve ove nekonvencionalne upotrebe. Time ćete olakšati serveru, a poviše toga AJAX dodaje DIV HTML oznake oko citata čime može unerediti vaš dizajn u večini slučajeva kada je nasumična riječ u liniji s tekstom.<br/><br/> <strong><em>Molim primjetite:</em></strong> Ovaj trik je primjenjiv samo na kratke kodove, ali ne samo za one Stray Random Quotes plugina: tako da obratite pažnju prije nego omogućite kratke kodove za područja na koje korisnici imaju pristup, poput komentara."
+
+#: ../inc/stray_help.php:153
+msgid "How do I change the appearance of the quotes?"
+msgstr "Kako mogu promijeniti izgled citata?"
+
+#: ../inc/stray_help.php:154
+#, php-format
+msgid "To change how the quotes look, you can use the <a href=\"%s1\">settings page</a>. Here you will be able to set what comes before and after every part of the quote area (source, author, the quote etc). With little HTML, all sorts of customizations are possible, such as assigning styles, set the alignment of text, specify font or font color, adding images, quotation marks and many other entities. Just remember to close all the tags you opened before a part.<br/><br/><em><strong>Please note:</strong></em> the aspect options in the settings page normally apply to <em>ALL</em> quotes in every area of your blog, but they can be disabled within each widget, shortcode or template tag. When aspect settings are disabled, the only element added is a whitespace between the quote and the author or source."
+msgstr "Da bi promijenili izgled citata možete posjetiti <a href=\"%s1\">stranicu postavki</a>. Ovdje ćete biti u mogućnosti postaviti ono što prethodi i nastavlja se na svaki dio područja citata (izvor, autora, citat itd...) Uz malo HTML koda, moguće su prilagodbe svake vrste, poput priključivanja stilova, formatiranja teksta, specificiranja fonta i boje teksta, dodavanja slika, navodnika i mnogih drugih stvari. Samo se sjetite zatvoriti sve HTML oznake koje ste otvorili.<br/><br/><em><strong>Molim primjetite:</strong></em> opcije aspekta na stranicama postavki uobičajeno se primjenjuju na <em>SVE</em> citate na svim područjima web stranica, ali mogu biti ignorirane unutar widgeta, kratkog koda ili oznake predloška. Kada su postavke aspekta onemogućene, jedini dodani element je bijeli razmak između citata i  autora ili izvora."
+
+#: ../inc/stray_help.php:157
+msgid "The IDs of the quotes are getting ridiculously high. Can I do something about it?"
+msgstr "ID citata postaju smješno veliki. Može li se nešto učiniti po tom pitanju?"
+
+#: ../inc/stray_help.php:158
+#, php-format
+msgid "Over time, deleting quotes and adding quotes, the IDs of new quotes can get to be much higher of the total of the quotes. Some folks are bothered by this. It is the way MySQL works, gaps are not important in an index. Anyway, there is a workaround. On the <a href=\"%s1\">tools page</a> there's a button to <strong>reset all quoteID numbers in your table</strong>, after which the numbering will look fine again. There is a downside, though: few or even none of the old ID numbers will still correspond to the same quotes, which means that if you called a quote in a post <strong>by its ID</strong> (as explained above on this very page), there's a chance a different quote will be called afterwards. It is up to you to accept this and go and fix it later."
+msgstr "Tokom vremena, brisanja i dodavanja citata, ID oznake novih citata mogu postati znatno veće od ukupnog broja citata. Neke ljude to može smetati. To je način na koji MySQL radi, rupe nisu bitne u indeksu. Bilokako, postoji način kako to izbjeći. Na <a href=\"%s1\">stranici alata</a> postoji tipka za resetiranje svih ID brojeva u vašoj tablici</strong>, a nakon toga vaša će numeracija opet izgledati uredno. Postoji ipak i loša strana: nekoliko ili čak nijedan od vaših starih ID brojeva će referencirati na iste citate, što znači da ukoliko ste pozvali citat u članak <strong>po njegovom ID broju</strong> (kako je objašnjeno malo iznad na istoj ovoj stranici), postoji šansa da će se pojaviti neki drugi citat nakon resetiranja. Na vama je da to prihvatite i popravite naknadno."
+
+#: ../inc/stray_help.php:161
+msgid "I want a bookmarklet to quote things on the fly when I browse!"
+msgstr "Želim da bookmarklet citira stvari u letu dok surfam!"
+
+#: ../inc/stray_help.php:162
+#, php-format
+msgid "You have it. It is on the <a href=\"%s1\">tools page</a>. Place the link on your browser toolbar, select text in a page and click on the link. The \"add new quote\" page will open with the selected text in it."
+msgstr "Učinjeno. Nalazi se na <a href=\"%s1\">stranici alata</a>. Postavite link na alatnoj traci vašeg preglednika, odaberite tekst unutar stranice i kliknite na link. Otvoriti će se \"dodaj novi citat\" stranica sa već unesenim obilježenim tekstom."
+
+#: ../inc/stray_help.php:165
+msgid "I am about to upgrade and I am scared. Should I backup my quotes?"
+msgstr "Upravo se spremam ažurirati plugin i nisam siguran trebam li napraviti sigurnosnu kopiju mojih citata?"
+
+#: ../inc/stray_help.php:166
+#, php-format
+msgid "It is normally not necessary to backup the quotes before a upgrade. Usually when a new version of Stray Random Quotes is activated the database table that contains the quotes is untouched. Exceptionally it may be necessary to manipulate it, in which case a backup is probably advisable. To know when this rare case applies you can check the changelog on <a href=\"%s1\">this page</a>, or, more simply, you can follow the <a href=\"%s2\">plugins feed</a> on my blog.<br/>How to backup, you ask? There are exceptional plugins out there to do that."
+msgstr "U normalnim okolnostima nije potrebno napraviti sigurnosnu kopiju prije ažuriranja plugina. Obično kada se aktivira nova verzija Stray Random Quotes plugina tablica s citatima u bazi ostaje netaknuta. Izvanredno možda će biti potrebno manipulirati njome i u tom slučaju je vjerojatno preporučljivo napraviti sigurnosnu kopiju. Kako bi saznali kada je aktualan ovaj rijetki slučaj možete provjeriti dnevnik promijena na  <a href=\"%s1\">ovoj stranici</a>, ili još jednostavnije pratite <a href=\"%s2\">plugins feed</a> na mom blogu.<br/>Kako napraviti sigurnosnu kopiju pitate? Postoje izvrsni pluginovi samo za tu namjenu."
+
+#: ../inc/stray_help.php:171
+msgid "Hey. Something isn't working!"
+msgstr "Hej. Nešto ne radi!"
+
+#: ../inc/stray_help.php:172
+#, php-format
+msgid "Well, that figures. See, I am not a professional developer... I work on this plugin on my free time. So there's always going to be a bug. If you want to help me catch it, and to get further help, you are welcome to trash the comments <a href=\"%s1\">on this post</a>. Before you do, though, check if the problem you are experiencing isn't caused by a conflicting plugin or some other issue of which Stray Random Quotes itself might not be responsible. Thanks."
+msgstr "Pa, to se podrazumijeva. Vidite, ja nisam profesionalni programer... Radim na ovom pluginu u moje slobodno vrijeme. Tako da će uvijek biti bugova. Ukoliko mi želite pridonijeti u hvatanju i nadalje pomoći, dobrodošli ste ostaviti komentare <a href=\"%s1\">na ovom članku</a>. Ali prije toga ipak, provjerite da problem koji imate nije uzrokovan nekim sukobljenim pluginom ili nekim drugim uzrokom za koji Stray Random Quotes nije odgovoran. Hvala."
+
+#: ../inc/stray_help.php:175
+msgid "Anything I can do to help?"
+msgstr "Mogu li kako pomoći?"
+
+#: ../inc/stray_help.php:176
+msgid "Well, yeah. If you have some spare change..."
+msgstr "Paa, da. Ukoliko imate viška sitnog..."
+
+#: ../inc/stray_manage.php:76
+msgid "Edit quote "
+msgstr "Uredi citat"
+
+#: ../inc/stray_manage.php:80
+msgid "Something is wrong. No quote ID from the query string."
+msgstr "Nešto nije u redu. Ne postoji ID citata unutar linije upita."
+
+#: ../inc/stray_manage.php:90
+msgid "Something is wrong. I can't find a quote linked up with that ID."
+msgstr "Nešto nije u redu. Ne mogu naći citat povezan s ovim ID brojem."
+
+#: ../inc/stray_manage.php:133
+#: ../inc/stray_new.php:173
+msgid "Quote:"
+msgstr "Citat:"
+
+#: ../inc/stray_manage.php:135
+msgid "To insert this quote in a post use:"
+msgstr "Za umetanje unutar članka koristite:"
+
+#: ../inc/stray_manage.php:138
+#: ../inc/stray_new.php:177
+msgid "* Other than the few offered in the toolbar above, many HTML and non-HTML formatting elements can be used for the quote. Lines can be broken traditionally or using <code>&lt;br/&gt;</code>, etcetera."
+msgstr "* Osim ovih nekoliko ponuđenih u gornjoj alatnoj traci, mnogo HTML i ne-HTML elemenata za formatiranje može biti korišteno za citat. Linije mogu biti prekinute tradicionalno koristeći <code>&lt;br/&gt;</code>, itd."
+
+#: ../inc/stray_manage.php:140
+#: ../inc/stray_new.php:179
+msgid "Author:"
+msgstr "Autor:"
+
+#: ../inc/stray_manage.php:145
+#: ../inc/stray_new.php:184
+msgid "Source:"
+msgstr "Izvor:"
+
+#: ../inc/stray_manage.php:149
+#: ../inc/stray_new.php:188
+msgid "* By adding a link to the author or the source, the default links specified on the settings page are ignored. Make sure the link is closed by a <code>&lt;/a&gt;</code> tag."
+msgstr "* Dodavanjem linka autoru ili izvoru, standardni linkovi definirani na stranicama postavki biti će ignorirani. Provjerite da je link uvijek zatvoren sa <code>&lt;/a&gt;</code> tagom."
+
+#: ../inc/stray_manage.php:151
+#: ../inc/stray_new.php:190
+msgid "Category:&nbsp;"
+msgstr "Kategorija:&nbsp;"
+
+#: ../inc/stray_manage.php:161
+msgid "new category:&nbsp;"
+msgstr "nova kategorija:&nbsp;"
+
+#: ../inc/stray_manage.php:164
+#: ../inc/stray_new.php:203
+msgid "Visible:"
+msgstr "Vidljivo:"
+
+#: ../inc/stray_manage.php:165
+#: ../inc/stray_new.php:204
+msgid "Yes"
+msgstr "Da"
+
+#: ../inc/stray_manage.php:166
+#: ../inc/stray_new.php:205
+msgid "No"
+msgstr "Ne"
+
+#: ../inc/stray_manage.php:168
+#: ../inc/stray_manage.php:633
+msgid "Cancel"
+msgstr "Odustani"
+
+#: ../inc/stray_manage.php:169
+msgid "Update quote"
+msgstr "Ažuriraj citat"
+
+#: ../inc/stray_manage.php:177
+msgid "Manage quotes"
+msgstr "Upravljanje citatima"
+
+#: ../inc/stray_manage.php:179
+msgid "Please select something first."
+msgstr "Molim, prvo odaberite nešto."
+
+#: ../inc/stray_manage.php:180
+msgid "Something went wrong."
+msgstr "Nešto je pošlo po krivu."
+
+#: ../inc/stray_manage.php:210
+msgid "<strong>Failure:</strong> No quote ID given."
+msgstr "<strong>Greška:</strong> Nije dan ID citata."
+
+#: ../inc/stray_manage.php:242
+#, php-format
+msgid "Quote <strong>%s</strong> updated."
+msgstr "Citat <strong>%s</strong> ažuriran."
+
+#: ../inc/stray_manage.php:257
+#, php-format
+msgid "Quote <strong>%s</strong> deleted."
+msgstr "Citat <strong>%s</strong> obrisan."
+
+#: ../inc/stray_manage.php:288
+#, php-format
+msgid "<strong>%s</strong> quotes deleted."
+msgstr "<strong>%s</strong> citata obrisano."
+
+#: ../inc/stray_manage.php:329
+#, php-format
+msgid "Visibility toggled for <strong>%s</strong> quotes."
+msgstr "Vidljivost uključena za <strong>%s</strong> citata."
+
+#: ../inc/stray_manage.php:362
+#, php-format
+msgid "Category changed for <strong>%s</strong> quotes."
+msgstr "Kategorija promijenjena za <strong>%s</strong> citata."
+
+#: ../inc/stray_manage.php:373
+msgid "Please select something in the 'Bulk Actions' menu first."
+msgstr "Molimo prvo odaberite nešto unutar izbornika 'Masovne akcije'."
+
+#: ../inc/stray_manage.php:481
+msgid "Bulk Actions"
+msgstr "Masovne akcije"
+
+#: ../inc/stray_manage.php:482
+msgid "delete"
+msgstr "obriši"
+
+#: ../inc/stray_manage.php:483
+msgid "toggle visibility"
+msgstr "prekidač vidljivosti"
+
+#: ../inc/stray_manage.php:484
+msgid "change category"
+msgstr "promijeni kategoriju"
+
+#: ../inc/stray_manage.php:495
+msgid "Apply"
+msgstr "Primjeni"
+
+#: ../inc/stray_manage.php:499
+msgid "display "
+msgstr "prikaži"
+
+#: ../inc/stray_manage.php:501
+msgid "10 quotes"
+msgstr "10 citata"
+
+#: ../inc/stray_manage.php:502
+msgid "15 quotes"
+msgstr "15 citata"
+
+#: ../inc/stray_manage.php:503
+msgid "20 quotes"
+msgstr "20 citata"
+
+#: ../inc/stray_manage.php:504
+msgid "30 quotes"
+msgstr "30 citata"
+
+#: ../inc/stray_manage.php:505
+msgid "50 quotes"
+msgstr "50 citata"
+
+#: ../inc/stray_manage.php:506
+msgid "100 quotes"
+msgstr "100 citata"
+
+#: ../inc/stray_manage.php:507
+msgid " from "
+msgstr "od"
+
+#: ../inc/stray_manage.php:510
+msgid "all categories"
+msgstr "sve kategorije"
+
+#: ../inc/stray_manage.php:522
+#: ../inc/stray_manage.php:648
+#, php-format
+msgid "<span class=\"displaying-num\">Page %s1 of %s2</span>"
+msgstr "<span class=\"displaying-num\">Stranica %s1 od %s2</span>"
+
+#: ../inc/stray_manage.php:539
+#: ../inc/stray_manage.php:540
+#: ../inc/stray_manage.php:546
+msgid "ID"
+msgstr "ID"
+
+#: ../inc/stray_manage.php:549
+#: ../inc/stray_settings.php:181
+msgid "Quote"
+msgstr "Citat"
+
+#: ../inc/stray_manage.php:552
+#: ../inc/stray_manage.php:553
+#: ../inc/stray_manage.php:558
+#: ../inc/stray_settings.php:188
+msgid "Author"
+msgstr "Autor"
+
+#: ../inc/stray_manage.php:562
+#: ../inc/stray_manage.php:563
+#: ../inc/stray_manage.php:568
+#: ../inc/stray_settings.php:203
+msgid "Source"
+msgstr "Izvor"
+
+#: ../inc/stray_manage.php:572
+#: ../inc/stray_manage.php:573
+#: ../inc/stray_manage.php:578
+msgid "Category"
+msgstr "Kategorija"
+
+#: ../inc/stray_manage.php:582
+#: ../inc/stray_manage.php:583
+#: ../inc/stray_manage.php:588
+msgid "Visible"
+msgstr "Vidljiv"
+
+#: ../inc/stray_manage.php:596
+#: ../inc/stray_manage.php:597
+#: ../inc/stray_manage.php:602
+msgid "User"
+msgstr "Korisnik"
+
+#: ../inc/stray_manage.php:624
+msgid "yes"
+msgstr "da"
+
+#: ../inc/stray_manage.php:624
+msgid "no"
+msgstr "ne"
+
+#: ../inc/stray_manage.php:628
+msgid "Edit"
+msgstr "Uredi"
+
+#: ../inc/stray_manage.php:633
+msgid "You are about to delete quote "
+msgstr "Upravo ćete obrisati citat"
+
+#: ../inc/stray_manage.php:633
+msgid "to stop"
+msgstr "za prekid"
+
+#: ../inc/stray_manage.php:633
+msgid "to delete"
+msgstr "za brisanje"
+
+#: ../inc/stray_manage.php:633
+msgid "Delete"
+msgstr "Obriši"
+
+#: ../inc/stray_manage.php:652
+#, php-format
+msgid "<br/>No quotes here. Maybe you want to <a href=\"%s1\">reopen</a> this page."
+msgstr "<br/>Ovdje ne postoje citati here. Možda želite <a href=\"%s1\">ponovo učitati</a> ovu stranicu."
+
+#: ../inc/stray_new.php:87
+msgid "<strong>Failure:</strong> Something went wrong when trying to insert the quote. Try again?"
+msgstr "<strong>Greška:</strong> Nešto je pošlo po krivu kada ste pokušali umetnuti citat. Ponovo pokušati?"
+
+#: ../inc/stray_new.php:98
+#, php-format
+msgid "Quote no. <strong>%s1</strong> was added to the database. To insert it in a post use: <code>[quote id=%s1]</code>. To review use the <a href=\"%s2\">Manage page</a>."
+msgstr "Citat br. <strong>%s1</strong> je dodan u bazu podataka. Za umetanje unutar članka koristite: <code>[quote id=%s1]</code>. Za pregled stanja otvorite <a href=\"%s2\">Upravljačku stranicu</a>."
+
+#: ../inc/stray_new.php:104
+msgid "Add new quote"
+msgstr "Dodaj novi citat"
+
+#: ../inc/stray_new.php:114
+msgid "The Quote ID seems to be invalid."
+msgstr "ID citata se čini neispravan."
+
+#: ../inc/stray_new.php:120
+msgid "Something is wrong. Sorry."
+msgstr "Nešto nije u redu. Isprika."
+
+#: ../inc/stray_new.php:200
+msgid "&nbsp;new category:&nbsp;"
+msgstr "&nbsp;nova kategorija:&nbsp;"
+
+#: ../inc/stray_new.php:208
+msgid "Add quote"
+msgstr "Dodaj citat"
+
+#: ../inc/stray_overview.php:44
+msgid "one category"
+msgstr "jedna kategorija"
+
+#: ../inc/stray_overview.php:47
+msgid "categories"
+msgstr "kategorije"
+
+#: ../inc/stray_overview.php:52
+msgid ", distributed as follows:"
+msgstr ", distribuirano kako slijedi:"
+
+#: ../inc/stray_overview.php:56
+#, php-format
+msgid "<p>Right now you have <strong>%s1 quotes</strong> in <strong>%s2</strong>%s3</p>"
+msgstr "<p>Trenutno imate <strong>%s1 citata</strong> unutar <strong>%s2</strong>%s3</p>"
+
+#: ../inc/stray_overview.php:77
+msgid "All your quotes "
+msgstr "Svi vaši citati"
+
+#: ../inc/stray_overview.php:78
+#, php-format
+msgid "<p><strong>%s3</strong> are visible.</p>"
+msgstr "<p><strong>%s3</strong> su vidljivi.</p>"
+
+#: ../inc/stray_overview.php:82
+#, php-format
+msgid "<p>Your most quoted author is <strong>%s5</strong>.</p>"
+msgstr "<p>Vaš najcitiraniji autor je <strong>%s5</strong>.</p>"
+
+#: ../inc/stray_overview.php:86
+#, php-format
+msgid "<p>Your most used source is <strong>%s5</strong>.</p>"
+msgstr "<p>Vaš najkorišteniji izvor je <strong>%s5</strong>.</p>"
+
+#: ../inc/stray_overview.php:88
+msgid "There is nothing to report."
+msgstr "Nema ništa za izvjestiti."
+
+#: ../inc/stray_overview.php:94
+#, php-format
+msgid "To start doing stuff, you can <a href=\"%s1\"><strong>add new quotes</strong></a>;<br />use the <a href=\"%s2\"><strong>manage</strong></a> page to edit or delete existing quotes;"
+msgstr "Za početak posla, možete <a href=\"%s1\"><strong>dodati nove citate</strong></a>;<br />koristite <a href=\"%s2\"><strong>upravljačku</strong></a> stranicu za uređivanje ili brisanje postojećih citata;"
+
+#: ../inc/stray_overview.php:96
+#, php-format
+msgid "<br />change the <a href=\"%s3\"><strong>settings</strong></a> to control how the quotes are displayed on your blog;"
+msgstr "<br />promijenite <a href=\"%s3\"><strong>postavke</strong></a> kako bi kontrolirali kako će se citati pojavljivati na vašim stranicama;"
+
+#: ../inc/stray_overview.php:100
+#, php-format
+msgid "<br/>a <a href=\"%s5\"><strong>tools page</strong></a> can help you do more;<br/>if you're new to all this, visit the <a href=\"%s4\"><strong>help page</strong></a>."
+msgstr "<br/>a <a href=\"%s5\"><strong>stranica alata</strong></a> vam može pomoći da napravite i više;<br/>ukoliko ste novi u svemu ovome, posjetite <a href=\"%s4\"><strong>stranicu pomoći</strong></a>."
+
+#: ../inc/stray_overview.php:104
+msgid "Happy quoting."
+msgstr "Sretno citiranje."
+
+#: ../inc/stray_remove.php:34
+#: ../inc/stray_remove.php:48
+msgid "Remove and deactivate"
+msgstr "Uklonite i deaktivirajte"
+
+#: ../inc/stray_remove.php:36
+msgid "Click Here</a> to deactivate Stray Random Quotes."
+msgstr "Kliknite ovdje</a> za deaktivaciju Stray Random Quotes."
+
+#: ../inc/stray_remove.php:38
+msgid "The <strong>quotes</strong> AND the <strong>options</strong> will be removed."
+msgstr "<strong>Citati</strong> i <strong>opcije</strong> biti će uklonjeni."
+
+#: ../inc/stray_remove.php:39
+msgid "The <strong>plugin options</strong> will be removed."
+msgstr "<strong>Opcije plugin-a</strong> biti će uklonjene."
+
+#: ../inc/stray_remove.php:40
+msgid "The <strong>quotes</strong> will be removed."
+msgstr "<strong>Citati</strong> će biti uklonjeni."
+
+#: ../inc/stray_remove.php:49
+msgid "\"Patch grief with proverbs.\" ~ William Shakespeare"
+msgstr "\"Patch grief with proverbs.\" ~ William Shakespeare"
+
+#: ../inc/stray_remove.php:52
+msgid "When deactivating Stray Random Quotes"
+msgstr "Prilikom uklanjanja Stray Random Quotes"
+
+#: ../inc/stray_remove.php:55
+msgid "Remove the options from the database."
+msgstr "Uklonite opcije iz baze podataka."
+
+#: ../inc/stray_remove.php:57
+msgid "Remove all the quotes from the database."
+msgstr "Uklonite sve citate iz baze podataka."
+
+#: ../inc/stray_remove.php:63
+msgid "Deactivate Stray Random Quotes &raquo;"
+msgstr "Deaktivirajte Stray Random Quotes &raquo;"
+
+#: ../inc/stray_settings.php:86
+msgid "<strong>Options saved...</strong> "
+msgstr "<strong>Opcije pohranjene...</strong> "
+
+#: ../inc/stray_settings.php:87
+msgid "No problems. Well,  except that the links you provided for the author and source were invalid. I had to discard them."
+msgstr "Nema problema. Dobro, osim što su linkovi koje ste dali za autora i izvor neispravni. Morao sam ih odbaciti."
+
+#: ../inc/stray_settings.php:88
+msgid "No problems. Well, except that there was no variable in the author link. I discared it."
+msgstr "Nema problema. Dobro, osim što nije bilo varijable unutar linka autora. Odbacio sam ga."
+
+#: ../inc/stray_settings.php:89
+msgid "No problems. Well,  except that there was no variable in the source link. I discared it."
+msgstr "Nema problema. Dobro, osim što nije bilo varijable unutar linka izvora. Odbacio sam ga."
+
+#: ../inc/stray_settings.php:90
+msgid "No problems."
+msgstr "Nema problema."
+
+#: ../inc/stray_settings.php:94
+msgid "<strong>Something went wrong!</strong> The links you provided for the Author and Source had no variables.</strong> "
+msgstr "<strong>Nešto je pošlo po krivu!</strong> Linkovi koje ste dali za autora i izvor nisu imali varijable.</strong> "
+
+#: ../inc/stray_settings.php:95
+msgid "<strong>Something went wrong!</strong> There was no variable in the author link. I discared it. "
+msgstr "<strong>Nešto je pošlo po krivu!</strong> Nije bilo varijable unutar linka autora. Odbacio sam ga."
+
+#: ../inc/stray_settings.php:96
+msgid "<strong>Something went wrong!</strong> There was no variable in the source link. I discared it. "
+msgstr "<strong>Nešto je pošlo po krivu!</strong> Nije bilo varijable unutar linka izvora. Odbacio sam ga."
+
+#: ../inc/stray_settings.php:97
+msgid "<strong>The options could not be saved</strong>. Either the operation went wrong, or you didn't make any changes.</strong> "
+msgstr "<strong>Ove opcije nisu mogle biti pohranjene</strong>. Ili je operacija pošla po krivu, ili niste napravili nikakve promijene.</strong> "
+
+#: ../inc/stray_settings.php:169
+msgid "How the quotes look"
+msgstr "Kako citat izgleda"
+
+#: ../inc/stray_settings.php:170
+msgid "Default settings to change how the quotes appear in your blog. These settings apply to ALL widgets, shortcodes or template tags, but they can be disabled from those if needed."
+msgstr "Standardne postavke kako bi promijenili način na koji će se citati prikazati na vašim stranicama. Ove postavke primjenjuju se na SVE widgete, kratke kodove ili oznake predloška, ali mogu biti i isključene od tamo ukoliko je potrebno."
+
+#: ../inc/stray_settings.php:174
+msgid "The Quote Area"
+msgstr "Područje citata"
+
+#: ../inc/stray_settings.php:176
+msgid "<br/>HTML or other elements <strong>before the quote area</strong>, which comes after the widget title and includes Quote, Author and Source. If more than one quote is listed, Quote Area is considered the entire list.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML ili ostali elementi <strong>prije područja citata</strong>, koji dolaze nakon naslova widgeta i uključuju citat, autara i izvor. Ukoliko je prikazano više od jednog citata, područjem citata se smatra cijelom lista.<br/><strong>Primjer:</strong>"
+
+#: ../inc/stray_settings.php:178
+msgid "<br/>HTML or other elements <strong>after the quote area</strong>.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML ili ostali elementi <strong>poslije učitavanja citata</strong>.<br/><strong>Primjer:</strong>"
+
+#: ../inc/stray_settings.php:183
+msgid "<br/>HTML or other elements before the quote.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML ili ostali elementi prije ove kategorije.<br/><strong>Primjer:</strong>"
+
+#: ../inc/stray_settings.php:185
+msgid "<br/>HTML or other elements after the quote.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML ili ostali elementi nakon citata.<br/><strong>Primjer:</strong>"
+
+#: ../inc/stray_settings.php:190
+msgid "<br/>HTML or other elements before the author.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML ili ostali elementi prije autora.<br/><strong>Primjer:</strong>"
+
+#: ../inc/stray_settings.php:190
+msgid "by"
+msgstr "od"
+
+#: ../inc/stray_settings.php:193
+msgid "<br/>HTML or other elements after the author."
+msgstr "<br/>HTML ili ostali elementi nakon autora."
+
+#: ../inc/stray_settings.php:195
+msgid ""
+"<br/>You can link the Author to a website of your choice.\r\n"
+"\t\t<br/>Use this variable in your link: <code>%AUTHOR%</code><br/>\r\n"
+"\t\t<strong>Sample values:</strong>"
+msgstr ""
+"<br/>Možete napraviti link od autora do web stranice po vašem izboru.\r\n"
+"\t\t<br/>Koristite ovu varijablu u vašem linku: <code>%AUTHOR%</code><br/>\r\n"
+"\t\t<strong>Primjer:</strong>"
+
+#: ../inc/stray_settings.php:199
+msgid "Replace spaces within %AUTHOR% with "
+msgstr "Zamijenite razmake unutar %AUTHOR% sa "
+
+#: ../inc/stray_settings.php:205
+msgid "<br/>HTML or other elements before the source.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML ili ostali elementi prije izvora.<br/><strong>Primjer:</strong>"
+
+#: ../inc/stray_settings.php:207
+msgid "<br/>HTML or other elements before the source <strong>if there is no author</strong>.<br/>Overrides the field above when no author is present.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML ili ostali elementi prije izvora <strong>ukoliko nema autora</strong>.<br/>Zamijenjuje gornje polje ukoliko autor nije naveden.<br/><strong>Primjer:</strong>"
+
+#: ../inc/stray_settings.php:210
+msgid "<br/>HTML or other elements after the source.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML ili ostali elementi nakon izvora.<br/><strong>Primjer:</strong>"
+
+#: ../inc/stray_settings.php:212
+msgid ""
+"<br/>You can link the Source to a website of your choice.\r\n"
+"\t\t<br/>Use this variable in your link: <code>%SOURCE%</code><br/>\r\n"
+"\t\t<strong>Sample values:</strong>"
+msgstr ""
+"<br/>Možete napraviti link od izvora prema web stranicama po vašem izboru.\r\n"
+"\t\t<br/>Koristite ovu varijablu u vašem linku: <code>%SOURCE%</code><br/>\r\n"
+"\t\t<strong>Primjer:</strong>"
+
+#: ../inc/stray_settings.php:216
+msgid "Replace spaces within %SOURCE% with "
+msgstr "Zamijenite razmake unutar %SOURCE% sa "
+
+#: ../inc/stray_settings.php:221
+msgid "Quote before Author and Source"
+msgstr "Citat prije autora i izvora"
+
+#: ../inc/stray_settings.php:223
+msgid "If checked, returns the quote before author and source (The opposite is NOT considered by the <code>[all-quotes]</code> shortcode)."
+msgstr "Ukoliko je uključeno, vraća citat prije autora i izvora (Suprotni slučaj se NE razmatra od strane <code>[all-quotes]</code> kratkog koda)."
+
+#: ../inc/stray_settings.php:230
+#: ../inc/stray_settings.php:256
+#: ../inc/stray_settings.php:293
+#: ../inc/stray_settings.php:347
+#: ../inc/stray_settings.php:367
+msgid "Update all Settings"
+msgstr "Ažuriraj sve postavke"
+
+#: ../inc/stray_settings.php:236
+msgid "AJAX settings"
+msgstr "AJAX Postavke"
+
+#: ../inc/stray_settings.php:237
+msgid "Default settings for the dynamic loader."
+msgstr "Standardne postavke za dinamično učitavanje."
+
+#: ../inc/stray_settings.php:241
+msgid "Enable/Disable AJAX"
+msgstr "Uključi/Isključi AJAX"
+
+#: ../inc/stray_settings.php:242
+#, php-format
+msgid "&nbsp;If checked, <strong>disables the AJAX loader</strong> entirely. If unchecked, AJAX can still be disabled from the widgets, the template tags or the shortcodes (see <a href=\"%s\">help page</a>)."
+msgstr "&nbsp;Ukoliko je uključeno, <strong>deaktivira AJAX učitavanje</strong> u potpunosti. Ukoliko nije uključeno, AJAX opet može biti deaktiviran putem widget opcija ili unutar tagova u kodu predloška (pogledajte <a href=\"%s\">stranicu pomoći</a>)."
+
+#: ../inc/stray_settings.php:244
+msgid "The AJAX loader"
+msgstr "AJAX učitavanje"
+
+#: ../inc/stray_settings.php:245
+#, php-format
+msgid "<br/>Enter here the <strong>link phrase</strong> used to dynamically load another quote. HTML not allowed. If you leave this empty, the quote will be reloaded by clicking on it. You can <strong>override</strong> this setting in widgets, shortcodes or in the template (see <a href=\"%s\">help page</a>), <strong>only</strong> if you leave this field empty.<br/><strong>Sample value:</strong>"
+msgstr "<br/>Ovdje unesite <strong>link frazu</strong> koja će biti korištena za dinamično učitavanje novog citata. HTML nije dozvoljen. Ukoliko ostavite ovo praznim, citat će biti ponovo učitan klikom na njega. Možete <strong>nadjačati</strong> ovu postavku unutar widget-a ili unutar koda u predlošku (pogledajte <a href=\"%s\">stranicu pomoći</a>), <strong>samo</strong> ako ovo polje ostavite praznim. <br/><strong>Primjer:</strong>"
+
+#: ../inc/stray_settings.php:246
+msgid "<br/>HTML or other elements before the quote loader.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML ili ostali elementi prije učitavanja citata.<br/><strong>Primjer:</strong>"
+
+#: ../inc/stray_settings.php:247
+msgid "<br/>HTML or other elements after the quote loader.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML ili ostali elementi poslije učitavanja citata.<br/><strong>Sample value:</strong>"
+
+#: ../inc/stray_settings.php:249
+msgid "The loading message"
+msgstr "Učitavajuća poruka"
+
+#: ../inc/stray_settings.php:250
+msgid "<br/>The loading message in between quotes.<br/><strong>Sample value:</strong>"
+msgstr "<br/>Poruka o učitavanju između citata.<br/><strong>Primjer:</strong>"
+
+#: ../inc/stray_settings.php:262
+msgid "New quotes"
+msgstr "Novi citati"
+
+#: ../inc/stray_settings.php:263
+msgid "Default settings when you create a new quote."
+msgstr "Standardne postavke prilikom kreiranja novih citata."
+
+#: ../inc/stray_settings.php:267
+msgid "Visibility"
+msgstr "Vidljivost"
+
+#: ../inc/stray_settings.php:269
+msgid "If checked, will set \"Visible\" to \"Yes\" for all new quotes."
+msgstr "Ukoliko je uključeno, postaviti će \"Vidljivo\" na \"Da\" za sve nove citate."
+
+#: ../inc/stray_settings.php:272
+msgid "Default category"
+msgstr "Standardna kategorija"
+
+#: ../inc/stray_settings.php:281
+msgid "This category will be the default for all new quotes."
+msgstr "Ova kategorija će biti standardna za sve nove citate."
+
+#: ../inc/stray_settings.php:284
+msgid "Clear the form"
+msgstr "Isprazni formu"
+
+#: ../inc/stray_settings.php:286
+msgid "If checked, will clear the values from the form after adding a new quote."
+msgstr "Ukoliko je uključeno, ukloniti će vrijednosti iz forme nakon dodavanja novog citata."
+
+#: ../inc/stray_settings.php:299
+msgid "Management of the quotes"
+msgstr "Upravljanje citatima"
+
+#: ../inc/stray_settings.php:300
+msgid "Default settings for the management page.  They can be changed on the management page as well."
+msgstr "Standardne postavke za upravljačku stranicu. Mogu također biti promijenjene i na upravljačkoj stranici."
+
+#: ../inc/stray_settings.php:303
+msgid "Order by"
+msgstr "Sortirano po"
+
+#: ../inc/stray_settings.php:311
+msgid "<br/>The list of quotes in the management page will be ordered by this value."
+msgstr "<br/>Lista citata na upravljačkoj stranici biti će sortirana po ovoj vrijednosti."
+
+#: ../inc/stray_settings.php:317
+msgid "<br/>The sorting of quotes will take this direction."
+msgstr "<br/>Sortiranje citata biti će u ovom smjeru."
+
+#: ../inc/stray_settings.php:319
+msgid "Quotes per page"
+msgstr "Citata po stranici"
+
+#: ../inc/stray_settings.php:328
+msgid "The list of quotes in the management page will display this much quotes per page."
+msgstr "Lista citata na upravljačkoj stranici će prikazati ovoliko citata po stranici."
+
+#: ../inc/stray_settings.php:330
+msgid "Show categories"
+msgstr "Prikaži kategorije"
+
+#: ../inc/stray_settings.php:333
+msgid "All categories"
+msgstr "Sve kategorije"
+
+#: ../inc/stray_settings.php:341
+msgid "The list of quotes in the management page will present quotes from this category only."
+msgstr "Lista citata na upravljačkoj stranici će prikazati samo citate iz ove kategorije."
+
+#: ../inc/stray_settings.php:355
+msgid "Multiuser settings"
+msgstr "Višekorisničke postavke"
+
+#: ../inc/stray_settings.php:356
+msgid "Allow contributors to access a restricted version of Stray Random Quotes."
+msgstr "Dozvolite korisnicima pristup zaštićenoj verziji Stray Random Quotes."
+
+#: ../inc/stray_settings.php:360
+msgid "Enable multiuser capability"
+msgstr "Uključi višekorisničke mogućnosti"
+
+#: ../inc/stray_settings.php:361
+msgid " If checked a contributor (non-administrator) to the blog will be enabled to: create new quotes, edit and manage his own, and access a limited version of the help page."
+msgstr "Ukoliko je uključeno, korisniku (koji nije administrator) će  biti omogućeno da: dodaje nove citate, uređuje i upravlja vlastitim i pristupi ogranićenoj verziji stranica pomoći. "
+
+#: ../inc/stray_tools.php:28
+msgid "<strong>Bookmarklet options saved.</strong>"
+msgstr "<strong>Bookmarklet opcije su pohranjene.</strong>"
+
+#: ../inc/stray_tools.php:31
+msgid "<strong>Bookmarklet options not saved. Something went wrong!</strong>"
+msgstr "<strong>Bookmarklet opcije nisu pohranjene. Nešto je pošlo po krivu!</strong>"
+
+#: ../inc/stray_tools.php:54
+msgid "<strong>Shortcodes enabled.</strong>"
+msgstr "<strong>Kratki kodovi aktivirani.</strong>"
+
+#: ../inc/stray_tools.php:57
+msgid "<strong>Shortcodes not enabled. Something went wrong!</strong>"
+msgstr "<strong>Kratki kodovi nisu aktivirani. Nešto je pošlo po krivu!</strong>"
+
+#: ../inc/stray_tools.php:71
+#, php-format
+msgid "<strong>Quote IDs have been reset.</strong> To review use the <a href=\"%s\">Manage page</a>."
+msgstr "<strong>ID brojevi citata su resetirani.</strong> Za pregled otvorite <a href=\"%s\">Upravljačku stranicu</a>."
+
+#: ../inc/stray_tools.php:74
+msgid "<strong>Failure.</strong> It was not possible to reset the ID numbers."
+msgstr "<strong>Greška.</strong> Nije bilo moguće resetirati ID brojeva."
+
+#: ../inc/stray_tools.php:130
+msgid "<strong>The settings have been reset to factory defaults.</strong>"
+msgstr "<strong>Postavke su vraćene na tvornički zadane.</strong>"
+
+#: ../inc/stray_tools.php:133
+msgid "<strong>Settings not reset. Something went wrong!</strong>"
+msgstr "<strong>Postavke nisu ažurirane. Nešto je pošlo po krivu!</strong>"
+
+#: ../inc/stray_tools.php:149
+msgid "Tools for Stray Random Quotes"
+msgstr "Alati za Stray Random Quotes"
+
+#: ../inc/stray_tools.php:154
+msgid "To create quotes on the fly, drag the link below to your bowser toolbar."
+msgstr "Za kreiranje citata u hodu, povucite link ispod alatne trake web preglednika."
+
+#: ../inc/stray_tools.php:155
+msgid "How to use: When you find some text in a web page that you want to turn into a quote, select the text and click on the link."
+msgstr "Kako koristiti: Kada nađete neki tekst na web stranici koji želite pretvoriti u citat, selektirajte tekst i kliknite na link."
+
+#: ../inc/stray_tools.php:155
+msgid "Quote this"
+msgstr "Citiraj ovo"
+
+#: ../inc/stray_tools.php:158
+msgid "Default category for bookmarklet quotes: "
+msgstr "Standardna kategorija za bookmarklet citate: "
+
+#: ../inc/stray_tools.php:166
+msgid "If checked, will add a link to the web page as source for the quote."
+msgstr "Ukoliko je uključeno, dodati će link na web stranicu koja je izvor citata."
+
+#: ../inc/stray_tools.php:166
+msgid "Note: no matter how you change these options, the bookmarklet will stay the same"
+msgstr "Primjetite: bez obzira kako mijenjate ovu opciju, bookmarklet će ostati isti"
+
+#: ../inc/stray_tools.php:168
+msgid "Apply bookmarklet options"
+msgstr "Primjeni bookmarklet opcije"
+
+#: ../inc/stray_tools.php:175
+msgid "Add shortcodes everywhere"
+msgstr "Dodaj kratke kodove svugdje"
+
+#: ../inc/stray_tools.php:177
+msgid "For some reason, you might want to add random things <em>via shortcodes</em> to other parts of your blog other than posts and pages. Wordpress does not support this, but a patch is pretty easy to apply. All you have to do is select here below the areas where you want to be able to use shortcodes. This method will allow you to have things such as random taglines or random category names the easiest way."
+msgstr "Iz nekog razloga, možda bi željeli dodati nasumične stvari <em>putem kratikih kodova</em> na ostalim dijelovima vaših stranica osim na člancima i stranicama. Wordpress ovo ne podržava, ali je prilično jednostavno za primjeniti. Sve što trebate je selektirati ovdje niže područja na kojima želite imati mogućnosti koristiti kratke kodove. Ova metoda če vam omogućiti stvari poput nasumičnih oznaka ili nasumičnih imena kategorija na najlakši mogući način."
+
+#: ../inc/stray_tools.php:179
+msgid "Note that this will apply to all sorts of shortcodes and not only to those of Stray Random Quotes. Consider this carefully when you enable it for an area accessible to everyone, such as comments. If you don't understand any of this, don't use it."
+msgstr "Primjetite da će se ovo primjeniti na sve vrste kratkih kodova a ne samo na one iz Stray Random Quotes plugin-a. Razmotrite pažljivo kada omogućavate ovo na područjima koja su dostupna svima, poput komentara. Ako ne razumijete ništa od ovoga, ne koristite."
+
+#: ../inc/stray_tools.php:181
+msgid "Enable shortcodes in <strong>comments</strong>"
+msgstr "Omogući kratke kodove u <strong>komentarima</strong>"
+
+#: ../inc/stray_tools.php:183
+msgid "Enable shortcodes in <strong>post titles</strong>"
+msgstr "Omogući kratke kodove u <strong>naslovima članaka</strong>"
+
+#: ../inc/stray_tools.php:185
+msgid "Enable shortcodes in <strong>post excerpts</strong>"
+msgstr "Omogući kratke kodove u <strong>izvadcima članaka</strong>"
+
+#: ../inc/stray_tools.php:187
+msgid "Enable shortcodes in <strong>categories</strong>"
+msgstr "Omogući kratke kodove u <strong>kategorijama</strong>"
+
+#: ../inc/stray_tools.php:189
+msgid "Enable shortcodes in <strong>tags</strong>"
+msgstr "Omogući kratke kodove u <strong>oznakama</strong>"
+
+#: ../inc/stray_tools.php:191
+msgid "Enable shortcodes in <strong>bloginfo (such as blog title or the tagline)</strong>"
+msgstr "Omogući kratke kodove u <strong>bloginfo (poput naslova bloga)</strong>"
+
+#: ../inc/stray_tools.php:193
+msgid "Enable shortcodes in <strong>text widgets</strong>"
+msgstr "Omogući kratke kodove u <strong>tekst widget-ima</strong>"
+
+#: ../inc/stray_tools.php:194
+msgid "Toggle shortcodes"
+msgstr "Uključi kratke kodove"
+
+#: ../inc/stray_tools.php:199
+msgid "Reset the index"
+msgstr "Resetiran indeks"
+
+#: ../inc/stray_tools.php:201
+msgid "If you want to reset the numbering of your quotes, click on the button below. If you are the cautious type, maybe you want to backup first."
+msgstr "Ukoliko želite resetirati numeriranje vaših citata, kliknite donju tipku. Ukoliko ste oprezan tip, možda prije želite napraviti i sigurnosnu kopiju."
+
+#: ../inc/stray_tools.php:202
+msgid "Note that after this some (or all) IDs might not correspond to the same quotes."
+msgstr "Primjetite da nakon ovoga neki (ili svi) ID brojevi ne moraju biti povezani s istim citatima kao do sada."
+
+#: ../inc/stray_tools.php:203
+msgid "Reset index"
+msgstr "Resetiraj indeks"
+
+#: ../inc/stray_tools.php:208
+msgid "Reset the Settings"
+msgstr "Resetirajte postavke"
+
+#: ../inc/stray_tools.php:210
+msgid "If you want the defaults settings back, click on the button below."
+msgstr "Ukoliko želite vratite standardne postavke, kliknite donju tipku."
+
+#: ../inc/stray_tools.php:212
+msgid "This will revert all the settings to factory defaults according to recent issues of the plugin. They might differ from what they were many versions ago."
+msgstr "Ovime ćete vratiti postavke na tvornički zadane prema zadnjim izdanjima plugina. Moguće su razilike naspram postavki koje su bile aktualne znatno ranijim verzijama."
+
+#: ../inc/stray_tools.php:214
+msgid "Reset Settings"
+msgstr "Reset postavki"
+
+#: ../inc/stray_widgets.php:132
+msgid "Random Quote"
+msgstr "Random Quote"
+
+#: ../inc/stray_widgets.php:158
+msgid "all settings are for this Quotes widget only."
+msgstr "sve postavke su samo za ovaj Quotes widget."
+
+#: ../inc/stray_widgets.php:159
+msgid "Title"
+msgstr "Naslov"
+
+#: ../inc/stray_widgets.php:166
+msgid "Categories"
+msgstr "Kategorije"
+
+#: ../inc/stray_widgets.php:166
+msgid "Quotes are taken from these categories. Drag the mouse or ctrl-click to multi-select"
+msgstr "Citati su uzeti iz ovih kategorija. Povucite mišem ili ctrl-kliknite za višestruki odabir"
+
+#: ../inc/stray_widgets.php:184
+msgid "Random"
+msgstr "Nasumično"
+
+#: ../inc/stray_widgets.php:184
+msgid "Leave unckecked to load the quotes in order beginning from a random one."
+msgstr "Ostavite neuključeno za učitavanje citata po redu od početka umjesto nasumično."
+
+#: ../inc/stray_widgets.php:186
+msgid "Show"
+msgstr "Prikaži"
+
+#: ../inc/stray_widgets.php:186
+msgid "quotes at a time"
+msgstr "citata po vremenu:"
+
+#: ../inc/stray_widgets.php:188
+msgid "Disable aspect settings"
+msgstr "Isključite postavke aspekta"
+
+#: ../inc/stray_widgets.php:188
+#, php-format
+msgid "As set in the \"How the quotes look\" section of the <a href=\"%s1\">settings page</a>."
+msgstr "Kako je postavljeno u \"Kako citat izgleda\" sekciji <a href=\"%s1\">stranice postavki</a>."
+
+#: ../inc/stray_widgets.php:192
+msgid "AJAX functionality:"
+msgstr "AJAX funkcionalnost:"
+
+#: ../inc/stray_widgets.php:193
+msgid "Reload phrase"
+msgstr "Fraza ažuriranja"
+
+#: ../inc/stray_widgets.php:193
+msgid "if left empty, reloading is done by clicking on the quote area."
+msgstr "Ukoliko je prazno, učitavanje se radi klikanjem na područje citata."
+
+#: ../inc/stray_widgets.php:198
+msgid "Rotate every"
+msgstr "Rotiraj svakih"
+
+#: ../inc/stray_widgets.php:198
+msgid "seconds"
+msgstr "sekundi"
+
+#: ../inc/stray_widgets.php:198
+msgid "Reloads the quote after the set interval. Hides the link phrase. Leave this empty or enter 0 to disable."
+msgstr "Ponovo učitava citat nakon zadanog intervala. Sakriva link frazu. Ostavite praznim ili upišite 0 za isključivanje."
+
+#: ../inc/stray_widgets.php:200
+msgid "Disable AJAX"
+msgstr "Isključite AJAX"
+
+#: ../inc/stray_widgets.php:200
+msgid "Check to disable any dynamic reloading of the quote."
+msgstr "Kliknite za isključivanje dinamičnog učitavanja citata."
+
+#~ msgid ""
+#~ "<li>* I converted your old settings into new ones that will take less "
+#~ "room in your database and be faster to load.</li>"
+#~ msgstr ""
+#~ "<li>* Konvertirao sam stare postavke u nove koje će zauzeti manje mjesta "
+#~ "u vašoj bazi podataka te će se brže učitavati.</li>"
+#~ msgid "What if I don't use widgets?"
+#~ msgstr "Što ako ne koristim widget-e?"
+#~ msgid ""
+#~ "If your template <strong>does not</strong> use widgets, or you want to "
+#~ "display the quotes on your template <strong>elsewhere</strong> other than "
+#~ "the sidebar, you can add this piece of code to your template (in the "
+#~ "header, the footer etc):"
+#~ msgstr ""
+#~ "Ukoliko Vaš predložak <strong>ne koristi</strong> widget-e ili želite "
+#~ "prikazati citate <strong>drugdje</strong> na vašem predlošku, možete "
+#~ "dodati komadić koda na Vaš predložak (unutar zaglavlja, podnožja itd...):"
+#~ msgid ""
+#~ "<code>&lt;?php if (function_exists('stray_random_quote')) "
+#~ "stray_random_quote('category1,category2', false, 'another quote &amp;"
+#~ "raquo;', false); ?&gt;</code><br/><br/>Note that <code>'category1,"
+#~ "category2'</code> is where you add a comma separated list of the "
+#~ "categories from which to extract the random quote. This setting is "
+#~ "optional. If you don't indicate anything, a random quote from all the "
+#~ "categories will be displayed. <code>true</code> or <code>false</code>, "
+#~ "without brackets, indicates whether to load the quotes in order (true) or "
+#~ "randomly (false). If you don't indicate anything the quotes will be "
+#~ "loaded randomly. <code>'another quote &amp;raquo;'</code> allows to "
+#~ "optionally indicate a special link phrase for the AJAX loader, or none at "
+#~ "all. For this to work, the default link phrase in the <a href=\"%s1"
+#~ "\">settings page</a> must be left empty (and AJAX must be enabled). The "
+#~ "last <code>false</code> indicates whether to optionally disable ajax "
+#~ "entirely for this tag (if true). A default title, such as 'Random quote', "
+#~ "is set through the <a href=\"%s1\">settings page</a>. If you want "
+#~ "specific titles for different categories, you will have to put that "
+#~ "directly in the HTML of the template. For example:<br/><br/><code>&lt;"
+#~ "h2&gt;Random Mark Twain quote:&lt;/h2&gt;&lt;?php if (function_exists"
+#~ "('stray_random_quote')) stray_random_quote('mark twain'); ?&gt;</code>, "
+#~ "you got the idea."
+#~ msgstr ""
+#~ "<code>&lt;?php if (function_exists('stray_random_quote')) "
+#~ "stray_random_quote('category1,category2', false, 'slijedeći citat &amp;"
+#~ "raquo;', false); ?&gt;</code><br/><br/>Primjetite da <code>'category1,"
+#~ "category2'</code> je tamo gdje dodate zarezom odvojenu listu kategorija "
+#~ "iz kojih će se prikazati nasumični citati. <code>true</code> ili "
+#~ "<code>false</code>, bez zagrada, određuju da li učitati citate prema "
+#~ "poretku (true) ili nasumično (false). Ukoliko ne odredite ništa citati će "
+#~ "se učitavati nasumično.. <code>'slijedeći citat &amp;raquo;'</code> pruža "
+#~ "opcionalnu mogućnost prikaza posebnog linka za AJAX loader, ili bez "
+#~ "linka. Da bi ovo radilo, standardna vrijednost linka unutar <a href=\"%s1"
+#~ "\">stranice postavki</a> mora biti prazna (i AJAX mora biti omogućen). "
+#~ "Zadnji dio <code>false</code> naznačuje da li opcionalno onemogućiti AJAX "
+#~ "u potpunosti za ovaj tag (ukoliko je vrijednost na true). Standardni "
+#~ "naslov, poput 'Random quote', je postavljen putem <a href=\"%s1"
+#~ "\">stranice postavki</a>. Ukoliko želite specifične naslove za različite "
+#~ "kategorije, trebati ćete ih postaviti direktno unutar HTML koda "
+#~ "predloška. Na primjer:<br/><br/><code>&lt;h2&gt;Random Mark Twain quote:"
+#~ "&lt;/h2&gt;&lt;?php if (function_exists('stray_random_quote')) "
+#~ "stray_random_quote('mark twain'); ?&gt;</code>, samo za ideju."
+#~ msgid ""
+#~ "To <strong>insert a random quote</strong> in a post or page, write in the "
+#~ "post editor <code><strong>[random-quote]</strong></code>.<br/><br/>This "
+#~ "shortcode accepts many variables: <code>[random-quote categories="
+#~ "\"category1,category2\" sequence=\"false\" linkphrase=\"another quote "
+#~ "&amp;raquo;\" noajax=\"false\"]</code>. <code>categories</code> is where "
+#~ "you add the categories separated by commas from which to extract the "
+#~ "random quote. <code>sequence</code> loads the quotes in order if \"true"
+#~ "\", randomly if \"false\". <code>linkphrase</code> displays a phrase to "
+#~ "dynamically load another quote (overriding the one given in the "
+#~ "settings). <code>noajax</code> if \"true\" optionally disables the ajax "
+#~ "for this shortcode. All these settings are optional. If you don't "
+#~ "indicate anything, a random quote from all the categories will be "
+#~ "displayed, with ajax according to the general settings.<br/><br/>"
+#~ msgstr ""
+#~ "Za <strong>umetanje nasumičnog citata</strong> unutar članka ili "
+#~ "stranice, napišite u  editor <code><strong>[random-quote]</strong></code>."
+#~ "<br/><br/>Ovaj kratki kod prima dosta varijabli: <code>[random-quote "
+#~ "categories=\"category1,category2\" sequence=\"false\" linkphrase="
+#~ "\"another quote &amp;raquo;\" noajax=\"false\"]</code>. <code>categories</"
+#~ "code> je mjesto gdje dodajete kategorije odvojene zarezima, one iz kojih "
+#~ "će se izvlačiti nasumični citati. <code>sequence</code> učitava citate po "
+#~ "redu ukoliko je na \"true\", a nasumično ukoliko je na \"false\". "
+#~ "<code>linkphrase</code> prikazuje frazu za dinamičko učitavanje "
+#~ "slijedećeg citata (zamijenjujući onu danu standardno u postavkama). "
+#~ "<code>noajax</code> u slučaju vrijednosti \"true\" opcionalno onemogućuje "
+#~ "AJAX za ovaj konkretni kratki kod. Sve ove postavke su opcionalne. "
+#~ "Ukoliko ih uopće ne navedete, prikazivati će se nasumični citati iz svih "
+#~ "kategorija, s uključenim AJAX-om prema općenitim postavkama.<br/><br/>"
+#~ msgid ""
+#~ "To <strong>insert a list of many or all the quotes</strong> in a post or "
+#~ "page, just write in the editor <code><strong>[all-quotes]</strong></"
+#~ "code><br/><br/>This shortcode accepts many variables: <code>[all-quotes "
+#~ "rows=10 orderby=\"quoteID\" sort=\"ASC\" categories=\"all\"]</code>. "
+#~ "<code>rows</code> is how many quotes you want per page; <code>orderby</"
+#~ "code> if you want to order the quotes by \"quoteID\", \"author\" \"source"
+#~ "\" or \"category\"; <code>sort</code> is whether the quotes will be "
+#~ "sorted ascending \"ASC\" or descending \"DESC\". Finally "
+#~ "<code>categories</code> is from which category you want the quotes to be. "
+#~ "Use \"all\" for all the categories, or use the names of the categories "
+#~ "separated by comma. All these settings are optional. Without them, the "
+#~ "values you see in this example are used as defaults."
+#~ msgstr ""
+#~ "Za <strong>umetanje liste mnogih ili čak svih citata</strong> unutar "
+#~ "članka ili stranice, jednostavno upišite u editor <code><strong>[all-"
+#~ "quotes]</strong></code><br/><br/>Ovaj kratki kod prima dosta varijabli: "
+#~ "<code>[all-quotes rows=10 orderby=\"quoteID\" sort=\"ASC\" categories="
+#~ "\"all\"]</code>. <code>rows</code> definira koliko citata želite po "
+#~ "stranici; <code>orderby</code> if you want to order the quotes by "
+#~ "\"quoteID\", \"author\" \"source\" or \"category\"; <code>sort</code> "
+#~ "definira da želite citate sortirati po uzlaznom \"ASC\" ili silaznom "
+#~ "kriteriju \"DESC\". I konačno <code>categories</code> je dio gdje birate "
+#~ "kategoriju iz koje će citati biti korišteni, Koristite \"all\" za sve "
+#~ "kategorije ili koristite imena kategorija odvojena zarezima za specifično "
+#~ "određivanje. Sve ove postavke su opcionalne. Bez njih, vrijednosti koje "
+#~ "vidite u ovom primjeru će se koristiti kao standardne."
+#~ msgid ""
+#~ "Well, actually, on the <a href=\"%s1\">tools page</a> you can enable "
+#~ "shortcodes for a number of extra areas where shortcodes aren't normally "
+#~ "allowed. This will entitle you to some pretty extraordinary things, such "
+#~ "as random taglines or random category names. Note that this will enable "
+#~ "all shortcodes and not only those of Stray Random Quotes. More examples "
+#~ "can be found <a href=\"http://www.italyisfalling.com/cool-things-you-can-"
+#~ "do-with-stray-random-quotes\">here</a>."
+#~ msgstr ""
+#~ "Pa, u stvari, na <a href=\"%s1\">stranici s alatima</a> možete aktivirati "
+#~ "kratke kodove za veći broj dodatnih područja na kojima kratki kodovi nisu "
+#~ "standardno dozvoljeni. Ovo će vam omogućiti neke doista izvanredne "
+#~ "stvari, poput nasumičnih oznaka ili nasumičnih imena kategorija. "
+#~ "Primjetite da će ovo aktivirati sve kratke kodove a ne samo one od Stray "
+#~ "Random Quotes. Više primjera momžete naći <a href=\"http://www."
+#~ "italyisfalling.com/cool-things-you-can-do-with-stray-random-quotes"
+#~ "\">ovdje</a>."
+#~ msgid "What else can I do?"
+#~ msgstr "Što još mogu napraviti?"
+#~ msgid ""
+#~ "Well you could <strong>insert a given quote in a post or a page</strong>, "
+#~ "in which case you should just write in the editor <code>[quote id=x]</"
+#~ "code>, where <code>x</code> is the id number of the quote as it appears "
+#~ "on the management page. This will outupt the quote and also a \"next quote"
+#~ "\" link that will let the user browse between quotes of the same category "
+#~ "as the first one indicated. I will enable more variables here in the "
+#~ "future."
+#~ msgstr ""
+#~ "Pa mogli biste <strong>umetnuti zadani citat untar članka ili stranice</"
+#~ "strong>, a u tom slučaju bi u editor samo upisali <code>[quote id=x]</"
+#~ "code>, gdje <code>x</code> predstavlja id broj željenog citata koji je "
+#~ "prikazan na upravljačkoj stranici. Ovo će prikazati citat i također  "
+#~ "\"slijedeći citat\" link koji će pružiti korisniku mogućnost pregleda "
+#~ "citata unutar iste kategorije koja je prethodno naznačena. Ovdje ću u "
+#~ "budućnosti aktivirati više varijabli."
+#~ msgid ""
+#~ "To insert <strong>a given quote in your template</strong> use the "
+#~ "following: <code>&lt;?php if (function_exists('stray_a_quote')) "
+#~ "stray_a_quote(x);?&gt;</code>, where <code>x</code> is the id number of "
+#~ "the quote as it appears on the management page. This will outupt the "
+#~ "quote and also a \"next quote\" link that will let the user browse "
+#~ "between quotes of the same category as the first one indicated."
+#~ msgstr ""
+#~ "Za umetanje <strong>zadanog citata unutar vašeg predloška</strong> "
+#~ "koristite slijedeće: <code>&lt;?php if (function_exists('stray_a_quote')) "
+#~ "stray_a_quote(x);?&gt;</code>, gdje je <code>x</code> id broj citata koji "
+#~ "je prikazan na upravljačkoj stranici.  Ovo će prikazati citat i također  "
+#~ "\"slijedeći citat\" link koji će pružiti korisniku mogućnost pregleda "
+#~ "citata unutar iste kategorije koja je prethodno naznačena."
+#~ msgid "Hey. There is a bug!"
+#~ msgstr "Hej. Postoji bug!"
+#~ msgid ""
+#~ "I knew it! See, I am not a programmer or anything. There's always a bug. "
+#~ "If you want to help me catch it, and for further help, please come and "
+#~ "trash the comments <a href=\"%s1\">on this post</a>. Thanks.<br /><br />"
+#~ msgstr ""
+#~ "Znao sam! Vidite, ja nisam programer ili slično. Uvijek postoji bug. "
+#~ "Ukoliko mi želite pomoći uhvatite ga i za daljnju pomoć, molim dođite i "
+#~ "ubacite ga u komentare <a href=\"%s1\">na ovom članku</a>. Zahvaljujem."
+#~ "<br /><br />"
+#~ msgid ""
+#~ "To start doing stuff, you can <a href=\"%s1\"><strong>add new quotes</"
+#~ "strong></a>;<br />use the <a href=\"%s2\"><strong>manage</strong></a> "
+#~ "page to edit or delete existing quotes;<br />change the <a href=\"%s3"
+#~ "\"><strong>settings</strong></a> to control how the quotes are displayed "
+#~ "on your blog.<br/>There's also a <a href=\"%s5\"><strong>tools page</"
+#~ "strong></a> that might interest you.<br/>If you're new to all this, "
+#~ "there's a <a href=\"%s4\"><strong>help page</strong></a> as well."
+#~ msgstr ""
+#~ "Za početak stvari, možete <a href=\"%s1\"><strong>dodati novi citat</"
+#~ "strong></a>;<br />pomoću <a href=\"%s2\"><strong>upravljačke</strong></a> "
+#~ "stranice urediti ili obrisati postojeće citate;<br />promijeniti <a href="
+#~ "\"%s3\"><strong>postavke</strong></a> koje kontroliraju kako će se citati "
+#~ "objavljivati na vašim stranicama.<br/>Tu je također i <a href=\"%s5"
+#~ "\"><strong>stranica s alatima</strong></a> koji bi vas mogli interesirati."
+#~ "<br/>Ako ste novi u svemu ovome, postoji također i <a href=\"%s4"
+#~ "\"><strong>stranica pomoći</strong></a> ."
+#~ msgid "Default settings to change how the quotes appear in your blog."
+#~ msgstr ""
+#~ "Standardne postavke za prilagodbu kako će citati izgledati na vašim "
+#~ "stranicama."
+#~ msgid ""
+#~ "<br/>The default title for all the quote widgets. Single settings can be "
+#~ "changed on the <a href=\"%s\">widget page</a>. HTML is not needed here."
+#~ "<br /><strong>Sample value:</strong> <code>Random Quote</code>"
+#~ msgstr ""
+#~ "<br/>Standardni naslov za sve citate unutar widget-a. Pojedinačne "
+#~ "postavke mogu biti korigirane na <a href=\"%s\">widget stranicama</a>. "
+#~ "HTML ovdje nije potreban.<br /><strong>Primjer:</strong> <code>Random "
+#~ "Quote</code>"
+#~ msgid ""
+#~ "<br/>The default title for when the widget functionality is not being "
+#~ "used. On how to work with the code added to your template, refer to <a "
+#~ "href=\"%s\">this page</a>.<br/><strong>Sample value:</strong> <code>&lt;"
+#~ "h2&gt;Random Quote&lt;/h2&gt;</code>"
+#~ msgstr ""
+#~ "<br/>Standardni naslov kada se funkcionalnost widget-a ne koristi. O tome "
+#~ "kako raditi s kodom unutar vašeg predloška, potražite na <a href=\"%s"
+#~ "\">ovoj stranici</a>.<br/><strong>Primjer:</strong> <code>&lt;h2&gt;"
+#~ "Random Quote&lt;/h2&gt;</code>"
+#~ msgid "Author, Quote and Source"
+#~ msgstr "Autor, citat i izvor"
+#~ msgid ""
+#~ "<br/>HTML or other elements before this whole category, which comes after "
+#~ "the title.<br/><strong>Sample value:</strong>"
+#~ msgstr ""
+#~ "<br/>HTML ili ostali elementi prije cijele ove kategorije, koji dolaze "
+#~ "nakon naslova.<br/><strong>Primjer:</strong>"
+#~ msgid ""
+#~ "<br/>HTML or other elements after this category.<br/><strong>Sample value:"
+#~ "</strong>"
+#~ msgstr ""
+#~ "<br/>HTML ili ostali elementi nakon ove kategorije.<br/><strong>Primjer:</"
+#~ "strong>"
+#~ msgid ""
+#~ "<li>* this version introduces for the first time bits of automation that "
+#~ "will allow the visitor of your blog to load new quotes without reloading "
+#~ "the blog pages. Check out the <a href=\"%s1\">settings</a> and <a href=\"%"
+#~ "s2\">help</a> pages for more.</li>"
+#~ msgstr ""
+#~ "<li>* this version introduces for the first time bits of automation that "
+#~ "will allow the visitor of your blog to load new quotes without reloading "
+#~ "the blog pages. Check out the <a href=\"%s1\">settings</a> and <a href=\"%"
+#~ "s2\">help</a> pages for more.</li>"
+#~ msgid "What \"categories\" are for?"
+#~ msgstr "What \"categories\" are for?"
+#~ msgid ""
+#~ "Categories are groups into which your quotes can be divided. They can "
+#~ "have all sorts of use, from easily managing a large number of quotes, to "
+#~ "displaying quotes of different categories in different areas of the blog."
+#~ "<br/>Note: <em>Categories were called originally \"groups\", then I "
+#~ "decided \"group\" was lame. I do things like that.</em></p>"
+#~ msgstr ""
+#~ "Categories are groups into which your quotes can be divided. They can "
+#~ "have all sorts of use, from easily managing a large number of quotes, to "
+#~ "displaying quotes of different categories in different areas of the blog."
+#~ "<br/>Note: <em>Categories were called originally \"groups\", then I "
+#~ "decided \"group\" was lame. I do things like that.</em></p>"
+#~ msgid ""
+#~ "To <strong>insert a random quote</strong> in a post or page, just write "
+#~ "in the editor <code>[random-quote \"category1\" \"category2\"]</code>. "
+#~ "Note that <code>\"category1\" \"category2\"</code> is where you add the "
+#~ "categories from which to extract the random quote. This setting is "
+#~ "optional. If you don't indicate anything, a random quote from all the "
+#~ "categories will be displayed. At the moment it is not possible to have "
+#~ "these quotes loaded in order instead than randomly, the way you can with "
+#~ "widgets."
+#~ msgstr ""
+#~ "To <strong>insert a random quote</strong> in a post or page, just write "
+#~ "in the editor <code>[random-quote \"category1\" \"category2\"]</code>. "
+#~ "Note that <code>\"category1\" \"category2\"</code> is where you add the "
+#~ "categories from which to extract the random quote. This setting is "
+#~ "optional. If you don't indicate anything, a random quote from all the "
+#~ "categories will be displayed. At the moment it is not possible to have "
+#~ "these quotes loaded in order instead than randomly, the way you can with "
+#~ "widgets."
+#~ msgid "the numbering of the quotes."
+#~ msgstr "the numbering of the quotes."
+#~ msgid "<strong>Failure:</strong> No quote ID given. Nothing deleted."
+#~ msgstr "<strong>Failure:</strong> No quote ID given. Nothing deleted."
+#~ msgid "<strong>Failure:</strong> Nothing deleted."
+#~ msgstr "<strong>Failure:</strong> Nothing deleted."
+#~ msgid "show category: "
+#~ msgstr "show category: "
+#~ msgid "<br/>No quotes yet."
+#~ msgstr "<br/>No quotes yet."
+#~ msgid ""
+#~ "&nbsp;If checked, <strong>disables the AJAX loader</strong> entirely."
+#~ msgstr ""
+#~ "&nbsp;If checked, <strong>disables the AJAX loader</strong> entirely."
+

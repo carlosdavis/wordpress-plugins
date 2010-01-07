@@ -1,0 +1,728 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: stray-quotes\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-02-19 19:03+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: Markus Griesbach <markus.griesbach@web.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: ../stray_quotes.php:94
+msgid "<p>Hey. Welcome to a new version of <strong>Stray Random Quotes</strong>. All changes are addressed in the <a href=\"%1\">changelog</a>, but you should know that: </p>"
+msgstr "<p>Hey. Willkommen zu einer neuen Version von <strong>Stray Random Quotes</strong>. Alle Änderungen sind im <a href=\"%1\">changelog</a>, zu finden, aber Sie sollten Folgendes beachten: </p>"
+
+#: ../stray_quotes.php:126
+#, php-format
+msgid "<li>* I changed the old table \"%s1\" into a new one called \"%s2\" but don't worry, all your quotes are still there.</li>"
+msgstr "<li>* Ich habe die alte Tabelle \"%s1\" in eine neue namens \"%s2\" geändert, aber keine Angst, alle Ihre Zitate sind noch vorhanden.</li>"
+
+#: ../stray_quotes.php:148
+#, php-format
+msgid "<li>* This plugin now comes with \"categories\", which should make for a more intelligent way to organize, maintain and display quotes on your blog. I updated the table \"%s1\" but all your quotes <a href=\"%s2\">are still there</a>.</li>"
+msgstr "<li>* Dieses Plug-In verfügt jetzt über \"Kategorien\", die das Organisieren, Pflegen und Anzeigen von Zitaten im Blog vereinfachen sollten. Ich habe die Tabelle \"%s1\" erneuert, aber alle Ihre Zitate <a href=\"%s2\">sind noch vorhanden</a>.</li>"
+
+#: ../stray_quotes.php:177
+#, php-format
+msgid "Hey. This seems to be your first time with this plugin. I've just created the database table \"%s1\" to store your quotes, and added one to start you off."
+msgstr "Hey. Offensichtlich nutzen Sie dieses Plug-In zum ersten Mal. Ich habe gerade die Datenbank-Tabelle \"%s1\" angelegt, um Ihre Zitate zu speichern, und ein Beispiel zum Starten eingefügt."
+
+#: ../stray_quotes.php:307
+msgid "<li>* I converted your old settings into new ones that will take less room in your database and be faster to load.</li>"
+msgstr "<li>* Ich habe Ihre alten Einstellungen in neue konvertiert, die weniger Platz in der Datenbank einnehmen und schneller zu laden sind.</li>"
+
+#: ../stray_quotes.php:365
+msgid "<li>* hopefully the mess caused by version 1.7.8 has now been corrected... If you changed the categories assigned to quotes using the 1.7.8 version, you might find now that the changes made are lost. All the rest will stay the same, including that \"groups\" are now called \"categories\".</li>"
+msgstr "<li>* Der Missstand aus Version 1.7.8 ist nun hoffentlich korrigiert... Wenn Sie in Version 1.7.8 die zu einem Zitat gehörenden Kategorien geändert haben, könnten diese nun verloren gegangen sein. Der Rest bleibt gleich, nur dass \"Gruppen\" jetzt \"Kategorien\" genannt werden.</li>"
+
+#: ../stray_quotes.php:369
+msgid "<li>* spaces are not allowed within categories names, because they created all sorts of problems. I replaced them with dashes. I hope it's okay.</li>"
+msgstr "<li>* Leerzeichen in Kategorie-Namen sind nicht erlaubt, da sie eine Reihe von Problemen verursachten. Ich habe sie durch Bindestriche ersetzt und hoffe, das ist okay.</li>"
+
+#: ../stray_quotes.php:399
+#, php-format
+msgid "<li>* this version introduces for the first time bits of automation that will allow the visitor of your blog to load new quotes without reloading the blog pages. Check out the <a href=\"%s1\">settings</a> and <a href=\"%s2\">help</a> pages for more.</li>"
+msgstr "<li>* Diese Version führt erstmals einen teilweisen Automatismus ein, der dem Besucher Ihres Blogs erlaubt, neue Zitate zu laden, ohne die Blog-Seiten neu zu laden. Näheres dazu finden Sie unter <a href=\"%s1\">Einstellungen</a> und <a href=\"%s2\">Hilfe</a>.</li>"
+
+#: ../stray_quotes.php:458
+msgid "Quotes"
+msgstr "Zitate"
+
+#: ../stray_quotes.php:459
+msgid "Overview for the Quotes"
+msgstr "Übersicht über die Zitate"
+
+#: ../stray_quotes.php:459
+#: ../inc/stray_overview.php:28
+msgid "Overview"
+msgstr "Übersicht"
+
+#: ../stray_quotes.php:460
+msgid "Manage Quotes"
+msgstr "Zitate verwalten"
+
+#: ../stray_quotes.php:460
+msgid "Manage"
+msgstr "Verwalten"
+
+#: ../stray_quotes.php:461
+msgid "Add New Quote"
+msgstr "Neues Zitat hinzufügen"
+
+#: ../stray_quotes.php:461
+msgid "Add New"
+msgstr "Hinzufügen"
+
+#: ../stray_quotes.php:462
+msgid "Settings of the Quotes"
+msgstr "Zitate-Einstellungen"
+
+#: ../stray_quotes.php:462
+#: ../inc/stray_settings.php:149
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: ../stray_quotes.php:463
+msgid "Help with the Quotes"
+msgstr "Hilfe zu den Zitaten"
+
+#: ../stray_quotes.php:463
+msgid "Help"
+msgstr "Hilfe"
+
+#: ../stray_quotes.php:464
+msgid "Remove Stray Random Quotes"
+msgstr "Stray Random Quotes entfernen"
+
+#: ../stray_quotes.php:464
+msgid "Remove"
+msgstr "Entfernen"
+
+#: ../inc/stray_help.php:15
+#, php-format
+msgid "<strong>Quote IDs have been reset.</strong> To review use the <a href=\"%s\">Manage page</a>."
+msgstr "<strong>Zitat-IDs wurden zurückgesetzt.</strong> Zur Überprüfung nutzen Sie die <a href=\"%s\">Verwaltungsseite</a>."
+
+#: ../inc/stray_help.php:18
+msgid "<strong>Failure.</strong> It was not possible to reset the ID numbers."
+msgstr "<strong>Fehler.</strong> Das Zurücksetzen der IDs war nicht möglich."
+
+#: ../inc/stray_help.php:25
+msgid "The help page"
+msgstr "Die Hilfe-Seite"
+
+#: ../inc/stray_help.php:29
+msgid "So, how do I display a random quote on this blog?"
+msgstr "Wie zeige ich ein zufällig ausgewähltes Zitat im Blog an?"
+
+#: ../inc/stray_help.php:30
+#, php-format
+msgid "Stray Random Quotes comes with <strong>Widgets</strong>. Depending on your preferences, a random quote in a widget could be coming from one or two categories of quotes, or from all the categories. You can use all the widgets you want. Each widget has its own set of options. Just enable one widget at a time on the <a href=\"%s1\">widget page</a>, and change its settings accordingly.<br />Note: <em>Your template must be widget compatible.</em></p>"
+msgstr "Stray Random Quotes bietet <strong>Widgets</strong>. Je nach Ihren Einstellungen kann ein zufälliges Zitat in einem Widget aus einer, zwei oder allen Kategorien stammen. Sie können so viele Widgets benutzen wie nötig. Jeder Widget hat seine eigenen Einstellungen. Aktivieren Sie einen Widget pro Durchgang auf der <a href=\"%s1\">Widgets-Seite</a>, und ändern Sie dessen Einstellungen entsprechend.<br />Hinweis: <em>Ihr Template muss mit Widgets kompatibel sein.</em></p>"
+
+#: ../inc/stray_help.php:33
+msgid "What if I don't use widgets?"
+msgstr "Was, wenn ich keine Widgets benutze?"
+
+#: ../inc/stray_help.php:34
+msgid "If your template <strong>does not</strong> use widgets, or you want to display the quotes on your template <strong>elsewhere</strong> other than the sidebar, you can add this piece of code to your template (in the header, the footer etc):"
+msgstr "Wenn Ihr Template <strong>keine</strong> Widgets nutzt, oder Sie möchten die Zitate <strong>anderswo</strong> als in der Sidebar anzeigen, dann können Sie diesen Code in Ihr Template einfügen (in den Header, Footer etc.):"
+
+#: ../inc/stray_help.php:35
+#, php-format
+msgid "<code>&lt;?php if (function_exists('stray_random_quote')) stray_random_quote('category1,category2,etc', false, 'another quote &amp;raquo;'); ?&gt;</code><br/><br/>Note that <code>'category1,category2,etc'</code> is where you add a comma separated list of the categories from which to extract the random quote. This setting is optional. If you don't indicate anything, a random quote from all the categories will be displayed. <code>true</code> or <code>false</code>, without brackets, indicates whether to load the quotes in order (true) or randomly (false). If you don't indicate anything the quotes will be loaded randomly. <code>'another quote &amp;raquo;'</code> allows to optionally indicate a special link phrase for the AJAX loader, or none at all. For this to work, the default link phrase in the <a href=\"%s1\">settings page</a> must be left empty (and AJAX must be enabled). A default title, such as 'Random quote', is also set through the <a href=\"%s1\">settings page</a>. If you want specific titles for different categories, you will have to put that directly in the HTML of the template. For example:<br/><br/><code>&lt;h2&gt;Random Mark Twain quote:&lt;/h2&gt;&lt;?php if (function_exists('stray_random_quote')) stray_random_quote('mark twain'); ?&gt;</code>, you got the idea."
+msgstr "<code>&lt;?php if (function_exists('stray_random_quote')) stray_random_quote('category1,category2,etc', false, 'weiteres Zitat &amp;raquo;'); ?&gt;</code><br/><br/>Beachten Sie, dass <code>'category1,category2,etc'</code> als kommaseparierte Liste die Kategorien bestimmt, aus denen die zufälligen Zitate ausgewählt werden sollen. Diese Einstellung ist optional. Wenn Sie nichts angeben, wird ein zufälliges Zitat aus allen Kategorien angezeigt. <code>true</code> or <code>false</code>, ohne Klammern, gibt an, ob die Zitate geordnet (true) oder zufällig (false) angezeigt werden sollen. Wenn Sie nichts angeben, werden die Zitate zufällig angezeigt. <code>'weiteres Zitat &amp;raquo;'</code> erlaubt die Angabe einer speziellen Linkbezeichnung für den AJAX-Loader, oder den Verzicht darauf. Damit dies funktioniert, muss die Standard-Linkbezeichnung auf der <a href=\"%s1\">Einstellungsseite</a> leer sein (und AJAX muss aktiviert sein). Ein Standard-Titel, wie etwa 'Zufälliges Zitat', wird ebenfalls auf der <a href=\"%s1\">Einstellungsseite</a> gesetzt. Wenn Sie eigene Titel für die verschiedenen Kategorien vergeben möchten, so müssen Sie diese direkt im HTML-Code des Templates setzen. Zum Beispiel:<br/><br/><code>&lt;h2&gt;Zufälliges Mark Twain-Zitat:&lt;/h2&gt;&lt;?php if (function_exists('stray_random_quote')) stray_random_quote('mark twain'); ?&gt;</code>."
+
+#: ../inc/stray_help.php:38
+msgid "What \"categories\" are for?"
+msgstr "Wozu sind \"Kategorien\" geeignet?"
+
+#: ../inc/stray_help.php:39
+msgid "Categories are groups into which your quotes can be divided. They can have all sorts of use, from easily managing a large number of quotes, to displaying quotes of different categories in different areas of the blog.<br/>Note: <em>Categories were called originally \"groups\", then I decided \"group\" was lame. I do things like that.</em></p>"
+msgstr "Kategorien sind Gruppen, in die Ihre Zitate unterteilt werden können. Sie können verschiedensten Zwecken dienen, von der einfachen Verwaltung einer großen Zahl von Zitaten bis hin dazu, Zitate verschiedener Kategorien an unterschiedlichen Stellen des Blogs darzustellen.<br/>Hinweis: <em>Kategorien wurden ursprünglich \"Gruppen\" genannt, dann habe ich entschieden, dass \"Gruppen\" langweilig ist. Ich mache manchmal solche Sachen.</em></p>"
+
+#: ../inc/stray_help.php:42
+msgid "What about posts and pages?"
+msgstr "Was ist mit Artikeln und Seiten?"
+
+#: ../inc/stray_help.php:43
+msgid "To <strong>insert a random quote</strong> in a post or page, just write in the editor <code>[random-quote \"category1\" \"category2\"]</code>. Note that <code>\"category1\" \"category2\"</code> is where you add the categories from which to extract the random quote. This setting is optional. If you don't indicate anything, a random quote from all the categories will be displayed. At the moment it is not possible to have these quotes loaded in order instead than randomly, the way you can with widgets."
+msgstr "Zum <strong>Einfügen eines zufälligen Zitates</strong> in einen Artikel oder eine Seite geben Sie im Editor einfach <code>[random-quote \"category1\" \"category2\"]</code> ein. Beachten Sie, dass <code>\"category1\" \"category2\"</code> angibt, aus welchen Kategorien die zufälligen Zitate ausgewählt werden sollen. Diese Angabe ist optional. Wenn Sie nicht angeben, wird ein zufälliges Zitat aus allen Kategorien angezeigt. Momentan ist es nicht möglich, so eingebundene Zitate geordnet statt zufällig zu laden, so wie es bei Widgets möglich ist."
+
+#: ../inc/stray_help.php:44
+msgid "To <strong>insert a list of many or all the quotes</strong> in a post or page, just write in the editor <code>[all-quotes rows=10, orderby=\"quoteID\", sort=\"ASC\", categories=\"all\"]</code>. The variables here I think are pretty straightforward, but to clarify: <em>rows</em> is how many quotes you want per page; <em>orderby</em> if you want to order the quotes by \"quoteID\", \"author\" \"source\" or \"category\"; <em>sort</em> is whether the quotes will be sorted ascending \"ASC\" or descending \"DESC\". Finally <em>categories</em> is from which category you want the quotes to be. Use \"all\" for all the categories, or use the names of the categories separated by comma. All these settings are optional. Without them, the values you see in this example are used as defaults."
+msgstr "Zum <strong>Einfügen einer Liste vieler oder aller Zitate</strong> in einen Artikel oder eine Seite geben Sie im Editor <code>[all-quotes rows=10, orderby=\"quoteID\", sort=\"ASC\", categories=\"all\"]</code> ein. Die Variablen hier sind selbsterklärend, denke ich, aber um es zu verdeutlichen: <em>rows</em> gibt an, wie viele Zitate Sie auf einer Seite darstellen möchten; <em>orderby</em> wird gesetzt, wenn Sie die Zitate nach \"quoteID\", \"author\" \"source\" or \"category\" soritert ausgeben möchten; <em>sort</em> legt fest, ob die Zitate aufsteigend (\"ASC\") oder absteigend (\"DESC\") sortiert werden. Und <em>categories</em> ist die Kategorie, aus der die Zitate stammen sollen. Verwenden Sie \"all\" für alle Kategorien oder die durch Komma getrennten Namen der gewünschten Kategorien. Alle diese Einstellungen sind optional. Ohne sie werden die Werte aus dem Beispiel als Standardwerte genutzt."
+
+#: ../inc/stray_help.php:47
+msgid "What else can I do?"
+msgstr "Was kann ich noch tun?"
+
+#: ../inc/stray_help.php:48
+msgid "Well you could <strong>insert a given quote in a post or a page</strong>, in which case you should just write in the editor <code>[quote id=x]</code>, where <code>x</code> is the id number of the quote as it appears on the management page. This will outupt the quote and also a \"next quote\" link that will let the user browse between quotes of the same category as the first one indicated."
+msgstr "Sie können <strong>ein bestimmtes Zitat in einen Artikel oder eine Seite einbinden</strong>, in diesem Fall geben Sie im Editor <code>[quote id=x]</code> ein, wobei <code>x</code> die ID des Zitates ist, so wie sie auf der Verwaltungsseite erscheint. So wird das Zitat ausgegeben und ein \"nächstes Zitat\"-Link, der den Nutzer in den Zitaten der gleichen Kategorie blättern lässt."
+
+#: ../inc/stray_help.php:49
+msgid "To insert <strong>a given quote in your template</strong> use the following: <code>&lt;?php if (function_exists('stray_a_quote')) stray_a_quote(x);?&gt;</code>, where <code>x</code> is the id number of the quote as it appears on the management page. This will outupt the quote and also a \"next quote\" link that will let the user browse between quotes of the same category as the first one indicated."
+msgstr "Um<strong>ein bestimmtes Zitat in Ihr Template einzufügen</strong> nutzen Sie folgenden Code: <code>&lt;?php if (function_exists('stray_a_quote')) stray_a_quote(x);?&gt;</code>, wobei <code>x</code> die ID des Zitates ist, so wie sie auf der Verwalten-Seite erscheint. So wird das Zitat ausgegeben und ein \"nächstes Zitat\"-Link, der den Nutzer in den Zitaten der gleichen Kategorie blättern lässt."
+
+#: ../inc/stray_help.php:53
+msgid "The IDs of the quotes are getting ridiculously high. Can I do something about it?"
+msgstr "Die IDs der Zitate werden sehr hoch. Kann ich etwas dagegen tun?"
+
+#: ../inc/stray_help.php:54
+msgid "It is the way MySQL works, gaps are not important in an index. Anyway, there is a workaround. By clicking the button below you will <strong>reset all quoteID numbers in your table</strong>, and the numbering will look fine again. There is a downside, though: few, or even none, of the old ID numbers will still correspond to the same quotes, which means that if you called a quote in a post <strong>by its ID</strong> (as explained in the previous paragraph on this very page), there's a chance a different quote will be called afterwards. It is up to you to accept this and go and fix it later."
+msgstr "Es liegt an der Arbeitsweise von MySQL, Lücken sind für einen Index nicht von Bedeutung. Nichtsdestotrotz gibt es einen Wordaround. Durch Klick auf den Button unten können Sie <strong>alle quoteID-Werte in Ihrer Tabelle zurücksetzen</strong>, und die Nummerierung wird wieder gut aussehen. Es gibt aber einen Kehrseite: wenige oder gar keine der alten IDs werden noch zu den gleichen Zitaten gehören, das bedeutet, wenn Sie ein Zitat <strong>mit seiner ID</strong> in einem Artikel angezeigt haben (wie im vorigen Abschnitt dieser Seite erklärt), wird danach möglicherweise ein anderes Zitat angezeigt. Sie müssen dies später selbst beheben."
+
+#: ../inc/stray_help.php:54
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+#: ../inc/stray_help.php:54
+msgid "the numbering of the quotes."
+msgstr "der Nummerierung der Zitate."
+
+#: ../inc/stray_help.php:57
+msgid "Hey. There is a bug!"
+msgstr "Hey. Es gibt einen Fehler!"
+
+#: ../inc/stray_help.php:58
+#, php-format
+msgid "I knew it! See, I am not a programmer or anything. There's always a bug. If you want to help me catch it, and for further help, please come and trash the comments <a href=\"%s1\">on this post</a>. Thanks.<br /><br />"
+msgstr "Ich wusste es! Schauen Sie, ich bin kein Programmierer oder sowas. Es gibt immer einen Fehler. Wenn Sie mir helfen wollen, ihn einzufangen, und für weitere Hilfe, schmeißen Sie Ihre Kommentare bitte <a href=\"%s1\">in diesen Artikel</a>. Danke.<br /><br />"
+
+#: ../inc/stray_manage.php:6
+msgid "Manage quotes"
+msgstr "Zitate verwalten"
+
+#: ../inc/stray_manage.php:58
+msgid "Something is wrong. No quote ID from the query string."
+msgstr "Fehler: Keine Zitat-ID in der Anfrage."
+
+#: ../inc/stray_manage.php:68
+msgid "Something is wrong. I can't find a quote linked up with that ID."
+msgstr "Fehler: Ein Zitat mit dieser ID kann nicht gefunden werden."
+
+#: ../inc/stray_manage.php:111
+#: ../inc/stray_new.php:154
+msgid "Quote:"
+msgstr "Zitat:"
+
+#: ../inc/stray_manage.php:113
+msgid "To insert this quote in a post use:"
+msgstr "Um dieses Zitat in einen Artikel einzubetten nutzen Sie:"
+
+#: ../inc/stray_manage.php:116
+#: ../inc/stray_new.php:158
+msgid "* Other than the few offered in the toolbar above, many HTML and non-HTML formatting elements can be used for the quote. Lines can be broken traditionally or using <code>&lt;br/&gt;</code>, etcetera."
+msgstr "* Über die wenigen oben angebotenen hinaus können viele HTML- und nicht-HTML-Formatelemente für Zitate genutzt werden. Zeilen können traditionell oder mit <code>&lt;br/&gt;</code> umgebrochen werden, etc. "
+
+#: ../inc/stray_manage.php:118
+#: ../inc/stray_new.php:160
+msgid "Author:"
+msgstr "Autor:"
+
+#: ../inc/stray_manage.php:123
+#: ../inc/stray_new.php:165
+msgid "Source:"
+msgstr "Herkunft:"
+
+#: ../inc/stray_manage.php:127
+#: ../inc/stray_new.php:169
+msgid "* By adding a link to the author or the source, the default links specified on the settings page are ignored. Make sure the link is closed by a <code>&lt;/a&gt;</code> tag."
+msgstr "* Wenn Sie einen Link zu einem Autor oder der Herkunft hinzufügen, wird der Standardlink auf der Einstellungen-Seite ignoriert. Achten Sie darauf, dass der Link mit dem <code>&lt;/a&gt;</code>-Element geschlossen wird."
+
+#: ../inc/stray_manage.php:129
+#: ../inc/stray_new.php:171
+msgid "Category:&nbsp;"
+msgstr "Kategorie:&nbsp;"
+
+#: ../inc/stray_manage.php:139
+msgid "new category:&nbsp;"
+msgstr "neue Kategorie:&nbsp;"
+
+#: ../inc/stray_manage.php:142
+#: ../inc/stray_new.php:183
+msgid "Visible:"
+msgstr "Sichtbar:"
+
+#: ../inc/stray_manage.php:143
+#: ../inc/stray_new.php:184
+msgid "Yes"
+msgstr "Ja"
+
+#: ../inc/stray_manage.php:144
+#: ../inc/stray_new.php:185
+msgid "No"
+msgstr "Nein"
+
+#: ../inc/stray_manage.php:146
+#: ../inc/stray_manage.php:422
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: ../inc/stray_manage.php:147
+msgid "Update quote"
+msgstr "Zitat speichern"
+
+#: ../inc/stray_manage.php:180
+msgid "<strong>Failure:</strong> No quote ID given."
+msgstr "<strong>Fehler:</strong> Keine Zitat-ID angegeben."
+
+#: ../inc/stray_manage.php:202
+msgid "<strong>Failure:</strong> Something went wrong."
+msgstr "<strong>Fehler</strong>."
+
+#: ../inc/stray_manage.php:206
+#, php-format
+msgid "Quote <strong>%s</strong> updated."
+msgstr "Zitat <strong>%s</strong> gespeichert."
+
+#: ../inc/stray_manage.php:216
+msgid "<strong>Failure:</strong> No quote ID given. Nothing deleted."
+msgstr "<strong>Fehler:</strong> Keine Zitat-ID angegeben. Nichts gelöscht."
+
+#: ../inc/stray_manage.php:229
+#, php-format
+msgid "Quote <strong>%s</strong> deleted."
+msgstr "Zitat <strong>%s</strong> gelöscht."
+
+#: ../inc/stray_manage.php:232
+msgid "<strong>Failure:</strong> Nothing deleted."
+msgstr "<strong>Fehler:</strong> Nichts gelöscht."
+
+#: ../inc/stray_manage.php:307
+msgid "quotes per page:"
+msgstr "Zitate pro Seite:"
+
+#: ../inc/stray_manage.php:315
+msgid "show category: "
+msgstr "Kategorie anzeigen:"
+
+#: ../inc/stray_manage.php:339
+#: ../inc/stray_manage.php:340
+#: ../inc/stray_manage.php:346
+msgid "ID"
+msgstr "ID"
+
+#: ../inc/stray_manage.php:349
+#: ../inc/stray_settings.php:167
+msgid "Quote"
+msgstr "Zitat"
+
+#: ../inc/stray_manage.php:352
+#: ../inc/stray_manage.php:353
+#: ../inc/stray_manage.php:359
+#: ../inc/stray_settings.php:173
+msgid "Author"
+msgstr "Autor"
+
+#: ../inc/stray_manage.php:363
+#: ../inc/stray_manage.php:364
+#: ../inc/stray_manage.php:370
+#: ../inc/stray_settings.php:187
+msgid "Source"
+msgstr "Herkunft"
+
+#: ../inc/stray_manage.php:374
+#: ../inc/stray_manage.php:375
+#: ../inc/stray_manage.php:381
+msgid "Category"
+msgstr "Kategorie"
+
+#: ../inc/stray_manage.php:385
+#: ../inc/stray_manage.php:386
+#: ../inc/stray_manage.php:392
+msgid "Visible"
+msgstr "Sichtbar"
+
+#: ../inc/stray_manage.php:413
+msgid "yes"
+msgstr "ja"
+
+#: ../inc/stray_manage.php:413
+msgid "no"
+msgstr "nein"
+
+#: ../inc/stray_manage.php:417
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: ../inc/stray_manage.php:422
+msgid "You are about to delete quote "
+msgstr "Sie sind dabei, das Zitat zu löschen: "
+
+#: ../inc/stray_manage.php:422
+msgid "to stop"
+msgstr "zum Behalten"
+
+#: ../inc/stray_manage.php:422
+msgid "to delete"
+msgstr "zum Löschen"
+
+#: ../inc/stray_manage.php:422
+msgid "Delete"
+msgstr "Löschen"
+
+#: ../inc/stray_manage.php:429
+msgid "<br/>No quotes yet."
+msgstr "<br/>Noch keine Zitate vorhanden."
+
+#: ../inc/stray_new.php:64
+msgid "<strong>Failure:</strong> Something went wrong when trying to insert the quote. Try again?"
+msgstr "<strong>Fehler:</strong> Beim Einfügen des Zitats ist ein Fehler aufgetreten. Nochmal versuchen?"
+
+#: ../inc/stray_new.php:75
+#, php-format
+msgid "Quote no. <strong>%s1</strong> was added to the database. To insert it in a post use: <code>[quote id=%s1]</code>. To review use the <a href=\"%s2\">Manage page</a>."
+msgstr "Zitat Nr. <strong>%s1</strong> wurde zur Datenbank hinzugefügt. Zum Einfügen in einen Artikel nutzen Sie: <code>[quote id=%s1]</code>. Zur Überprüfung nutzen Sie die <a href=\"%s2\">Verwalten-Seite</a>."
+
+#: ../inc/stray_new.php:81
+msgid "Add new quote"
+msgstr "Neues Zitat hinzufügen"
+
+#: ../inc/stray_new.php:91
+msgid "The Quote ID seems to be invalid."
+msgstr "Die Zitat-ID scheint ungültig zu sein."
+
+#: ../inc/stray_new.php:97
+msgid "Something is wrong. Sorry."
+msgstr "Fehler aufgetreten - Entschuldigung."
+
+#: ../inc/stray_new.php:180
+msgid "&nbsp;new category:&nbsp;"
+msgstr "&nbsp;neue Kategorie:&nbsp;"
+
+#: ../inc/stray_new.php:188
+msgid "Add quote"
+msgstr "Zitat hinzufügen"
+
+#: ../inc/stray_overview.php:34
+msgid "one category"
+msgstr "einer Kategorie"
+
+#: ../inc/stray_overview.php:37
+msgid "categories"
+msgstr "Kategorien"
+
+#: ../inc/stray_overview.php:42
+msgid ", distributed as follows:"
+msgstr ", verteilt wie folgt:"
+
+#: ../inc/stray_overview.php:46
+#, php-format
+msgid "<p>Right now you have <strong>%s1 quotes</strong> in <strong>%s2</strong>%s3</p>"
+msgstr "<p>Im Moment haben Sie <strong>%s1 Zitate</strong> in <strong>%s2</strong>%s3</p>"
+
+#: ../inc/stray_overview.php:67
+msgid "All your quotes "
+msgstr "Alle Zitate "
+
+#: ../inc/stray_overview.php:68
+#, php-format
+msgid "<p><strong>%s3</strong> are visible.</p>"
+msgstr "<p><strong>%s3</strong> sind sichtbar.</p>"
+
+#: ../inc/stray_overview.php:72
+#, php-format
+msgid "<p>Your most quoted author is <strong>%s5</strong>.</p>"
+msgstr "<p>Ihr meistzitierter Autor ist <strong>%s5</strong>.</p>"
+
+#: ../inc/stray_overview.php:76
+#, php-format
+msgid "<p>Your most used source is <strong>%s5</strong>.</p>"
+msgstr "<p>Ihre meistzitierte Herkunft ist <strong>%s5</strong>.</p>"
+
+#: ../inc/stray_overview.php:78
+msgid "There is nothing to report."
+msgstr "Nichts zu berichten."
+
+#: ../inc/stray_overview.php:84
+#, php-format
+msgid "To start doing stuff, you can <a href=\"%s1\"><strong>add new quotes</strong></a>;<br />use the <a href=\"%s2\"><strong>manage</strong></a> page to edit or delete existing quotes;<br />change the <a href=\"%s3\"><strong>settings</strong></a> to control how the quotes are displayed on your blog.<br/>If you're new to all this, there's a <a href=\"%s4\"><strong>help page</strong></a> as well."
+msgstr "Zum Start können Sie <a href=\"%s1\"><strong>neue Zitate hinzufügen</strong></a>;<br />die <a href=\"%s2\"><strong>Verwalten-</strong></a>Seite zum Bearbeiten oder Löschen bestehender Zitate nutzen;<br />die <a href=\"%s3\"><strong>Einstellungen</strong></a> ändern, um die Anzeige der Zitate im Blog zu beeinflussen.<br/>Wenn all dies neu für Sie ist, gibt es außerdem eine <a href=\"%s4\"><strong>Hilfe-Seite</strong></a>."
+
+#: ../inc/stray_overview.php:86
+msgid "Happy quoting."
+msgstr "Fröhliches Zitieren."
+
+#: ../inc/stray_remove.php:34
+#: ../inc/stray_remove.php:48
+msgid "Remove and deactivate"
+msgstr "Entfernen und deaktivieren"
+
+#: ../inc/stray_remove.php:36
+msgid "Click Here</a> to deactivate Stray Random Quotes."
+msgstr "Klicken Sie hier</a>, um Stray Random Quotes zu deaktivieren."
+
+#: ../inc/stray_remove.php:38
+msgid "The <strong>quotes</strong> AND the <strong>options</strong> will be removed."
+msgstr "Die <strong>Zitate</strong> UND die <strong>Einstellungen</strong> werden entfernt."
+
+#: ../inc/stray_remove.php:39
+msgid "The <strong>plugin options</strong> will be removed."
+msgstr "Die <strong>Plug-In-Einstellungen</strong> werden entfernt."
+
+#: ../inc/stray_remove.php:40
+msgid "The <strong>quotes</strong> will be removed."
+msgstr "Die <strong>Zitate</strong> werden entfernt."
+
+#: ../inc/stray_remove.php:49
+msgid "\"Patch grief with proverbs.\" ~ William Shakespeare"
+msgstr "\"Patch grief with proverbs.\" ~ William Shakespeare"
+
+#: ../inc/stray_remove.php:52
+msgid "When deactivating Stray Random Quotes"
+msgstr "Wenn Sie Stray Random Quotes deaktivieren"
+
+#: ../inc/stray_remove.php:55
+msgid "Remove the options from the database."
+msgstr "Alle Einstellungen aus der Datenbank entfernen."
+
+#: ../inc/stray_remove.php:57
+msgid "Remove all the quotes from the database."
+msgstr "Alle Zitate aus der Datenbank entfernen."
+
+#: ../inc/stray_remove.php:63
+msgid "Deactivate Stray Random Quotes &raquo;"
+msgstr "Stray Random Quotes deaktivieren &raquo;"
+
+#: ../inc/stray_settings.php:73
+msgid "<strong>Options saved...</strong> "
+msgstr "<strong>Einstellungen gespeichert...</strong> "
+
+#: ../inc/stray_settings.php:74
+msgid "No problems. Well,  except that the links you provided for the author and source were invalid. I had to discard them."
+msgstr "Die Links für Autor und Herkunft waren ungültig und mussten verworfen werden."
+
+#: ../inc/stray_settings.php:75
+msgid "No problems. Well, except that there was no variable in the author link. I discared it."
+msgstr "Der Autoren-Link war leer und wurde verworfen."
+
+#: ../inc/stray_settings.php:76
+msgid "No problems. Well,  except that there was no variable in the source link. I discared it."
+msgstr "Der Herkunftslink war leer und wurde verworfen."
+
+#: ../inc/stray_settings.php:77
+msgid "No problems."
+msgstr "Keine Probleme."
+
+#: ../inc/stray_settings.php:81
+msgid "<strong>Something went wrong!</strong> The links you provided for the Author and Source had no variables.</strong> "
+msgstr "<strong>Fehler!</strong> Die Links für Autor und Herkunft waren leer.</strong> "
+
+#: ../inc/stray_settings.php:82
+msgid "<strong>Something went wrong!</strong> There was no variable in the author link. I discared it. "
+msgstr "<strong>Fehler!</strong> Der Autoren-Link war leer und wurde verworfen. "
+
+#: ../inc/stray_settings.php:83
+msgid "<strong>Something went wrong!</strong> There was no variable in the source link. I discared it. "
+msgstr "<strong>Fehler!</strong> Der Herkunfts-Link war leer und wurde verworfen."
+
+#: ../inc/stray_settings.php:84
+msgid "<strong>The options could not be saved</strong>. Either the operation went wrong, or you didn't make any changes.</strong> "
+msgstr "<strong>Die Einstellungen konnten nicht gespeichert werden</strong>. Entweder ist ein Fehler aufgetreten, oder Sie haben keine Änderungen gemacht.</strong> "
+
+#: ../inc/stray_settings.php:151
+msgid "How the quotes look"
+msgstr "Wie die Zitate aussehen"
+
+#: ../inc/stray_settings.php:152
+msgid "Default settings to change how the quotes appear in your blog."
+msgstr "Standardeinstellungen zum Ändern der Zitate-Darstellung im Blog."
+
+#: ../inc/stray_settings.php:155
+msgid "The Title"
+msgstr "Der Titel"
+
+#: ../inc/stray_settings.php:157
+#, php-format
+msgid "<br/>The default title for all the quote widgets. Single settings can be changed on the <a href=\"%s\">widget page</a>. HTML is not needed here.<br /><strong>Sample value:</strong> <code>Random Quote</code>"
+msgstr "<br/>Der Standard-Titel für alle Zitate-Widgets. Einzelne Einstellungen können auf der <a href=\"%s\">Widget-Seite</a> geändert werden. HTML wird hier nicht benötigt.<br /><strong>Beispielwert:</strong> <code>Zufälliges Zitat</code>"
+
+#: ../inc/stray_settings.php:159
+#, php-format
+msgid "<br/>The default title for when the widget functionality is not being used. On how to work with the code added to your template, refer to <a href=\"%s\">this page</a>.<br/><strong>Sample value:</strong> <code>&lt;h2&gt;Random Quote&lt;/h2&gt;</code>"
+msgstr "<br/>Der Standard-Titel, wenn die Widget-Funktionalität nicht genutzt wird. Wie Sie mit dem Code umgehen, der zu Ihrem Template hinzugefügt wird, erfahren Sie auf <a href=\"%s\">dieser Seite</a>.<br/><strong>Beispielwert:</strong> <code>&lt;h2&gt;Zufälliges Zitat&lt;/h2&gt;</code>"
+
+#: ../inc/stray_settings.php:161
+msgid "Author, Quote and Source"
+msgstr "Autor, Zitat und Herkunft"
+
+#: ../inc/stray_settings.php:163
+msgid "<br/>HTML or other elements before this whole category, which comes after the title.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML oder andere Elemente vor dieser gesamten Kategorie, die nach dem Titel beginnt.<br/><strong>Beispielwert:</strong>"
+
+#: ../inc/stray_settings.php:165
+msgid "<br/>HTML or other elements after this category.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML oder andere Elemente nach dieser Kategorie.<br/><strong>Beispielwert:</strong>"
+
+#: ../inc/stray_settings.php:169
+msgid "<br/>HTML or other elements before the quote.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML oder andere Elemente vor dem Zitat.<br/><strong>Beispielwert:</strong>"
+
+#: ../inc/stray_settings.php:171
+msgid "<br/>HTML or other elements after the quote.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML oder andere Elemente nach dem Zitat.<br/><strong>Beispielwert:</strong>"
+
+#: ../inc/stray_settings.php:175
+msgid "<br/>HTML or other elements before the author.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML oder andere Elemente vor dem Autor.<br/><strong>Beispielwert:</strong>"
+
+#: ../inc/stray_settings.php:175
+msgid "by"
+msgstr "von"
+
+#: ../inc/stray_settings.php:178
+msgid "<br/>HTML or other elements after the author."
+msgstr "<br/>HTML oder andere Elemente nach dem Autor."
+
+#: ../inc/stray_settings.php:180
+msgid ""
+"<br/>You can link the Author to a website of your choice.\n"
+"\t\t<br/>Use this variable in your link: <code>%AUTHOR%</code><br/>\n"
+"\t\t<strong>Sample values:</strong>"
+msgstr "<br/>Sie können den Autoren mit einer Website Ihrer Wahl verlinken.<br/>Nutzen Sie diese Variable in Ihrem Link: <code>%AUTHOR%</code><br/><strong>Beispielwerte:</strong>"
+
+#: ../inc/stray_settings.php:184
+msgid "Replace spaces within %AUTHOR% with "
+msgstr "Ersetzen Sie Leerzeichen innerhalb von %AUTHOR% durch "
+
+#: ../inc/stray_settings.php:189
+msgid "<br/>HTML or other elements before the source.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML oder andere Elemente vor der Herkunft.<br/><strong>Beispielwert:</strong>"
+
+#: ../inc/stray_settings.php:192
+msgid "<br/>HTML or other elements before the source <strong>if there is no author</strong>.<br/>Overrides the field above when no author is present.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML oder andere Elemente vor der Herkunft <strong>wenn kein Autor angegeben ist</strong>.<br/>Überschreibt das obige Feld, wenn es keinen Autoren gibt.<br/><strong>Beispielwert:</strong>"
+
+#: ../inc/stray_settings.php:195
+msgid "<br/>HTML or other elements after the source.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML oder andere Elemente nach der Herkunft.<br/><strong>Beispielwert:</strong>"
+
+#: ../inc/stray_settings.php:197
+msgid ""
+"<br/>You can link the Source to a website of your choice.\n"
+"\t\t<br/>Use this variable in your link: <code>%SOURCE%</code><br/>\n"
+"\t\t<strong>Sample values:</strong>"
+msgstr "<br/>Sie können die Herkunft mit einer Website Ihrer Wahl verlinken.<br/>Nutzen Sie diese Variable in Ihrem Link: <code>%SOURCE%</code><br/><strong>Beispielwerte:</strong>"
+
+#: ../inc/stray_settings.php:201
+msgid "Replace spaces within %SOURCE% with "
+msgstr "Ersetzen Sie Leerzeichen innerhalb von %SOURCE% durch "
+
+#: ../inc/stray_settings.php:205
+msgid "Quote before Author and Source"
+msgstr "Zitat vor Autor und Herkunft"
+
+#: ../inc/stray_settings.php:207
+msgid "If checked, returns the quote before author and source (The opposite is NOT considered by the <code>[all-quotes]</code> shortcode)."
+msgstr "Gibt das Zitat vor Autor und Herkunf aus, falls gesetzt (Das Gegenteil wird NICHT vom <code>[all-quotes]</code> shortcode berücksichtigt)."
+
+#: ../inc/stray_settings.php:209
+msgid "AJAX quote loader"
+msgstr "AJAX Quote Loader"
+
+#: ../inc/stray_settings.php:210
+msgid "&nbsp;If checked, <strong>disables the AJAX loader</strong> entirely."
+msgstr "&nbsp;<strong>Schaltet den AJAX Loader komplett aus</strong>, falls gesetzt."
+
+#: ../inc/stray_settings.php:211
+#, php-format
+msgid "<br/>Enter here the <strong>link phrase</strong> used to dynamically load another quote. HTML not allowed. If you leave this empty, the quote will be reloaded by clicking on it. You can <strong>override</strong> this setting in the widget or in the template (see <a href=\"%s\">help page</a>), <strong>only</strong> if you leave this field empty.<br/><strong>Sample value:</strong>"
+msgstr "<br/>Geben Sie hier die <strong>Link-Bezeichnung</strong>ein, die zum dynamischen Laden eines anderen Zitats genutzt werden soll. HTML nicht erlaubt. Wenn Sie das Feld leer lassen, wird das Zitat bei Klick darauf neu geladen. Sie können diese Einstellung im Widget oder im Template <strong> nur überschreiben</strong> (siehe <a href=\"%s\">Hilfe-Seite</a>), wenn Sie dieses Feld leer lassen.<br/><strong>Beispielwert:</strong>"
+
+#: ../inc/stray_settings.php:212
+msgid "<br/>HTML or other elements before the quote loader.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML oder andere Elemente vor dem Quote-Loader.<br/><strong>Beispielwert:</strong>"
+
+#: ../inc/stray_settings.php:213
+msgid "<br/>HTML or other elements after the quote loader.<br/><strong>Sample value:</strong>"
+msgstr "<br/>HTML oder andere Elemente nach dem Quote-Loader.<br/><strong>Beispielwert:</strong>"
+
+#: ../inc/stray_settings.php:218
+#: ../inc/stray_settings.php:251
+#: ../inc/stray_settings.php:305
+msgid "Update all Settings"
+msgstr "Alle Einstellungen speichern"
+
+#: ../inc/stray_settings.php:224
+msgid "New quotes"
+msgstr "Neue Zitate"
+
+#: ../inc/stray_settings.php:225
+msgid "Default settings when you create a new quote."
+msgstr "Standardeinstellungen, wenn Sie ein neues Zitat anlegen."
+
+#: ../inc/stray_settings.php:228
+msgid "Visibility"
+msgstr "Sichtbarkeit"
+
+#: ../inc/stray_settings.php:230
+msgid "If checked, will set \"Visible\" to \"Yes\" for all new quotes."
+msgstr "Setzt für alle neuen Zitate \"Sichtbar\" auf \"Ja\", falls gesetzt."
+
+#: ../inc/stray_settings.php:232
+msgid "Default category"
+msgstr "Standard-Kategorie"
+
+#: ../inc/stray_settings.php:241
+msgid "This category will be the default for all new quotes."
+msgstr "Diese Kategorie ist der Standard für alle neuen Zitate."
+
+#: ../inc/stray_settings.php:243
+msgid "Clear the form"
+msgstr "Formularinhalte löschen"
+
+#: ../inc/stray_settings.php:245
+msgid "If checked, will clear the values from the form after adding a new quote."
+msgstr "Löscht die Formularinhalte nach dem Hinzufügen eines neuen Zitates, falls gesetzt."
+
+#: ../inc/stray_settings.php:257
+msgid "Management of the quotes"
+msgstr "Verwaltung der Zitate"
+
+#: ../inc/stray_settings.php:258
+msgid "Default settings for the management page.  They can be changed on the management page as well."
+msgstr "Standardeinstellung für die Verwalten-Seite. Können auch auf der Verwalten-Seite geändert werden."
+
+#: ../inc/stray_settings.php:261
+msgid "Order by"
+msgstr "Sortieren nach"
+
+#: ../inc/stray_settings.php:269
+msgid "<br/>The list of quotes in the management page will be ordered by this value."
+msgstr "<br/>Die Liste der Zitate auf der Verwalten-Seite werden nach diesem Wert geordnet."
+
+#: ../inc/stray_settings.php:275
+msgid "<br/>The sorting of quotes will take this direction."
+msgstr "<br/>Die Sortierung der Werte erfolgt in dieser Richtung."
+
+#: ../inc/stray_settings.php:277
+msgid "Quotes per page"
+msgstr "Zitate pro Seite"
+
+#: ../inc/stray_settings.php:286
+msgid "The list of quotes in the management page will display this much quotes per page."
+msgstr "Die Liste der Zitate auf der Verwalten-Seite stellt diese Anzahl von Zitaten pro Seite dar."
+
+#: ../inc/stray_settings.php:288
+msgid "Show categories"
+msgstr "Kategorien anzeigen"
+
+#: ../inc/stray_settings.php:291
+msgid "All categories"
+msgstr "Alle Kategorien"
+
+#: ../inc/stray_settings.php:299
+msgid "The list of quotes in the management page will present quotes from this category only."
+msgstr "Die Liste der Zitate auf der Verwalten-Seite zeigt nur Zitate aus dieser Kategorie an."
+

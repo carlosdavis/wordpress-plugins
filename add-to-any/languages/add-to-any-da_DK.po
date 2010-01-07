@@ -1,0 +1,251 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Add to Any Share/Save/Bookmark .9.8.9.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-08-24 19:00-0800\n"
+"PO-Revision-Date: \n"
+"Last-Translator: MicroPat\n"
+"Language-Team: Team Blogos <wordpress@blogos.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: Danish\n"
+"X-Poedit-Country: DENMARK\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_c;__ngettext_noop:1,2\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: add-to-any.php:182
+msgid "Share"
+msgstr "Del"
+
+#: add-to-any.php:183
+msgid "Save"
+msgstr "Gem"
+
+#: add-to-any.php:184
+msgid "Subscribe"
+msgstr "Subskribér"
+
+#: add-to-any.php:185
+msgid "E-mail"
+msgstr "E-mail"
+
+#: add-to-any.php:186
+msgid "Bookmark"
+msgstr "Bogmærk"
+
+#: add-to-any.php:187
+msgid "Show all"
+msgstr "Vis alle"
+
+#: add-to-any.php:188
+msgid "Show less"
+msgstr "Vis mindre"
+
+#: add-to-any.php:189
+msgid "Find service(s)"
+msgstr "Find service(s)"
+
+#: add-to-any.php:190
+msgid "Instantly find any service to add to"
+msgstr "Find øjeblikkelig alle services at tilføje til"
+
+#: add-to-any.php:191
+msgid "Powered by"
+msgstr "Kører på"
+
+#: add-to-any.php:192
+msgid "Share via e-mail"
+msgstr "Del via e-mail"
+
+#: add-to-any.php:193
+msgid "Subscribe via e-mail"
+msgstr "Subskribér via e-mail"
+
+#: add-to-any.php:194
+msgid "Bookmark in your browser"
+msgstr "Bogmærk i din browswer"
+
+#: add-to-any.php:195
+#, fuzzy
+msgid "Press Ctrl+D or &#8984;+D to bookmark this page"
+msgstr "Press Ctrl-D eller Cmd-D for at bogmærke denne side"
+
+#: add-to-any.php:196
+msgid "Add to your favorites"
+msgstr "Tilføj til dine favoritter"
+
+#: add-to-any.php:197
+msgid "Send from any e-mail address or e-mail program"
+msgstr "Send fra enhver e-mail-adreses eller e-mail-program"
+
+#: add-to-any.php:198
+msgid "E-mail program"
+msgstr "E-mail-program"
+
+#: add-to-any.php:223
+msgid "Your theme needs to be fixed. To fix your theme, use the <a href=\"theme-editor.php\">Theme Editor</a> to insert <code>&lt;?php wp_footer(); ?&gt;</code> just before the <code>&lt;/body&gt;</code> line of your theme's <code>footer.php</code> file."
+msgstr "Dit tema skal repareres. For at gøre det skal du bruge <a href=\"theme-editor.php\">temaeditoren</a> til at indsætte koden <code>&lt;?php wp_footer(); ?&gt;</code> lige før <code>&lt;/body&gt;</code>-linjen i dit temas <code>footer.php</code>-fil."
+
+#: add-to-any.php:374
+msgid "Settings saved."
+msgstr "Indstillinger gemt"
+
+#: add-to-any.php:385
+msgid "Add to Any: Share/Save "
+msgstr "Tilføj til enhver: Del/gem"
+
+#: add-to-any.php:385
+#: add-to-any.php:738
+#: add-to-any.php:759
+msgid "Settings"
+msgstr "Indstillinger"
+
+#: add-to-any.php:395
+#, fuzzy
+msgid "Standalone Services"
+msgstr "Tilføj/fjern tjenesteudbydere"
+
+#: add-to-any.php:400
+msgid "Choose the services you want below. &nbsp;Click a chosen service again to remove. &nbsp;Reorder services by dragging and dropping as they appear above."
+msgstr "Vælg de tjenesteudbydere, du ønsker. Klik på en tjenesteudbyder, du har valgt, for at fjerne den igen. Du kan ændre rækkefølgen ved at trække og slippe, sådan som du ser dem ovenfor (når de er valgt)."
+
+#: add-to-any.php:419
+msgid "Button"
+msgstr "Knap"
+
+#: add-to-any.php:458
+msgid "Image URL"
+msgstr "Billed-URL"
+
+#: add-to-any.php:465
+msgid "Text only"
+msgstr "Kun tekst"
+
+#: add-to-any.php:473
+msgid "Placement"
+msgstr "Placering"
+
+#: add-to-any.php:482
+msgid "Display Share/Save button at the bottom of posts"
+msgstr "Vis Del-/Gem-knap i bunden af indlæg"
+
+#: add-to-any.php:489
+msgid "Display Share/Save button at the bottom of posts on the front page"
+msgstr "Vis Del-/Gem-knap i bunden af indlæg på forsiden"
+
+#: add-to-any.php:496
+msgid "Display Share/Save button at the bottom of posts in the feed"
+msgstr "Vis Del-/Gem-knap i bunden af indlæg i feeds"
+
+#: add-to-any.php:500
+msgid "Display Share/Save button at the bottom of pages"
+msgstr "Vis Del-/Gem-knap i bunden af sider"
+
+#: add-to-any.php:504
+#, fuzzy
+msgid "If unchecked, be sure to place the following code in <a href=\"theme-editor.php\">your template pages</a> (within <code>index.php</code>, <code>single.php</code>, and/or <code>page.php</code>)"
+msgstr "Hvis du ikke vælger dette, skal du sørge for at placere den følgende kode i <a href=\"theme-editor.php\">dine skabelonsider</a> (i <code>index.php</code>, <code>single.php</code>, og/eller <code>page.php</code>)"
+
+#: add-to-any.php:513
+msgid "Menu Style"
+msgstr "Menutypografi"
+
+#: add-to-any.php:515
+msgid "Using Add to Any's Menu Styler, you can customize the colors of your Share/Save menu! When you're done, be sure to paste the generated code in the <a href=\"#\" onclick=\"document.getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();return false\">Additional Options</a> box below."
+msgstr "Ved at bruge Add to Any's menutypograf, kan du tilpasse farverne på din Del-/Gem-menu! Når du er færdig, skal du sørge for at indsætte den genererede kode i <a href=\"#\" onclick=\"document.getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();return false\">Yderligere indstillinger</a>-boksen nedenfor."
+
+#: add-to-any.php:517
+msgid "Open the Add to Any Menu Styler in a new window"
+msgstr "Åben Add to Any's menutypograf i et nyt vindue"
+
+#: add-to-any.php:519
+msgid "Open Menu Styler"
+msgstr "Åben menutypografen"
+
+#: add-to-any.php:524
+msgid "Menu Options"
+msgstr "Menuvalgmuligheder"
+
+#: add-to-any.php:529
+msgid "Hide embedded objects (Flash, video, etc.) that intersect with the menu when displayed"
+msgstr "Skjul indlejrede objekter (flash, video, osv.) som kan påvirke menuen, når den vises"
+
+#: add-to-any.php:534
+msgid "Show the title of the post (or page) within the menu"
+msgstr "Vis titlen på indlægget (eller siden) i menuen"
+
+#: add-to-any.php:541
+msgid "Only show the menu when the user clicks the Share/Save button"
+msgstr "Vis kun menuen når bruger klikker på Del-/Gem-knappen"
+
+#: add-to-any.php:547
+msgid "Open the addtoany.com menu page in a new tab or window if the user clicks the Share/Save button"
+msgstr "Åben menusiden på addtoany.com i en ny fane eller vindue hvis brugeren klikker på Del-/Gem-knappen"
+
+#: add-to-any.php:552
+msgid "Additional Options"
+msgstr "Yderligere indstillinger"
+
+#: add-to-any.php:556
+msgid "Paste the code from Add to Any's Menu Styler in the box below!"
+msgstr "Indsæt koden fra Add to Any's menutypograf i boksen nedenfor!"
+
+#: add-to-any.php:560
+msgid "Below you can set special JavaScript variables to apply to each Share/Save menu."
+msgstr "Nedenfor kan du angive specielle JavaScript-variabler, som skal bruges på din Del-/Gem-menu."
+
+#: add-to-any.php:561
+msgid "Advanced users might want to explore Add to Any's <a href=\"http://www.addtoany.com/buttons/api/\" target=\"_blank\">JavaScript API</a>."
+msgstr "Avancerede brugere kan se nærmere på Add to Any's <a href=\"http://www.addtoany.com/buttons/api/\" target=\"_blank\">JavaScript API</a>."
+
+#: add-to-any.php:567
+msgid "<strong>Note</strong>: If you're adding new code, be careful not to accidentally overwrite any previous code.</label>"
+msgstr "<strong>Bemærk</strong>: Hvis du tilføjer ny kode, så vær forsigtig, så du ikke ved et uheld overskriver eksisterende kode."
+
+#: add-to-any.php:574
+msgid "Save Changes"
+msgstr "Gem ændringer"
+
+#: add-to-any.php:579
+msgid "Like this plugin?"
+msgstr "Kan du lide dette plugin?"
+
+#: add-to-any.php:580
+msgid "<a href=\"http://wordpress.org/extend/plugins/add-to-any/\">Give it a good rating</a> on WordPress.org."
+msgstr "<a href=\"http://wordpress.org/extend/plugins/add-to-any/\">Giv det en god bedømmelse </a>på WordPress.org."
+
+#: add-to-any.php:581
+msgid "<a href=\"http://www.addtoany.com/share_save?linkname=WordPress%20Share%20Plugin%20by%20AddToAny.com&amp;linkurl=http%3A%2F%2Fwordpress.org%2Fextend%2Fplugins%2Fadd-to-any%2F\">Share it</a> with your friends."
+msgstr "<a href=\"http://www.addtoany.com/share_save?linkname=WordPress%20Share%20Plugin%20by%20AddToAny.com&amp;linkurl=http%3A%2F%2Fwordpress.org%2Fextend%2Fplugins%2Fadd-to-any%2F\">Del det</a> med dine venner."
+
+#: add-to-any.php:583
+msgid "Need support?"
+msgstr "Har du brug for support?"
+
+#: add-to-any.php:584
+msgid "See the <a href=\"http://wordpress.org/extend/plugins/add-to-any/faq/\">FAQs</a>."
+msgstr "Se vores <a href=\"http://wordpress.org/extend/plugins/add-to-any/faq/\">FAQ (Ofte Stillede Spørgsmål)</a>."
+
+#: add-to-any.php:585
+msgid "Search the <a href=\"http://wordpress.org/tags/add-to-any\">support forums</a>."
+msgstr "Søg på <a href=\"http://wordpress.org/tags/add-to-any\">supportforummerne</a>."
+
+#: add-to-any.php:692
+msgid "Add/Remove Services"
+msgstr "Tilføj/fjern tjenesteudbydere"
+
+#: add-to-any.php:738
+msgid "Share/Save"
+msgstr "Del/Gem"
+
+#: add-to-any.php:739
+msgid "Share/Save Buttons"
+msgstr "Del-/Gem-knapper"
+
+#~ msgid "Services"
+#~ msgstr "Tjenesteudbydere"
+
