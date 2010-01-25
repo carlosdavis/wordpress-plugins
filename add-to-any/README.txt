@@ -1,10 +1,9 @@
-=== Add to Any: Share/Bookmark/Email Button ===
+=== AddToAny: Share/Bookmark/Email Button ===
 Contributors: micropat
-Donate link: http://www.addtoany.com/contact/
 Tags: bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, sharing, share, sharethis, saving, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, e-mail, email, seo, button, delicious, google, digg, reddit, facebook, myspace, twitter, stumbleupon, technorati, wpmu, addtoany, add, any
 Requires at least: 2.0
 Tested up to: 2.9
-Stable tag: 0.9.9.4.6
+Stable tag: 0.9.9.4.7
 
 Help readers share, bookmark, and email your posts and pages using any service, such as Facebook, Twitter, Digg, Delicious and over 100 more.
 
@@ -45,9 +44,9 @@ See also:
 
 Constantly... and it's done automatically without having to upgrade.
 
-= Where can I choose which button and individual icons to display and other options? =
+= Where are the options? =
 
-Go to `Settings` > `Share/Save Buttons`.
+In your Admin panel, go to `Settings` > `Share/Save Buttons`.  Among other options, you can choose which button and individual icons to display, and where and how to display them. 
 
 = Why isn't the drop-down menu appearing? =
 
@@ -55,7 +54,7 @@ It's likely because your theme wasn't <a href="http://codex.wordpress.org/Theme_
 
 `<?php wp_footer(); ?>`
 
-= How can I move both the button and the individual icons to another area of my theme? =
+= How can I add both the button and the individual icons to another area of my theme? =
 
 In the Theme Editor, place this code block where you want the button and individual icons to appear in your theme:
 
@@ -66,13 +65,13 @@ if( function_exists('ADDTOANY_SHARE_SAVE_BUTTON') )
 	ADDTOANY_SHARE_SAVE_BUTTON( array("html_wrap_open" => "<li>", "html_wrap_close" => "</li>") );
 echo '</ul>'; ?>`
 
-= How can I move just the button to another area of my theme? =
+= How can I add just the button to another area of my theme? =
 
 Directions are located within the plugin's settings panel located in `Settings` > `Share/Save Buttons` under `Button Placement`. In the Theme Editor, you will place this line of code where you want the button to appear in your theme:
 
 `<?php if( function_exists('ADDTOANY_SHARE_SAVE_BUTTON') ) { ADDTOANY_SHARE_SAVE_BUTTON(); } ?>`
 
-= How can I move just the individual icons to another area of my theme? =
+= How can I add just the individual icons to another area of my theme? =
 
 In the Theme Editor, place this line of code where you want the individual icons to appear in your theme (within an HTML list):
 
@@ -114,13 +113,20 @@ This is done to overcome browser limitations that prevent the drop-down menu fro
 
 == Screenshots ==
 
-1. Add to Any Share/Save button, featuring the Open <a href="http://www.shareicon.com/">Share Icon</a>
+1. AddToAny Share/Save button, featuring the Open <a href="http://www.shareicon.com/">Share Icon</a>
 2. Drop-down menu that appears instantly when visitors use the share button
 3. E-mail tab, with direct links to the most popular web-based e-mailers' auto-filled Compose page, a web-based sender for use with any e-mail address, and a link for desktop email clients
 4. Settings panel
-5. Color chooser for your Add to Any menus
+5. Color chooser for your AddToAny menus
 
 == Changelog ==
+
+= .9.9.4.7 =
+* Just a slight rename
+ * Spaces in "Add to Any" removed, now camel-case: "AddToAny"
+* Clarified FAQ entries
+* Updated translations
+* Fixed some fuzzy translations 
 
 = .9.9.4.6 =
 * Updated standalone service URIs and code names
@@ -266,7 +272,7 @@ This is done to overcome browser limitations that prevent the drop-down menu fro
 * NEW: Individual service links!
  * Drag & Drop interface with preview
 * .addtoany_share_save_container is now `<div>`, not `<p>`
-* Add to Any button now contained within `<ul><li>`
+* AddToAny button now contained within `<ul><li>`
 
 = .9.8.9.2 =
 * Buttons include Facebook icon

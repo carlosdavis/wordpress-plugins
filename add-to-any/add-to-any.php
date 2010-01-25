@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: Add to Any: Share/Bookmark/Email Button
+Plugin Name: AddToAny: Share/Bookmark/Email Button
 Plugin URI: http://www.addtoany.com/
 Description: Help readers share, bookmark, and email your posts and pages using any service.  [<a href="options-general.php?page=add-to-any.php">Settings</a>]
-Version: .9.9.4.6
-Author: Add to Any
-Author URI: http://www.addtoany.com/contact/
+Version: .9.9.4.7
+Author: AddToAny
+Author URI: http://www.addtoany.com/
 */
 
 if( !isset($A2A_javascript) )
@@ -117,7 +117,7 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = false ) {
 	
 	extract(A2A_SHARE_SAVE_link_vars()); // linkname_enc, etc.
 	
-	/* Add to Any button */
+	/* AddToAny button */
 	
 	$button_target	= (get_option('A2A_SHARE_SAVE_button_opens_new_window')=='1' && (get_option('A2A_SHARE_SAVE_onclick')!='1')) ? ' target="_blank"' : '';
 	
@@ -424,7 +424,7 @@ function A2A_SHARE_SAVE_options_page() {
     
     <div class="wrap">
 
-	<h2><?php _e( 'Add to Any: Share/Save ', 'add-to-any' ) . _e( 'Settings' ); ?></h2>
+	<h2><?php _e( 'AddToAny: Share/Save ', 'add-to-any' ) . _e( 'Settings' ); ?></h2>
 
     <form method="post" action="">
     
@@ -563,9 +563,9 @@ function A2A_SHARE_SAVE_options_page() {
             <tr valign="top">
             <th scope="row"><?php _e('Menu Style', 'add-to-any'); ?></th>
             <td><fieldset>
-					<p><?php _e("Using Add to Any's Menu Styler, you can customize the colors of your Share/Save menu! When you're done, be sure to paste the generated code in the <a href=\"#\" onclick=\"document.getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();return false\">Additional Options</a> box below.", "add-to-any"); ?></p>
+					<p><?php _e("Using AddToAny's Menu Styler, you can customize the colors of your Share/Save menu! When you're done, be sure to paste the generated code in the <a href=\"#\" onclick=\"document.getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();return false\">Additional Options</a> box below.", "add-to-any"); ?></p>
                     <p>
-                		<a href="http://www.addtoany.com/buttons/share_save/menu_style/wordpress" class="button-secondary" title="<?php _e("Open the Add to Any Menu Styler in a new window", "add-to-any"); ?>" target="_blank"
+                		<a href="http://www.addtoany.com/buttons/share_save/menu_style/wordpress" class="button-secondary" title="<?php _e("Open the AddToAny Menu Styler in a new window", "add-to-any"); ?>" target="_blank"
                         	onclick="document.getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();
                             	document.getElementById('A2A_SHARE_SAVE_menu_styler_note').style.display='';"><?php _e("Open Menu Styler", "add-to-any"); ?></a>
 					</p>
@@ -604,12 +604,12 @@ function A2A_SHARE_SAVE_options_page() {
             <td><fieldset>
             		<p id="A2A_SHARE_SAVE_menu_styler_note" style="display:none">
                         <label for="A2A_SHARE_SAVE_additional_js_variables" class="updated">
-                            <strong><?php _e("Paste the code from Add to Any's Menu Styler in the box below!", 'add-to-any'); ?></strong>
+                            <strong><?php _e("Paste the code from AddToAny's Menu Styler in the box below!", 'add-to-any'); ?></strong>
                         </label>
                     </p>
                     <label for="A2A_SHARE_SAVE_additional_js_variables">
                     	<p><?php _e('Below you can set special JavaScript variables to apply to each Share/Save menu.', 'add-to-any'); ?>
-                    	<?php _e("Advanced users might want to explore Add to Any's <a href=\"http://www.addtoany.com/buttons/api/\" target=\"_blank\">JavaScript API</a>.", "add-to-any"); ?></p>
+                    	<?php _e("Advanced users might want to explore AddToAny's <a href=\"http://www.addtoany.com/buttons/api/\" target=\"_blank\">JavaScript API</a>.", "add-to-any"); ?></p>
 					</label>
                     <p>
                 		<textarea name="A2A_SHARE_SAVE_additional_js_variables" id="A2A_SHARE_SAVE_additional_js_variables" class="code" style="width: 98%; font-size: 12px;" rows="5" cols="50"><?php echo stripslashes(get_option('A2A_SHARE_SAVE_additional_js_variables')); ?></textarea>
@@ -629,7 +629,7 @@ function A2A_SHARE_SAVE_options_page() {
     
     <h2><?php _e('Like this plugin?','add-to-any'); ?></h2>
     <p><?php _e('<a href="http://wordpress.org/extend/plugins/add-to-any/">Give it a good rating</a> on WordPress.org.','add-to-any'); ?></p>
-    <p><?php _e('<a href="http://www.addtoany.com/share_save?linkname=WordPress%20Share%20Plugin%20by%20AddToAny.com&amp;linkurl=http%3A%2F%2Fwordpress.org%2Fextend%2Fplugins%2Fadd-to-any%2F">Share it</a> with your friends.','add-to-any'); ?></p>
+    <p><?php _e('<a href="http://www.addtoany.com/share_save?linkname=WordPress%20Share%20%2F%20Bookmark%20Plugin%20by%20AddToAny.com&amp;linkurl=http%3A%2F%2Fwordpress.org%2Fextend%2Fplugins%2Fadd-to-any%2F">Share it</a> with your friends.','add-to-any'); ?></p>
     
     <h2><?php _e('Need support?','add-to-any'); ?></h2>
     <p><?php _e('See the <a href="http://wordpress.org/extend/plugins/add-to-any/faq/">FAQs</a>.','add-to-any'); ?></p>
@@ -788,7 +788,7 @@ function A2A_SHARE_SAVE_add_menu_link() {
 		
 	if( current_user_can('manage_options') ) {
 		add_options_page(
-			'Add to Any: '. __("Share/Save", "add-to-any"). " " . __("Settings")
+			'AddToAny: '. __("Share/Save", "add-to-any"). " " . __("Settings")
 			, __("Share/Save Buttons", "add-to-any")
 			, 8 
 			, basename(__FILE__)

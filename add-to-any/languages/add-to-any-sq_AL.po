@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: add-to-any ne shqip\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-18 00:13-0800\n"
+"POT-Creation-Date: 2010-01-18 14:02-0800\n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Last-Translator: Pat <no@no.com>\n"
 "Language-Team: Romeo Shuka | http://www.romeolab.com/ <webmaster@romeolab.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -87,167 +87,166 @@ msgstr "Klienti i postës elektronike"
 msgid "Your theme needs to be fixed. To fix your theme, use the <a href=\"theme-editor.php\">Theme Editor</a> to insert <code>&lt;?php wp_footer(); ?&gt;</code> just before the <code>&lt;/body&gt;</code> line of your theme's <code>footer.php</code> file."
 msgstr "Template juaj duhet azhornuar. Për të bërë ndryshimet e nevojshme, përdor editorini <a href=\"theme-editor.php\">e template</a> për të shtuar <code>&lt;?php wp_footer(); ?&gt;</code> menjëherë mbas mbylljes së tagut <code>&lt;/body&gt;</code> që ndodhet në dokumentin <code>footer.php</code>."
 
-#: add-to-any.php:390
-#: add-to-any.php:461
-#: add-to-any.php:465
-#: add-to-any.php:469
-#: add-to-any.php:473
-#: add-to-any.php:505
-#, fuzzy
+#: add-to-any.php:402
+#: add-to-any.php:475
+#: add-to-any.php:479
+#: add-to-any.php:483
+#: add-to-any.php:487
+#: add-to-any.php:519
 msgid "Share/Bookmark"
 msgstr "Bookmark"
 
-#: add-to-any.php:404
+#: add-to-any.php:416
 msgid "Settings saved."
 msgstr "Opsionet u ruajtën."
 
-#: add-to-any.php:415
-msgid "Add to Any: Share/Save "
-msgstr "Add to Any: Shpërnda/Ruaj"
+#: add-to-any.php:427
+msgid "AddToAny: Share/Save "
+msgstr "AddToAny: Shpërnda/Ruaj"
 
-#: add-to-any.php:415
-#: add-to-any.php:775
-#: add-to-any.php:796
+#: add-to-any.php:427
+#: add-to-any.php:791
+#: add-to-any.php:815
 msgid "Settings"
 msgstr "Opsionet"
 
-#: add-to-any.php:425
+#: add-to-any.php:438
 msgid "Standalone Services"
 msgstr "Shërbime të pavarur"
 
-#: add-to-any.php:430
+#: add-to-any.php:443
 msgid "Choose the services you want below. &nbsp;Click a chosen service again to remove. &nbsp;Reorder services by dragging and dropping as they appear above."
 msgstr "Zgjidh këtu poshtë shërbimet që të pëlqejnë. &nbsp;Kliko tek një nga shërbimet aktive për ta hequr. &nbsp;Rëndit shërbimet me drag and drop."
 
-#: add-to-any.php:456
+#: add-to-any.php:470
 msgid "Button"
 msgstr "Buton"
 
-#: add-to-any.php:495
+#: add-to-any.php:509
 msgid "Image URL"
 msgstr "URL e imazhit"
 
-#: add-to-any.php:502
+#: add-to-any.php:516
 msgid "Text only"
 msgstr "Vetëm tekst"
 
-#: add-to-any.php:510
+#: add-to-any.php:524
 msgid "Placement"
 msgstr "Vendndodhja"
 
-#: add-to-any.php:519
+#: add-to-any.php:533
 msgid "Display Share/Save button at the bottom of posts"
 msgstr "Trego butonin Share/Save në fund të artikujve"
 
-#: add-to-any.php:526
+#: add-to-any.php:540
 msgid "Display Share/Save button at the bottom of posts on the front page"
 msgstr "Trego butonin Share/Save në fund të artikujve në faqen kryesore"
 
-#: add-to-any.php:533
+#: add-to-any.php:547
 msgid "Display Share/Save button at the bottom of posts in the feed"
 msgstr "Trego butonin Share/Save në fund të artikujve feed"
 
-#: add-to-any.php:537
+#: add-to-any.php:551
 msgid "Display Share/Save button at the bottom of pages"
 msgstr "Trego butonin Share/Save në fund të faqeve"
 
-#: add-to-any.php:541
+#: add-to-any.php:555
 msgid "If unchecked, be sure to place the following code in <a href=\"theme-editor.php\">your template pages</a> (within <code>index.php</code>, <code>single.php</code>, and/or <code>page.php</code>)"
 msgstr "Nëse nuk është e selektuar, sigurohu që të vendosësh kodin në <a href=\"theme-editor.php\">faqen e templates tënde</a> (në <code>index.php</code>, <code>single.php</code>, edhe/ose <code>page.php</code>)"
 
-#: add-to-any.php:550
+#: add-to-any.php:564
 msgid "Menu Style"
 msgstr "Stili i menusë"
 
-#: add-to-any.php:552
-msgid "Using Add to Any's Menu Styler, you can customize the colors of your Share/Save menu! When you're done, be sure to paste the generated code in the <a href=\"#\" onclick=\"document.getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();return false\">Additional Options</a> box below."
-msgstr "Duke përdorur Menunë Styler të Add to Any mund të personalizosh ngjyrat e menusë Share/Save! Mbasi të keni bër ndryshimet e duhura, ngjit kodin që gjëndet në <a href=\"#\" onclick=\"document.getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();return false\">Opsionet shtesë</a> këtu poshtë."
+#: add-to-any.php:566
+msgid "Using AddToAny's Menu Styler, you can customize the colors of your Share/Save menu! When you're done, be sure to paste the generated code in the <a href=\"#\" onclick=\"document.getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();return false\">Additional Options</a> box below."
+msgstr "Duke përdorur Menunë Styler të AddToAny mund të personalizosh ngjyrat e menusë Share/Save! Mbasi të keni bër ndryshimet e duhura, ngjit kodin që gjëndet në <a href=\"#\" onclick=\"document.getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();return false\">Opsionet shtesë</a> këtu poshtë."
 
-#: add-to-any.php:554
-msgid "Open the Add to Any Menu Styler in a new window"
-msgstr "Hape në një faqe të re për të personalizuar menunë e Add to Any"
+#: add-to-any.php:568
+msgid "Open the AddToAny Menu Styler in a new window"
+msgstr "Hape në një faqe të re për të personalizuar menunë e AddToAny"
 
-#: add-to-any.php:556
+#: add-to-any.php:570
 msgid "Open Menu Styler"
 msgstr "Stili menu"
 
-#: add-to-any.php:561
+#: add-to-any.php:575
 msgid "Menu Options"
 msgstr "Opsionet e menusë"
 
-#: add-to-any.php:566
+#: add-to-any.php:580
 msgid "Hide embedded objects (Flash, video, etc.) that intersect with the menu when displayed"
 msgstr "Fshih objektet e inkorporuar (Flash, video, etj.) të cilët mund të ndikojnë në shikimin e rregullt të menusë"
 
-#: add-to-any.php:571
+#: add-to-any.php:585
 msgid "Show the title of the post (or page) within the menu"
 msgstr "Trego në menu titullin e artikullit (ose të faqes)"
 
-#: add-to-any.php:578
+#: add-to-any.php:592
 msgid "Only show the menu when the user clicks the Share/Save button"
 msgstr "Trego menunë vetëm kur një anëtar klikon mbi butonin Share/Save"
 
-#: add-to-any.php:584
+#: add-to-any.php:598
 msgid "Open the addtoany.com menu page in a new tab or window if the user clicks the Share/Save button"
 msgstr "Hap në një skedë apo dritare të re faqen menu të addtoany.com kur një vizitor klikon mbi butonin Share/Save"
 
-#: add-to-any.php:589
+#: add-to-any.php:603
 msgid "Additional Options"
 msgstr "Opsione shtesë"
 
-#: add-to-any.php:593
-msgid "Paste the code from Add to Any's Menu Styler in the box below!"
+#: add-to-any.php:607
+msgid "Paste the code from AddToAny's Menu Styler in the box below!"
 msgstr "Ngjit në kutinë poshtë kodin tuaj të personalizuar të menusë! "
 
-#: add-to-any.php:597
+#: add-to-any.php:611
 msgid "Below you can set special JavaScript variables to apply to each Share/Save menu."
 msgstr "Këtu poshtë është e mundur ndryshimi i variableve të JavaScript që përdor menuja Share/Save."
 
-#: add-to-any.php:598
-msgid "Advanced users might want to explore Add to Any's <a href=\"http://www.addtoany.com/buttons/api/\" target=\"_blank\">JavaScript API</a>."
-msgstr "Përdoruesit me njohuri më të thella mund të eksplorojnë <a href=\"http://www.addtoany.com/buttons/api/\" target=\"_blank\">JavaScript API</a> të Add to Any."
+#: add-to-any.php:612
+msgid "Advanced users might want to explore AddToAny's <a href=\"http://www.addtoany.com/buttons/api/\" target=\"_blank\">JavaScript API</a>."
+msgstr "Përdoruesit me njohuri më të thella mund të eksplorojnë <a href=\"http://www.addtoany.com/buttons/api/\" target=\"_blank\">JavaScript API</a> të AddToAny."
 
-#: add-to-any.php:604
+#: add-to-any.php:618
 msgid "<strong>Note</strong>: If you're adding new code, be careful not to accidentally overwrite any previous code.</label>"
 msgstr "<strong>Shënim</strong>: nëse ti vendos kod të ri, ki kujdes mos të rishkruash ndonjë kod të vjetër.</label>"
 
-#: add-to-any.php:611
+#: add-to-any.php:625
 msgid "Save Changes"
 msgstr "Ruaj ndryshimet"
 
-#: add-to-any.php:616
+#: add-to-any.php:630
 msgid "Like this plugin?"
 msgstr "Të pëlqeu ky plugin?"
 
-#: add-to-any.php:617
+#: add-to-any.php:631
 msgid "<a href=\"http://wordpress.org/extend/plugins/add-to-any/\">Give it a good rating</a> on WordPress.org."
 msgstr "<a href=\"http://wordpress.org/extend/plugins/add-to-any/\">Votoje</a> në WordPress.org."
 
-#: add-to-any.php:618
-msgid "<a href=\"http://www.addtoany.com/share_save?linkname=WordPress%20Share%20Plugin%20by%20AddToAny.com&amp;linkurl=http%3A%2F%2Fwordpress.org%2Fextend%2Fplugins%2Fadd-to-any%2F\">Share it</a> with your friends."
+#: add-to-any.php:632
+msgid "<a href=\"http://www.addtoany.com/share_save?linkname=WordPress%20Share%20%2F%20Bookmark%20Plugin%20by%20AddToAny.com&amp;linkurl=http%3A%2F%2Fwordpress.org%2Fextend%2Fplugins%2Fadd-to-any%2F\">Share it</a> with your friends."
 msgstr "<a href=\"http://www.addtoany.com/share_save?linkname=WordPress%20Share%20Plugin%20by%20AddToAny.com&amp;linkurl=http%3A%2F%2Fwordpress.org%2Fextend%2Fplugins%2Fadd-to-any%2F\">Shpërndaja</a> miqve të tu.."
 
-#: add-to-any.php:620
+#: add-to-any.php:634
 msgid "Need support?"
 msgstr "Të duhet ndihmë??"
 
-#: add-to-any.php:621
+#: add-to-any.php:635
 msgid "See the <a href=\"http://wordpress.org/extend/plugins/add-to-any/faq/\">FAQs</a>."
 msgstr "Shiko faqen dedikuar <a href=\"http://wordpress.org/extend/plugins/add-to-any/faq/\">FAQ</a>."
 
-#: add-to-any.php:622
+#: add-to-any.php:636
 msgid "Search the <a href=\"http://wordpress.org/tags/add-to-any\">support forums</a>."
 msgstr "Bëj një kërkim në <a href=\"http://wordpress.org/tags/add-to-any\">forum</a>."
 
-#: add-to-any.php:729
+#: add-to-any.php:743
 msgid "Add/Remove Services"
 msgstr "Shtoi/Hiq shërbimet"
 
-#: add-to-any.php:775
+#: add-to-any.php:791
 msgid "Share/Save"
 msgstr "Shpërnda/Ruaj"
 
-#: add-to-any.php:776
+#: add-to-any.php:792
 msgid "Share/Save Buttons"
 msgstr "Butoni Shpërnda/Ruaj"
 
