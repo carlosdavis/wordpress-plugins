@@ -3,7 +3,7 @@
 Plugin Name: AddToAny: Share/Bookmark/Email Button
 Plugin URI: http://www.addtoany.com/
 Description: Help readers share, bookmark, and email your posts and pages using any service.  [<a href="options-general.php?page=add-to-any.php">Settings</a>]
-Version: .9.9.4.7
+Version: .9.9.4.8
 Author: AddToAny
 Author URI: http://www.addtoany.com/
 */
@@ -362,7 +362,9 @@ function A2A_SHARE_SAVE_button_css() {
 <?php
 }
 
-add_action('wp_head', 'A2A_SHARE_SAVE_button_css');
+if (get_option('A2A_SHARE_SAVE_inline_css') != '-1') {
+	add_action('wp_head', 'A2A_SHARE_SAVE_button_css');
+}
 
 
 
@@ -392,6 +394,7 @@ function A2A_SHARE_SAVE_options_page() {
 		update_option( 'A2A_SHARE_SAVE_button', $_POST['A2A_SHARE_SAVE_button'] );
 		update_option( 'A2A_SHARE_SAVE_button_custom', $_POST['A2A_SHARE_SAVE_button_custom'] );
 		update_option( 'A2A_SHARE_SAVE_additional_js_variables', trim($_POST['A2A_SHARE_SAVE_additional_js_variables']) );
+		update_option( 'A2A_SHARE_SAVE_inline_css', ($_POST['A2A_SHARE_SAVE_inline_css']=='1') ? '1':'-1' );
 		
 		// Store desired text if 16 x 16px buttons or text-only is chosen:
 		if( get_option('A2A_SHARE_SAVE_button') == 'favicon.png|16|16' )
@@ -616,7 +619,17 @@ function A2A_SHARE_SAVE_options_page() {
 					</p>
                     <?php if( get_option('A2A_SHARE_SAVE_additional_js_variables')!='' ) { ?>
                     <label for="A2A_SHARE_SAVE_additional_js_variables" class="setting-description"><?php _e("<strong>Note</strong>: If you're adding new code, be careful not to accidentally overwrite any previous code.</label>", 'add-to-any'); ?>
-                    <?php } ?>
+                    <br/><br/>
+					<?php } ?>
+					<label for="A2A_SHARE_SAVE_inline_css">
+						<input name="A2A_SHARE_SAVE_inline_css" 
+                        	type="checkbox"<?php if(get_option('A2A_SHARE_SAVE_inline_css')!='-1') echo ' checked="checked"'; ?> value="1"/>
+                	<?php _e('Use inline CSS', 'add-to-any'); ?> <strong>**</strong>
+					</label>
+					<br/><br/>
+	                <div class="setting-description">
+	                	<strong>**</strong> <?php _e("If unchecked, be sure to place the CSS in your theme's stylesheet.", "add-to-any"); ?>
+	                </div>
             </fieldset></td>
             </tr>
         </table>

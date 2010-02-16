@@ -30,6 +30,10 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "Backflip",
 		"icon" => "backflip",
 	),
+	"balatarin" => Array(
+		"name" => "Balatarin",
+		"icon" => "balatarin",
+	),
 	"bebo" => Array(
 		"name" => "Bebo",
 		"icon" => "bebo",
@@ -130,6 +134,10 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "Faves",
 		"icon" => "faves",
 	),
+	"favoriten" => Array(
+		"name" => "Favoriten",
+		"icon" => "favoriten",
+	),
 	"folkd" => Array(
 		"name" => "Folkd",
 		"icon" => "folkd",
@@ -150,10 +158,6 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "Gabbr",
 		"icon" => "gabbr",
 	),
-	"global_grind" => Array(
-		"name" => "Global Grind",
-		"icon" => "global_grind",
-	),
 	"google_bookmarks" => Array(
 		"name" => "Google Bookmarks",
 		"icon" => "google",
@@ -165,6 +169,10 @@ $A2A_SHARE_SAVE_services = Array(
 	"google_reader" => Array(
 		"name" => "Google Reader",
 		"icon" => "reader",
+	),
+	"hatena" => Array(
+		"name" => "Hatena",
+		"icon" => "hatena",
 	),
 	"health_ranker" => Array(
 		"name" => "Health Ranker",
@@ -189,6 +197,10 @@ $A2A_SHARE_SAVE_services = Array(
 	"hyves" => Array(
 		"name" => "Hyves",
 		"icon" => "hyves",
+	),
+	"iwiw" => Array(
+		"name" => "IWIW",
+		"icon" => "iwiw",
 	),
 	"identi_ca" => Array(
 		"name" => "Identi.ca",
@@ -274,6 +286,10 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "MySpace",
 		"icon" => "myspace",
 	),
+	"nujij" => Array(
+		"name" => "NUjij",
+		"icon" => "nujij",
+	),
 	"netlog" => Array(
 		"name" => "Netlog",
 		"icon" => "netlog",
@@ -297,6 +313,10 @@ $A2A_SHARE_SAVE_services = Array(
 	"nowpublic" => Array(
 		"name" => "NowPublic",
 		"icon" => "nowpublic",
+	),
+	"oknotizie" => Array(
+		"name" => "Oknotizie",
+		"icon" => "oknotizie",
 	),
 	"oneview" => Array(
 		"name" => "Oneview",
@@ -341,6 +361,10 @@ $A2A_SHARE_SAVE_services = Array(
 	"pusha" => Array(
 		"name" => "Pusha",
 		"icon" => "pusha",
+	),
+	"read_it_later" => Array(
+		"name" => "Read It Later",
+		"icon" => "read_it_later",
 	),
 	"reddit" => Array(
 		"name" => "Reddit",
@@ -402,6 +426,10 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "Stumpedia",
 		"icon" => "stumpedia",
 	),
+	"svejo" => Array(
+		"name" => "Svejo",
+		"icon" => "svejo",
+	),
 	"symbaloo_feeds" => Array(
 		"name" => "Symbaloo Feeds",
 		"icon" => "symbaloo",
@@ -453,6 +481,10 @@ $A2A_SHARE_SAVE_services = Array(
 	"viadeo" => Array(
 		"name" => "Viadeo",
 		"icon" => "viadeo",
+	),
+	"vodpod" => Array(
+		"name" => "VodPod",
+		"icon" => "vodpod",
 	),
 	"webnews" => Array(
 		"name" => "Webnews",
@@ -513,6 +545,10 @@ $A2A_SHARE_SAVE_services = Array(
 	"youmob" => Array(
 		"name" => "YouMob",
 		"icon" => "youmob",
+	),
+	"dihitt" => Array(
+		"name" => "diHITT",
+		"icon" => "dihitt",
 	),
 	"unalog" => Array(
 		"name" => "unalog",
