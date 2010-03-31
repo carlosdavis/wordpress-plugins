@@ -17,6 +17,7 @@ function wpcf7_submit_shortcode_handler( $tag ) {
 	$atts = '';
 	$id_att = '';
 	$class_att = '';
+	$tabindex_att = '';
 
 	foreach ( $options as $option ) {
 		if ( preg_match( '%^id:([-0-9a-zA-Z_]+)$%', $option, $matches ) ) {
@@ -24,6 +25,9 @@ function wpcf7_submit_shortcode_handler( $tag ) {
 
 		} elseif ( preg_match( '%^class:([-0-9a-zA-Z_]+)$%', $option, $matches ) ) {
 			$class_att .= ' ' . $matches[1];
+
+		} elseif ( preg_match( '%^tabindex:(\d+)$%', $option, $matches ) ) {
+			$tabindex_att = (int) $matches[1];
 
 		}
 	}
@@ -34,14 +38,17 @@ function wpcf7_submit_shortcode_handler( $tag ) {
 	if ( $class_att )
 		$atts .= ' class="' . trim( $class_att ) . '"';
 
-	$value = $values[0];
+	if ( '' !== $tabindex_att )
+		$atts .= sprintf( ' tabindex="%d"', $tabindex_att );
+
+	$value = isset( $values[0] ) ? $values[0] : '';
 	if ( empty( $value ) )
 		$value = __( 'Send', 'wpcf7' );
 
-	$ajax_loader_image_url = wpcf7_plugin_url( 'images/ajax-loader.gif' );
-
 	$html = '<input type="submit" value="' . esc_attr( $value ) . '"' . $atts . ' />';
-	$html .= ' <img class="ajax-loader" style="visibility: hidden;" alt="ajax loader" src="' . $ajax_loader_image_url . '" />';
+
+	if ( wpcf7_script_is() )
+		$html .= ' <img class="ajax-loader" style="visibility: hidden;" alt="ajax loader" src="' . wpcf7_plugin_url( 'images/ajax-loader.gif' ) . '" />';
 
 	return $html;
 }

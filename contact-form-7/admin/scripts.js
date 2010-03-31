@@ -48,18 +48,20 @@ jQuery(document).ready(function() {
 
 		updateTag();
 
-		if (! jQuery('#wpcf7-mail-2-active').is(':checked'))
-			jQuery('#mail-2-fields').hide();
+		if (jQuery.support.objectAll) {
+			if (! jQuery('#wpcf7-mail-2-active').is(':checked'))
+				jQuery('#mail-2-fields').hide();
 
-		jQuery('#wpcf7-mail-2-active').click(function() {
-			if (jQuery('#wpcf7-mail-2-active').is(':checked')) {
-				if (jQuery('#mail-2-fields').is(':hidden'))
+			jQuery('#wpcf7-mail-2-active').click(function() {
+				if (jQuery('#mail-2-fields').is(':hidden')
+				&& jQuery('#wpcf7-mail-2-active').is(':checked')) {
 					jQuery('#mail-2-fields').slideDown('fast');
-			} else {
-				if (jQuery('#mail-2-fields').is(':visible'))
-					jQuery('#mail-2-fields').hide('fast');
-			}
-		});
+				} else if (jQuery('#mail-2-fields').is(':visible')
+				&& jQuery('#wpcf7-mail-2-active').not(':checked')) {
+					jQuery('#mail-2-fields').slideUp('fast');
+				}
+			});
+		}
 
 		jQuery('#message-fields-toggle-switch').text(_wpcf7L10n.show);
 		jQuery('#message-fields').hide();

@@ -3,7 +3,7 @@ Contributors: micropat
 Tags: bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, sharing, share, sharethis, saving, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, e-mail, email, seo, button, delicious, google, digg, reddit, facebook, myspace, twitter, stumbleupon, technorati, wpmu, addtoany, add, any
 Requires at least: 2.0
 Tested up to: 2.9
-Stable tag: 0.9.9.4.8
+Stable tag: 0.9.9.4.9
 
 Help readers share, bookmark, and email your posts and pages using any service, such as Facebook, Twitter, Digg, Delicious and over 100 more.
 
@@ -22,10 +22,10 @@ Individual **service icons** let you optimize your blog posts for specific socia
 * Includes all <a href="http://www.addtoany.com/services/" target="_blank">services</a>
 * Menu updated automatically
 * WordPress optimized, localized (English, Chinese, Spanish, Japanese, Portuguese, Italian, Danish, Catalan, Russian, Albanian, Romanian, Belarusian)
-* Google Analytics integration
+* Google Analytics integration (<a href="http://www.addtoany.com/ext/google_analytics/">access guide</a>)
 * Many more publisher and user features!
 
-<a href="http://www.addtoany.com/privacy">Privacy Policy</a>
+<a href="http://www.addtoany.com/share_save" title="Share" target="_blank">Share this plugin</a>
 
 See also:
 
@@ -33,7 +33,7 @@ See also:
 * The <a href="http://www.addtoany.com/buttons/for/wordpress_com" title="WordPress.com sharing button widget" target="_blank">Share button for WordPress.com</a> blogs
 * The standard <a href="http://www.addtoany.com/buttons/">Share button</a> widget
 
-<a href="http://www.addtoany.com/share_save" title="Share" target="_blank">Share this plugin</a>
+<a href="http://www.addtoany.com/blog/" target="_blank">AddToAny Blog</a> | <a href="http://www.addtoany.com/privacy">Privacy Policy</a>
 
 == Installation ==
 
@@ -41,10 +41,6 @@ See also:
 1. Activate the plugin through the `Plugins` menu in WordPress
 
 == Frequently Asked Questions ==
-
-= How often is the list of services within the menu updated? =
-
-Constantly... and it's done automatically without having to upgrade.
 
 = Where are the options? =
 
@@ -67,11 +63,34 @@ if( function_exists('ADDTOANY_SHARE_SAVE_BUTTON') )
 	ADDTOANY_SHARE_SAVE_BUTTON( array("html_wrap_open" => "<li>", "html_wrap_close" => "</li>") );
 echo '</ul>'; ?>`
 
+If you want to customize the shared URL and title for the button and standalone services, use the following code as a template:
+
+`<?php echo '<ul class="addtoany_list">';
+$addtoany_linkname = "Example Page";
+$addtoany_linkurl = "http://example.com/page.html";
+if( function_exists('ADDTOANY_SHARE_SAVE_ICONS') )
+	ADDTOANY_SHARE_SAVE_ICONS( array(
+		"html_wrap_open" => "<li>", "html_wrap_close" => "</li>",
+		"linkname" => $addtoany_linkname, "linkurl" => $addtoany_linkurl
+	));
+if( function_exists('ADDTOANY_SHARE_SAVE_BUTTON') )
+	ADDTOANY_SHARE_SAVE_BUTTON( array(
+		"html_wrap_open" => "<li>", "html_wrap_close" => "</li>",
+		"linkname" => $addtoany_linkname, "linkurl" => $addtoany_linkurl
+	));
+echo '</ul>'; ?>`
+
 = How can I add just the button to another area of my theme? =
 
-Directions are located within the plugin's settings panel located in `Settings` > `Share/Save Buttons` under `Button Placement`. In the Theme Editor, you will place this line of code where you want the button to appear in your theme:
+In the Theme Editor, you will place this line of code where you want the button to appear in your theme:
 
 `<?php if( function_exists('ADDTOANY_SHARE_SAVE_BUTTON') ) { ADDTOANY_SHARE_SAVE_BUTTON(); } ?>`
+
+If you want to customize the shared URL and title for this button, use the following code as a template:
+
+`<?php if( function_exists('ADDTOANY_SHARE_SAVE_BUTTON') ) { 
+	ADDTOANY_SHARE_SAVE_BUTTON( array("linkname" => "Example Page", "linkurl" => "http://example.com/page.html") );
+} ?>`
 
 = How can I add just the individual icons to another area of my theme? =
 
@@ -82,9 +101,27 @@ if( function_exists('ADDTOANY_SHARE_SAVE_ICONS') )
 	ADDTOANY_SHARE_SAVE_ICONS( array("html_wrap_open" => "<li>", "html_wrap_close" => "</li>") );
 echo '</ul>'; ?>`
 
+If you want to customize the shared URL and title for these icons, use the following code as a template:
+
+`<?php
+if( function_exists('ADDTOANY_SHARE_SAVE_ICONS') ) {
+	echo '<ul class="addtoany_list">';
+	ADDTOANY_SHARE_SAVE_ICONS( array(
+		"html_wrap_open" => "<li>", "html_wrap_close" => "</li>",
+		"linkname" => "Example Page", "linkurl" => "http://example.com/page.html"
+	));
+	echo '</ul>';
+} ?>`
+
 Or you can place the icons as individual links (without being wrapped in an HTML list):
 
 `<?php if( function_exists('ADDTOANY_SHARE_SAVE_ICONS') ) { ADDTOANY_SHARE_SAVE_ICONS(); } ?>`
+
+If you want to customize the shared URL and title for these icons, use the following code as a template:
+
+`<?php if( function_exists('ADDTOANY_SHARE_SAVE_ICONS') ) {
+	ADDTOANY_SHARE_SAVE_ICONS( array("linkname" => "Example Page", "linkurl" => "http://example.com/page.html") );
+} ?>`
 
 = How can I add a new custom standalone service? =
 You can create a plugin or customize the following PHP sample code to add to your theme's function.php file:
@@ -101,13 +138,28 @@ You can create a plugin or customize the following PHP sample code to add to you
 }
 add_filter('A2A_SHARE_SAVE_services', 'addtoany_add_services', 10, 1);`
 
-= How can I force the button to appear in individual posts and pages? =
+= How can I align the button and/or icons to the center or to the right side of posts? =
+It depends on your theme, but you can try adding the following CSS code to your main stylesheet.
 
-If your button isn't already set up to appear (it is by default), type the following tag into the page or post that you want the button to appear in: `<!--sharesave-->`
+To align right:
+`.addtoany_share_save_container { text-align:right; }`
+
+To align center:
+`.addtoany_share_save_container { text-align:center; }`
 
 = How can I remove a button from individual posts and pages? =
 
 Type the following tag into the page or post that you do not want the button to appear in: `<!--nosharesave-->`
+
+= How can I force the button to appear in individual posts and pages? =
+
+If your button isn't already set up to appear (it is by default), type the following tag into the page or post that you want the button to appear in: `<!--sharesave-->`
+
+= Why doesn't Facebook use the page title and how can I set the image Facebook uses? =
+
+Facebook does link sharing a little differently than most other services. Facebook will sometimes use the Meta Description of a shared page instead of the page's title or the title you have set for AddToAny.
+
+To change the title, description and/or image on Facebook, you will need to modify your theme header file according to <a href="http://wiki.developers.facebook.com/index.php/Facebook_Share/Specifying_Meta_Tags">Facebook's specification</a>. With WordPress, this can be accomplished with plugins like the <a href="http://wordpress.org/extend/plugins/all-in-one-seo-pack/">All in One SEO Pack plugin</a>.  Please see that plugin to for details, and post in the WordPress or plugin author's forums for more support.
 
 = Why do embedded objects (like Flash) disappear when the menu is displayed? =
 
@@ -122,6 +174,18 @@ This is done to overcome browser limitations that prevent the drop-down menu fro
 5. Color chooser for your AddToAny menus
 
 == Changelog ==
+
+= .9.9.4.9 =
+* New params to customize the shared link and title for buttons/icons placed in theme file(s)
+ * See plugin FAQ for template code
+* Ensure line break within feeds by enclosing AddToAny in a paragraph tag
+* Increase opacity on standalone icons by 10%
+* Offer CSS code in the settings panel to copy & paste into a stylesheet
+* New standalone services
+ * Google Buzz (using Google Reader endpoint - automatic update to come)
+ * Blip
+ * Grono
+ * Wykop
 
 = .9.9.4.8 =
 * Inline CSS toggle

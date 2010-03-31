@@ -28,18 +28,21 @@ function wpcf7_admin_add_pages() {
 			'recipient' => trim( $_POST['wpcf7-mail-recipient'] ),
 			'additional_headers' => trim( $_POST['wpcf7-mail-additional-headers'] ),
 			'attachments' => trim( $_POST['wpcf7-mail-attachments'] ),
-			'use_html' => ( 1 == $_POST['wpcf7-mail-use-html'] ) ? true : false
+			'use_html' =>
+				isset( $_POST['wpcf7-mail-use-html'] ) && 1 == $_POST['wpcf7-mail-use-html']
 		);
 
 		$mail_2 = array(
-			'active' => ( 1 == $_POST['wpcf7-mail-2-active'] ) ? true : false,
+			'active' =>
+				isset( $_POST['wpcf7-mail-2-active'] ) && 1 == $_POST['wpcf7-mail-2-active'],
 			'subject' => trim( $_POST['wpcf7-mail-2-subject'] ),
 			'sender' => trim( $_POST['wpcf7-mail-2-sender'] ),
 			'body' => trim( $_POST['wpcf7-mail-2-body'] ),
 			'recipient' => trim( $_POST['wpcf7-mail-2-recipient'] ),
 			'additional_headers' => trim( $_POST['wpcf7-mail-2-additional-headers'] ),
 			'attachments' => trim( $_POST['wpcf7-mail-2-attachments'] ),
-			'use_html' => ( 1 == $_POST['wpcf7-mail-2-use-html'] ) ? true : false
+			'use_html' =>
+				isset( $_POST['wpcf7-mail-2-use-html'] ) && 1 == $_POST['wpcf7-mail-2-use-html']
 		);
 
 		$messages = $contact_form->messages;
@@ -186,10 +189,15 @@ var _wpcf7 = {
 function wpcf7_admin_management_page() {
 	$contact_forms = wpcf7_contact_forms();
 
+	$unsaved = false;
+
+	if ( ! isset( $_GET['contactform'] ) )
+		$_GET['contactform'] = '';
+
 	if ( 'new' == $_GET['contactform'] ) {
 		$unsaved = true;
 		$current = -1;
-		$cf = wpcf7_contact_form_default_pack( $_GET['locale'] );
+		$cf = wpcf7_contact_form_default_pack( isset( $_GET['locale'] ) ? $_GET['locale'] : '' );
 	} elseif ( $cf = wpcf7_contact_form( $_GET['contactform'] ) ) {
 		$current = (int) $_GET['contactform'];
 	} else {
@@ -206,12 +214,10 @@ function wpcf7_admin_management_page() {
 add_action( 'activate_' . WPCF7_PLUGIN_BASENAME, 'wpcf7_install' );
 
 function wpcf7_install() {
-	global $wpdb;
+	global $wpdb, $wpcf7;
 
 	if ( wpcf7_table_exists() )
 		return; // Exists already
-
-	$table_name = wpcf7_table_name();
 
 	$charset_collate = '';
 	if ( $wpdb->has_cap( 'collation' ) ) {
@@ -221,7 +227,7 @@ function wpcf7_install() {
 			$charset_collate .= " COLLATE $wpdb->collate";
 	}
 
-	$wpdb->query( "CREATE TABLE IF NOT EXISTS $table_name (
+	$wpdb->query( "CREATE TABLE IF NOT EXISTS $wpcf7->contactforms (
 		cf7_unit_id bigint(20) unsigned NOT NULL auto_increment,
 		title varchar(200) NOT NULL default '',
 		form text NOT NULL,
@@ -238,7 +244,7 @@ function wpcf7_install() {
 	if ( is_array( $legacy_data )
 		&& is_array( $legacy_data['contact_forms'] ) && $legacy_data['contact_forms'] ) {
 		foreach ( $legacy_data['contact_forms'] as $key => $value ) {
-			$wpdb->insert( $table_name, array(
+			$wpdb->insert( $wpcf7->contactforms, array(
 				'cf7_unit_id' => $key,
 				'title' => $value['title'],
 				'form' => maybe_serialize( $value['form'] ),
@@ -248,12 +254,10 @@ function wpcf7_install() {
 				'additional_settings' => maybe_serialize( $value['additional_settings'] )
 				), array( '%d', '%s', '%s', '%s', '%s', '%s', '%s' ) );
 		}
-
-		// delete_option( 'wpcf7' ); // Comment out for downgrading case for a while
 	} else {
 		wpcf7_load_plugin_textdomain();
 
-		$wpdb->insert( $table_name, array(
+		$wpdb->insert( $wpcf7->contactforms, array(
 			'title' => __( 'Contact form', 'wpcf7' ) . ' 1',
 			'form' => maybe_serialize( wpcf7_default_form_template() ),
 			'mail' => maybe_serialize( wpcf7_default_mail_template() ),
@@ -300,6 +304,9 @@ function wpcf7_cf7com_links( &$contact_form ) {
 add_action( 'wpcf7_admin_before_subsubsub', 'wpcf7_updated_message' );
 
 function wpcf7_updated_message( &$contact_form ) {
+	if ( ! isset( $_GET['message'] ) )
+		return;
+
 	switch ( $_GET['message'] ) {
 		case 'created':
 			$updated_message = __( "Contact form created.", 'wpcf7' );
@@ -337,8 +344,8 @@ function wpcf7_donation_link( &$contact_form ) {
 
 	$show_link = true;
 
-	$num = mt_rand(0, 99);
-	if ($num >= 10) // 90%
+	$num = mt_rand( 0, 99 );
+	if ( $num >= 15 ) // 85%
 		$show_link = false;
 
 	$show_link = apply_filters( 'wpcf7_show_donation_link', $show_link );
@@ -348,18 +355,13 @@ function wpcf7_donation_link( &$contact_form ) {
 
 	$texts = array(
 		__( "Contact Form 7 needs your support. Please donate today.", 'wpcf7' ),
-		__( "Is this plugin useful for you? If you like it, please help the developer.", 'wpcf7' ),
-		__( "Your contribution is needed for making this plugin better.", 'wpcf7' ),
-		__( "Developing a plugin and providing user support is really hard work. Please help.", 'wpcf7' ) );
+		__( "Your contribution is needed for making this plugin better.", 'wpcf7' ) );
 
 	$text = $texts[array_rand( $texts )];
 
 ?>
 <div class="donation">
-<p><a href="http://www.pledgie.com/campaigns/3117">
-<img alt="Click here to lend your support to: Support Contact Form 7 and make a donation at www.pledgie.com !" src="http://www.pledgie.com/campaigns/3117.png?skin_name=chrome" border="0" width="149" height="37" /></a>
-<em><?php echo esc_html( $text ); ?></em>
-</p>
+<p><a href="<?php echo esc_url_raw( __( 'http://contactform7.com/donate/', 'wpcf7' ) ); ?>"><?php echo esc_html( $text ); ?></a> <a href="<?php echo esc_url_raw( __( 'http://contactform7.com/donate/', 'wpcf7' ) ); ?>" class="button"><?php echo esc_html( __( "Donate", 'wpcf7' ) ); ?></a></p>
 </div>
 <?php
 }

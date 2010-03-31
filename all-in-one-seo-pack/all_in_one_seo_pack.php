@@ -4,7 +4,7 @@
 Plugin Name: All in One SEO Pack
 Plugin URI: http://semperfiwebdesign.com
 Description: Out-of-the-box SEO for your Wordpress blog. <a href="options-general.php?page=all-in-one-seo-pack/aioseop.class.php">Options configuration panel</a> | <a href="http://wpplugins.com/plugin/50/all-in-one-seo-pack-pro-version">Upgrade to Pro Version</a> | <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtorbert%40gmail%2ecom&item_name=All%20In%20One%20SEO%20Pack&item_number=Support%20Open%20Source&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8">Donate</a> | <a href="http://semperfiwebdesign.com/forum/" >Support</a> |  <a href="https://www.amazon.com/wishlist/1NFQ133FNCOOA/ref=wl_web" target="_blank" title="Amazon Wish List">Amazon Wishlist</a>
-Version: 1.6.10.1
+Version: 1.6.10.2
 Author: Michael Torbert
 Author URI: http://michaeltorbert.com
 */
@@ -553,9 +553,7 @@ $wpdb->query("UPDATE $wpdb->postmeta SET meta_key = '_aioseop_disable' WHERE met
 echo "<div class='updated fade' style='background-color:green;border-color:green;'><p><strong>Updating SEO post meta in database.</strong></p></div";
 }
 
-function aioseop_get_version(){
-	return '1.6.10.1';
-}
+
 $aioseopcc = 0;
 
 
@@ -641,6 +639,9 @@ function aioseop_activate_pl(){
 	}
 }
 
+function aioseop_get_version(){
+	return '1.6.10.2';
+}
 
 function add_plugin_row($links, $file) {
 
@@ -765,7 +766,7 @@ function aiosp_meta() {
 		<tr>
 		<th scope="row" style="text-align:right;"><?php _e('Title:', 'all_in_one_seo_pack') ?></th>
 		<td><input value="<?php echo $title ?>" type="text" name="aiosp_title" size="62" onKeyDown="countChars(document.post.aiosp_title,document.post.lengthT)" onKeyUp="countChars(document.post.aiosp_title,document.post.lengthT)"/><br />
-			<input readonly type="text" name="lengthT" size="3″ maxlength="3″ style="text-align:center;" value="<?php echo strlen($title);?>" />
+			<input readonly type="text" name="lengthT" size="3" maxlength="3" style="text-align:center;" value="<?php echo strlen($title);?>" />
 			<?php _e(' characters. Most search engines use a maximum of 60 chars for the title.', 'all_in_one_seo_pack') ?>
 			</td>
 		</tr>

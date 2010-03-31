@@ -117,8 +117,6 @@
 	}
 
 	$.tgCreateTag = function(pane, tagType) {
-		pane.find(':input').empty();
-
 		pane.find('input[name="name"]').each(function(i) {
 			var val = $(this).val();
 			val = val.replace(/[^0-9a-zA-Z:._-]/g, '').replace(/^[^a-zA-Z]+/, '');
@@ -166,6 +164,12 @@
 			var val = $(this).val();
 			val = val.replace(/[^0-9a-zA-Z.\s]/g, '');
 			$(this).val(val);
+		});
+
+		pane.find(':input.date').each(function(i) {
+			var val = $(this).val();
+			if (! val.match(/^\d{4}-\d{1,2}-\d{1,2}$/)) // 'yyyy-mm-dd' ISO 8601 format
+				$(this).val('');
 		});
 
 		pane.find(':input[name="values"]').each(function(i) {

@@ -42,15 +42,17 @@ function wpcf7_messages() {
 }
 
 function wpcf7_default_form_template() {
-	$template .= '<p>' . __( 'Your Name', 'wpcf7' ) . ' ' . __( '(required)', 'wpcf7' ) . '<br />' . "\n";
-	$template .= '    [text* your-name] </p>' . "\n\n";
-	$template .= '<p>' . __( 'Your Email', 'wpcf7' ) . ' ' . __( '(required)', 'wpcf7' ) . '<br />' . "\n";
-	$template .= '    [email* your-email] </p>' . "\n\n";
-	$template .= '<p>' . __( 'Subject', 'wpcf7' ) . '<br />' . "\n";
-	$template .= '    [text your-subject] </p>' . "\n\n";
-	$template .= '<p>' . __( 'Your Message', 'wpcf7' ) . '<br />' . "\n";
-	$template .= '    [textarea your-message] </p>' . "\n\n";
-	$template .= '<p>[submit "' . __( 'Send', 'wpcf7' ) . '"]</p>';
+	$template =
+		'<p>' . __( 'Your Name', 'wpcf7' ) . ' ' . __( '(required)', 'wpcf7' ) . '<br />' . "\n"
+		. '    [text* your-name] </p>' . "\n\n"
+		. '<p>' . __( 'Your Email', 'wpcf7' ) . ' ' . __( '(required)', 'wpcf7' ) . '<br />' . "\n"
+		. '    [email* your-email] </p>' . "\n\n"
+		. '<p>' . __( 'Subject', 'wpcf7' ) . '<br />' . "\n"
+		. '    [text your-subject] </p>' . "\n\n"
+		. '<p>' . __( 'Your Message', 'wpcf7' ) . '<br />' . "\n"
+		. '    [textarea your-message] </p>' . "\n\n"
+		. '<p>[submit "' . __( 'Send', 'wpcf7' ) . '"]</p>';
+
 	return $template;
 }
 
@@ -63,7 +65,10 @@ function wpcf7_default_mail_template() {
 		. sprintf( __( 'This mail is sent via contact form on %1$s %2$s', 'wpcf7' ),
 			get_bloginfo( 'name' ), get_bloginfo( 'url' ) );
 	$recipient = get_option( 'admin_email' );
-	return compact( 'subject', 'sender', 'body', 'recipient' );
+	$additional_headers = '';
+	$attachments = '';
+	$use_html = 0;
+	return compact( 'subject', 'sender', 'body', 'recipient', 'additional_headers', 'attachments', 'use_html' );
 }
 
 function wpcf7_default_mail_2_template() {
@@ -74,7 +79,10 @@ function wpcf7_default_mail_2_template() {
 		. sprintf( __( 'This mail is sent via contact form on %1$s %2$s', 'wpcf7' ),
 			get_bloginfo( 'name' ), get_bloginfo( 'url' ) );
 	$recipient = '[your-email]';
-	return compact( 'active', 'subject', 'sender', 'body', 'recipient' );
+	$additional_headers = '';
+	$attachments = '';
+	$use_html = 0;
+	return compact( 'active', 'subject', 'sender', 'body', 'recipient', 'additional_headers', 'attachments', 'use_html' );
 }
 
 function wpcf7_default_messages_template() {
@@ -139,10 +147,7 @@ function wpcf7_json( $items ) {
 		} else { // Object
 			$children = array();
 			foreach ( $items as $key => $item ) {
-				$key = esc_js( (string) $key );
-				if ( preg_match( '/[^a-zA-Z]/', $key ) )
-					$key = '"' . $key . '"';
-
+				$key = '"' . esc_js( (string) $key ) . '"';
 				$children[] = $key . ': ' . wpcf7_json( $item );
 			}
 			return '{ ' . join( ', ', $children ) . ' }';
@@ -178,6 +183,7 @@ function wpcf7_l10n() {
 		'et' => __( 'Estonian', 'wpcf7' ),
 		'fi' => __( 'Finnish', 'wpcf7' ),
 		'fr_FR' => __( 'French', 'wpcf7' ),
+		'gl_ES' => __( 'Galician', 'wpcf7' ),
 		'ka_GE' => __( 'Georgian', 'wpcf7' ),
 		'de_DE' => __( 'German', 'wpcf7' ),
 		'el' => __( 'Greek', 'wpcf7' ),
@@ -190,6 +196,7 @@ function wpcf7_l10n() {
 		'ko_KR' => __( 'Korean', 'wpcf7' ),
 		'lv' => __( 'Latvian', 'wpcf7' ),
 		'lt_LT' => __( 'Lithuanian', 'wpcf7' ),
+		'ml_IN' => __( 'Malayalam', 'wpcf7' ),
 		'nb_NO' => __( 'Norwegian', 'wpcf7' ),
 		'fa_IR' => __( 'Persian', 'wpcf7' ),
 		'pl_PL' => __( 'Polish', 'wpcf7' ),

@@ -50,6 +50,10 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "Blinklist",
 		"icon" => "blinklist",
 	),
+	"blip" => Array(
+		"name" => "Blip",
+		"icon" => "blip",
+	),
 	"blogmarks" => Array(
 		"name" => "BlogMarks",
 		"icon" => "blogmarks",
@@ -162,6 +166,10 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "Google Bookmarks",
 		"icon" => "google",
 	),
+	"google_buzz" => Array(
+		"name" => "Google Buzz",
+		"icon" => "google_buzz",
+	),
 	"google_gmail" => Array(
 		"name" => "Google Gmail",
 		"icon" => "gmail",
@@ -169,6 +177,10 @@ $A2A_SHARE_SAVE_services = Array(
 	"google_reader" => Array(
 		"name" => "Google Reader",
 		"icon" => "reader",
+	),
+	"grono" => Array(
+		"name" => "Grono",
+		"icon" => "grono",
 	),
 	"hatena" => Array(
 		"name" => "Hatena",
@@ -509,6 +521,10 @@ $A2A_SHARE_SAVE_services = Array(
 	"wordpress" => Array(
 		"name" => "WordPress",
 		"icon" => "wordpress",
+	),
+	"wykop" => Array(
+		"name" => "Wykop",
+		"icon" => "wykop",
 	),
 	"xerpi" => Array(
 		"name" => "Xerpi",

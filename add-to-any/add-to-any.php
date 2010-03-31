@@ -3,7 +3,7 @@
 Plugin Name: AddToAny: Share/Bookmark/Email Button
 Plugin URI: http://www.addtoany.com/
 Description: Help readers share, bookmark, and email your posts and pages using any service.  [<a href="options-general.php?page=add-to-any.php">Settings</a>]
-Version: .9.9.4.8
+Version: .9.9.4.9
 Author: AddToAny
 Author URI: http://www.addtoany.com/
 */
@@ -31,12 +31,12 @@ function A2A_SHARE_SAVE_textdomain() {
 }
 add_action('init', 'A2A_SHARE_SAVE_textdomain');
 
-function A2A_SHARE_SAVE_link_vars() {
+function A2A_SHARE_SAVE_link_vars($linkname = FALSE, $linkurl = FALSE) {
 	global $post;
 	
-	$linkname		= get_the_title($post->ID);
+	$linkname		= ($linkname) ? $linkname : get_the_title($post->ID);
 	$linkname_enc	= rawurlencode( $linkname );
-	$linkurl		= get_permalink($post->ID);
+	$linkurl		= ($linkurl) ? $linkurl : get_permalink($post->ID);
 	$linkurl_enc	= rawurlencode( $linkurl );	
 	
 	return compact( 'linkname', 'linkname_enc', 'linkurl', 'linkurl_enc' );
@@ -46,8 +46,9 @@ include_once('services.php');
 
 function ADDTOANY_SHARE_SAVE_ICONS( $args = false ) {
 	if( $args )
-		extract( $args ); // output_later, html_wrap_open, html_wrap_close
-	extract(A2A_SHARE_SAVE_link_vars()); // linkname_enc, etc.
+		extract( $args ); // output_later, html_wrap_open, html_wrap_close, linkname, linkurl
+
+	extract(A2A_SHARE_SAVE_link_vars($linkname, $linkurl)); // linkname_enc, etc.
 		
 	global $A2A_SHARE_SAVE_plugin_url_path, $A2A_SHARE_SAVE_services;
 	
@@ -113,9 +114,9 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = false ) {
 	$A2A_SHARE_SAVE_services = apply_filters('A2A_SHARE_SAVE_services', $A2A_SHARE_SAVE_services);
 	
 	if( $args )
-		extract( $args ); // output_later, html_wrap_open, html_wrap_close
-	
-	extract(A2A_SHARE_SAVE_link_vars()); // linkname_enc, etc.
+		extract( $args ); // output_later, html_wrap_open, html_wrap_close, linkname, linkurl
+
+	extract(A2A_SHARE_SAVE_link_vars($linkname, $linkurl)); // linkname_enc, etc.
 	
 	/* AddToAny button */
 	
@@ -310,6 +311,9 @@ function A2A_SHARE_SAVE_to_bottom_of_content($content) {
 	if ( ! $is_feed ) {
 		$container_wrap_open = '<div class="addtoany_share_save_container"><ul class="addtoany_list">';
 		$container_wrap_close = '</ul></div>';
+	} else {
+		$container_wrap_open = '<p>';
+		$container_wrap_close = '</p>';
 	}
 	
 	$content .= $container_wrap_open.ADDTOANY_SHARE_SAVE_ICONS( $icons_args ).ADDTOANY_SHARE_SAVE_BUTTON( $A2A_SHARE_SAVE_options ).$container_wrap_close;
@@ -319,8 +323,10 @@ function A2A_SHARE_SAVE_to_bottom_of_content($content) {
 add_action('the_content', 'A2A_SHARE_SAVE_to_bottom_of_content', 98);
 
 
-function A2A_SHARE_SAVE_button_css() {
+function A2A_SHARE_SAVE_button_css($no_style_tag) {
+	if ( ! $no_style_tag) {
 	?><style type="text/css">
+<?php } ?>
 	.addtoany_share_save_container{margin:16px 0;}
 	ul.addtoany_list{
 		display:inline;
@@ -333,7 +339,8 @@ function A2A_SHARE_SAVE_button_css() {
 		background:none !important;
 		border:0;
 		display:inline !important;
-		line-height:32px;<?php /* For vertical space in the event of wrapping*/ ?>
+<?php /* For vertical space in the event of wrapping: */ ?>
+		line-height:32px;
 		list-style-type:none;
 		margin:0 !important;
 		padding:0 !important;
@@ -348,18 +355,21 @@ function A2A_SHARE_SAVE_button_css() {
 		vertical-align:middle;
 	}
 	ul.addtoany_list a img{
-		opacity:.6;
-		-moz-opacity:.6;
-		filter:alpha(opacity=60);
+		opacity:.7;
+		-moz-opacity:.7;
+		filter:alpha(opacity=70);
 	}
 	ul.addtoany_list a:hover img, ul.addtoany_list a.addtoany_share_save img{
 		opacity:1;
 		-moz-opacity:1;
 		filter:alpha(opacity=100);
 	}
-	a.addtoany_share_save img{border:0;width:auto;height:auto;}<?php /* Must declare after "ul.addtoany_list img" */ ?>
-    </style>
+<?php /* Must declare after "ul.addtoany_list img": */ ?>
+	a.addtoany_share_save img{border:0;width:auto;height:auto;}
+<?php if ( ! $no_style_tag) { ?>
+</style>
 <?php
+	}
 }
 
 if (get_option('A2A_SHARE_SAVE_inline_css') != '-1') {
@@ -615,7 +625,7 @@ function A2A_SHARE_SAVE_options_page() {
                     	<?php _e("Advanced users might want to explore AddToAny's <a href=\"http://www.addtoany.com/buttons/api/\" target=\"_blank\">JavaScript API</a>.", "add-to-any"); ?></p>
 					</label>
                     <p>
-                		<textarea name="A2A_SHARE_SAVE_additional_js_variables" id="A2A_SHARE_SAVE_additional_js_variables" class="code" style="width: 98%; font-size: 12px;" rows="5" cols="50"><?php echo stripslashes(get_option('A2A_SHARE_SAVE_additional_js_variables')); ?></textarea>
+                		<textarea name="A2A_SHARE_SAVE_additional_js_variables" id="A2A_SHARE_SAVE_additional_js_variables" class="code" style="width: 98%; font-size: 12px;" rows="6" cols="50"><?php echo stripslashes(get_option('A2A_SHARE_SAVE_additional_js_variables')); ?></textarea>
 					</p>
                     <?php if( get_option('A2A_SHARE_SAVE_additional_js_variables')!='' ) { ?>
                     <label for="A2A_SHARE_SAVE_additional_js_variables" class="setting-description"><?php _e("<strong>Note</strong>: If you're adding new code, be careful not to accidentally overwrite any previous code.</label>", 'add-to-any'); ?>
@@ -628,8 +638,11 @@ function A2A_SHARE_SAVE_options_page() {
 					</label>
 					<br/><br/>
 	                <div class="setting-description">
-	                	<strong>**</strong> <?php _e("If unchecked, be sure to place the CSS in your theme's stylesheet.", "add-to-any"); ?>
-	                </div>
+	                	<strong>**</strong> <?php _e("If unchecked, be sure to place the CSS in your theme's stylesheet:", "add-to-any"); ?> <span id="addtoany_show_css_code" class="button-secondary">&#187;</span>
+						<p id="addtoany_css_code">
+							<textarea class="code" style="width:98%;font-size:12px" rows="12" cols="50"><?php A2A_SHARE_SAVE_button_css(TRUE) ?></textarea>
+						</p>
+					</div>
             </fieldset></td>
             </tr>
         </table>
@@ -762,6 +775,10 @@ function A2A_SHARE_SAVE_admin_head() {
 			jQuery('#addtoany_template_button_code').slideDown('fast');
 			jQuery(this).fadeOut('fast');
 		});
+		jQuery('#addtoany_show_css_code').click(function(e){
+			jQuery('#addtoany_css_code').slideDown('fast');
+			jQuery(this).fadeOut('fast');
+		});
 	});
 	--></script>
 
@@ -788,7 +805,7 @@ function A2A_SHARE_SAVE_admin_head() {
 	li#addtoany_show_services:hover{border:1px solid #AAA;}
 	#addtoany_services_info{clear:left;display:none;}
 	
-	#addtoany_template_button_code{display:none;}
+	#addtoany_template_button_code, #addtoany_css_code{display:none;}
     </style>
 <?php
 	}
