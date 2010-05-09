@@ -4,7 +4,7 @@ Plugin Name: Robots Meta
 Plugin URI: http://yoast.com/wordpress/robots-meta/
 Description: This plugin allows you to add all the appropriate robots meta tags to your pages and feeds, disable unused archives and nofollow unnecessary links.
 Author: Joost de Valk
-Version: 3.2.5
+Version: 3.3.1
 Author URI: http://yoast.com/
 */
 
@@ -36,12 +36,30 @@ if ( ! class_exists( 'RobotsMeta_Admin' ) ) {
 			add_action('admin_print_styles', array(&$this,'config_page_styles'));	
 			
 			add_action('wp_dashboard_setup', array(&$this,'widget_setup'));	
-			add_action('admin_menu', array('RobotsMeta_Admin','meta_box'));
-			add_action('wp_insert_post', array('RobotsMeta_Admin','robotsmeta_insert_post'));
+			add_action('admin_menu', array(&$this,'meta_box'));
+			add_action('wp_insert_post', array(&$this,'robotsmeta_insert_post'));
 
 			if ( '0' == get_option('blog_public') )
 				add_action('admin_footer', array(&$this,'blog_public_warning'));
-			
+		
+			add_filter('manage_page_posts_columns',array(&$this,'robots_meta_column_heading'),10,1);
+			add_filter('manage_post_posts_columns',array(&$this,'robots_meta_column_heading'),10,1);
+			add_action('manage_pages_custom_column',array(&$this,'robots_meta_column_content'), 10, 2);
+			add_action('manage_posts_custom_column',array(&$this,'robots_meta_column_content'), 10, 2);
+		}
+		
+		function robots_meta_column_heading( $columns ) {
+			return array_merge($columns, array('robots-meta' => 'Robots Meta'));
+		}
+		
+		function robots_meta_column_content( $column_name, $id ) {
+			if ( $column_name == 'robots-meta' ) {
+				$post = get_post($id);
+				$robotsmeta = $post->robotsmeta;
+				if (empty($robotsmeta))
+					$robotsmeta = 'index,follow';
+				echo str_replace(',',', ',$robotsmeta);;
+			}
 		}
 		
 		function robots_meta_admin_script() {
@@ -50,8 +68,15 @@ if ( ! class_exists( 'RobotsMeta_Admin' ) ) {
 		
 		function robotsmeta_insert_post($pID) {
 			global $wpdb;
-			extract($_POST);
-			$wpdb->query("UPDATE $wpdb->posts SET robotsmeta = '$robotsmeta' WHERE ID = $pID");
+			$query = "UPDATE $wpdb->posts SET robotsmeta = '".$_POST['robotsmeta']."' WHERE ID = $pID";
+			$result = $wpdb->query($query);
+			if (!$result) {
+				if (strpos($wpdb->last_error,"Unknown column 'robotsmeta'") !== false) {
+					// Add column to table and try again
+					$wpdb->query("ALTER TABLE $wpdb->posts ADD COLUMN robotsmeta varchar(64)");
+					$wpdb->query($query);
+				}
+			}
 		}
 
 		function noindex_option_fill() {
@@ -59,7 +84,7 @@ if ( ! class_exists( 'RobotsMeta_Admin' ) ) {
 			$robotsmeta = $post->robotsmeta;
 			if (!isset($robotsmeta) || $robotsmeta == "") {
 				$robotsmeta = "index,follow";
-			}			
+			}
 			?>
 			<label for="meta_robots_index_follow" class="selectit"><input id="meta_robots_index_follow" name="robotsmeta" type="radio" value="index,follow" <?php if ($robotsmeta == "index,follow") echo 'checked="checked"'?>/> index, follow</label><br/>
 			<label for="meta_robots_index_nofollow" class="selectit"><input id="meta_robots_index_nofollow" name="robotsmeta" type="radio" value="index,nofollow" <?php if ($robotsmeta == "index,nofollow") echo 'checked="checked"'?>/> index, nofollow</label><br/>
@@ -352,7 +377,7 @@ function meta_robots() {
 		if ($post->robotsmeta != "index,follow") {
 			$meta = $post->robotsmeta;	
 		}
-	} else if ( (is_author() && $options['noindexauthor']) || (is_category() && $options['noindexcat']) || (is_date() && $options['noindexdate']) || (function_exists(is_tag) && is_tag() && $options['noindextag']) || (is_search() && $options['search']) ) {
+	} else if ( (is_author() && $options['noindexauthor']) || (is_category() && $options['noindexcat']) || (is_date() && $options['noindexdate']) || (function_exists('is_tag') && is_tag() && $options['noindextag']) || (is_search() && $options['search']) ) {
 		$meta .= "noindex,follow";
 	} else if (is_home()) {
 		if ($options['pagedhome'] && get_query_var('paged') > 1) {
@@ -586,4 +611,9 @@ if ($options['replacemetawidget']) {
 	add_action('plugins_loaded', 'widget_jdvmeta_init');
 }
 
+function robotsmeta_activate() {
+	global $wpdb;
+	$wpdb->query("ALTER TABLE $wpdb->posts ADD COLUMN robotsmeta varchar(64)");
+}
+register_activation_hook( __FILE__, 'robotsmeta_activate' );
 ?>

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: add-to-any\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-18 14:02-0800\n"
+"POT-Creation-Date: 2010-04-22 17:36-0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Pat <no@no.com>\n"
 "Language-Team:  <robert.buj@gmail.com>\n"
@@ -15,239 +15,247 @@ msgstr ""
 "X-Poedit-Country: SPAIN\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: add-to-any.php:211
+#: add-to-any.php:240
 msgid "Share"
 msgstr "Compartir"
 
-#: add-to-any.php:212
+#: add-to-any.php:241
 msgid "Save"
 msgstr "Desar"
 
-#: add-to-any.php:213
+#: add-to-any.php:242
 msgid "Subscribe"
 msgstr "Subscriure's"
 
-#: add-to-any.php:214
+#: add-to-any.php:243
 msgid "E-mail"
 msgstr "Correu electrònic"
 
-#: add-to-any.php:215
+#: add-to-any.php:244
 msgid "Bookmark"
 msgstr "Preferit"
 
-#: add-to-any.php:216
+#: add-to-any.php:245
 msgid "Show all"
 msgstr "Mostrar tots"
 
-#: add-to-any.php:217
+#: add-to-any.php:246
 msgid "Show less"
 msgstr "Mostrar menys"
 
-#: add-to-any.php:218
+#: add-to-any.php:247
 msgid "Find service(s)"
 msgstr "Buscar servei(s)"
 
-#: add-to-any.php:219
+#: add-to-any.php:248
 msgid "Instantly find any service to add to"
 msgstr "Trobar instantàniament qualsevol servei per a afegir a"
 
-#: add-to-any.php:220
+#: add-to-any.php:249
 msgid "Powered by"
 msgstr "Potenciat per"
 
-#: add-to-any.php:221
+#: add-to-any.php:250
 msgid "Share via e-mail"
 msgstr "Compartir per correu electrònic"
 
-#: add-to-any.php:222
+#: add-to-any.php:251
 msgid "Subscribe via e-mail"
 msgstr "Subscriure per correu electrònic"
 
-#: add-to-any.php:223
+#: add-to-any.php:252
 msgid "Bookmark in your browser"
 msgstr "Afegir l'adreça d'interès al vostre navegador"
 
-#: add-to-any.php:224
+#: add-to-any.php:253
 msgid "Press Ctrl+D or &#8984;+D to bookmark this page"
 msgstr "Pressioneu Ctrl+D o &#8984;+D per afegir a preferits aquesta pàgina"
 
-#: add-to-any.php:225
+#: add-to-any.php:254
 msgid "Add to your favorites"
 msgstr "Afegir als vostres favorits"
 
-#: add-to-any.php:226
+#: add-to-any.php:255
 msgid "Send from any e-mail address or e-mail program"
 msgstr "Enviar des de qualsevol adreça de correu electrònic o programa de correu electrònic"
 
-#: add-to-any.php:227
+#: add-to-any.php:256
 msgid "E-mail program"
 msgstr "Programa de correu electrònic"
 
-#: add-to-any.php:252
+#: add-to-any.php:281
 msgid "Your theme needs to be fixed. To fix your theme, use the <a href=\"theme-editor.php\">Theme Editor</a> to insert <code>&lt;?php wp_footer(); ?&gt;</code> just before the <code>&lt;/body&gt;</code> line of your theme's <code>footer.php</code> file."
 msgstr "El vostre tema ha de ser corregit. per corregir-lo, utilitzeu l'<a href=\"theme-editor.php\">Editor de tema</a> per afegir <code>&lt;?php wp_footer(); ?&gt;</code> justament abans de la línia <code>&lt;/body&gt;</code> del vostre tema al fitxer <code>footer.php</code>."
 
-#: add-to-any.php:402
-#: add-to-any.php:475
-#: add-to-any.php:479
-#: add-to-any.php:483
-#: add-to-any.php:487
-#: add-to-any.php:519
+#: add-to-any.php:462
+#: add-to-any.php:535
+#: add-to-any.php:539
+#: add-to-any.php:543
+#: add-to-any.php:547
+#: add-to-any.php:579
 #, fuzzy
 msgid "Share/Bookmark"
 msgstr "Preferit"
 
-#: add-to-any.php:416
+#: add-to-any.php:476
 msgid "Settings saved."
 msgstr "Preferències desades."
 
-#: add-to-any.php:427
+#: add-to-any.php:487
 msgid "AddToAny: Share/Save "
 msgstr "AddToAny: Compartir/Desar "
 
-#: add-to-any.php:427
-#: add-to-any.php:791
-#: add-to-any.php:815
+#: add-to-any.php:487
+#: add-to-any.php:868
+#: add-to-any.php:892
 msgid "Settings"
 msgstr "Preferències"
 
-#: add-to-any.php:438
+#: add-to-any.php:498
 msgid "Standalone Services"
 msgstr "Serveis integrats"
 
-#: add-to-any.php:443
+#: add-to-any.php:503
 msgid "Choose the services you want below. &nbsp;Click a chosen service again to remove. &nbsp;Reorder services by dragging and dropping as they appear above."
 msgstr "Seleccioneu els serveis que voleu a continuació. &nbsp;Cliqueu a un servei de nou per eliminar-lo. &nbsp;Reordeneu els serveis arrossegant-los i deixant-los en l'ordre que desitgeu."
 
-#: add-to-any.php:470
+#: add-to-any.php:530
 msgid "Button"
 msgstr "Botó"
 
-#: add-to-any.php:509
+#: add-to-any.php:569
 msgid "Image URL"
 msgstr "URL de la imatge"
 
-#: add-to-any.php:516
+#: add-to-any.php:576
 msgid "Text only"
 msgstr "Només text"
 
-#: add-to-any.php:524
+#: add-to-any.php:584
 msgid "Placement"
 msgstr "Emplaçament"
 
-#: add-to-any.php:533
+#: add-to-any.php:593
 msgid "Display Share/Save button at the bottom of posts"
 msgstr "Mostrar el botó de Compartir/Desar sota tots els escrits"
 
-#: add-to-any.php:540
+#: add-to-any.php:600
 msgid "Display Share/Save button at the bottom of posts on the front page"
 msgstr "Mostrar el botó de Compartir/Desar a la pàgina principal"
 
-#: add-to-any.php:547
+#: add-to-any.php:607
 msgid "Display Share/Save button at the bottom of posts in the feed"
 msgstr "Mostrar el botó de Compartir/Desar sota tots els escrits al feed"
 
-#: add-to-any.php:551
+#: add-to-any.php:611
 msgid "Display Share/Save button at the bottom of pages"
 msgstr "Mostrar el botó de Compartir/Desar sota les pàgines"
 
-#: add-to-any.php:555
+#: add-to-any.php:615
 msgid "If unchecked, be sure to place the following code in <a href=\"theme-editor.php\">your template pages</a> (within <code>index.php</code>, <code>single.php</code>, and/or <code>page.php</code>)"
 msgstr "Si no està habilitat s'ha d'afegir el següent codi a  <a href=\"theme-editor.php\">les vostres pàgines de plantilla</a> (dins de <code>index.php</code>, <code>single.php</code>, i/o <code>page.php</code>)"
 
-#: add-to-any.php:564
+#: add-to-any.php:624
 msgid "Menu Style"
 msgstr "Estil del menú"
 
-#: add-to-any.php:566
+#: add-to-any.php:626
 msgid "Using AddToAny's Menu Styler, you can customize the colors of your Share/Save menu! When you're done, be sure to paste the generated code in the <a href=\"#\" onclick=\"document.getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();return false\">Additional Options</a> box below."
 msgstr "Utilitzant el personalitzador d'estil de AddToAny, vostè pot personalitzar els colors del vostre menú Compartir/Desar! Quan hageu acabat, heu de copiar el codi generat al recuadre d'<a href=\"#\" onclick=\"document.getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();return false\">opcions adicionals</a> de sota."
 
-#: add-to-any.php:568
+#: add-to-any.php:628
 msgid "Open the AddToAny Menu Styler in a new window"
 msgstr "Obrir el personalitzador d'estil de AddToAny a una nova finestra"
 
-#: add-to-any.php:570
+#: add-to-any.php:630
 msgid "Open Menu Styler"
 msgstr "Obrir el personalitzador d'estils"
 
-#: add-to-any.php:575
+#: add-to-any.php:635
 msgid "Menu Options"
 msgstr "Opcions del menú"
 
-#: add-to-any.php:580
+#: add-to-any.php:640
 msgid "Hide embedded objects (Flash, video, etc.) that intersect with the menu when displayed"
 msgstr "Amagar objectes incrustats (Flash, vídeo, etc) que interseccionin amb el menú quan aquest aparegui"
 
-#: add-to-any.php:585
+#: add-to-any.php:645
 msgid "Show the title of the post (or page) within the menu"
 msgstr "Mostrar el títol de l'entrada (o de la pàgina) dins del menú"
 
-#: add-to-any.php:592
+#: add-to-any.php:652
 msgid "Only show the menu when the user clicks the Share/Save button"
 msgstr "Mostrar el menú solament quan un usuari cliqui sobre el botó Compartir/Desar"
 
-#: add-to-any.php:598
+#: add-to-any.php:658
 msgid "Open the addtoany.com menu page in a new tab or window if the user clicks the Share/Save button"
 msgstr "Obrir el menú de addtoany.com en una nova pestanya o finestra si l'usuari clica al botó Compartir/Desar"
 
-#: add-to-any.php:603
+#: add-to-any.php:663
 msgid "Additional Options"
 msgstr "Opcions addicionals"
 
-#: add-to-any.php:607
+#: add-to-any.php:667
 msgid "Paste the code from AddToAny's Menu Styler in the box below!"
 msgstr "Enganxeu el codi del  personalitzador d'estil al següent requadre!"
 
-#: add-to-any.php:611
+#: add-to-any.php:671
 msgid "Below you can set special JavaScript variables to apply to each Share/Save menu."
 msgstr "A continuació, podeu establir variables especials de JavaScript per aplicar a cada menú Compartir/Desar."
 
-#: add-to-any.php:612
-msgid "Advanced users might want to explore AddToAny's <a href=\"http://www.addtoany.com/buttons/api/\" target=\"_blank\">JavaScript API</a>."
-msgstr "Els usuaris avançats poden preferir explorar l'<a href=\"http://www.addtoany.com/buttons/api/\" target=\"_blank\">API JavaScript</a> de AddToAny."
+#: add-to-any.php:672
+msgid "Advanced users might want to explore AddToAny's <a href=\"http://www.addtoany.com/buttons/customize/\" target=\"_blank\">additional options</a>."
+msgstr "Els usuaris avançats poden preferir explorar l'<a href=\"http://www.addtoany.com/buttons/customize/\" target=\"_blank\">API JavaScript</a> de AddToAny."
 
-#: add-to-any.php:618
+#: add-to-any.php:678
 msgid "<strong>Note</strong>: If you're adding new code, be careful not to accidentally overwrite any previous code.</label>"
 msgstr "<strong>Nota</strong>: Si heu d'afegir un nou codi, tingueu cura de no sobreescriure accidentalment qualsevol codi anterior.</label>"
 
-#: add-to-any.php:625
+#: add-to-any.php:684
+msgid "Use inline CSS"
+msgstr ""
+
+#: add-to-any.php:688
+msgid "If unchecked, be sure to place the CSS in your theme's stylesheet:"
+msgstr ""
+
+#: add-to-any.php:698
 msgid "Save Changes"
 msgstr "Desar els canvis"
 
-#: add-to-any.php:630
+#: add-to-any.php:703
 msgid "Like this plugin?"
 msgstr "Com aquesta extensió?"
 
-#: add-to-any.php:631
+#: add-to-any.php:704
 msgid "<a href=\"http://wordpress.org/extend/plugins/add-to-any/\">Give it a good rating</a> on WordPress.org."
 msgstr "<a href=\"http://wordpress.org/extend/plugins/add-to-any/\">Doneu-li una bona qualificació</a> a WordPress.org."
 
-#: add-to-any.php:632
+#: add-to-any.php:705
 msgid "<a href=\"http://www.addtoany.com/share_save?linkname=WordPress%20Share%20%2F%20Bookmark%20Plugin%20by%20AddToAny.com&amp;linkurl=http%3A%2F%2Fwordpress.org%2Fextend%2Fplugins%2Fadd-to-any%2F\">Share it</a> with your friends."
 msgstr "<a href=\"http://www.addtoany.com/share_save?linkname=WordPress%20Share%20Plugin%20by%20AddToAny.com&amp;linkurl=http%3A%2F%2Fwordpress.org%2Fextend%2Fplugins%2Fadd-to-any%2F\">Compartiu-lo</a> amb els vostres amics."
 
-#: add-to-any.php:634
+#: add-to-any.php:707
 msgid "Need support?"
 msgstr "Necessiteu suport?"
 
-#: add-to-any.php:635
+#: add-to-any.php:708
 msgid "See the <a href=\"http://wordpress.org/extend/plugins/add-to-any/faq/\">FAQs</a>."
 msgstr "Vegeu les <a href=\"http://wordpress.org/extend/plugins/add-to-any/faq/\">Preguntes més freqüents</a>."
 
-#: add-to-any.php:636
+#: add-to-any.php:709
 msgid "Search the <a href=\"http://wordpress.org/tags/add-to-any\">support forums</a>."
 msgstr "Cercar als <a href=\"http://wordpress.org/tags/add-to-any\">fòrums de suport</a>."
 
-#: add-to-any.php:743
+#: add-to-any.php:816
 msgid "Add/Remove Services"
 msgstr "Serveis Compartir/Desar"
 
-#: add-to-any.php:791
+#: add-to-any.php:868
 msgid "Share/Save"
 msgstr "Compartir/Desar"
 
-#: add-to-any.php:792
+#: add-to-any.php:869
 msgid "Share/Save Buttons"
 msgstr "Botons de Compartir/Desar"
 

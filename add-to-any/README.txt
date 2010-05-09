@@ -1,15 +1,15 @@
 === AddToAny: Share/Bookmark/Email Button ===
 Contributors: micropat
-Tags: bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, sharing, share, sharethis, saving, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, e-mail, email, seo, button, delicious, google, digg, reddit, facebook, myspace, twitter, stumbleupon, technorati, wpmu, addtoany, add, any
+Tags: sharing, share, sharethis, bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, e-mail, email, seo, button, delicious, google buzz, buzz, google, digg, reddit, facebook, myspace, twitter, stumbleupon, technorati, icon, icons, wpmu, addtoany, add, any
 Requires at least: 2.0
-Tested up to: 2.9
-Stable tag: 0.9.9.4.9
+Tested up to: 3.0
+Stable tag: 0.9.9.5.3
 
-Help readers share, bookmark, and email your posts and pages using any service, such as Facebook, Twitter, Digg, Delicious and over 100 more.
+Help readers share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, Google Buzz, Digg, Delicious and many more.
 
 == Description ==
 
-Help readers **share**, **save**, **bookmark**, and **email** your posts and pages using **any service**, such as Facebook, Twitter, Digg, Delicious, and over 100 more social bookmarking and sharing sites. The button comes with AddToAny's customizable **Smart Menu**, which **places the services visitors use at the top of the menu**, based on each visitor's browsing and usage history.
+Help readers **share**, **save**, **bookmark**, and **email** your posts and pages using **any service**, such as Facebook, Twitter, Google Buzz, Digg, Delicious, and over 100 more social bookmarking and sharing sites. The button comes with AddToAny's customizable **Smart Menu**, which **places the services visitors use at the top of the menu**, based on each visitor's browsing and usage history.
 
 <a href="http://www.addtoany.com/" title="Sharing and bookmarking button widget" target="_blank">Share Button</a> (demo)
 
@@ -21,8 +21,8 @@ Individual **service icons** let you optimize your blog posts for specific socia
 * Individual service links (like Sociable)
 * Includes all <a href="http://www.addtoany.com/services/" target="_blank">services</a>
 * Menu updated automatically
-* WordPress optimized, localized (English, Chinese, Spanish, Japanese, Portuguese, Italian, Danish, Catalan, Russian, Albanian, Romanian, Belarusian)
 * Google Analytics integration (<a href="http://www.addtoany.com/ext/google_analytics/">access guide</a>)
+* WordPress optimized, localized (English, Chinese, Spanish, Japanese, French, Portuguese, Italian, Danish, Catalan, Russian, Albanian, Romanian, Belarusian)
 * Many more publisher and user features!
 
 <a href="http://www.addtoany.com/share_save" title="Share" target="_blank">Share this plugin</a>
@@ -56,29 +56,13 @@ It's likely because your theme wasn't <a href="http://codex.wordpress.org/Theme_
 
 In the Theme Editor, place this code block where you want the button and individual icons to appear in your theme:
 
-`<?php echo '<ul class="addtoany_list">';
-if( function_exists('ADDTOANY_SHARE_SAVE_ICONS') )
-	ADDTOANY_SHARE_SAVE_ICONS( array("html_wrap_open" => "<li>", "html_wrap_close" => "</li>") );
-if( function_exists('ADDTOANY_SHARE_SAVE_BUTTON') )
-	ADDTOANY_SHARE_SAVE_BUTTON( array("html_wrap_open" => "<li>", "html_wrap_close" => "</li>") );
-echo '</ul>'; ?>`
+`<?php if( function_exists('ADDTOANY_SHARE_SAVE_KIT') ) { ADDTOANY_SHARE_SAVE_KIT(); } ?>`
 
 If you want to customize the shared URL and title for the button and standalone services, use the following code as a template:
 
-`<?php echo '<ul class="addtoany_list">';
-$addtoany_linkname = "Example Page";
-$addtoany_linkurl = "http://example.com/page.html";
-if( function_exists('ADDTOANY_SHARE_SAVE_ICONS') )
-	ADDTOANY_SHARE_SAVE_ICONS( array(
-		"html_wrap_open" => "<li>", "html_wrap_close" => "</li>",
-		"linkname" => $addtoany_linkname, "linkurl" => $addtoany_linkurl
-	));
-if( function_exists('ADDTOANY_SHARE_SAVE_BUTTON') )
-	ADDTOANY_SHARE_SAVE_BUTTON( array(
-		"html_wrap_open" => "<li>", "html_wrap_close" => "</li>",
-		"linkname" => $addtoany_linkname, "linkurl" => $addtoany_linkurl
-	));
-echo '</ul>'; ?>`
+`<?php if( function_exists('ADDTOANY_SHARE_SAVE_KIT') ) { 
+	ADDTOANY_SHARE_SAVE_KIT( array("linkname" => "Example Page", "linkurl" => "http://example.com/page.html") );
+} ?>`
 
 = How can I add just the button to another area of my theme? =
 
@@ -161,13 +145,23 @@ Facebook does link sharing a little differently than most other services. Facebo
 
 To change the title, description and/or image on Facebook, you will need to modify your theme header file according to <a href="http://wiki.developers.facebook.com/index.php/Facebook_Share/Specifying_Meta_Tags">Facebook's specification</a>. With WordPress, this can be accomplished with plugins like the <a href="http://wordpress.org/extend/plugins/all-in-one-seo-pack/">All in One SEO Pack plugin</a>.  Please see that plugin to for details, and post in the WordPress or plugin author's forums for more support.
 
+= Does the plugin output W3C valid code? =
+
+Yes, AddToAny outputs 100% W3C valid XHTML and W3C valid CSS 3.0.
+
+If you move the plugin's CSS code to your theme's stylesheet, note that one proprietary vendor prefix (`filter`) is used.  It's utilized for cross-browser compatibility with Internet Explorer.  For more information about the W3C CSS Validator and the `filter` property, see <a href="http://www.websitedev.de/css/validator-faq#extensions">Why don't my scrollbar properties, filters, etc. validate?</a>  If you feel compelled, you can move the line into an Internet Explorer-only stylesheet, or remove the line at the cost of the opacity hover effect in Internet Explorer.
+
+= How can I move the plugin's inline CSS into my theme's main external stylesheet? =
+
+Go to `Settings` > `Share/Save Buttons` > uncheck `Use inline CSS` and place the CSS code in your theme's main stylesheet.
+
 = Why do embedded objects (like Flash) disappear when the menu is displayed? =
 
 This is done to overcome browser limitations that prevent the drop-down menu from displaying on top of intersecting embedded objects.  If you would like to disable this, uncheck the `Hide embedded objects (Flash, video, etc.) that intersect with the menu when displayed` option on the plugin's settings page.
 
 == Screenshots ==
 
-1. AddToAny Share/Save button, featuring the Open <a href="http://www.shareicon.com/">Share Icon</a>
+1. AddToAny Share/Save button, featuring the Open Share Icon
 2. Drop-down menu that appears instantly when visitors use the share button
 3. E-mail tab, with direct links to the most popular web-based e-mailers' auto-filled Compose page, a web-based sender for use with any e-mail address, and a link for desktop email clients
 4. Settings panel
@@ -175,12 +169,46 @@ This is done to overcome browser limitations that prevent the drop-down menu fro
 
 == Changelog ==
 
+= .9.9.5.3 =
+* SSL - HTTPS support
+* Button will display automatically below posts (by default) only after the_title has been called
+ * Avoids premature calling from miscellaneous the_content filters from themes and other plugins
+ * Thesis theme workaround
+* French translation (by Julien)
+* Belarusian translation update (by <a href="http://pc.de/" target="_blank">Marcis G</a>)
+
+= .9.9.5.2 =
+* W3C XHTML validation fix (invalid from .9.9.5)
+* Removed Mozilla-proprietary opacity, which supported opacity before Firefox 1.0
+* Moved Microsoft's filter CSS property to conditional inline stylesheet for validation
+* Template code blocks require significantly less code
+ * Note: If you're using a template code to add the icons or 'icons + button' to another area of your theme, updating the template code is recommended (see FAQ)
+* Updated FAQ
+ * Template code updated
+* Updated template code in admin
+* Switched API URL to customize URL in admin
+* Fixed unbracketed noscript tag in admin
+* Brazilian Portuguese translation (by <a href="http://www.raocubo.com.br/" target="_blank">Rodolfo Rodrigues</a>)
+
+= .9.9.5.1 =
+* Fixed issue with excerpts (JavaScript text output within excerpts since .9.9.5)
+* Button(s) will now display below excerpts (per the fix above)
+* Replaced depreciating add/remove action functions with synonymous filter functions
+
+= .9.9.5 =
+* Important note: If you are using the AddToAny Subscribe plugin, be sure to update that plugin to version 9.8+
+* Faster menu initialization
+* Switched to AddToAny's <a href="http://www.addtoany.com/blog/new-menu-api-examples-documentation/">new API spec</a>
+* Fixed localization
+* Also no longer outputs language strings if WordPress locale is set to "en" (or the default "en_US")
+* Updated AddToAny icon
+
 = .9.9.4.9 =
 * New params to customize the shared link and title for buttons/icons placed in theme file(s)
  * See plugin FAQ for template code
 * Ensure line break within feeds by enclosing AddToAny in a paragraph tag
-* Increase opacity on standalone icons by 10%
 * Offer CSS code in the settings panel to copy & paste into a stylesheet
+* Increase opacity on standalone icons by 10%
 * New standalone services
  * Google Buzz (using Google Reader endpoint - automatic update to come)
  * Blip
@@ -345,7 +373,7 @@ This is done to overcome browser limitations that prevent the drop-down menu fro
 * Fixed display when all standalone services are removed in admin
 * Services label renamed Standalone Services for clarity
 * Updates to Danish translation
-* Added Belarusian translation
+* Added Belarusian translation (by <a href="http://pc.de/" target="_blank">Marcis G</a>)
 
 = .9.9.2.1 =
 * Feed icons shown inline, no longer displayed in unordered list
