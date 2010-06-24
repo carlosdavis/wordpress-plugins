@@ -8,7 +8,7 @@ function wpcf7_autop( $pee, $br = 1 ) {
 	$pee = preg_replace( '|<br />\s*<br />|', "\n\n", $pee );
 	// Space things out a little
 	/* wpcf7: remove select and input */
-	$allblocks = '(?:table|thead|tfoot|caption|col|colgroup|tbody|tr|td|th|div|dl|dd|dt|ul|ol|li|pre|form|map|area|blockquote|address|math|style|p|h[1-6]|hr|fieldset|legend)';
+	$allblocks = '(?:table|thead|tfoot|caption|col|colgroup|tbody|tr|td|th|div|dl|dd|dt|ul|ol|li|pre|form|map|area|blockquote|address|math|style|p|h[1-6]|hr|fieldset|legend|section|article|aside|hgroup|header|footer|nav|figure|figcaption|details|menu|summary)';
 	$pee = preg_replace( '!(<' . $allblocks . '[^>]*>)!', "\n$1", $pee );
 	$pee = preg_replace( '!(</' . $allblocks . '>)!', "$1\n\n", $pee );
 	$pee = str_replace( array( "\r\n", "\r" ), "\n", $pee ); // cross-platform newlines
@@ -23,7 +23,7 @@ function wpcf7_autop( $pee, $br = 1 ) {
 	foreach ( $pees as $tinkle )
 		$pee .= '<p>' . trim( $tinkle, "\n" ) . "</p>\n";
 	$pee = preg_replace( '|<p>\s*</p>|', '', $pee ); // under certain strange conditions it could create a P of entirely whitespace
-	$pee = preg_replace( '!<p>([^<]+)</(div|address|form)>!', "<p>$1</p></$2>", $pee );
+	$pee = preg_replace( '!<p>([^<]+)</(div|address|form|fieldset)>!', "<p>$1</p></$2>", $pee );
 	$pee = preg_replace( '!<p>\s*(</?' . $allblocks . '[^>]*>)\s*</p>!', "$1", $pee ); // don't pee all over a tag
 	$pee = preg_replace( "|<p>(<li.+?)</p>|", "$1", $pee ); // problem with nested lists
 	$pee = preg_replace( '|<p><blockquote([^>]*)>|i', "<blockquote$1><p>", $pee );

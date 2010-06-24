@@ -4,7 +4,7 @@ Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 2.8
 Tested up to: 2.9.2
-Stable tag: 2.2
+Stable tag: 2.2.1
 
 Just another contact form plugin. Simple but flexible.
 
@@ -14,7 +14,13 @@ Just another contact form plugin. Simple but flexible.
 
 Contact Form 7 can manage multiple contact forms, plus you can customize the form and the mail contents flexibly with simple markup. The form supports Ajax-powered submitting, CAPTCHA, Akismet spam filtering and so on.
 
-[__Contactform7.com__](http://contactform7.com/)
+* [Docs](http://contactform7.com/docs/)
+* [FAQ](http://contactform7.com/faq/)
+* [Support](http://contactform7.com/support/)
+
+= Contact Form 7 Needs Your Support =
+
+It is hard to continue development and support for this plugin without contributions from users like you. If you enjoy using Contact Form 7 and find it useful, please consider [__making a donation__](http://contactform7.com/donate/). Your donation will help encourage and support the plugin's continued development and better user support.
 
 = Translators =
 
@@ -34,7 +40,7 @@ Contact Form 7 can manage multiple contact forms, plus you can customize the for
 * Dutch (nl_NL) - [Chris Devriese](http://www.100it.be/), [Martin Hein](http://www.split-a-pixel.nl/)
 * Estonian (et) - [Peeter Rahuvarm](http://www.kraabus.ee), Egon Elbre
 * Finnish (fi) - [Miika Turunen](http://www.webwork.fi/)
-* French (fr_FR) - [Jillij](http://www.jillij.com/), [Maître Mô](http://maitremo.fr/)
+* French (fr_FR) - [Jillij](http://www.jillij.com/), [Maître Mô](http://maitremo.fr/), [Oncle Tom](http://case.oncle-tom.net/)
 * Galician (gl_ES) - [Arume Desenvolvementos Informáticos](http://www.arumeinformatica.es/)
 * Georgian (ka_GE) - [Nodar Davituri](http://omedia.ge/)
 * German (de_DE) - [Marcel Spitau](http://blog.spitau.de), [Ivan Graf](http://blog.bildergallery.com/)
@@ -92,6 +98,15 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 1. screenshot-1.png
 
 == Changelog ==
+
+= 2.2.1 = 
+
+* Filters for special mail tags have been moved to modules/special-mail-tags.php.
+* A bug that caused erroneous formatting around `<fieldset>` tags has been fixed.
+* A bug of pipes, which happened when you used a label with apostrophe and the pipe wouldn't work, has been fixed.
+* `esc_html()` is applied to posted texts when the texts are inserted into the message body of HTML-formatted mail.
+* Action hooks, `wpcf7_enqueue_scripts` and `wpcf7_enqueue_styles`, have been added.
+* Translations for Italian (Gianni Diurno), German (Ivan Graf), French (Oncle Tom), Traditional Chinese (James Wu) and Hungarian (Farkas Győző) have been updated.
 
 = 2.2 =
 

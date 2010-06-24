@@ -1,8 +1,8 @@
 === WP Super Cache ===
 Contributors: donncha
 Tags: performance,caching,wp-cache,wp-super-cache,cache
-Tested up to: 2.9.1
-Stable tag: 0.9.9
+Tested up to: 3.0
+Stable tag: 0.9.9.3
 Requires at least: 2.6
 Donate link: http://ocaoimh.ie/gad/
 
@@ -28,10 +28,28 @@ The [changelog](http://svn.wp-plugins.org/wp-super-cache/trunk/Changelog.txt) is
 
 == Upgrade Notice ==
 
-= 0.9.9 =
-Experimental object cache support, better WP Mobile Edition support, new translations, bugfixes, workarounds for broken .htaccess rules.
+= 0.9.9.3 =
+Fix division by zero error in half-on mode, always show "delete cache" button, fix "Update mod_rewrite rules" button.
 
 == Changelog ==
+
+= 0.9.9.3 =
+* Fixed division by zero error in half on mode.
+* Always show "delete cache" button.
+* Fixed "Update mod_rewrite rules" button.
+* Minor text changes to admin page.
+
+= 0.9.9.2 =
+* Forgot to change version number in wp-cache.php
+
+= 0.9.9.1 =
+* Added preloading of static cache.
+* Better mobile plugin support
+* .htaccess rules can be updated now. Added wpsc_update_htaccess().
+* Fixed "page on front" cache clearing bug.
+* Check for wordpress_logged_in cookie so test cookie isn't detected.
+* Added clear_post_supercache() to clear supercache for a single post.
+* Put quotes around rewrite rules in case paths have spaces.
 
 = 0.9.9 =
 * Added experimental object cache support.
@@ -249,10 +267,6 @@ This plugin caches entire pages but some plugins think they can run PHP code eve
 
 Those bots usually only visit each page once and if the page is not popular there's no point creating a cache file that will sit idle on your server.
 
-= Why shouldn't I create a cache file of every page on my site? =
-
-Like the previous question, there's no point caching pages that won't be visited. The large number of cache files will slow down the garbage collection system as it attempts to check each file. It also causes problems for hosting companies. In the event of a disk failure on your server it may take much longer to check the files. Remember how long a scandisk or a fsck took on a large drive?
-
 = A category page is showing instead of my homepage =
 
 A tiny proportion of websites will have problems with the following configuration:
@@ -270,6 +284,10 @@ Sometimes a category page is cached as the homepage of the site instead of the s
 Supercache doesn't support 304 header checks. This is caching done by your browser, not your server. It is a check your browser does to ask the server if an updated version of the current page is available. If not, it doesn't download the old version again.
 The page is still cached by your server, just not by the browsers of your visitors. WordPress doesn't support 304 caching either so you're not losing out.
 Try the Cacheability Engine at http://www.ircache.net/cgi-bin/cacheability.py or http://redbot.org/ for further analysis.
+
+= How should I best use the utm_source tracking tools in Google Analytics with this plugin? =
+
+That tracking adds a query string to each url linked from various sources like Twitter and feedreaders. Unfortunately it stops pages being supercached. See [Joost's comment here](http://ocaoimh.ie/remove-unused-utmsource-urls/#comment-672813) for how to turn it into an anchor tag which can be supercached.
 
 = Troubleshooting =
 
@@ -309,6 +327,7 @@ A line like "127.0.0.1 localhost localhost.localdomain" is ok.
 If that doesn't work, add this line to your wp-config.php:
 
 	`ini_set('zlib.output_compression', 0);`
+22. The "white screen of death" or a blank page  when you visit your site is almost always caused by a PHP error but [it may also be caused by APC](http://www.johnberns.com/2010/03/19/wp-super-cache-blank-page-problem-fixed/). Disable that PHP extension if you have trouble and replace with eAccelerator or Xcache.
 
 == Custom Caching ==
 It is now possible to hook into the caching process using the add_cacheaction() function.

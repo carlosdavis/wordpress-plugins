@@ -3,17 +3,17 @@ Contributors: micropat
 Tags: sharing, share, sharethis, bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, e-mail, email, seo, button, delicious, google buzz, buzz, google, digg, reddit, facebook, myspace, twitter, stumbleupon, technorati, icon, icons, wpmu, addtoany, add, any
 Requires at least: 2.0
 Tested up to: 3.0
-Stable tag: 0.9.9.5.3
+Stable tag: 0.9.9.5.7
 
-Help readers share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, Google Buzz, Digg, Delicious and many more.
+Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, Google Buzz, Digg and many more.
 
 == Description ==
 
-Help readers **share**, **save**, **bookmark**, and **email** your posts and pages using **any service**, such as Facebook, Twitter, Google Buzz, Digg, Delicious, and over 100 more social bookmarking and sharing sites. The button comes with AddToAny's customizable **Smart Menu**, which **places the services visitors use at the top of the menu**, based on each visitor's browsing and usage history.
+The most complete plugin to help people **share**, **bookmark**, and **email** your posts and pages using **any service**, such as Facebook, Twitter, Google Buzz, Digg, Delicious, and well over 100 more social bookmarking and sharing sites. The button comes with AddToAny's customizable **Smart Menu**, which **places the services visitors use at the top of the menu**, based on each visitor's browsing and usage history.
 
 <a href="http://www.addtoany.com/" title="Sharing and bookmarking button widget" target="_blank">Share Button</a> (demo)
 
-The E-mail tab makes it easy to share via Google Mail, Yahoo! Mail, Hotmail, AOL, and any other web-based e-mailer or desktop program. The **Add to Favorites** button (or Bookmark tab) helps users bookmark using any browser (Internet Explorer, Firefox, Chrome, Safari, Opera, etc.).
+The E-mail tab makes it easy to share via Google Gmail, Yahoo! Mail, Hotmail, AOL, and any other web-based e-mailer or desktop program. The **Add to Favorites** button (or Bookmark tab) helps users bookmark using any browser (Internet Explorer, Firefox, Chrome, Safari, Opera, etc.).
 
 Individual **service icons** let you optimize your blog posts for specific social sites.  Choose from over 100 individual services.
 
@@ -24,6 +24,8 @@ Individual **service icons** let you optimize your blog posts for specific socia
 * Google Analytics integration (<a href="http://www.addtoany.com/ext/google_analytics/">access guide</a>)
 * WordPress optimized, localized (English, Chinese, Spanish, Japanese, French, Portuguese, Italian, Danish, Catalan, Russian, Albanian, Romanian, Belarusian)
 * Many more publisher and user features!
+
+After **years of ongoing development**, close to **1 million downloads**, and **ongoing support** from the community, AddToAny still strives to be the best WordPress plugin for sharing. We hope it's perfect for everyone by version 1.0.
 
 <a href="http://www.addtoany.com/share_save" title="Share" target="_blank">Share this plugin</a>
 
@@ -133,11 +135,11 @@ To align center:
 
 = How can I remove a button from individual posts and pages? =
 
-Type the following tag into the page or post that you do not want the button to appear in: `<!--nosharesave-->`
+Insert the following tag into the page or post (HTML tab) that you do not want the button to appear in: `<!--nosharesave-->`
 
 = How can I force the button to appear in individual posts and pages? =
 
-If your button isn't already set up to appear (it is by default), type the following tag into the page or post that you want the button to appear in: `<!--sharesave-->`
+If your button isn't already set up to appear (it is by default), insert the following tag into the page or post (HTML tab) that you want the button to appear in: `<!--sharesave-->`
 
 = Why doesn't Facebook use the page title and how can I set the image Facebook uses? =
 
@@ -168,6 +170,25 @@ This is done to overcome browser limitations that prevent the drop-down menu fro
 5. Color chooser for your AddToAny menus
 
 == Changelog ==
+
+= .9.9.5.7 =
+* Work around "Featured Posts" excerpt scenarios that would stop button auto-placement below post content  
+* Work around WP core issue to use HTTPS/SSL for static content files, like standalone icons and files in admin
+ * http://core.trac.wordpress.org/ticket/13941
+* Admin style consistency
+
+= .9.9.5.6 =
+* Fix PHP warnings when there are no arguments from functions ADDTOANY_SHARE_SAVE_BUTTON or ADDTOANY_SHARE_SAVE_ICONS
+* Italian translation update (by <a href="http://gidibao.net/">Gianni</a>)
+
+= .9.9.5.5 =
+* Fix notices when in debug mode
+* Replaced extend functions with associative arrays 
+* Some caching
+
+= .9.9.5.4 =
+* Inline CSS moved to external stylesheet
+* CSS minification
 
 = .9.9.5.3 =
 * SSL - HTTPS support

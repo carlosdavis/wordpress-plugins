@@ -1,10 +1,11 @@
 <?php
 
+
 /*
 Plugin Name: All in One SEO Pack
 Plugin URI: http://semperfiwebdesign.com
 Description: Out-of-the-box SEO for your Wordpress blog. <a href="options-general.php?page=all-in-one-seo-pack/aioseop.class.php">Options configuration panel</a> | <a href="http://wpplugins.com/plugin/50/all-in-one-seo-pack-pro-version">Upgrade to Pro Version</a> | <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtorbert%40gmail%2ecom&item_name=All%20In%20One%20SEO%20Pack&item_number=Support%20Open%20Source&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8">Donate</a> | <a href="http://semperfiwebdesign.com/forum/" >Support</a> |  <a href="https://www.amazon.com/wishlist/1NFQ133FNCOOA/ref=wl_web" target="_blank" title="Amazon Wish List">Amazon Wishlist</a>
-Version: 1.6.10.2
+Version: 1.6.11
 Author: Michael Torbert
 Author URI: http://michaeltorbert.com
 */
@@ -581,7 +582,7 @@ $naioseop_options = array(
 "aiosp_archive_noindex"=>1,
 "aiosp_tags_noindex"=>0,
 "aiosp_cap_cats"=>1,
-"aiosp_generate_descriptions"=>1,
+"aiosp_generate_descriptions"=>0,
 "aiosp_debug_info"=>null,
 "aiosp_post_meta_tags"=>'',
 "aiosp_page_meta_tags"=>'',
@@ -624,9 +625,8 @@ if($aioseopcc){
 	}
 }
 
-add_action('wp_list_pages', 'aioseop_list_pages');
+add_filter('wp_list_pages', 'aioseop_list_pages');
 
- //remove_action( 'wp_head', 'rel_canonical' );
 if($aioseop_options['aiosp_can'] == '1' || $aioseop_options['aiosp_can'] == 'on'){
         remove_action( 'wp_head', 'rel_canonical' );
 }
@@ -640,7 +640,7 @@ function aioseop_activate_pl(){
 }
 
 function aioseop_get_version(){
-	return '1.6.10.2';
+	return '1.6.11';
 }
 
 function add_plugin_row($links, $file) {
@@ -661,8 +661,7 @@ add_action('wp_head', array($aiosp, 'wp_head'));
 add_action('template_redirect', array($aiosp, 'template_redirect'));
 //add_action('admin_head',array($aiosp, 'seo_mrt_admin_head');
 add_action('admin_menu', array($aiosp, 'admin_menu'));
-add_action('admin_menu', 'aiosp_meta_box_add');
-
+add_action('admin_menu', 'aioseop_meta_box_add');
 add_action('admin_menu', 'aioseop_mrt_nap');
 
 function aioseop_mrt_nap(){
@@ -691,12 +690,20 @@ add_action( 'admin_notices', 'aioseop_activation_notice');
 }
 
 
-// The following two functions copied entirely and modified slightly from Sarah G's Page Menu Editor, http://wordpress.org/extend/plugins/page-menu-editor/
+// The following two functions are GPLed from Sarah G's Page Menu Editor, http://wordpress.org/extend/plugins/page-menu-editor/.
 function aioseop_list_pages($content){
-		$url = preg_replace(array('/\//', '/\./', '/\-/'), array('\/', '\.', '\-'), get_option('siteurl'));
+	$matches = array();
+	if (preg_match_all('/<li class="page_item page-item-(\d+)/i', $content, $matches)) {
+		update_postmeta_cache(array_values($matches[1]));
+		unset($matches);
 		$pattern = '/<li class="page_item page-item-(\d+)([^\"]*)"><a href=\"([^\"]+)" title="([^\"]+)">([^<]+)<\/a>/i';
 		return preg_replace_callback($pattern, "aioseop_filter_callback", $content);
 	}
+	return $content;
+	}
+
+
+	
 
 function aioseop_filter_callback($matches) {
 	global $wpdb;
@@ -721,7 +728,7 @@ if (substr($aiosp->wp_version, 0, 3) < '2.5') {
 
 
 
-function aiosp_meta_box_add() {
+function aioseop_meta_box_add() {
 	if ( function_exists('add_meta_box') ) {
 		add_meta_box('aiosp',__('All in One SEO Pack', 'all_in_one_seo_pack'),'aiosp_meta','post');
 		add_meta_box('aiosp',__('All in One SEO Pack', 'all_in_one_seo_pack'),'aiosp_meta','page');
@@ -805,8 +812,6 @@ function aiosp_meta() {
 		<input type="checkbox" name="aiosp_disable" <?php if ($aiosp_disable) echo "checked=\"1\""; ?>/>
 		</td>
 		</tr>
-
-
 		</table>
 	<?php
 }
