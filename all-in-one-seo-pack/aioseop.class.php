@@ -2,7 +2,7 @@
 
 class All_in_One_SEO_Pack {
 	
- 	var $version = "1.6.11";
+ 	var $version = "1.6.12.1";
  	
  	/** Max numbers of chars in auto-generated description */
  	var $maximum_description_length = 160;
@@ -1296,7 +1296,7 @@ if (function_exists('load_plugin_textdomain')) {
 			$file = 'all-in-one-seo-pack/all_in_one_seo_pack.php';
 		}
 		//add_management_page(__('All in One SEO Title', 'all_in_one_seo_pack'), __('All in One SEO', 'all_in_one_seo_pack'), 10, $file, array($this, 'management_panel'));
-		add_submenu_page('options-general.php', __('All in One SEO', 'all_in_one_seo_pack'), __('All in One SEO', 'all_in_one_seo_pack'), 10, $file, array($this, 'options_panel'));
+		add_submenu_page('options-general.php', __('All in One SEO', 'all_in_one_seo_pack'), __('All in One SEO', 'all_in_one_seo_pack'), 'manage_options', $file, array($this, 'options_panel'));
 	}
 	
 	function management_panel() {
@@ -1334,87 +1334,93 @@ if (function_exists('load_plugin_textdomain')) {
 			$aioseop_options['aiosp_cap_cats'] = '1';
 		}
 				
-		if ($_POST['action'] && $_POST['action'] == 'aiosp_update' && $_POST['Submit_Default']!='') {
-			$nonce = $_POST['nonce-aioseop'];
-			if (!wp_verify_nonce($nonce, 'aioseop-nonce')) die ( 'Security Check - If you receive this in error, log out and back in to WordPress');
-			$message = __("All in One SEO Options Reset.", 'all_in_one_seo_pack');
-			delete_option('aioseop_options');
-			$res_aioseop_options = array(
-				"aiosp_can"=>1,
-				"aiosp_donate"=>0,
-				"aiosp_home_title"=>null,
-				"aiosp_home_description"=>'',
-				"aiosp_home_keywords"=>null,
-				"aiosp_max_words_excerpt"=>'something',
-				"aiosp_rewrite_titles"=>1,
-				"aiosp_post_title_format"=>'%post_title% | %blog_title%',
-				"aiosp_page_title_format"=>'%page_title% | %blog_title%',
-				"aiosp_category_title_format"=>'%category_title% | %blog_title%',
-				"aiosp_archive_title_format"=>'%date% | %blog_title%',
-				"aiosp_tag_title_format"=>'%tag% | %blog_title%',
-				"aiosp_search_title_format"=>'%search% | %blog_title%',
-				"aiosp_description_format"=>'%description%',
-				"aiosp_404_title_format"=>'Nothing found for %request_words%',
-				"aiosp_paged_format"=>' - Part %page%',
-				"aiosp_use_categories"=>0,
-				"aiosp_dynamic_postspage_keywords"=>1,
-				"aiosp_category_noindex"=>1,
-				"aiosp_archive_noindex"=>1,
-				"aiosp_tags_noindex"=>0,
-				"aiosp_cap_cats"=>1,
-				"aiosp_generate_descriptions"=>1,
-				"aiosp_debug_info"=>null,
-				"aiosp_post_meta_tags"=>'',
-				"aiosp_page_meta_tags"=>'',
-				"aiosp_home_meta_tags"=>'',
-				"aiosp_enabled" =>0,
-				"aiosp_use_tags_as_keywords" =>1,
-				"aiosp_do_log"=>null);
-			update_option('aioseop_options', $res_aioseop_options);
-		}
+
+			if (isset($_POST['action']) && $_POST['action'] == 'aiosp_update' && isset($_POST['Submit_Default'])) {
+				$nonce = $_POST['nonce-aioseop'];
+				if (!wp_verify_nonce($nonce, 'aioseop-nonce')) die ( 'Security Check - If you receive this in error, log out and back in to WordPress');
+				$message = __("All in One SEO Options Reset.", 'all_in_one_seo_pack');
+				delete_option('aioseop_options');
+				$res_aioseop_options = array(
+					"aiosp_can"=>1,
+					"aiosp_donate"=>0,
+					"aiosp_home_title"=>null,
+					"aiosp_home_description"=>'',
+					"aiosp_home_keywords"=>null,
+					"aiosp_max_words_excerpt"=>'something',
+					"aiosp_rewrite_titles"=>1,
+					"aiosp_post_title_format"=>'%post_title% | %blog_title%',
+					"aiosp_page_title_format"=>'%page_title% | %blog_title%',
+					"aiosp_category_title_format"=>'%category_title% | %blog_title%',
+					"aiosp_archive_title_format"=>'%date% | %blog_title%',
+					"aiosp_tag_title_format"=>'%tag% | %blog_title%',
+					"aiosp_search_title_format"=>'%search% | %blog_title%',
+					"aiosp_description_format"=>'%description%',
+					"aiosp_404_title_format"=>'Nothing found for %request_words%',
+					"aiosp_paged_format"=>' - Part %page%',
+					"aiosp_use_categories"=>0,
+					"aiosp_dynamic_postspage_keywords"=>1,
+					"aiosp_category_noindex"=>1,
+					"aiosp_archive_noindex"=>1,
+					"aiosp_tags_noindex"=>0,
+					"aiosp_cap_cats"=>1,
+					"aiosp_generate_descriptions"=>1,
+					"aiosp_debug_info"=>null,
+					"aiosp_post_meta_tags"=>'',
+					"aiosp_enablecpost"=>'0',
+					"aiosp_page_meta_tags"=>'',
+					"aiosp_home_meta_tags"=>'',
+					"aiosp_enabled" =>0,
+					"aiosp_use_tags_as_keywords" =>1,
+					"aiosp_do_log"=>null);
+				update_option('aioseop_options', $res_aioseop_options);
+			}
+
 		
 		// update options
-		if ($_POST['action'] && $_POST['action'] == 'aiosp_update' && $_POST['Submit']!='') {
-			$nonce = $_POST['nonce-aioseop'];
-			if (!wp_verify_nonce($nonce, 'aioseop-nonce')) die ( 'Security Check - If you receive this in error, log out and back in to WordPress');
-			$message = __("All in One SEO Options Updated.", 'all_in_one_seo_pack');
-			$aioseop_options['aiosp_can'] = $_POST['aiosp_can'];
-			$aioseop_options['aiosp_donate'] = $_POST['aiosp_donate'];
-			$aioseop_options['aiosp_home_title'] = $_POST['aiosp_home_title'];
-			$aioseop_options['aiosp_home_description'] = $_POST['aiosp_home_description'];
-			$aioseop_options['aiosp_home_keywords'] = $_POST['aiosp_home_keywords'];
-			$aioseop_options['aiosp_max_words_excerpt'] = $_POST['aiosp_max_words_excerpt'];
-			$aioseop_options['aiosp_rewrite_titles'] = $_POST['aiosp_rewrite_titles'];
-			$aioseop_options['aiosp_post_title_format'] = $_POST['aiosp_post_title_format'];
-			$aioseop_options['aiosp_page_title_format'] = $_POST['aiosp_page_title_format'];
-			$aioseop_options['aiosp_category_title_format'] = $_POST['aiosp_category_title_format'];
-			$aioseop_options['aiosp_archive_title_format'] = $_POST['aiosp_archive_title_format'];
-			$aioseop_options['aiosp_tag_title_format'] = $_POST['aiosp_tag_title_format'];
-			$aioseop_options['aiosp_search_title_format'] = $_POST['aiosp_search_title_format'];
-			$aioseop_options['aiosp_description_format'] = $_POST['aiosp_description_format'];
-			$aioseop_options['aiosp_404_title_format'] = $_POST['aiosp_404_title_format'];
-			$aioseop_options['aiosp_paged_format'] = $_POST['aiosp_paged_format'];
-			$aioseop_options['aiosp_use_categories'] = $_POST['aiosp_use_categories'];
-			$aioseop_options['aiosp_dynamic_postspage_keywords'] = $_POST['aiosp_dynamic_postspage_keywords'];
-			$aioseop_options['aiosp_category_noindex'] = $_POST['aiosp_category_noindex'];
-			$aioseop_options['aiosp_archive_noindex'] = $_POST['aiosp_archive_noindex'];
-			$aioseop_options['aiosp_tags_noindex'] = $_POST['aiosp_tags_noindex'];
-			$aioseop_options['aiosp_generate_descriptions'] = $_POST['aiosp_generate_descriptions'];
-			$aioseop_options['aiosp_cap_cats'] = $_POST['aiosp_cap_cats'];
-			$aioseop_options['aiosp_debug_info'] = $_POST['aiosp_debug_info'];
-			$aioseop_options['aiosp_post_meta_tags'] = $_POST['aiosp_post_meta_tags'];
-			$aioseop_options['aiosp_page_meta_tags'] = $_POST['aiosp_page_meta_tags'];
-			$aioseop_options['aiosp_home_meta_tags'] = $_POST['aiosp_home_meta_tags'];
-			$aioseop_options['aiosp_ex_pages'] = $_POST['aiosp_ex_pages'];
-			$aioseop_options['aiosp_do_log'] = $_POST['aiosp_do_log'];
-			$aioseop_options['aiosp_enabled'] = $_POST['aiosp_enabled'];
-			$aioseop_options['aiosp_use_tags_as_keywords'] = $_POST['aiosp_use_tags_as_keywords'];			
+		if(isset($_POST['action'])){
+			if ($_POST['action'] && $_POST['action'] == 'aiosp_update' && $_POST['Submit']!='') {
+				$nonce = $_POST['nonce-aioseop'];
+				if (!wp_verify_nonce($nonce, 'aioseop-nonce')) die ( 'Security Check - If you receive this in error, log out and back in to WordPress');
+				$message = __("All in One SEO Options Updated.", 'all_in_one_seo_pack');
+				$aioseop_options['aiosp_can'] = $_POST['aiosp_can'];
+				$aioseop_options['aiosp_donate'] = $_POST['aiosp_donate'];
+				$aioseop_options['aiosp_home_title'] = esc_attr($_POST['aiosp_home_title']);
+				$aioseop_options['aiosp_home_description'] = esc_attr($_POST['aiosp_home_description']);
+				$aioseop_options['aiosp_home_keywords'] = $_POST['aiosp_home_keywords'];
+				$aioseop_options['aiosp_max_words_excerpt'] = $_POST['aiosp_max_words_excerpt'];
+				$aioseop_options['aiosp_rewrite_titles'] = $_POST['aiosp_rewrite_titles'];
+				$aioseop_options['aiosp_post_title_format'] = $_POST['aiosp_post_title_format'];
+				$aioseop_options['aiosp_page_title_format'] = $_POST['aiosp_page_title_format'];
+				$aioseop_options['aiosp_category_title_format'] = $_POST['aiosp_category_title_format'];
+				$aioseop_options['aiosp_archive_title_format'] = $_POST['aiosp_archive_title_format'];
+				$aioseop_options['aiosp_tag_title_format'] = $_POST['aiosp_tag_title_format'];
+				$aioseop_options['aiosp_search_title_format'] = $_POST['aiosp_search_title_format'];
+				$aioseop_options['aiosp_description_format'] = $_POST['aiosp_description_format'];
+				$aioseop_options['aiosp_404_title_format'] = $_POST['aiosp_404_title_format'];
+				$aioseop_options['aiosp_paged_format'] = $_POST['aiosp_paged_format'];
+				$aioseop_options['aiosp_use_categories'] = $_POST['aiosp_use_categories'];
+				$aioseop_options['aiosp_dynamic_postspage_keywords'] = $_POST['aiosp_dynamic_postspage_keywords'];
+				$aioseop_options['aiosp_category_noindex'] = $_POST['aiosp_category_noindex'];
+				$aioseop_options['aiosp_archive_noindex'] = $_POST['aiosp_archive_noindex'];
+				$aioseop_options['aiosp_tags_noindex'] = $_POST['aiosp_tags_noindex'];
+				$aioseop_options['aiosp_generate_descriptions'] = $_POST['aiosp_generate_descriptions'];
+				$aioseop_options['aiosp_cap_cats'] = $_POST['aiosp_cap_cats'];
+				$aioseop_options['aiosp_enablecpost'] = $_POST['aiosp_enablecpost'];
+				$aioseop_options['aiosp_debug_info'] = $_POST['aiosp_debug_info'];
+				$aioseop_options['aiosp_post_meta_tags'] = $_POST['aiosp_post_meta_tags'];
+				$aioseop_options['aiosp_page_meta_tags'] = $_POST['aiosp_page_meta_tags'];
+				$aioseop_options['aiosp_home_meta_tags'] = $_POST['aiosp_home_meta_tags'];
+				$aioseop_options['aiosp_ex_pages'] = $_POST['aiosp_ex_pages'];
+				$aioseop_options['aiosp_do_log'] = $_POST['aiosp_do_log'];
+				$aioseop_options['aiosp_enabled'] = $_POST['aiosp_enabled'];
+				$aioseop_options['aiosp_use_tags_as_keywords'] = $_POST['aiosp_use_tags_as_keywords'];			
 			
-			update_option('aioseop_options', $aioseop_options);
+				update_option('aioseop_options', $aioseop_options);
 			
-			if (function_exists('wp_cache_flush')) {
-				wp_cache_flush();
-			}
+				if (function_exists('wp_cache_flush')) {
+					wp_cache_flush();
+					}
+				}
 			} /*elseif ($_POST['aiosp_upgrade']) {
 			$message = __("Upgraded to newest version. Please revisit the options page to make sure you see the newest version.", 'all_in_one_seo_pack');
 			$success = $this->install_newest_version();
@@ -1997,6 +2003,22 @@ echo('</ul>');
 
 <tr>
 <th scope="row" style="text-align:right; vertical-align:top;">
+<a style="cursor:pointer;" title="<?php _e('Click for Help!', 'all_in_one_seo_pack')?>" onclick="toggleVisibility('aiosp_enablecpost_tip');">
+<?php _e('SEO for Custom Post Types:', 'all_in_one_seo_pack')?>
+</td>
+<td>
+<input type="checkbox" name="aiosp_enablecpost" <?php if ($aioseop_options['aiosp_enablecpost']) echo "checked=\"1\""; ?>/>
+<div style="max-width:500px; text-align:left; display:none" id="aiosp_enablecpost_tip">
+<?php
+_e('Check this if you want your enable AIOSEOP support for Custom Post Types on this site.', 'all_in_one_seo_pack');
+ ?>
+</div>
+</td>
+</tr>
+
+
+<tr>
+<th scope="row" style="text-align:right; vertical-align:top;">
 <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'all_in_one_seo_pack')?>" onclick="toggleVisibility('aiosp_use_categories_tip');">
 <?php _e('Use Categories for META keywords:', 'all_in_one_seo_pack')?>
 </td>
@@ -2009,7 +2031,6 @@ _e('Check this if you want your categories for a given post used as the META key
 </div>
 </td>
 </tr>
-
 
 <tr>
 <th scope="row" style="text-align:right; vertical-align:top;">

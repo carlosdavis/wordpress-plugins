@@ -273,7 +273,7 @@ class WPCF7_ContactForm {
 
 		$query_string = '';
 		foreach ( $c as $key => $data )
-			$query_string .= $key . '=' . urlencode( stripslashes( $data ) ) . '&';
+			$query_string .= $key . '=' . urlencode( stripslashes( (string) $data ) ) . '&';
 
 		$response = akismet_http_post( $query_string, $akismet_api_host,
 			'/1.1/comment-check', $akismet_api_port );
@@ -384,8 +384,11 @@ class WPCF7_ContactForm {
 			else
 				$replaced = $submitted;
 
-			if ( $html )
-				$replaced = esc_html( $replaced );
+			if ( $html ) {
+				$replaced = strip_tags( $replaced );
+				$replaced = wptexturize( $replaced );
+				$replaced = wpautop( $replaced );
+			}
 
 			$replaced = apply_filters( 'wpcf7_mail_tag_replaced', $replaced, $submitted );
 

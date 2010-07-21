@@ -3,7 +3,7 @@
 Plugin Name: AddToAny: Share/Bookmark/Email Button
 Plugin URI: http://www.addtoany.com/
 Description: Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, Google Buzz, Digg and many more.  [<a href="options-general.php?page=add-to-any.php">Settings</a>]
-Version: .9.9.5.7
+Version: .9.9.5.9
 Author: AddToAny
 Author URI: http://www.addtoany.com/
 */
@@ -77,8 +77,11 @@ function ADDTOANY_SHARE_SAVE_KIT( $args = false ) {
 
 function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 	// $args array: output_later, html_container_open, html_container_close, html_wrap_open, html_wrap_close, linkname, linkurl
-
-	$args = array_merge($args, A2A_SHARE_SAVE_link_vars($args['linkname'], $args['linkurl']));; // linkname_enc, etc.
+	
+	$linkname = (isset($args['linkname'])) ? $args['linkname'] : FALSE;
+	$linkurl = (isset($args['linkurl'])) ? $args['linkurl'] : FALSE;
+	
+	$args = array_merge($args, A2A_SHARE_SAVE_link_vars($linkname, $linkurl)); // linkname_enc, etc.
 		
 	global $A2A_SHARE_SAVE_plugin_url_path, $A2A_SHARE_SAVE_services;
 	
@@ -130,7 +133,7 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 		$ind_html .= apply_filters('addtoany_link', $link);
 	}
 	
-	$ind_html .= $args['html_container_close'];
+	$ind_html .= (isset($args['html_container_close'])) ? $args['html_container_close'] : "";
 	
 	if (isset($args['output_later']))
 		return $ind_html;
@@ -144,10 +147,14 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 
 	global $A2A_SHARE_SAVE_plugin_url_path, $A2A_SHARE_SAVE_services;
 	
+	$linkname = (isset($args['linkname'])) ? $args['linkname'] : FALSE;
+	$linkurl = (isset($args['linkurl'])) ? $args['linkurl'] : FALSE;
+	$html_container_open = (isset($args['html_container_open'])) ? $args['html_container_open'] : '';
+	
 	// Make available services extensible via plugins, themes (functions.php), etc.
 	$A2A_SHARE_SAVE_services = apply_filters('A2A_SHARE_SAVE_services', $A2A_SHARE_SAVE_services);
 
-	$args = array_merge($args, A2A_SHARE_SAVE_link_vars($args['linkname'], $args['linkurl']));; // linkname_enc, etc.
+	$args = array_merge($args, A2A_SHARE_SAVE_link_vars($linkname, $linkurl));; // linkname_enc, etc.
 	
 	/* AddToAny button */
 	
@@ -188,7 +195,7 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 		$button			= '<img src="'.$button_src.'"'.$button_width.$button_height.' alt="Share/Bookmark"/>';
 	}
 	
-	$button_html = $args['html_container_open'].$args['html_wrap_open'].'<a class="a2a_dd addtoany_share_save" href="http://www.addtoany.com/share_save?'
+	$button_html = $html_container_open.$args['html_wrap_open'].'<a class="a2a_dd addtoany_share_save" href="http://www.addtoany.com/share_save?'
 		.'linkurl='.$args['linkurl_enc']
 		.'&amp;linkname='.$args['linkname_enc']
 		.'"' . $style . $button_target
@@ -213,18 +220,17 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 			$additional_js = get_option('A2A_SHARE_SAVE_additional_js_variables');
 			$external_script_call = (($cache) ? 'a2a_config.static_server="' . $static_server . '";' . "\n" : '' )
 				. ((get_option('A2A_SHARE_SAVE_onclick')=='1') ? 'a2a_config.onclick=1;' . "\n" : '')
-				. ((get_option('A2A_SHARE_SAVE_hide_embeds')=='-1') ? 'a2a_config.hide_embeds=0;' . "\n" : '')
 				. ((get_option('A2A_SHARE_SAVE_show_title')=='1') ? 'a2a_config.show_title=1;' . "\n" : '')
 				. (($additional_js) ? stripslashes($additional_js) . "\n" : '')
-				. '</script><script type="text/javascript" src="' . $static_server . '/page.js"></script>';
+				. "//]]>" . '</script><script type="text/javascript" src="' . $static_server . '/page.js"></script>';
 			$A2A_SHARE_SAVE_external_script_called = true;
 		}
 		else {
-			$external_script_call = 'a2a.init("page");</script>';
+			$external_script_call = "a2a.init('page');\n//]]></script>";
 			$initial_js = '';
 		}
 			
-		$button_javascript = "\n" . '<script type="text/javascript">' . "\n"
+		$button_javascript = "\n" . '<script type="text/javascript">' . "//<![CDATA[\n"
 			. $initial_js
 			. A2A_menu_locale()
 			. 'a2a_config.linkname="' . js_escape($args['linkname']) . '";' . "\n"
@@ -525,13 +531,15 @@ function A2A_SHARE_SAVE_options_page() {
 	// Make available services extensible via plugins, themes (functions.php), etc.
 	$A2A_SHARE_SAVE_services = apply_filters('A2A_SHARE_SAVE_services', $A2A_SHARE_SAVE_services);
 
-    if( $_POST[ 'A2A_SHARE_SAVE_submit_hidden' ] == 'Y' ) {
-
+    if ( isset($_POST['Submit'])) {
+		
+		// Nonce verification 
+		check_admin_referer('add-to-any-dupdate-options');
+		
         update_option( 'A2A_SHARE_SAVE_display_in_posts_on_front_page', ($_POST['A2A_SHARE_SAVE_display_in_posts_on_front_page']=='1') ? '1':'-1' );
 		update_option( 'A2A_SHARE_SAVE_display_in_posts', ($_POST['A2A_SHARE_SAVE_display_in_posts']=='1') ? '1':'-1' );
 		update_option( 'A2A_SHARE_SAVE_display_in_pages', ($_POST['A2A_SHARE_SAVE_display_in_pages']=='1') ? '1':'-1' );
 		update_option( 'A2A_SHARE_SAVE_display_in_feed', ($_POST['A2A_SHARE_SAVE_display_in_feed']=='1') ? '1':'-1' );
-		update_option( 'A2A_SHARE_SAVE_hide_embeds', ($_POST['A2A_SHARE_SAVE_hide_embeds']=='1') ? '1':'-1' );
 		update_option( 'A2A_SHARE_SAVE_show_title', ($_POST['A2A_SHARE_SAVE_show_title']=='1') ? '1':'-1' );
 		update_option( 'A2A_SHARE_SAVE_onclick', ($_POST['A2A_SHARE_SAVE_onclick']=='1') ? '1':'-1' );
 		update_option( 'A2A_SHARE_SAVE_button_opens_new_window', ($_POST['A2A_SHARE_SAVE_button_opens_new_window']=='1') ? '1':'-1' );
@@ -579,14 +587,14 @@ function A2A_SHARE_SAVE_options_page() {
     <?php A2A_wp_footer_check(); ?>
     
     <div class="wrap">
-
+	
+	<div id="icon-options-general" class="icon32"></div>
+	
 	<h2><?php _e( 'AddToAny: Share/Save ', 'add-to-any' ) . _e( 'Settings' ); ?></h2>
 
     <form method="post" action="">
     
-	<?php wp_nonce_field('update-options'); ?>
-    
-    	<input type="hidden" name="A2A_SHARE_SAVE_submit_hidden" value="Y">
+	<?php wp_nonce_field('add-to-any-dupdate-options'); ?>
     
         <table class="form-table">
         	<?php if ($wp_version >= "2.6") { /* Must be on WP 2.6+ */ ?>
@@ -730,11 +738,6 @@ function A2A_SHARE_SAVE_options_page() {
             <tr valign="top">
             <th scope="row"><?php _e('Menu Options', 'add-to-any'); ?></th>
             <td><fieldset>
-            	<label>
-                	<input name="A2A_SHARE_SAVE_hide_embeds" 
-                        type="checkbox"<?php if(get_option('A2A_SHARE_SAVE_hide_embeds')!='-1') echo ' checked="checked"'; ?> value="1"/>
-                	<?php _e('Hide embedded objects (Flash, video, etc.) that intersect with the menu when displayed', 'add-to-any'); ?>
-                </label><br />
                 <label>
                 	<input name="A2A_SHARE_SAVE_show_title" 
                         type="checkbox"<?php if(get_option('A2A_SHARE_SAVE_show_title')=='1') echo ' checked="checked"'; ?> value="1"/>
@@ -899,7 +902,7 @@ function A2A_SHARE_SAVE_admin_head() {
         
         // Auto-select active services
         <?php
-		$admin_services_saved = is_array($_POST['A2A_SHARE_SAVE_active_services']) || isset($_POST['A2A_SHARE_SAVE_submit_hidden']);
+		$admin_services_saved = is_array($_POST['A2A_SHARE_SAVE_active_services']) || isset($_POST['Submit']);
 		$active_services = ( $admin_services_saved )
 			? $_POST['A2A_SHARE_SAVE_active_services'] : get_option('A2A_SHARE_SAVE_active_services');
 		if( !$active_services )
@@ -974,7 +977,7 @@ function A2A_SHARE_SAVE_add_menu_link() {
 		add_options_page(
 			'AddToAny: '. __("Share/Save", "add-to-any"). " " . __("Settings")
 			, __("Share/Save Buttons", "add-to-any")
-			, 8 
+			, 'activate_plugins' 
 			, basename(__FILE__)
 			, 'A2A_SHARE_SAVE_options_page'
 		);

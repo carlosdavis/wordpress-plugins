@@ -3,7 +3,7 @@ Contributors: micropat
 Tags: sharing, share, sharethis, bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, e-mail, email, seo, button, delicious, google buzz, buzz, google, digg, reddit, facebook, myspace, twitter, stumbleupon, technorati, icon, icons, wpmu, addtoany, add, any
 Requires at least: 2.0
 Tested up to: 3.0
-Stable tag: 0.9.9.5.7
+Stable tag: 0.9.9.5.9
 
 Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, Google Buzz, Digg and many more.
 
@@ -145,7 +145,7 @@ If your button isn't already set up to appear (it is by default), insert the fol
 
 Facebook does link sharing a little differently than most other services. Facebook will sometimes use the Meta Description of a shared page instead of the page's title or the title you have set for AddToAny.
 
-To change the title, description and/or image on Facebook, you will need to modify your theme header file according to <a href="http://wiki.developers.facebook.com/index.php/Facebook_Share/Specifying_Meta_Tags">Facebook's specification</a>. With WordPress, this can be accomplished with plugins like the <a href="http://wordpress.org/extend/plugins/all-in-one-seo-pack/">All in One SEO Pack plugin</a>.  Please see that plugin to for details, and post in the WordPress or plugin author's forums for more support.
+To change the title, description and/or image on Facebook, you will need to modify your theme header file according to <a href="http://wiki.developers.facebook.com/index.php/Facebook_Share/Specifying_Meta_Tags">Facebook's specification</a>. With WordPress, this can be accomplished with plugins like the <a href="http://wordpress.org/extend/plugins/all-in-one-seo-pack/">All in One SEO Pack plugin</a>.  Please see that plugin for details, and post in the WordPress or plugin author's forums for more support.
 
 = Does the plugin output W3C valid code? =
 
@@ -157,9 +157,9 @@ If you move the plugin's CSS code to your theme's stylesheet, note that one prop
 
 Go to `Settings` > `Share/Save Buttons` > uncheck `Use inline CSS` and place the CSS code in your theme's main stylesheet.
 
-= Why do embedded objects (like Flash) disappear when the menu is displayed? =
+= Why does the menu appear behind embedded objects (like Flash)? =
 
-This is done to overcome browser limitations that prevent the drop-down menu from displaying on top of intersecting embedded objects.  If you would like to disable this, uncheck the `Hide embedded objects (Flash, video, etc.) that intersect with the menu when displayed` option on the plugin's settings page.
+Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds">this document</a> for an explanation and possible fix. For WordPress, an easier fix is to have AddToAny <a href="http://www.addtoany.com/buttons/customize/hide_embeds">hide intersecting embedded objects</a>. Just copy & paste the recommended code into the Additional Options box in `Settings` > `Share/Save Buttons`, then save changes.
 
 == Screenshots ==
 
@@ -170,6 +170,16 @@ This is done to overcome browser limitations that prevent the drop-down menu fro
 5. Color chooser for your AddToAny menus
 
 == Changelog ==
+
+= .9.9.5.9 =
+* Nonce validation for admin form
+* Fixes for debug mode notices
+* Russian translation updated (by Elvis)
+
+= .9.9.5.8 =
+* Wrap inline JavaScript in CDATA section for better XHTML compliance
+* Depreciate embedded object hiding option in favor of Menu API due to a new automatic workaround and a change in default value
+ * If you need to have AddToAny hide objects (like Flash) to display the AddToAny menu, set a2a_config.hide_embeds = 1; in the Additional Options box
 
 = .9.9.5.7 =
 * Work around "Featured Posts" excerpt scenarios that would stop button auto-placement below post content  

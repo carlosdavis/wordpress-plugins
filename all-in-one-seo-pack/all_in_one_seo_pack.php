@@ -5,7 +5,7 @@
 Plugin Name: All in One SEO Pack
 Plugin URI: http://semperfiwebdesign.com
 Description: Out-of-the-box SEO for your Wordpress blog. <a href="options-general.php?page=all-in-one-seo-pack/aioseop.class.php">Options configuration panel</a> | <a href="http://wpplugins.com/plugin/50/all-in-one-seo-pack-pro-version">Upgrade to Pro Version</a> | <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtorbert%40gmail%2ecom&item_name=All%20In%20One%20SEO%20Pack&item_number=Support%20Open%20Source&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8">Donate</a> | <a href="http://semperfiwebdesign.com/forum/" >Support</a> |  <a href="https://www.amazon.com/wishlist/1NFQ133FNCOOA/ref=wl_web" target="_blank" title="Amazon Wish List">Amazon Wishlist</a>
-Version: 1.6.11
+Version: 1.6.12.1
 Author: Michael Torbert
 Author URI: http://michaeltorbert.com
 */
@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /*******************************************************************************************************/
-//register_activation_hook(__FILE__,'aioseop_activate_pl');
+register_activation_hook(__FILE__,'aioseop_activate_pl');
 
 $UTF8_TABLES['strtolower'] = array(
 	"Ôº∫" => "ÔΩö",	"Ôºπ" => "ÔΩô",	"Ôº∏" => "ÔΩò",
@@ -534,8 +534,8 @@ if(!get_option('aioseop_options')){
 	}
 */
 
-if($_POST['aioseop_migrate']) aioseop_mrt_fix_meta();
-if($_POST['aioseop_migrate_options']) aioseop_mrt_mkarry();
+if(isset($_POST['aioseop_migrate'])) aioseop_mrt_fix_meta();
+if(isset($_POST['aioseop_migrate_options'])) aioseop_mrt_mkarry();
 if(!get_option('aiosp_post_title_format') && !get_option('aioseop_options')) aioseop_mrt_mkarry();
 
 //}end _post('turn_on')
@@ -588,6 +588,7 @@ $naioseop_options = array(
 "aiosp_page_meta_tags"=>'',
 "aiosp_home_meta_tags"=>'',
 "aiosp_enabled" =>0,
+"aiosp_enablecpost" => 0,
 "aiosp_use_tags_as_keywords" =>1,
 "aiosp_do_log"=>null);
 
@@ -604,6 +605,7 @@ foreach( $naioseop_options as $aioseop_opt_name => $value ) {
 		delete_option($aioseop_opt_name);
 	}
 }
+
 add_option('aioseop_options',$naioseop_options);
 echo "<div class='updated fade' style='background-color:green;border-color:green;'><p><strong>Updating SEO configuration options in database</strong></p></div";
 
@@ -613,7 +615,7 @@ echo "<div class='updated fade' style='background-color:green;border-color:green
 function aioseop_activation_notice(){
 	global $aioseop_options;
 				if(function_exists('admin_url')){
-				echo '<div class="error fade" style="background-color:red;"><p><strong>All in One SEO Pack must be configured. Go to <a href="' . admin_url( 'options-general.php?page=all-in-one-seo-pack/aioseop.class.php' ) . '">the admin page</a> to enable and configure the plugin.</strong><br />WordPress now has a canonical URL feature, however we recommend using the AIOSEOP <em>advanced canonical URLs functionality</em> we have had for the past year.</p></div>';
+				echo '<div class="error fade" style="background-color:red;"><p><strong>All in One SEO Pack must be configured. Go to <a href="' . admin_url( 'options-general.php?page=all-in-one-seo-pack/aioseop.class.php' ) . '">the admin page</a> to enable and configure the plugin.</strong><br />All in One SEO Pack now supports <em>Custom Post Types</em>.</p></div>';
 }else{
 		echo '<div class="error fade" style="background-color:red;"><p><strong>All in One SEO Pack must be configured. Go to <a href="' . get_option('siteurl') . 'options-general.php?page=all-in-one-seo-pack/aioseop.class.php' . '">the admin page</a> to enable and configure the plugin.</strong></p></div>';
 }
@@ -625,12 +627,6 @@ if($aioseopcc){
 	}
 }
 
-add_filter('wp_list_pages', 'aioseop_list_pages');
-
-if($aioseop_options['aiosp_can'] == '1' || $aioseop_options['aiosp_can'] == 'on'){
-        remove_action( 'wp_head', 'rel_canonical' );
-}
-
 function aioseop_activate_pl(){
 	if(get_option('aioseop_options')){
 		$aioseop_options = get_option('aioseop_options');
@@ -639,8 +635,12 @@ function aioseop_activate_pl(){
 	}
 }
 
+if($aioseop_options['aiosp_can'] == '1' || $aioseop_options['aiosp_can'] == 'on'){
+        remove_action( 'wp_head', 'rel_canonical' );
+}
+
 function aioseop_get_version(){
-	return '1.6.11';
+	return '1.6.12.1';
 }
 
 function add_plugin_row($links, $file) {
@@ -652,6 +652,7 @@ echo '</td>';
 }
 
 $aiosp = new All_in_One_SEO_Pack();	
+add_filter('wp_list_pages', 'aioseop_list_pages');
 add_action('edit_post', array($aiosp, 'post_meta_tags'));
 add_action('publish_post', array($aiosp, 'post_meta_tags'));
 add_action('save_post', array($aiosp, 'post_meta_tags'));
@@ -659,16 +660,16 @@ add_action('edit_page_form', array($aiosp, 'post_meta_tags'));
 add_action('init', array($aiosp, 'init'));
 add_action('wp_head', array($aiosp, 'wp_head'));
 add_action('template_redirect', array($aiosp, 'template_redirect'));
-//add_action('admin_head',array($aiosp, 'seo_mrt_admin_head');
 add_action('admin_menu', array($aiosp, 'admin_menu'));
+//add_action('admin_head',array($aiosp, 'seo_mrt_admin_head');
 add_action('admin_menu', 'aioseop_meta_box_add');
 add_action('admin_menu', 'aioseop_mrt_nap');
 
 function aioseop_mrt_nap(){
 //	add_object_page('All in One SEO Pack','All in One SEO Pack','administrator','aioseop','sometop2');
 //	add_object_page('All in One SEO Pack', 'SEO', 8, "__FILE__", 'aioseop_mrt_nap_menu2a','http://65.190.51.165/aioseo/wp-content/plugins/all-in-one-seo-pack/images/globe.png');
-	add_submenu_page("__FILE__", 'Settings', 'Settings', 8, '__FILE__', 'aioseop_mrt_nap_menu2a');
-	add_submenu_page("__FILE__", 'Tools', 'Tools', 8, 'subpageb', 'aioseop_mrt_nap_menu2b');
+	add_submenu_page("__FILE__", 'Settings', 'Settings', 'manage_options', '__FILE__', 'aioseop_mrt_nap_menu2a');
+	add_submenu_page("__FILE__", 'Tools', 'Tools', 'manage_options', 'subpageb', 'aioseop_mrt_nap_menu2b');
 }
 
 function aioseop_mrt_nap_menu(){
@@ -684,10 +685,9 @@ function aioseop_mrt_nap_menu2b(){
 	echo "here2";
 }
 
-
 if( ($_POST['aiosp_enabled'] == null && $aioseop_options['aiosp_enabled']!='1') || $_POST['aiosp_enabled']=='0'){
-add_action( 'admin_notices', 'aioseop_activation_notice');
-}
+	add_action( 'admin_notices', 'aioseop_activation_notice');
+	}
 
 
 // The following two functions are GPLed from Sarah G's Page Menu Editor, http://wordpress.org/extend/plugins/page-menu-editor/.
@@ -701,9 +701,6 @@ function aioseop_list_pages($content){
 	}
 	return $content;
 	}
-
-
-	
 
 function aioseop_filter_callback($matches) {
 	global $wpdb;
@@ -725,13 +722,22 @@ if (substr($aiosp->wp_version, 0, 3) < '2.5') {
         add_action('dbx_page_advanced', array($aiosp, 'add_meta_tags_textinput'));
 }
 
-
-
-
 function aioseop_meta_box_add() {
 	if ( function_exists('add_meta_box') ) {
-		add_meta_box('aiosp',__('All in One SEO Pack', 'all_in_one_seo_pack'),'aiosp_meta','post');
-		add_meta_box('aiosp',__('All in One SEO Pack', 'all_in_one_seo_pack'),'aiosp_meta','page');
+		if( function_exists('get_post_types')){		
+			$mrt_aioseop_pts=get_post_types('','names'); 
+			$aioseop_options = get_option('aioseop_options');
+			$aioseop_mrt_cpt = $aioseop_options['aiosp_enablecpost'];
+			foreach ($mrt_aioseop_pts as $mrt_aioseop_pt) {
+				if($mrt_aioseop_pt == 'post' || $mrt_aioseop_pt == 'page' || $aioseop_mrt_cpt){
+					add_meta_box('aiosp',__('All in One SEO Pack', 'all_in_one_seo_pack'),'aiosp_meta',$mrt_aioseop_pt);
+				}
+			}
+		}else{
+			add_meta_box('aiosp',__('All in One SEO Pack', 'all_in_one_seo_pack'),'aiosp_meta','post');
+			add_meta_box('aiosp',__('All in One SEO Pack', 'all_in_one_seo_pack'),'aiosp_meta','page');
+		}
+
 	} else {
 		add_action('dbx_post_advanced', array($aiosp, 'add_meta_tags_textinput'));
 		add_action('dbx_page_advanced', array($aiosp, 'add_meta_tags_textinput'));
@@ -739,20 +745,16 @@ function aioseop_meta_box_add() {
 }
 
 function aiosp_meta() {
-
 	global $post;
-	
 	$post_id = $post;
-	if (is_object($post_id)){
-		$post_id = $post_id->ID;
-	}
+	if (is_object($post_id)) $post_id = $post_id->ID;
  	$keywords = htmlspecialchars(stripcslashes(get_post_meta($post_id, '_aioseop_keywords', true)));
-    $title = htmlspecialchars(stripcslashes(get_post_meta($post_id, '_aioseop_title', true)));
+    	$title = htmlspecialchars(stripcslashes(get_post_meta($post_id, '_aioseop_title', true)));
 	$description = htmlspecialchars(stripcslashes(get_post_meta($post_id, '_aioseop_description', true)));
-    $aiosp_meta = htmlspecialchars(stripcslashes(get_post_meta($post_id, '_aiosp_meta', true)));
-    $aiosp_disable = htmlspecialchars(stripcslashes(get_post_meta($post_id, '_aioseop_disable', true)));
-    $aiosp_titleatr = htmlspecialchars(stripcslashes(get_post_meta($post_id, '_aioseop_titleatr', true)));
-    $aiosp_menulabel = htmlspecialchars(stripcslashes(get_post_meta($post_id, '_aioseop_menulabel', true)));	
+   	$aiosp_meta = htmlspecialchars(stripcslashes(get_post_meta($post_id, '_aiosp_meta', true)));
+    	$aiosp_disable = htmlspecialchars(stripcslashes(get_post_meta($post_id, '_aioseop_disable', true)));
+    	$aiosp_titleatr = htmlspecialchars(stripcslashes(get_post_meta($post_id, '_aioseop_titleatr', true)));
+    	$aiosp_menulabel = htmlspecialchars(stripcslashes(get_post_meta($post_id, '_aioseop_menulabel', true)));	
 	?>
 		<SCRIPT LANGUAGE="JavaScript">
 		<!-- Begin
