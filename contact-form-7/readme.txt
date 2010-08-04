@@ -3,8 +3,8 @@ Contributors: takayukister
 Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 2.9
-Tested up to: 3.0
-Stable tag: 2.3
+Tested up to: 3.0.1
+Stable tag: 2.3.1
 
 Just another contact form plugin. Simple but flexible.
 
@@ -29,7 +29,7 @@ It is hard to continue development and support for this plugin without contribut
 * Arabic (ar) - [Tarek Chaaban](http://www.chaaban.info/), Muhammed Lardi
 * Bangla (bn_BD) - [SM Mehdi Akram](http://www.shamokaldarpon.com/)
 * Bosnian (bs) - [Vedran](http://www.seorabbit.com/)
-* Brazilian Portuguese (pt_BR) - [Leonardo Pinheiro](http://www.eletrikabarbarella.com.br/), [Henrique Vianna](http://henriquevianna.com/), [Caciano Gabriel Batista](http://www.gn10.com.br/)
+* Brazilian Portuguese (pt_BR) - [Leonardo Pinheiro](http://www.eletrikabarbarella.com.br/), [Henrique Vianna](http://henriquevianna.com/), [Caciano Gabriel Batista](http://www.gn10.com.br/), [Gervásio Antônio](http://twitter.com/gervasioantonio)
 * Bulgarian (bg_BG) - [Iliyan Darganov](http://www.darganov.com/)
 * Catalan (ca) - [Jordi Sancho](http://www.qasolutions.net/blog), Robert Buj
 * Chinese, Simplified (zh_CN) - [Soz](http://www.webtoolol.com/)
@@ -61,14 +61,14 @@ It is hard to continue development and support for this plugin without contribut
 * Portuguese (pt_PT) - [Hugo Baeta](http://hugobaeta.com)
 * Russian (ru_RU) - [Dmitry Volotovich](http://www.volnov.com)
 * Romanian (ro_RO) - [Stas Sushkov](http://stas.nerd.ro/)
-* Serbian (sr_RS) - [Vedran](http://www.seorabbit.com/)
+* Serbian (sr_RS) - [Vedran](http://www.seorabbit.com/), [Aleksandar Urošević](http://blog.urosevic.net/)
 * Slovak (sk) - [Patrik Bóna](http://www.mrhead.sk/)
 * Slovene (sl_SI) - [Mihael Simonič](http://smihael.bplaced.net)
 * Spanish (es_ES) - [Jordi Sancho](http://www.qasolutions.net/blog), [Vladimir Prieto](http://vladimir.prie.to/), [Federico Mikaelian](http://www.fedemika.com.ar/), [Matias Baldanza](http://matiasbaldanza.com/)
 * Swedish (sv_SE) - [Fredrik Jonsson](http://www.fredda-o-ac.se/), [the Swedish community](http://wp-support.se/)
 * Thai (th) - [kazama](http://blog.wordthai.com/)
 * Turkish (tr_TR) - [Roman Neumuller](http://katpatuka.wordpress.com), [Hasan Yılmaz](http://hedefturkce.com/), [Emin Buğra Saral](http://www.rahmetli.info/)
-* Ukrainian (uk_UA) - [Andrey Kovba](http://myserver.com.ua/)
+* Ukrainian (uk) - [Andrey Kovba](http://myserver.com.ua/), [Ukrainian WordPress localization team](http://wordpress.co.ua/plugins/contact-form-7.html)
 * Vietnamese (vi) - Thanh Hải, Hà
 
 If you have created your own language pack, or have an update of an existing one, you can send [gettext PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [me](http://ideasilo.wordpress.com/about/) so that I can bundle it into Contact Form 7. You can [download the latest POT file from here](http://plugins.svn.wordpress.org/contact-form-7/trunk/languages/wpcf7.pot).
@@ -98,6 +98,16 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 1. screenshot-1.png
 
 == Changelog ==
+
+= 2.3.1 =
+
+* Fixed: wrongly applying 'autop' filter to message body of HTML-formatted mail.
+* Fixed: possible cause of some Ajax-related troubles.
+* Fixed: wrong HTML format of the result of [response] tag.
+* Fixed: rewrote a few codes for avoiding warnings.
+* Fixed: wrongly applying 'autop' filter to &lt;textarea&gt; contents.
+* You can customize ajax loader image with new wpcf7_ajax_loader filter.
+* Translations for Ukrainian (Ukrainian WordPress localization team), Brazilian Portuguese (Gervásio Antônio) and Serbian (Aleksandar Urošević) have been updated.
 
 = 2.3 =
 

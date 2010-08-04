@@ -1,15 +1,15 @@
 === AddToAny: Share/Bookmark/Email Button ===
 Contributors: micropat
 Tags: sharing, share, sharethis, bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, e-mail, email, seo, button, delicious, google buzz, buzz, google, digg, reddit, facebook, myspace, twitter, stumbleupon, technorati, icon, icons, wpmu, addtoany, add, any
-Requires at least: 2.0
+Requires at least: 2.8
 Tested up to: 3.0
-Stable tag: 0.9.9.5.9
+Stable tag: 0.9.9.6.1
 
 Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, Google Buzz, Digg and many more.
 
 == Description ==
 
-The most complete plugin to help people **share**, **bookmark**, and **email** your posts and pages using **any service**, such as Facebook, Twitter, Google Buzz, Digg, Delicious, and well over 100 more social bookmarking and sharing sites. The button comes with AddToAny's customizable **Smart Menu**, which **places the services visitors use at the top of the menu**, based on each visitor's browsing and usage history.
+The WordPress plugin to help people **share**, **bookmark**, and **email** your posts and pages using **any service**, such as Facebook, Twitter, Google Buzz, Digg, Delicious, and well over 100 more social bookmarking and sharing sites. The plugin comes with AddToAny's customizable **Smart Menu**, which **places the services visitors use at the top of the menu**, based on each visitor's browsing and usage history.
 
 <a href="http://www.addtoany.com/" title="Sharing and bookmarking button widget" target="_blank">Share Button</a> (demo)
 
@@ -25,7 +25,7 @@ Individual **service icons** let you optimize your blog posts for specific socia
 * WordPress optimized, localized (English, Chinese, Spanish, Japanese, French, Portuguese, Italian, Danish, Catalan, Russian, Albanian, Romanian, Belarusian)
 * Many more publisher and user features!
 
-After **years of ongoing development**, close to **1 million downloads**, and **ongoing support** from the community, AddToAny still strives to be the best WordPress plugin for sharing. We hope it's perfect for everyone by version 1.0.
+After **years of ongoing development**, over **1 million downloads**, and **ongoing support** from the community, AddToAny still strives to be the best WordPress plugin for sharing. We hope it's perfect for everyone by version 1.0.
 
 <a href="http://www.addtoany.com/share_save" title="Share" target="_blank">Share this plugin</a>
 
@@ -171,6 +171,21 @@ Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds"
 
 == Changelog ==
 
+= .9.9.6.1 =
+* Fix critical bug introduced in last release that caused an empty shared item to be used on non-single post pages 
+ * Thanks to <a href="http://www.macmanx.com/">James</a> for the report!
+
+= .9.9.6 =
+* Require WordPress 2.8
+ * For WordPress versions 2.0 through 2.7.1 use version .9.9.5.9 (<a href="http://downloads.wordpress.org/plugin/add-to-any.0.9.9.5.9.zip">download .zip</a>) or <a href="http://wordpress.org/extend/plugins/add-to-any/download/">earlier</a>
+* Fix validation problem caused by WordPress' lack of support for CDATA sections in posts
+ * http://core.trac.wordpress.org/ticket/3670 - WordPress fix slated for 3.1, then @todo reevaluate 
+* Replace deprecated functions
+* Internal security improvements (no known issues, just precautionary stuff for rare circumstances)
+* Remove legacy parameters on HREF to accomodate efficient hash params via menu JS
+* Remove extraneous semicolons within STYLE attributes for icon+text button
+* Variable cleanup in _BUTTON and _ICONS functions for legibility
+
 = .9.9.5.9 =
 * Nonce validation for admin form
 * Fixes for debug mode notices
@@ -178,7 +193,7 @@ Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds"
 
 = .9.9.5.8 =
 * Wrap inline JavaScript in CDATA section for better XHTML compliance
-* Depreciate embedded object hiding option in favor of Menu API due to a new automatic workaround and a change in default value
+* Deprecate embedded object hiding option in favor of Menu API due to a new automatic workaround and a change in default value
  * If you need to have AddToAny hide objects (like Flash) to display the AddToAny menu, set a2a_config.hide_embeds = 1; in the Additional Options box
 
 = .9.9.5.7 =
@@ -398,7 +413,7 @@ Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds"
 * Support for themes that do not support modern Loop methods
  * Permalinks now targeted for these older themes
 * AddToAny URI scheme gives precedence to link URL parameter, then Title
-* Sitename & Siteurl parameters depreciated for WP (they are usually redundant)
+* Sitename & Siteurl parameters deprecated for WP (they are usually redundant)
 
 = .9.9.2.2 =
 * Fixed display when all standalone services are removed in admin
@@ -540,7 +555,7 @@ Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds"
 
 = .9.5.2 =
 * Fixed bug in Internet Explorer 6 that caused custom buttons to have a height and width of 0
-* Removed the XHTML depreciated `name` attribute from the button's anchor
+* Removed the XHTML deprecated `name` attribute from the button's anchor
 
 = .9.5.1 =
 * Fixed 1 line to support those without short_open_tag
