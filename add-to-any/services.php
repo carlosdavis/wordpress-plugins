@@ -106,6 +106,10 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "Design Float",
 		"icon" => "designfloat",
 	),
+	"diary_ru" => Array(
+		"name" => "Diary.Ru",
+		"icon" => "diary_ru",
+	),
 	"digg" => Array(
 		"name" => "Digg",
 		"icon" => "digg",
@@ -117,6 +121,10 @@ $A2A_SHARE_SAVE_services = Array(
 	"diigo" => Array(
 		"name" => "Diigo",
 		"icon" => "diigo",
+	),
+	"email" => Array(
+		"name" => "Email",
+		"icon" => "email",
 	),
 	"evernote" => Array(
 		"name" => "Evernote",
@@ -145,10 +153,6 @@ $A2A_SHARE_SAVE_services = Array(
 	"folkd" => Array(
 		"name" => "Folkd",
 		"icon" => "folkd",
-	),
-	"foxiewire" => Array(
-		"name" => "Foxiewire",
-		"icon" => "foxiewire",
 	),
 	"friendfeed" => Array(
 		"name" => "FriendFeed",
@@ -185,10 +189,6 @@ $A2A_SHARE_SAVE_services = Array(
 	"hatena" => Array(
 		"name" => "Hatena",
 		"icon" => "hatena",
-	),
-	"health_ranker" => Array(
-		"name" => "Health Ranker",
-		"icon" => "healthranker",
 	),
 	"hellotxt" => Array(
 		"name" => "HelloTxt",
@@ -446,10 +446,6 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "Symbaloo Feeds",
 		"icon" => "symbaloo",
 	),
-	"taggly" => Array(
-		"name" => "Taggly",
-		"icon" => "taggly",
-	),
 	"tagza" => Array(
 		"name" => "Tagza",
 		"icon" => "tagza",
@@ -474,6 +470,10 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "Tipd",
 		"icon" => "tipd",
 	),
+	"tuenti" => Array(
+		"name" => "Tuenti",
+		"icon" => "tuenti",
+	),
 	"tumblr" => Array(
 		"name" => "Tumblr",
 		"icon" => "tumblr",
@@ -489,6 +489,10 @@ $A2A_SHARE_SAVE_services = Array(
 	"typepad_post" => Array(
 		"name" => "TypePad Post",
 		"icon" => "typepad",
+	),
+	"vk" => Array(
+		"name" => "VK",
+		"icon" => "vk",
 	),
 	"viadeo" => Array(
 		"name" => "Viadeo",
@@ -525,6 +529,10 @@ $A2A_SHARE_SAVE_services = Array(
 	"wykop" => Array(
 		"name" => "Wykop",
 		"icon" => "wykop",
+	),
+	"xing" => Array(
+		"name" => "XING",
+		"icon" => "xing",
 	),
 	"xerpi" => Array(
 		"name" => "Xerpi",

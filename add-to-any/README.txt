@@ -1,9 +1,9 @@
 === AddToAny: Share/Bookmark/Email Button ===
 Contributors: micropat
-Tags: sharing, share, sharethis, bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, e-mail, email, seo, button, delicious, google buzz, buzz, google, digg, reddit, facebook, myspace, twitter, stumbleupon, technorati, icon, icons, wpmu, addtoany, add, any
+Tags: sharing, share, sharethis, bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, email, e-mail, seo, button, delicious, google buzz, buzz, google, digg, reddit, facebook, myspace, twitter, stumbleupon, technorati, icon, icons, wpmu, addtoany, add, any
 Requires at least: 2.8
 Tested up to: 3.0
-Stable tag: 0.9.9.6.1
+Stable tag: 0.9.9.6.4
 
 Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, Google Buzz, Digg and many more.
 
@@ -13,7 +13,7 @@ The WordPress plugin to help people **share**, **bookmark**, and **email** your 
 
 <a href="http://www.addtoany.com/" title="Sharing and bookmarking button widget" target="_blank">Share Button</a> (demo)
 
-The E-mail tab makes it easy to share via Google Gmail, Yahoo! Mail, Hotmail, AOL, and any other web-based e-mailer or desktop program. The **Add to Favorites** button (or Bookmark tab) helps users bookmark using any browser (Internet Explorer, Firefox, Chrome, Safari, Opera, etc.).
+The Email tab makes it easy to share via Google Gmail, Yahoo! Mail, Hotmail, AOL, and any other web-based emailer or desktop program. The **Add to Favorites** button (or Bookmark tab) helps users bookmark using any browser (Internet Explorer, Firefox, Chrome, Safari, Opera, etc.).
 
 Individual **service icons** let you optimize your blog posts for specific social sites.  Choose from over 100 individual services.
 
@@ -165,11 +165,33 @@ Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds"
 
 1. AddToAny Share/Save button, featuring the Open Share Icon
 2. Drop-down menu that appears instantly when visitors use the share button
-3. E-mail tab, with direct links to the most popular web-based e-mailers' auto-filled Compose page, a web-based sender for use with any e-mail address, and a link for desktop email clients
+3. Email tab, with direct links to the most popular web-based emailers' auto-filled Compose page, a web-based sender for use with any email address, and a link for desktop email clients
 4. Settings panel
 5. Color chooser for your AddToAny menus
 
 == Changelog ==
+
+= .9.9.6.4 =
+* Option to toggle displaying at the bottom of excerpts
+* Shorten option descriptions
+* Deprecate button link target option
+* Rearrange menu options by popularity
+
+= .9.9.6.3 =
+* Any Email now a standalone service
+* Other new standalone services
+ * Diary.Ru
+ * Tuenti
+ * VK (VKontakte.ru)
+ * XING
+* Remove defunct services
+
+= .9.9.6.2 =
+* Remove stylesheet on other admin pages
+* Fix RTL support in admin
+* Fix minor bug where Add/Remove Services button reappears after choosing a standalone service in admin 
+* Remove jQuery UI Sortable on other admin pages
+* Portuguese translation updated (by <a href="http://jorgesilva.me/">Jorge</a>
 
 = .9.9.6.1 =
 * Fix critical bug introduced in last release that caused an empty shared item to be used on non-single post pages 
