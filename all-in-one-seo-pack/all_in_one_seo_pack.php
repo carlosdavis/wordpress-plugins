@@ -5,7 +5,7 @@
 Plugin Name: All in One SEO Pack
 Plugin URI: http://semperfiwebdesign.com
 Description: Out-of-the-box SEO for your Wordpress blog. <a href="options-general.php?page=all-in-one-seo-pack/aioseop.class.php">Options configuration panel</a> | <a href="http://wpplugins.com/plugin/50/all-in-one-seo-pack-pro-version">Upgrade to Pro Version</a> | <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtorbert%40gmail%2ecom&item_name=All%20In%20One%20SEO%20Pack&item_number=Support%20Open%20Source&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8">Donate</a> | <a href="http://semperfiwebdesign.com/forum/" >Support</a> |  <a href="https://www.amazon.com/wishlist/1NFQ133FNCOOA/ref=wl_web" target="_blank" title="Amazon Wish List">Amazon Wishlist</a>
-Version: 1.6.12.1
+Version: 1.6.12.2
 Author: Michael Torbert
 Author URI: http://michaeltorbert.com
 */
@@ -590,6 +590,9 @@ $naioseop_options = array(
 "aiosp_enabled" =>0,
 "aiosp_enablecpost" => 0,
 "aiosp_use_tags_as_keywords" =>1,
+"aiosp_seopostcol" =>1,
+"aiosp_seocustptcol" => 0,
+"aiosp_posttypecolumns" => array('post','page'),
 "aiosp_do_log"=>null);
 
 if(get_option('aiosp_post_title_format')){
@@ -631,6 +634,11 @@ function aioseop_activate_pl(){
 	if(get_option('aioseop_options')){
 		$aioseop_options = get_option('aioseop_options');
 		$aioseop_options['aiosp_enabled'] = "0";
+		
+		if(!$aioseop_options['aiosp_posttypecolumns']){
+			$aioseop_options['aiosp_posttypecolumns'] = array('post','page');
+		}
+		
 		update_option('aioseop_options',$aioseop_options);
 	}
 }
@@ -640,7 +648,7 @@ if($aioseop_options['aiosp_can'] == '1' || $aioseop_options['aiosp_can'] == 'on'
 }
 
 function aioseop_get_version(){
-	return '1.6.12.1';
+	return '1.6.12.2';
 }
 
 function add_plugin_row($links, $file) {
@@ -651,7 +659,77 @@ echo '</td>';
 
 }
 
+
 $aiosp = new All_in_One_SEO_Pack();	
+
+////////new stuff
+
+//add_action('quick_edit_custom_box','mys',10,2);
+
+function mys($col, $type){
+	 
+	?>
+	
+	
+	<fieldset class="inline-edit-col-right"><div class="inline-edit-col">
+	    <div class="inline-edit-group">
+	        <label class="alignleft">
+	            <input type="checkbox" value="1" name="aioseops" id="aioseos_check">
+	            <span class="checkbox-title">stuff</span>
+	        </label>
+	    </div>
+	</fieldset>
+	<?php
+}
+
+
+add_action('load-edit.php','addmycolumns',1);
+
+function addmycolumns(){
+	$aioseop_options = get_option('aioseop_options');
+	$aiosp_posttypecolumns = $aioseop_options['aiosp_posttypecolumns'];
+//print_r($aiosp_posttypecolumns);
+
+	if ( !isset($_GET['post_type']) ) $post_type = 'post';
+		else    $post_type = $_GET['post_type'];
+
+
+		if(is_array($aiosp_posttypecolumns) && in_array($post_type,$aiosp_posttypecolumns)) {
+			if($post_type == 'page'){
+				add_action('manage_pages_custom_column', 'aioseop_mrt_pccolumn', 10, 2);
+				add_filter('manage_pages_columns', 'aioseop_mrt_pcolumns');
+
+			}else{
+				add_action('manage_posts_custom_column', 'aioseop_mrt_pccolumn', 10, 2);
+				add_filter('manage_posts_columns', 'aioseop_mrt_pcolumns');
+				}
+			}
+
+		}
+
+
+function aioseop_mrt_pcolumns($aioseopc) {
+    $aioseopc['seotitle'] = __('SEO Title');
+    $aioseopc['seokeywords'] = __('SEO Keywords');
+    $aioseopc['seodesc'] = __('SEO Description');
+    return $aioseopc;
+}
+
+function aioseop_mrt_pccolumn($aioseopcn, $aioseoppi) {
+    if( $aioseopcn == 'seotitle' ) {
+        echo get_post_meta($aioseoppi,'_aioseop_title',TRUE);
+    }
+    if( $aioseopcn == 'seokeywords' ) {
+        echo get_post_meta($aioseoppi,'_aioseop_keywords',TRUE);
+    }
+    if( $aioseopcn == 'seodesc' ) {
+        echo get_post_meta($aioseoppi,'_aioseop_description',TRUE);
+    }
+
+}
+
+
+///////end new stuff
 add_filter('wp_list_pages', 'aioseop_list_pages');
 add_action('edit_post', array($aiosp, 'post_meta_tags'));
 add_action('publish_post', array($aiosp, 'post_meta_tags'));

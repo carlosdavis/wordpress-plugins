@@ -33,6 +33,20 @@ class WPCF7_ContactForm {
 		return false;
 	}
 
+	function clear_post() {
+		$fes = $this->form_scan_shortcode();
+
+		foreach ( $fes as $fe ) {
+			$name = $fe['name'];
+
+			if ( empty( $name ) )
+				continue;
+
+			if ( isset( $_POST[$name] ) )
+				unset( $_POST[$name] );
+		}
+	}
+
 	/* Generating Form HTML */
 
 	function form_html() {
@@ -46,12 +60,11 @@ class WPCF7_ContactForm {
 		$url .= '#' . $this->unit_tag;
 
 		$url = apply_filters( 'wpcf7_form_action_url', $url );
-		$url = esc_url_raw( $url );
-
 		$enctype = apply_filters( 'wpcf7_form_enctype', '' );
+		$class = apply_filters( 'wpcf7_form_class_attr', 'wpcf7-form' );
 
-		$form .= '<form action="' . $url
-			. '" method="post" class="wpcf7-form"' . $enctype . '>' . "\n";
+		$form .= '<form action="' . esc_url_raw( $url ) . '" method="post"'
+			. ' class="' . esc_attr( $class ) . '"' . $enctype . '>' . "\n";
 		$form .= '<div style="display: none;">' . "\n";
 		$form .= '<input type="hidden" name="_wpcf7" value="'
 			. esc_attr( $this->id ) . '" />' . "\n";
@@ -122,8 +135,10 @@ class WPCF7_ContactForm {
 
 		$form = $this->form;
 
-		if ( WPCF7_AUTOP )
+		if ( WPCF7_AUTOP ) {
+			$form = $wpcf7_shortcode_manager->normalize_shortcode( $form );
 			$form = wpcf7_autop( $form );
+		}
 
 		$form = $wpcf7_shortcode_manager->do_shortcode( $form );
 		$this->scanned_form_tags = $wpcf7_shortcode_manager->scanned_tags;
@@ -582,6 +597,43 @@ function wpcf7_contact_form_default_pack( $locale = null ) {
 		$l10n['wpcf7'] = $mo_orig;
 
 	return $contact_form;
+}
+
+function wpcf7_get_current_contact_form() {
+	global $wpcf7_contact_form;
+
+	if ( ! is_a( $wpcf7_contact_form, 'WPCF7_ContactForm' ) )
+		return null;
+
+	return $wpcf7_contact_form;
+}
+
+function wpcf7_is_posted() {
+	if ( ! $contact_form = wpcf7_get_current_contact_form() )
+		return false;
+
+	return $contact_form->is_posted();
+}
+
+function wpcf7_get_validation_error( $name ) {
+	if ( ! $contact_form = wpcf7_get_current_contact_form() )
+		return '';
+
+	return $contact_form->validation_error( $name );
+}
+
+function wpcf7_get_message( $status ) {
+	if ( ! $contact_form = wpcf7_get_current_contact_form() )
+		return '';
+
+	return $contact_form->message( $status );
+}
+
+function wpcf7_scan_shortcode( $cond = null ) {
+	if ( ! $contact_form = wpcf7_get_current_contact_form() )
+		return null;
+
+	return $contact_form->form_scan_shortcode( $cond );
 }
 
 ?>

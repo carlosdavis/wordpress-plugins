@@ -9,8 +9,6 @@ wpcf7_add_shortcode( 'captchac', 'wpcf7_captcha_shortcode_handler', true );
 wpcf7_add_shortcode( 'captchar', 'wpcf7_captcha_shortcode_handler', true );
 
 function wpcf7_captcha_shortcode_handler( $tag ) {
-	global $wpcf7_contact_form;
-
 	if ( ! is_array( $tag ) )
 		return '';
 
@@ -22,9 +20,7 @@ function wpcf7_captcha_shortcode_handler( $tag ) {
 	if ( empty( $name ) )
 		return '';
 
-	$validation_error = '';
-	if ( is_a( $wpcf7_contact_form, 'WPCF7_ContactForm' ) )
-		$validation_error = $wpcf7_contact_form->validation_error( $name );
+	$validation_error = wpcf7_get_validation_error( $name );
 
 	$atts = '';
 	$id_att = '';
@@ -60,7 +56,7 @@ function wpcf7_captcha_shortcode_handler( $tag ) {
 		$atts .= ' class="' . trim( $class_att ) . '"';
 
 	// Value.
-	if ( is_a( $wpcf7_contact_form, 'WPCF7_ContactForm' ) && $wpcf7_contact_form->is_posted() )
+	if ( wpcf7_is_posted() )
 		$value = '';
 	else
 		$value = $values[0];
@@ -117,8 +113,6 @@ function wpcf7_captcha_shortcode_handler( $tag ) {
 add_filter( 'wpcf7_validate_captchar', 'wpcf7_captcha_validation_filter', 10, 2 );
 
 function wpcf7_captcha_validation_filter( $result, $tag ) {
-	global $wpcf7_contact_form;
-
 	$type = $tag['type'];
 	$name = $tag['name'];
 
@@ -128,7 +122,7 @@ function wpcf7_captcha_validation_filter( $result, $tag ) {
 
 	if ( ! wpcf7_check_captcha( $_POST[$captchac], $_POST[$name] ) ) {
 		$result['valid'] = false;
-		$result['reason'][$name] = $wpcf7_contact_form->message( 'captcha_not_match' );
+		$result['reason'][$name] = wpcf7_get_message( 'captcha_not_match' );
 	}
 
 	wpcf7_remove_captcha( $_POST[$captchac] );
@@ -143,16 +137,10 @@ add_filter( 'wpcf7_ajax_onload', 'wpcf7_captcha_ajax_refill' );
 add_filter( 'wpcf7_ajax_json_echo', 'wpcf7_captcha_ajax_refill' );
 
 function wpcf7_captcha_ajax_refill( $items ) {
-	global $wpcf7_contact_form;
-
-	if ( ! is_a( $wpcf7_contact_form, 'WPCF7_ContactForm' ) )
-		return $items;
-
 	if ( ! is_array( $items ) )
 		return $items;
 
-	$fes = $wpcf7_contact_form->form_scan_shortcode(
-		array( 'type' => 'captchac' ) );
+	$fes = wpcf7_scan_shortcode( array( 'type' => 'captchac' ) );
 
 	if ( empty( $fes ) )
 		return $items;
@@ -393,6 +381,9 @@ function wpcf7_remove_captcha( $prefix ) {
 	if ( ! wpcf7_init_captcha() )
 		return false;
 	$captcha =& $wpcf7_captcha;
+
+	if ( preg_match( '/[^0-9]/', $prefix ) ) // Contact Form 7 generates $prefix with mt_rand()
+		return false;
 
 	$captcha->remove( $prefix );
 }

@@ -10,8 +10,6 @@ wpcf7_add_shortcode( 'checkbox*', 'wpcf7_checkbox_shortcode_handler', true );
 wpcf7_add_shortcode( 'radio', 'wpcf7_checkbox_shortcode_handler', true );
 
 function wpcf7_checkbox_shortcode_handler( $tag ) {
-	global $wpcf7_contact_form;
-
 	if ( ! is_array( $tag ) )
 		return '';
 
@@ -65,35 +63,40 @@ function wpcf7_checkbox_shortcode_handler( $tag ) {
 		}
 	}
 
+	$multiple = false;
+	$exclusive = (bool) preg_grep( '%^exclusive$%', $options );
+
+	if ( 'checkbox' == $type || 'checkbox*' == $type ) {
+		$multiple = ! $exclusive;
+	} else { // radio
+		$exclusive = false;
+	}
+
+	if ( $exclusive )
+		$class_att .= ' wpcf7-exclusive-checkbox';
+
 	if ( $id_att )
 		$atts .= ' id="' . trim( $id_att ) . '"';
 
 	if ( $class_att )
 		$atts .= ' class="' . trim( $class_att ) . '"';
 
-	$multiple = preg_match( '/^checkbox[*]?$/', $type ) && ! preg_grep( '%^exclusive$%', $options );
-
 	$html = '';
-
-	if ( preg_match( '/^checkbox[*]?$/', $type ) && ! $multiple && wpcf7_script_is() )
-		$onclick = ' onclick="wpcf7ExclusiveCheckbox(this);"';
-	else
-		$onclick = '';
 
 	$input_type = rtrim( $type, '*' );
 
-	$posted = is_a( $wpcf7_contact_form, 'WPCF7_ContactForm' ) && $wpcf7_contact_form->is_posted();
+	$posted = wpcf7_is_posted();
 
 	foreach ( $values as $key => $value ) {
 		$checked = false;
 
-		if ( in_array( $key + 1, (array) $defaults ) )
-			$checked = true;
-
-		if ( $posted) {
+		if ( $posted ) {
 			if ( $multiple && in_array( esc_sql( $value ), (array) $_POST[$name] ) )
 				$checked = true;
 			if ( ! $multiple && $_POST[$name] == esc_sql( $value ) )
+				$checked = true;
+		} else {
+			if ( in_array( $key + 1, (array) $defaults ) )
 				$checked = true;
 		}
 
@@ -113,9 +116,9 @@ function wpcf7_checkbox_shortcode_handler( $tag ) {
 
 		if ( $label_first ) { // put label first, input last
 			$item = '<span class="wpcf7-list-item-label">' . esc_html( $label ) . '</span>&nbsp;';
-			$item .= '<input type="' . $input_type . '" name="' . $name . ( $multiple ? '[]' : '' ) . '" value="' . esc_attr( $value ) . '"' . $checked . $tabindex . $onclick . ' />';
+			$item .= '<input type="' . $input_type . '" name="' . $name . ( $multiple ? '[]' : '' ) . '" value="' . esc_attr( $value ) . '"' . $checked . $tabindex . ' />';
 		} else {
-			$item = '<input type="' . $input_type . '" name="' . $name . ( $multiple ? '[]' : '' ) . '" value="' . esc_attr( $value ) . '"' . $checked . $tabindex . $onclick . ' />';
+			$item = '<input type="' . $input_type . '" name="' . $name . ( $multiple ? '[]' : '' ) . '" value="' . esc_attr( $value ) . '"' . $checked . $tabindex . ' />';
 			$item .= '&nbsp;<span class="wpcf7-list-item-label">' . esc_html( $label ) . '</span>';
 		}
 
@@ -128,9 +131,7 @@ function wpcf7_checkbox_shortcode_handler( $tag ) {
 
 	$html = '<span' . $atts . '>' . $html . '</span>';
 
-	$validation_error = '';
-	if ( is_a( $wpcf7_contact_form, 'WPCF7_ContactForm' ) )
-		$validation_error = $wpcf7_contact_form->validation_error( $name );
+	$validation_error = wpcf7_get_validation_error( $name );
 
 	$html = '<span class="wpcf7-form-control-wrap ' . $name . '">' . $html . $validation_error . '</span>';
 
@@ -145,8 +146,6 @@ add_filter( 'wpcf7_validate_checkbox*', 'wpcf7_checkbox_validation_filter', 10, 
 add_filter( 'wpcf7_validate_radio', 'wpcf7_checkbox_validation_filter', 10, 2 );
 
 function wpcf7_checkbox_validation_filter( $result, $tag ) {
-	global $wpcf7_contact_form;
-
 	$type = $tag['type'];
 	$name = $tag['name'];
 	$values = $tag['values'];
@@ -166,7 +165,7 @@ function wpcf7_checkbox_validation_filter( $result, $tag ) {
 	if ( 'checkbox*' == $type ) {
 		if ( empty( $_POST[$name] ) ) {
 			$result['valid'] = false;
-			$result['reason'][$name] = $wpcf7_contact_form->message( 'invalid_required' );
+			$result['reason'][$name] = wpcf7_get_message( 'invalid_required' );
 		}
 	}
 

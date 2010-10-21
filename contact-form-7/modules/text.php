@@ -11,8 +11,6 @@ wpcf7_add_shortcode( 'email', 'wpcf7_text_shortcode_handler', true );
 wpcf7_add_shortcode( 'email*', 'wpcf7_text_shortcode_handler', true );
 
 function wpcf7_text_shortcode_handler( $tag ) {
-	global $wpcf7_contact_form;
-
 	if ( ! is_array( $tag ) )
 		return '';
 
@@ -30,6 +28,7 @@ function wpcf7_text_shortcode_handler( $tag ) {
 	$size_att = '';
 	$maxlength_att = '';
 	$tabindex_att = '';
+	$title_att = '';
 
 	$class_att .= ' wpcf7-text';
 
@@ -56,6 +55,17 @@ function wpcf7_text_shortcode_handler( $tag ) {
 		}
 	}
 
+	$value = (string) reset( $values );
+
+	if ( wpcf7_script_is() && $value && preg_grep( '%^watermark$%', $options ) ) {
+		$class_att .= ' wpcf7-use-title-as-watermark';
+		$title_att .= sprintf( ' %s', $value );
+		$value = '';
+	}
+
+	if ( wpcf7_is_posted() )
+		$value = stripslashes_deep( $_POST[$name] );
+
 	if ( $id_att )
 		$atts .= ' id="' . trim( $id_att ) . '"';
 
@@ -73,21 +83,12 @@ function wpcf7_text_shortcode_handler( $tag ) {
 	if ( '' !== $tabindex_att )
 		$atts .= sprintf( ' tabindex="%d"', $tabindex_att );
 
-	// Value
-	if ( is_a( $wpcf7_contact_form, 'WPCF7_ContactForm' ) && $wpcf7_contact_form->is_posted() ) {
-		if ( isset( $_POST['_wpcf7_mail_sent'] ) && $_POST['_wpcf7_mail_sent']['ok'] )
-			$value = '';
-		else
-			$value = stripslashes_deep( $_POST[$name] );
-	} else {
-		$value = isset( $values[0] ) ? $values[0] : '';
-	}
+	if ( $title_att )
+		$atts .= sprintf( ' title="%s"', trim( esc_attr( $title_att ) ) );
 
 	$html = '<input type="text" name="' . $name . '" value="' . esc_attr( $value ) . '"' . $atts . ' />';
 
-	$validation_error = '';
-	if ( is_a( $wpcf7_contact_form, 'WPCF7_ContactForm' ) )
-		$validation_error = $wpcf7_contact_form->validation_error( $name );
+	$validation_error = wpcf7_get_validation_error( $name );
 
 	$html = '<span class="wpcf7-form-control-wrap ' . $name . '">' . $html . $validation_error . '</span>';
 
@@ -103,8 +104,6 @@ add_filter( 'wpcf7_validate_email', 'wpcf7_text_validation_filter', 10, 2 );
 add_filter( 'wpcf7_validate_email*', 'wpcf7_text_validation_filter', 10, 2 );
 
 function wpcf7_text_validation_filter( $result, $tag ) {
-	global $wpcf7_contact_form;
-
 	$type = $tag['type'];
 	$name = $tag['name'];
 
@@ -113,17 +112,17 @@ function wpcf7_text_validation_filter( $result, $tag ) {
 	if ( 'text*' == $type ) {
 		if ( '' == $_POST[$name] ) {
 			$result['valid'] = false;
-			$result['reason'][$name] = $wpcf7_contact_form->message( 'invalid_required' );
+			$result['reason'][$name] = wpcf7_get_message( 'invalid_required' );
 		}
 	}
 
 	if ( 'email' == $type || 'email*' == $type ) {
 		if ( 'email*' == $type && '' == $_POST[$name] ) {
 			$result['valid'] = false;
-			$result['reason'][$name] = $wpcf7_contact_form->message( 'invalid_required' );
+			$result['reason'][$name] = wpcf7_get_message( 'invalid_required' );
 		} elseif ( '' != $_POST[$name] && ! is_email( $_POST[$name] ) ) {
 			$result['valid'] = false;
-			$result['reason'][$name] = $wpcf7_contact_form->message( 'invalid_email' );
+			$result['reason'][$name] = wpcf7_get_message( 'invalid_email' );
 		}
 	}
 
@@ -181,7 +180,7 @@ function wpcf7_tg_pane_text_and_email( $type = 'text' ) {
 </tr>
 
 <tr>
-<td><?php echo esc_html( __( 'Akismet', 'wpcf7' ) ); ?> (<?php echo esc_html( __( 'optional', 'wpcf7' ) ); ?>)<br />
+<td colspan="2"><?php echo esc_html( __( 'Akismet', 'wpcf7' ) ); ?> (<?php echo esc_html( __( 'optional', 'wpcf7' ) ); ?>)<br />
 <?php if ( 'text' == $type ) : ?>
 <input type="checkbox" name="akismet:author" class="exclusive option" />&nbsp;<?php echo esc_html( __( "This field requires author's name", 'wpcf7' ) ); ?><br />
 <input type="checkbox" name="akismet:author_url" class="exclusive option" />&nbsp;<?php echo esc_html( __( "This field requires author's URL", 'wpcf7' ) ); ?>
@@ -189,8 +188,14 @@ function wpcf7_tg_pane_text_and_email( $type = 'text' ) {
 <input type="checkbox" name="akismet:author_email" class="option" />&nbsp;<?php echo esc_html( __( "This field requires author's email address", 'wpcf7' ) ); ?>
 <?php endif; ?>
 </td>
+</tr>
 
+<tr>
 <td><?php echo esc_html( __( 'Default value', 'wpcf7' ) ); ?> (<?php echo esc_html( __( 'optional', 'wpcf7' ) ); ?>)<br /><input type="text" name="values" class="oneline" /></td>
+
+<td>
+<br /><input type="checkbox" name="watermark" class="option" />&nbsp;<?php echo esc_html( __( 'Use this text as watermark?', 'wpcf7' ) ); ?>
+</td>
 </tr>
 </table>
 

@@ -9,8 +9,6 @@ wpcf7_add_shortcode( 'file', 'wpcf7_file_shortcode_handler', true );
 wpcf7_add_shortcode( 'file*', 'wpcf7_file_shortcode_handler', true );
 
 function wpcf7_file_shortcode_handler( $tag ) {
-	global $wpcf7_contact_form;
-
 	if ( ! is_array( $tag ) )
 		return '';
 
@@ -25,6 +23,7 @@ function wpcf7_file_shortcode_handler( $tag ) {
 	$atts = '';
 	$id_att = '';
 	$class_att = '';
+	$size_att = '';
 	$tabindex_att = '';
 
 	$class_att .= ' wpcf7-file';
@@ -39,6 +38,9 @@ function wpcf7_file_shortcode_handler( $tag ) {
 		} elseif ( preg_match( '%^class:([-0-9a-zA-Z_]+)$%', $option, $matches ) ) {
 			$class_att .= ' ' . $matches[1];
 
+		} elseif ( preg_match( '%^([0-9]*)[/x]([0-9]*)$%', $option, $matches ) ) {
+			$size_att = (int) $matches[1];
+
 		} elseif ( preg_match( '%^tabindex:(\d+)$%', $option, $matches ) ) {
 			$tabindex_att = (int) $matches[1];
 
@@ -51,14 +53,17 @@ function wpcf7_file_shortcode_handler( $tag ) {
 	if ( $class_att )
 		$atts .= ' class="' . trim( $class_att ) . '"';
 
+	if ( $size_att )
+		$atts .= ' size="' . $size_att . '"';
+	else
+		$atts .= ' size="40"'; // default size
+
 	if ( '' !== $tabindex_att )
 		$atts .= sprintf( ' tabindex="%d"', $tabindex_att );
 
 	$html = '<input type="file" name="' . $name . '"' . $atts . ' value="1" />';
 
-	$validation_error = '';
-	if ( is_a( $wpcf7_contact_form, 'WPCF7_ContactForm' ) )
-		$validation_error = $wpcf7_contact_form->validation_error( $name );
+	$validation_error = wpcf7_get_validation_error( $name );
 
 	$html = '<span class="wpcf7-form-control-wrap ' . $name . '">' . $html . $validation_error . '</span>';
 
@@ -71,10 +76,7 @@ function wpcf7_file_shortcode_handler( $tag ) {
 add_filter( 'wpcf7_form_enctype', 'wpcf7_file_form_enctype_filter' );
 
 function wpcf7_file_form_enctype_filter( $enctype ) {
-	global $wpcf7_contact_form;
-
-	$multipart = (bool) $wpcf7_contact_form->form_scan_shortcode(
-		array( 'type' => array( 'file', 'file*' ) ) );
+	$multipart = (bool) wpcf7_scan_shortcode( array( 'type' => array( 'file', 'file*' ) ) );
 
 	if ( $multipart )
 		$enctype = ' enctype="multipart/form-data"';
@@ -89,8 +91,6 @@ add_filter( 'wpcf7_validate_file', 'wpcf7_file_validation_filter', 10, 2 );
 add_filter( 'wpcf7_validate_file*', 'wpcf7_file_validation_filter', 10, 2 );
 
 function wpcf7_file_validation_filter( $result, $tag ) {
-	global $wpcf7_contact_form;
-
 	$type = $tag['type'];
 	$name = $tag['name'];
 	$options = (array) $tag['options'];
@@ -99,13 +99,13 @@ function wpcf7_file_validation_filter( $result, $tag ) {
 
 	if ( $file['error'] && UPLOAD_ERR_NO_FILE != $file['error'] ) {
 		$result['valid'] = false;
-		$result['reason'][$name] = $wpcf7_contact_form->message( 'upload_failed_php_error' );
+		$result['reason'][$name] = wpcf7_get_message( 'upload_failed_php_error' );
 		return $result;
 	}
 
 	if ( empty( $file['tmp_name'] ) && 'file*' == $type ) {
 		$result['valid'] = false;
-		$result['reason'][$name] = $wpcf7_contact_form->message( 'invalid_required' );
+		$result['reason'][$name] = wpcf7_get_message( 'invalid_required' );
 		return $result;
 	}
 
@@ -150,7 +150,7 @@ function wpcf7_file_validation_filter( $result, $tag ) {
 
 	if ( ! preg_match( $file_type_pattern, $file['name'] ) ) {
 		$result['valid'] = false;
-		$result['reason'][$name] = $wpcf7_contact_form->message( 'upload_file_type_invalid' );
+		$result['reason'][$name] = wpcf7_get_message( 'upload_file_type_invalid' );
 		return $result;
 	}
 
@@ -158,7 +158,7 @@ function wpcf7_file_validation_filter( $result, $tag ) {
 
 	if ( $file['size'] > $allowed_size ) {
 		$result['valid'] = false;
-		$result['reason'][$name] = $wpcf7_contact_form->message( 'upload_file_too_large' );
+		$result['reason'][$name] = wpcf7_get_message( 'upload_file_too_large' );
 		return $result;
 	}
 
@@ -180,14 +180,15 @@ function wpcf7_file_validation_filter( $result, $tag ) {
 
 	if ( false === @move_uploaded_file( $file['tmp_name'], $new_file ) ) {
 		$result['valid'] = false;
-		$result['reason'][$name] = $wpcf7_contact_form->message( 'upload_failed' );
+		$result['reason'][$name] = wpcf7_get_message( 'upload_failed' );
 		return $result;
 	}
 
 	// Make sure the uploaded file is only readable for the owner process
 	@chmod( $new_file, 0400 );
 
-	$wpcf7_contact_form->uploaded_files[$name] = $new_file;
+	if ( $contact_form = wpcf7_get_current_contact_form() )
+		$contact_form->uploaded_files[$name] = $new_file;
 
 	if ( ! isset( $_POST[$name] ) )
 		$_POST[$name] = $filename;

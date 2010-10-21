@@ -8,8 +8,6 @@
 wpcf7_add_shortcode( 'quiz', 'wpcf7_quiz_shortcode_handler', true );
 
 function wpcf7_quiz_shortcode_handler( $tag ) {
-	global $wpcf7_contact_form;
-
 	if ( ! is_array( $tag ) )
 		return '';
 
@@ -80,9 +78,7 @@ function wpcf7_quiz_shortcode_handler( $tag ) {
 	$html .= '<input type="text" name="' . $name . '"' . $atts . ' />';
 	$html .= '<input type="hidden" name="_wpcf7_quiz_answer_' . $name . '" value="' . wp_hash( $answer, 'wpcf7_quiz' ) . '" />';
 
-	$validation_error = '';
-	if ( is_a( $wpcf7_contact_form, 'WPCF7_ContactForm' ) )
-		$validation_error = $wpcf7_contact_form->validation_error( $name );
+	$validation_error = wpcf7_get_validation_error( $name );
 
 	$html = '<span class="wpcf7-form-control-wrap ' . $name . '">' . $html . $validation_error . '</span>';
 
@@ -95,8 +91,6 @@ function wpcf7_quiz_shortcode_handler( $tag ) {
 add_filter( 'wpcf7_validate_quiz', 'wpcf7_quiz_validation_filter', 10, 2 );
 
 function wpcf7_quiz_validation_filter( $result, $tag ) {
-	global $wpcf7_contact_form;
-
 	$type = $tag['type'];
 	$name = $tag['name'];
 
@@ -105,7 +99,7 @@ function wpcf7_quiz_validation_filter( $result, $tag ) {
 	$expected_hash = $_POST['_wpcf7_quiz_answer_' . $name];
 	if ( $answer_hash != $expected_hash ) {
 		$result['valid'] = false;
-		$result['reason'][$name] = $wpcf7_contact_form->message( 'quiz_answer_not_correct' );
+		$result['reason'][$name] = wpcf7_get_message( 'quiz_answer_not_correct' );
 	}
 
 	return $result;
@@ -118,16 +112,10 @@ add_filter( 'wpcf7_ajax_onload', 'wpcf7_quiz_ajax_refill' );
 add_filter( 'wpcf7_ajax_json_echo', 'wpcf7_quiz_ajax_refill' );
 
 function wpcf7_quiz_ajax_refill( $items ) {
-	global $wpcf7_contact_form;
-
-	if ( ! is_a( $wpcf7_contact_form, 'WPCF7_ContactForm' ) )
-		return $items;
-
 	if ( ! is_array( $items ) )
 		return $items;
 
-	$fes = $wpcf7_contact_form->form_scan_shortcode(
-		array( 'type' => 'quiz' ) );
+	$fes = wpcf7_scan_shortcode( array( 'type' => 'quiz' ) );
 
 	if ( empty( $fes ) )
 		return $items;

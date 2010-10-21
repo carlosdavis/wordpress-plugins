@@ -2,7 +2,7 @@
 
 class All_in_One_SEO_Pack {
 	
- 	var $version = "1.6.12.1";
+ 	var $version = "1.6.12.2";
  	
  	/** Max numbers of chars in auto-generated description */
  	var $maximum_description_length = 160;
@@ -1371,6 +1371,9 @@ if (function_exists('load_plugin_textdomain')) {
 					"aiosp_home_meta_tags"=>'',
 					"aiosp_enabled" =>0,
 					"aiosp_use_tags_as_keywords" =>1,
+					"aiosp_seopostcol" => 1,
+					"aiosp_seocustptcol" => 0,
+					"aiosp_posttypecolumns" => array('post','page'),
 					"aiosp_do_log"=>null);
 				update_option('aioseop_options', $res_aioseop_options);
 			}
@@ -1414,6 +1417,9 @@ if (function_exists('load_plugin_textdomain')) {
 				$aioseop_options['aiosp_do_log'] = $_POST['aiosp_do_log'];
 				$aioseop_options['aiosp_enabled'] = $_POST['aiosp_enabled'];
 				$aioseop_options['aiosp_use_tags_as_keywords'] = $_POST['aiosp_use_tags_as_keywords'];			
+				$aioseop_options['aiosp_seopostcol'] = $_POST['aiosp_seopostcol'];
+				$aioseop_options['aiosp_seocustptcol'] = $_POST['aiosp_seocustptcol'];
+				$aioseop_options['aiosp_posttypecolumns'] = $_POST['aiosp_posttypecolumns'];
 			
 				update_option('aioseop_options', $aioseop_options);
 			
@@ -1440,9 +1446,12 @@ if (function_exists('load_plugin_textdomain')) {
 ?>
 	<div id="dropmessage" class="updated" style="display:none;"></div>
 	<div class="wrap">
+		
 		<h2><?php _e('All in One SEO Plugin Options', 'all_in_one_seo_pack'); ?></h2>
 		by <strong>Michael Torbert</strong> of <strong>Semper Fi Web Design</strong>
 		<p>
+			<div style="float:left;">
+			
 		<?php //_e("This is version ", 'all_in_one_seo_pack') ?><?php //_e("$this->version ", 'all_in_one_seo_pack') ?>
 &nbsp;<a target="_blank" title="<?php _e('All in One SEO Plugin Release History', 'all_in_one_seo_pack')?>"
 href="http://semperfiwebdesign.com/documentation/all-in-one-seo-pack/all-in-one-seo-pack-release-history/"><?php _e("Changelog", 'all_in_one_seo_pack')?>
@@ -1450,11 +1459,27 @@ href="http://semperfiwebdesign.com/documentation/all-in-one-seo-pack/all-in-one-
 | <a target="_blank" title="<?php _e('FAQ', 'all_in_one_seo_pack') ?>"
 href="http://semperfiwebdesign.com/documentation/all-in-one-seo-pack/all-in-one-seo-faq/"><?php _e('FAQ', 'all_in_one_seo_pack') ?></a>
 | <a target="_blank" title="<?php _e('All in One SEO Plugin Support Forum', 'all_in_one_seo_pack') ?>"
-href="http://semperfiwebdesign.com/portfolio/wordpress/wordpress-plugins/forum/"><?php _e('Support', 'all_in_one_seo_pack') ?></a>
+href="http://semperfiwebdesign.com/forum/"><?php _e('Support', 'all_in_one_seo_pack') ?></a>
 | <a target="_blank" title="<?php _e('All in One SEO Plugin Translations', 'all_in_one_seo_pack') ?>"
 href="http://semperfiwebdesign.com/documentation/all-in-one-seo-pack/translations-for-all-in-one-seo-pack/"><?php _e('Translations', 'all_in_one_seo_pack') ?></a>
 | <strong><a target="_blank" title="<?php _e('Pro Version', 'all_in_one_seo_pack') ?>"
 href="http://wpplugins.com/plugin/50/all-in-one-seo-pack-pro-version"><?php _e('UPGRADE TO PRO VERSION', 'all_in_one_seo_pack') ?></a></strong>
+</div>
+
+<div style="float:left;width:370px;margin-left:10px;">
+	<form action="http://semperfiwebdesign.us1.list-manage.com/subscribe/post?u=794674d3d54fdd912f961ef14&amp;id=af0a96d3d9" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+		<span>Join our mailing list for tips, tricks, and WordPress secrets.<em><strong>Sign up today and receive a free copy of the e-book 5 SEO Tips for WordPress</strong></em>.</span>
+		<div>
+	<label for="mce-EMAIL">Email Address </label>
+	<input type="text" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+
+		
+			<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn">
+			</div>
+	</form>
+	</div>
+	<div stlye="clear:both;">
+
 <br />
 
 <!--<div style="width:75%;background-color:yellow;">
@@ -1494,6 +1519,31 @@ href="http://twitter.com/michaeltorbert/"><img src="<?php //echo WP_PLUGIN_URL; 
 		<a target="_blank" title="PageLines Themes" href="http://www.pagelines.com/wpthemes/"><img src="<?php echo WP_PLUGIN_URL; ?>/all-in-one-seo-pack/images/pagelines.jpg" alt="<?php _e('Pagelines Themes', 'all_in_one_seo_pack') ?>" /></a>
 		<a target="_blank" title="WhiteHouse" href="http://www.pagelines.com/wpthemes/"><img src="<?php echo WP_PLUGIN_URL; ?>/all-in-one-seo-pack/images/whitehouse.jpg" alt="<?php _e('WhiteHouse theme', 'all_in_one_seo_pack') ?>" /></a>
 	</div>
+
+	<div style="float:left;background-color:white;padding:10px 10px 10px 10px;border:1px solid #ddd"> 
+			<div style="width:423px;height:130px"> 
+	    <h3>The Ultimate WordPress Backup Solution</h3> 
+	    <p>Running on <em>thousands</em> of sites, <a href="http://pluginbuddy.com/wordpress-backup/" target="_blank">BackupBuddy</a> is an all-in-one solution for <strong>WordPress</strong> <strong>backups, restoration, &amp; migration</strong>. Whether you’re a blogger or developer, this plugin is sure to bring you peace of mind &amp; added safety in the event of data loss. </p> 
+	    	</div> 
+			<a title="Backup WordPress Easily" href="http://pluginbuddy.com/wordpress-backup/" target="_blank"><img src="http://ithemes.com/graphics/ads/bb-AIO-ad.png" alt="Backup WordPress Easily"></a> 
+    </div>
+
+<!--
+	<div style="float:left;background-color:white;padding: 10px 10px 10px 10px;border: 1px solid #ddd;">
+		<div style="width:365px;height:130px;">
+			
+			<form action="http://semperfiwebdesign.us1.list-manage.com/subscribe/post?u=794674d3d54fdd912f961ef14&amp;id=af0a96d3d9" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+				<span>Join our mailing list for tips, tricks, and WordPress secrets. Also receive discounts on top commercial plugins and themes.<br /><em><strong>Sign up today and receive a free copy of the e-book 5 SEO Tips for WordPress</strong></em>.</span>
+			<div class="mc-field-group">
+			<label for="mce-EMAIL">Email Address </label>
+			<input type="text" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+			</div>
+				
+					<div><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn"></div>
+			</form>
+</div>
+</div>
+-->
 </div>
 <div style="clear:both";></div>
 <!--
@@ -1688,7 +1738,7 @@ if(!get_option('aioseop_options')){
 <tr>
 <th scope="row" style="text-align:right; vertical-align:top;">
 <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'all_in_one_seo_pack')?>" onclick="toggleVisibility('aiosp_donate_tip');">
-<?php _e('I enjoy this plugin and have made a donation:', 'all_in_one_seo_pack')?>
+<?php _e('I enjoy this plugin and have made a donation:', 'all_in_one_seo_pack'); ?>
 </a>
 </td>
 <td>
@@ -1704,13 +1754,13 @@ _e('All donations support continued development of this free software.', 'all_in
 
 <tr>
 <th scope="row" style="text-align:right; vertical-align:top;">
-<a style="cursor:pointer;" title="<?php _e('Click for Help!', 'all_in_one_seo_pack')?>" onclick="toggleVisibility('aiosp_enabled_tip');">
+<a style="cursor:pointer;" title="<?php _e('Click for Help!', 'all_in_one_seo_pack'); ?>" onclick="toggleVisibility('aiosp_enabled_tip');">
 <?php _e('Plugin Status:', 'all_in_one_seo_pack')?>
 </a>
 </td>
 <td>
-<input type="radio" name="aiosp_enabled" value="1" <?php if($aioseop_options['aiosp_enabled']) echo "checked"?> > Enabled<br>
-<input type="radio" name="aiosp_enabled" value="0" <?php if(!$aioseop_options['aiosp_enabled']) echo "checked"?>> Disabled
+<input type="radio" name="aiosp_enabled" value="1" <?php if($aioseop_options['aiosp_enabled']) echo "checked"?> > <?php _e('Enabled', 'all_in_one_seo_pack'); ?><br>
+<input type="radio" name="aiosp_enabled" value="0" <?php if(!$aioseop_options['aiosp_enabled']) echo "checked"?>> <?php _e('Disabled', 'all_in_one_seo_pack'); ?>
 <div style="max-width:500px; text-align:left; display:none" id="aiosp_enabled_tip">
 <?php
 _e('All in One SEO Pack must be enabled for use.', 'all_in_one_seo_pack');
@@ -2016,6 +2066,33 @@ _e('Check this if you want your enable AIOSEOP support for Custom Post Types on 
 </td>
 </tr>
 
+<tr>
+<th scope="row" style="text-align:right; vertical-align:top;">
+<a style="cursor:pointer;" title="<?php _e('Click for Help!', 'all_in_one_seo_pack')?>" onclick="toggleVisibility('123_tip');">
+<?php _e('Custom Post Types for SEO Column Support:', 'all_in_one_seo_pack')?>
+</td>
+<td><select name="aiosp_posttypecolumns[]" MULTIPLE style="height:70px;width:300px;">
+<?php
+$typeswehave = array('post,revision'); //$aioseop_options['aiosp_posttypecolumns'];
+$post_types=get_post_types('','names'); 
+$rempost = array('attachment','revision','nav_menu_item');
+$post_types = array_diff($post_types,$rempost);
+foreach ($post_types as $post_type ) {
+	echo "<option ";
+	if(is_array($aioseop_options['aiosp_posttypecolumns']) && in_array($post_type,$aioseop_options['aiosp_posttypecolumns'])) echo "selected ";
+	echo "name=\"aiosp_posttypecolumns\">$post_type";
+}
+
+?>
+</select>
+
+<div style="max-width:500px; text-align:left; display:none" id="123_tip">
+<?php
+_e('Choose which post types you want to have SEO columns on the edit.php screen. You can select as many as you like.', 'all_in_one_seo_pack');
+ ?>
+</div>
+</td>
+</tr>
 
 <tr>
 <th scope="row" style="text-align:right; vertical-align:top;">
@@ -2237,9 +2314,7 @@ _e('Check this and SEO pack will create a log of important events (all_in_one_se
 <td>
 <input type="checkbox" name="aiosp_donate" <?php if ($aioseop_options['aiosp_donate']) echo "checked=\"1\""; ?>/>
 <div style="max-width:500px; text-align:left; display:none" id="aiosp_donate_tip">
-<?php
-_e('All donations support continued development of this free software.', 'all_in_one_seo_pack');
- ?>
+<?php _e('All donations support continued development of this free software.', 'all_in_one_seo_pack'); ?>
 </div>
 </td>
 </tr>
@@ -2258,9 +2333,9 @@ _e('All donations support continued development of this free software.', 'all_in
 <?php } ?>
 
 <p><br />
-<strong>Check out these other great plugins!</strong><br />
-<a href="http://semperfiwebdesign.com/custom-applications/sms-text-message/" title="SMS Text Message WordPress plugin">SMS Text Message</a> - sends SMS updates to your readers<br />
-<a href="http://semperfiwebdesign.com/custom-applications/wp-security-scan/" title="WordPress Security">WordPress Security Scan</a> - provides vital security for your WordPress site
+<strong><?php _e('Check out these other great plugins!','all_in_one_seo_pack'); ?></strong><br />
+<a href="http://semperfiwebdesign.com/custom-applications/sms-text-message/" title="SMS Text Message WordPress plugin">SMS Text Message</a> - <?php _e('sends SMS updates to your readers','all_in_one_seo_pack'); ?><br />
+<a href="http://semperfiwebdesign.com/custom-applications/wp-security-scan/" title="WordPress Security">WordPress Security Scan</a> - <?php _e('provides vital security for your WordPress site','all_in_one_seo_pack'); ?>
 </p>
 </form>
 </div>

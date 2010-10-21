@@ -1,31 +1,33 @@
 === AddToAny: Share/Bookmark/Email Button ===
 Contributors: micropat
-Tags: sharing, share, sharethis, bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, email, e-mail, seo, button, delicious, google buzz, buzz, google, digg, reddit, facebook, myspace, twitter, stumbleupon, technorati, icon, icons, wpmu, addtoany, add, any
+Tags: sharing, share, sharethis, bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, email, e-mail, seo, button, delicious, google buzz, buzz, google, digg, reddit, facebook, facebook like, like, myspace, twitter, tweet, messenger, stumbleupon, technorati, sociable, icon, icons, wpmu, addtoany, add
 Requires at least: 2.8
 Tested up to: 3.0
-Stable tag: 0.9.9.6.4
+Stable tag: 0.9.9.6.9
 
 Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, Google Buzz, Digg and many more.
 
 == Description ==
 
-The WordPress plugin to help people **share**, **bookmark**, and **email** your posts and pages using **any service**, such as Facebook, Twitter, Google Buzz, Digg, Delicious, and well over 100 more social bookmarking and sharing sites. The plugin comes with AddToAny's customizable **Smart Menu**, which **places the services visitors use at the top of the menu**, based on each visitor's browsing and usage history.
+The WordPress plugin to help people **share**, **bookmark**, and **email** your posts and pages using **any service**, such as Facebook, Twitter, Google Buzz, Digg, Delicious, and well over 100 more sharing and social bookmarking sites. New: **Facebook Like Button** and **Twitter Tweet Button**.
+
+The plugin comes with AddToAny's customizable Smart Menu, which places the services visitors use at the top of the menu, based on each visitor's browsing and usage history.
 
 <a href="http://www.addtoany.com/" title="Sharing and bookmarking button widget" target="_blank">Share Button</a> (demo)
 
-The Email tab makes it easy to share via Google Gmail, Yahoo! Mail, Hotmail, AOL, and any other web-based emailer or desktop program. The **Add to Favorites** button (or Bookmark tab) helps users bookmark using any browser (Internet Explorer, Firefox, Chrome, Safari, Opera, etc.).
+The Email tab makes it easy to share via Google Gmail, Yahoo! Mail, Hotmail, AOL, and any other web-based emailer or desktop program. The Add to Favorites button (or Bookmark tab) helps users bookmark using any browser (Internet Explorer, Firefox, Chrome, Safari, Opera, etc.).
 
-Individual **service icons** let you optimize your blog posts for specific social sites.  Choose from over 100 individual services.
+Standalone **service icons** let you optimize your blog posts for specific social sites.  Choose from over 100 individual services.
 
-* AddToAny <a href="http://www.addtoany.com/blog/smart-menus-the-services-your-visitors-use-displayed-first/" target="_blank">Smart Menu</a>
+* AddToAny <a href="http://www.addtoany.com/blog/smart-menus-the-services-your-visitors-use-displayed-first/" target="_blank">Smart Menu</a> & <a href="http://www.addtoany.com/buttons/customize/standalone_services" target="_blank">AddToAny Kit</a>
 * Individual service links (like Sociable)
 * Includes all <a href="http://www.addtoany.com/services/" target="_blank">services</a>
-* Menu updated automatically
 * Google Analytics integration (<a href="http://www.addtoany.com/ext/google_analytics/">access guide</a>)
-* WordPress optimized, localized (English, Chinese, Spanish, Japanese, French, Portuguese, Italian, Danish, Catalan, Russian, Albanian, Romanian, Belarusian)
+* WordPress optimized, localized (English, Chinese, Spanish, Japanese, French, Portuguese, Italian, Dutch, Danish, Catalan, Russian, Albanian, Romanian, Belarusian)
+* Easily customizable for beginners or advanced users, and highly extensible for developers and designers
 * Many more publisher and user features!
 
-After **years of ongoing development**, over **1 million downloads**, and **ongoing support** from the community, AddToAny still strives to be the best WordPress plugin for sharing. We hope it's perfect for everyone by version 1.0.
+After **years of ongoing development**, over **1 million downloads**, and **ongoing support from the community**, AddToAny still strives to be the best WordPress plugin for sharing. We hope it's perfect for everyone by version 1.0.
 
 <a href="http://www.addtoany.com/share_save" title="Share" target="_blank">Share this plugin</a>
 
@@ -46,11 +48,11 @@ See also:
 
 = Where are the options? =
 
-In your Admin panel, go to `Settings` > `Share/Save Buttons`.  Among other options, you can choose which button and individual icons to display, and where and how to display them. 
+In your Admin panel, go to `Settings` > `Share/Save Buttons`.  Among other options, you can choose which button, individual icons and advanced sharing buttons (Facebook Like Button and Twitter Tweet Button) to display, and where and how to display them. 
 
 = Why isn't the drop-down menu appearing? =
 
-It's likely because your theme wasn't <a href="http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks" target="_blank">coded properly</a>.  Using the Theme Editor, make sure that the following piece of code is included in your theme's `footer.php` file just before the `</body>` line:
+It's likely because your theme wasn't <a href="http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks" target="_blank">coded properly</a>.  With many themes you can use the Theme Editor to make sure that the following piece of code is included in your theme's `footer.php` file just before the `</body>` line:
 
 `<?php wp_footer(); ?>`
 
@@ -82,24 +84,22 @@ If you want to customize the shared URL and title for this button, use the follo
 
 In the Theme Editor, place this line of code where you want the individual icons to appear in your theme (within an HTML list):
 
-`<?php echo '<ul class="addtoany_list">';
-if( function_exists('ADDTOANY_SHARE_SAVE_ICONS') )
-	ADDTOANY_SHARE_SAVE_ICONS( array("html_wrap_open" => "<li>", "html_wrap_close" => "</li>") );
-echo '</ul>'; ?>`
+`<?php echo '<div class="a2a_kit addtoany_list">';
+if( function_exists('ADDTOANY_SHARE_SAVE_ICONS') ) { ADDTOANY_SHARE_SAVE_ICONS(); }
+echo '</div>'; ?>`
 
 If you want to customize the shared URL and title for these icons, use the following code as a template:
 
 `<?php
 if( function_exists('ADDTOANY_SHARE_SAVE_ICONS') ) {
-	echo '<ul class="addtoany_list">';
+	echo '<div class="a2a_kit addtoany_list">';
 	ADDTOANY_SHARE_SAVE_ICONS( array(
-		"html_wrap_open" => "<li>", "html_wrap_close" => "</li>",
 		"linkname" => "Example Page", "linkurl" => "http://example.com/page.html"
 	));
-	echo '</ul>';
+	echo '</div>';
 } ?>`
 
-Or you can place the icons as individual links (without being wrapped in an HTML list):
+Or you can place the icons as individual links without styling:
 
 `<?php if( function_exists('ADDTOANY_SHARE_SAVE_ICONS') ) { ADDTOANY_SHARE_SAVE_ICONS(); } ?>`
 
@@ -147,6 +147,12 @@ Facebook does link sharing a little differently than most other services. Facebo
 
 To change the title, description and/or image on Facebook, you will need to modify your theme header file according to <a href="http://wiki.developers.facebook.com/index.php/Facebook_Share/Specifying_Meta_Tags">Facebook's specification</a>. With WordPress, this can be accomplished with plugins like the <a href="http://wordpress.org/extend/plugins/all-in-one-seo-pack/">All in One SEO Pack plugin</a>.  Please see that plugin for details, and post in the WordPress or plugin author's forums for more support.
 
+= Why does the Facebook Like Button have so much whitespace to the right of it? =
+
+The minimum width for the Facebook Like Button is 90 pixels. This is required to display the total number of Likes to the right of the button.  See Facebook's <a href="http://developers.facebook.com/docs/reference/plugins/like">Like Button documentation</a> for details.
+
+It's not recommended, but you can change the width of the Facebook Like Button using CSS code, for instance: `.facebook_like { width:50px !important; }`
+
 = Does the plugin output W3C valid code? =
 
 Yes, AddToAny outputs 100% W3C valid XHTML and W3C valid CSS 3.0.
@@ -170,6 +176,35 @@ Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds"
 5. Color chooser for your AddToAny menus
 
 == Changelog ==
+
+= .9.9.6.9 =
+* Facebook Like button
+* Twitter Tweet button
+* Standalone service chooser - improved drag & drop and styling
+* Update CSS to support Like and Tweet
+
+= .9.9.6.8 =
+* A2A Kit is now inline again for backwards compatibility with manual placements
+* Container (used for the default auto-placement) now clears floats to fix <a href="http://wordpress.org/support/topic/plugin-addtoany-sharebookmarkemail-button-button-not-at-bottom-of-post">position issue when an image is aligned left or right</a>
+
+= .9.9.6.7 =
+* Major overhaul of CSS stylesheet again
+* Fix A2A Kit styling for manual placements
+* Simplify A2A Kit styling
+* Remove short-lived clearfix
+* Remove legacy fallback to inline CSS for WP 2.0
+* Remove CSS code offer in admin
+
+= .9.9.6.6 =
+* Major changes to plugin CSS stylesheet to support A2A Kit (official standalone services)
+* Standalone services are no longer list items within an unordered list container
+* Button is no longer a list item
+* Button/standalones now follow the HTML markup layout suggested by the <a href="http://www.addtoany.com/buttons/customize/standalone_services">AddToAny Kit</a>
+
+= .9.9.6.5 =
+* Add class-names to use official <a href="http://www.addtoany.com/buttons/customize/standalone_services">Standalone Services Kit</a>
+ * Google Analytics stats for individual services
+* Dutch translation (by Rene from <a href="http://wpwebshop.com/premium-wordpress-plugins/">WordPress Webshop</a>)
 
 = .9.9.6.4 =
 * Option to toggle displaying at the bottom of excerpts

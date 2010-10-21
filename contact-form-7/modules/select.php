@@ -9,8 +9,6 @@ wpcf7_add_shortcode( 'select', 'wpcf7_select_shortcode_handler', true );
 wpcf7_add_shortcode( 'select*', 'wpcf7_select_shortcode_handler', true );
 
 function wpcf7_select_shortcode_handler( $tag ) {
-	global $wpcf7_contact_form;
-
 	if ( ! is_array( $tag ) )
 		return '';
 
@@ -71,18 +69,18 @@ function wpcf7_select_shortcode_handler( $tag ) {
 
 	$html = '';
 
-	$posted = is_a( $wpcf7_contact_form, 'WPCF7_ContactForm' ) && $wpcf7_contact_form->is_posted();
+	$posted = wpcf7_is_posted();
 
 	foreach ( $values as $key => $value ) {
 		$selected = false;
-
-		if ( ! $empty_select && in_array( $key + 1, (array) $defaults ) )
-			$selected = true;
 
 		if ( $posted ) {
 			if ( $multiple && in_array( esc_sql( $value ), (array) $_POST[$name] ) )
 				$selected = true;
 			if ( ! $multiple && $_POST[$name] == esc_sql( $value ) )
+				$selected = true;
+		} else {
+			if ( ! $empty_select && in_array( $key + 1, (array) $defaults ) )
 				$selected = true;
 		}
 
@@ -101,9 +99,7 @@ function wpcf7_select_shortcode_handler( $tag ) {
 
 	$html = '<select name="' . $name . ( $multiple ? '[]' : '' ) . '"' . $atts . '>' . $html . '</select>';
 
-	$validation_error = '';
-	if ( is_a( $wpcf7_contact_form, 'WPCF7_ContactForm' ) )
-		$validation_error = $wpcf7_contact_form->validation_error( $name );
+	$validation_error = wpcf7_get_validation_error( $name );
 
 	$html = '<span class="wpcf7-form-control-wrap ' . $name . '">' . $html . $validation_error . '</span>';
 
@@ -117,8 +113,6 @@ add_filter( 'wpcf7_validate_select', 'wpcf7_select_validation_filter', 10, 2 );
 add_filter( 'wpcf7_validate_select*', 'wpcf7_select_validation_filter', 10, 2 );
 
 function wpcf7_select_validation_filter( $result, $tag ) {
-	global $wpcf7_contact_form;
-
 	$type = $tag['type'];
 	$name = $tag['name'];
 	$values = $tag['values'];
@@ -140,7 +134,7 @@ function wpcf7_select_validation_filter( $result, $tag ) {
 			! is_array( $_POST[$name] ) && '---' == $_POST[$name] ||
 			is_array( $_POST[$name] ) && 1 == count( $_POST[$name] ) && '---' == $_POST[$name][0] ) {
 			$result['valid'] = false;
-			$result['reason'][$name] = $wpcf7_contact_form->message( 'invalid_required' );
+			$result['reason'][$name] = wpcf7_get_message( 'invalid_required' );
 		}
 	}
 
