@@ -3,7 +3,7 @@ Contributors: micropat
 Tags: sharing, share, sharethis, bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, email, e-mail, seo, button, delicious, google buzz, buzz, google, digg, reddit, facebook, facebook like, like, myspace, twitter, tweet, messenger, stumbleupon, technorati, sociable, icon, icons, wpmu, addtoany, add
 Requires at least: 2.8
 Tested up to: 3.0
-Stable tag: 0.9.9.6.9
+Stable tag: 0.9.9.7
 
 Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, Google Buzz, Digg and many more.
 
@@ -11,33 +11,33 @@ Help people share, bookmark, and email your posts & pages using any service, suc
 
 The WordPress plugin to help people **share**, **bookmark**, and **email** your posts and pages using **any service**, such as Facebook, Twitter, Google Buzz, Digg, Delicious, and well over 100 more sharing and social bookmarking sites. New: **Facebook Like Button** and **Twitter Tweet Button**.
 
-The plugin comes with AddToAny's customizable Smart Menu, which places the services visitors use at the top of the menu, based on each visitor's browsing and usage history.
+This sharing plugin comes with AddToAny's customizable Smart Menu, which places the services visitors use at the top of the menu, based on each visitor's browsing and usage history.
 
 <a href="http://www.addtoany.com/" title="Sharing and bookmarking button widget" target="_blank">Share Button</a> (demo)
 
 The Email tab makes it easy to share via Google Gmail, Yahoo! Mail, Hotmail, AOL, and any other web-based emailer or desktop program. The Add to Favorites button (or Bookmark tab) helps users bookmark using any browser (Internet Explorer, Firefox, Chrome, Safari, Opera, etc.).
 
-Standalone **service icons** let you optimize your blog posts for specific social sites.  Choose from over 100 individual services.
+Standalone **share icons** let you optimize your blog posts for specific social sites.  Choose from over 100 individual services.
 
 * AddToAny <a href="http://www.addtoany.com/blog/smart-menus-the-services-your-visitors-use-displayed-first/" target="_blank">Smart Menu</a> & <a href="http://www.addtoany.com/buttons/customize/standalone_services" target="_blank">AddToAny Kit</a>
-* Individual service links (like Sociable)
+* Individual share links (like Sociable)
 * Includes all <a href="http://www.addtoany.com/services/" target="_blank">services</a>
 * Google Analytics integration (<a href="http://www.addtoany.com/ext/google_analytics/">access guide</a>)
-* WordPress optimized, localized (English, Chinese, Spanish, Japanese, French, Portuguese, Italian, Dutch, Danish, Catalan, Russian, Albanian, Romanian, Belarusian)
+* WordPress optimized, localized (English, Chinese, Spanish, Japanese, French, Portuguese, Italian, Dutch, Danish, Catalan, Persian, Russian, Albanian, Romanian, Belarusian)
 * Easily customizable for beginners or advanced users, and highly extensible for developers and designers
 * Many more publisher and user features!
 
 After **years of ongoing development**, over **1 million downloads**, and **ongoing support from the community**, AddToAny still strives to be the best WordPress plugin for sharing. We hope it's perfect for everyone by version 1.0.
 
-<a href="http://www.addtoany.com/share_save" title="Share" target="_blank">Share this plugin</a>
+<a href="http://www.addtoany.com/share_save" title="Share">Share this plugin</a>
 
 See also:
 
 * The <a href="/extend/plugins/add-to-any-subscribe/" title="WordPress RSS Subscribe widget plugin">Subscribe button</a> plugin
-* The <a href="http://www.addtoany.com/buttons/for/wordpress_com" title="WordPress.com sharing button widget" target="_blank">Share button for WordPress.com</a> blogs
+* The <a href="http://www.addtoany.com/buttons/for/wordpress_com" title="WordPress.com sharing button widget">Share button for WordPress.com</a> blogs
 * The standard <a href="http://www.addtoany.com/buttons/">Share button</a> widget
 
-<a href="http://www.addtoany.com/blog/" target="_blank">AddToAny Blog</a> | <a href="http://www.addtoany.com/privacy">Privacy Policy</a>
+<a href="http://www.addtoany.com/blog/">AddToAny Blog</a> | <a href="http://www.addtoany.com/privacy">Privacy Policy</a>
 
 == Installation ==
 
@@ -176,6 +176,13 @@ Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds"
 5. Color chooser for your AddToAny menus
 
 == Changelog ==
+
+= .9.9.7 =
+* W3C XHTML validation fix for the Twitter Tweet iframe
+* Remove non-standard allowtransparency attribute on Like & Tweet iframes
+ * Note that Like & Tweet (both require iframes) will not validate for themes that use a Strict doctype because XHTML Strict does not support frames
+* Update standalone Twitter icon
+* Persian translation (by <a href="http://www.najeekurd.net/">Najeekurd</a>)
 
 = .9.9.6.9 =
 * Facebook Like button
@@ -628,3 +635,8 @@ Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds"
 * Better support for CSS styling: .addtoany_share_save
 * PHP support for short_open_tag
 * PHP4 legacy and compatibility fixes
+
+== Upgrade Notice ==
+
+= 0.9.9.7 =
+Upgrade now if you haven't upgraded in a while and are using WordPress 2.8+. This release incorporates a number of important fixes and performance enhacements, including some new sharing features that you'll love.

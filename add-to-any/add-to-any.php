@@ -3,7 +3,7 @@
 Plugin Name: AddToAny: Share/Bookmark/Email Button
 Plugin URI: http://www.addtoany.com/
 Description: Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, Google Buzz, Digg and many more.  [<a href="options-general.php?page=add-to-any.php">Settings</a>]
-Version: .9.9.6.9
+Version: .9.9.7
 Author: AddToAny
 Author URI: http://www.addtoany.com/
 */
@@ -289,9 +289,9 @@ function ADDTOANY_SHARE_SAVE_SPECIAL($special_service_code, $args = array() ) {
 	extract( $args );
 	
 	if ($special_service_code == 'facebook_like')
-		$special_html = '<iframe class="addtoany_special_service facebook_like" src="http://www.facebook.com/plugins/like.php?href=' . $linkurl_enc . '&amp;layout=button_count&amp;show_faces=false&amp;width=75&amp;action=like&amp;colorscheme=light&amp;height=20" allowtransparency="true" frameborder="0" scrolling="no" style="border:none;overflow:hidden;width:90px;height:20px"></iframe>';
+		$special_html = '<iframe class="addtoany_special_service facebook_like" src="http://www.facebook.com/plugins/like.php?href=' . $linkurl_enc . '&amp;layout=button_count&amp;show_faces=false&amp;width=75&amp;action=like&amp;colorscheme=light&amp;height=20" frameborder="0" scrolling="no" style="border:none;overflow:hidden;width:90px;height:20px"></iframe>';
 	elseif ($special_service_code == 'twitter_tweet') 
-		$special_html = '<iframe class="addtoany_special_service twitter_tweet" src="http://platform.twitter.com/widgets/tweet_button.html?url=' . $linkurl_enc . '&counturl=' . $linkurl_enc . '&count=horizontal&text=' . $linkname_enc . ': "  allowtransparency="true" frameborder="0" scrolling="no" style="border:none;overflow:hidden;width:55px;height:20px"></iframe>';
+		$special_html = '<iframe class="addtoany_special_service twitter_tweet" src="http://platform.twitter.com/widgets/tweet_button.html?url=' . $linkurl_enc . '&amp;counturl=' . $linkurl_enc . '&amp;count=horizontal&amp;text=' . $linkname_enc . ': " frameborder="0" scrolling="no" style="border:none;overflow:hidden;width:55px;height:20px"></iframe>';
 	
 	if ( $output_later )
 		return $special_html;
