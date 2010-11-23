@@ -1,10 +1,9 @@
 === Contact Form 7 ===
 Contributors: takayukister
-Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 2.9
 Tested up to: 3.0.1
-Stable tag: 2.4.1
+Stable tag: 2.4.2
 
 Just another contact form plugin. Simple but flexible.
 
@@ -14,13 +13,9 @@ Contact Form 7 can manage multiple contact forms, plus you can customize the for
 
 = Plugin's Official Site =
 
-Contact Form 7 [(http://contactform7.com)](http://contactform7.com/)
+Contact Form 7 ([http://contactform7.com](http://contactform7.com/))
 
 * [Docs](http://contactform7.com/docs/) - [FAQ](http://contactform7.com/faq/) - [Support](http://contactform7.com/support/)
-
-= Contact Form 7 Needs Your Support =
-
-It is hard to continue development and support for this plugin without contributions from users like you. If you enjoy using Contact Form 7 and find it useful, please consider [__making a donation__](http://contactform7.com/donate/). Your donation will help encourage and support the plugin's continued development and better user support.
 
 = Translators =
 
@@ -40,7 +35,7 @@ It is hard to continue development and support for this plugin without contribut
 * Dutch (nl_NL) - [Chris Devriese](http://www.100it.be/), [Martin Hein](http://www.split-a-pixel.nl/)
 * Estonian (et) - [Peeter Rahuvarm](http://www.kraabus.ee), Egon Elbre
 * Finnish (fi) - [Miika Turunen](http://www.webwork.fi/), [Mediajalostamo](http://www.mediajalostamo.fi/)
-* French (fr_FR) - [Jillij](http://www.jillij.com/), [Maître Mô](http://maitremo.fr/), [Oncle Tom](http://case.oncle-tom.net/)
+* French (fr_FR) - [Jillij](http://www.jillij.com/), [Oncle Tom](http://case.oncle-tom.net/), [Maître Mô](http://maitremo.fr/)
 * Galician (gl_ES) - [Arume Desenvolvementos Informáticos](http://www.arumeinformatica.es/)
 * Georgian (ka_GE) - [Nodar Davituri](http://omedia.ge/)
 * German (de_DE) - [Marcel Spitau](http://blog.spitau.de), [Ivan Graf](http://blog.bildergallery.com/)
@@ -54,6 +49,8 @@ It is hard to continue development and support for this plugin without contribut
 * Korean (ko_KR) - Seong Eun Lee, [Jong-In Kim](http://incommunity.codex.kr/wordpress/)
 * Latvian (lv) - [Sandis Veinbergs](http://www.kleofass.lv/)
 * Lithuanian (lt_LT) - [Ernestas Kardzys](http://www.ernestas.info/)
+* Macedonian (mk_MK) - [Darko](http://www.findermind.com/)
+* Malay (ms_MY) - [Zairul Azmil](http://www.zairul.com/)
 * Malayalam (ml_IN) - [RAHUL.S.A](http://www.infution.co.cc/)
 * Norwegian (nb_NO) - Kjetil M. Bergem, [aanvik.net](http://www.aanvik.net), [Peter Holme](http://holme.se/nettsteder/)
 * Persian (Farsi; fa_IR) - [Mohammad Musavi](http://www.musavis.com/)
@@ -98,6 +95,12 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 1. screenshot-1.png
 
 == Changelog ==
+
+= 2.4.2 =
+
+* Translation for Macedonian has been created by Darko.
+* Translation for Malay has been created by Zairul Azmil.
+* Translations for Danish (Georg S. Adamsen), French (Maître Mô), German (Ivan Graf), Latvian (Sandis Veinbergs) and Persian (Mohammad Musavi) have been updated.
 
 = 2.4.1 =
 

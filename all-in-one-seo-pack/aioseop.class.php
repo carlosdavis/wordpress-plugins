@@ -2,7 +2,7 @@
 
 class All_in_One_SEO_Pack {
 	
- 	var $version = "1.6.12.2";
+ 	var $version = "1.6.13";
  	
  	/** Max numbers of chars in auto-generated description */
  	var $maximum_description_length = 160;
@@ -1464,11 +1464,12 @@ href="http://semperfiwebdesign.com/forum/"><?php _e('Support', 'all_in_one_seo_p
 href="http://semperfiwebdesign.com/documentation/all-in-one-seo-pack/translations-for-all-in-one-seo-pack/"><?php _e('Translations', 'all_in_one_seo_pack') ?></a>
 | <strong><a target="_blank" title="<?php _e('Pro Version', 'all_in_one_seo_pack') ?>"
 href="http://wpplugins.com/plugin/50/all-in-one-seo-pack-pro-version"><?php _e('UPGRADE TO PRO VERSION', 'all_in_one_seo_pack') ?></a></strong>
+<div style="margin-top:10px;padding-left:3px;font-style: italic;font-weight:bold;">All in One SEO Pack is now fully compatible with <strong><a href="http://semperfiwebdesign.com/scribeseo/" target="_blank" title="Scribe SEO">Scribe SEO</a></strong>.</div>
 </div>
 
 <div style="float:left;width:370px;margin-left:10px;">
 	<form action="http://semperfiwebdesign.us1.list-manage.com/subscribe/post?u=794674d3d54fdd912f961ef14&amp;id=af0a96d3d9" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
-		<span>Join our mailing list for tips, tricks, and WordPress secrets.<em><strong>Sign up today and receive a free copy of the e-book 5 SEO Tips for WordPress</strong></em>.</span>
+		<span>Join our mailing list for tips, tricks, and WordPress secrets.<em><strong>Sign up today and receive a free copy of the e-book 5 SEO Tips for WordPress</strong></em> ($39 value).</span>
 		<div>
 	<label for="mce-EMAIL">Email Address </label>
 	<input type="text" value="" name="EMAIL" class="required email" id="mce-EMAIL">
@@ -1478,10 +1479,9 @@ href="http://wpplugins.com/plugin/50/all-in-one-seo-pack-pro-version"><?php _e('
 			</div>
 	</form>
 	</div>
-	<div stlye="clear:both;">
+	<div style="clear:both;">
 
 <br />
-
 <!--<div style="width:75%;background-color:yellow;">
 <em>Thank you for using <strong>All in One SEO Pack</strong> by <strong>Michael Torbert</strong> of <strong>Semper Fi Web Design</strong>.  If you like this plugin and find it useful, feel free to click the <strong>donate</strong> button or send me a gift from my <strong>Amazon wishlist</strong>.  Also, don't forget to follow me on <strong>Twitter</strong>.</em>
 </div>
@@ -2065,7 +2065,7 @@ _e('Check this if you want your enable AIOSEOP support for Custom Post Types on 
 </div>
 </td>
 </tr>
-
+<?php if( function_exists('get_post_types')){		?>
 <tr>
 <th scope="row" style="text-align:right; vertical-align:top;">
 <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'all_in_one_seo_pack')?>" onclick="toggleVisibility('123_tip');">
@@ -2093,7 +2093,7 @@ _e('Choose which post types you want to have SEO columns on the edit.php screen.
 </div>
 </td>
 </tr>
-
+<?php } ?>
 <tr>
 <th scope="row" style="text-align:right; vertical-align:top;">
 <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'all_in_one_seo_pack')?>" onclick="toggleVisibility('aiosp_use_categories_tip');">
