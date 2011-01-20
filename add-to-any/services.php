@@ -74,6 +74,10 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "BuddyMarks",
 		"icon" => "buddymarks",
 	),
+	"business_exchange" => Array(
+		"name" => "Business Exchange",
+		"icon" => "business_exchange",
+	),
 	"care2_news" => Array(
 		"name" => "Care2 News",
 		"icon" => "care2",
@@ -270,6 +274,10 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "Meneame",
 		"icon" => "meneame",
 	),
+	"live" => Array(
+		"name" => "Messenger",
+		"icon" => "live",
+	),
 	"mindbodygreen" => Array(
 		"name" => "MindBodyGreen",
 		"icon" => "mindbodygreen",
@@ -358,13 +366,14 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "Posterous",
 		"icon" => "posterous",
 	),
+	"print" => Array(
+		"name" => "Print",
+		"icon" => "print",
+		"href" => "javascript:print()",
+	),
 	"printfriendly" => Array(
 		"name" => "PrintFriendly",
 		"icon" => "printfriendly",
-	),
-	"propeller" => Array(
-		"name" => "Propeller",
-		"icon" => "propeller",
 	),
 	"protopage_bookmarks" => Array(
 		"name" => "Protopage Bookmarks",
@@ -382,6 +391,10 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "Reddit",
 		"icon" => "reddit",
 	),
+	"rediff" => Array(
+		"name" => "Rediff MyPage",
+		"icon" => "rediff",
+	),
 	"segnalo" => Array(
 		"name" => "Segnalo",
 		"icon" => "segnalo",
@@ -393,6 +406,10 @@ $A2A_SHARE_SAVE_services = Array(
 	"simpy" => Array(
 		"name" => "Simpy",
 		"icon" => "simpy",
+	),
+	"sina_weibo" => Array(
+		"name" => "Sina Weibo",
+		"icon" => "sina_weibo",
 	),
 	"sitejot" => Array(
 		"name" => "SiteJot",
@@ -505,14 +522,6 @@ $A2A_SHARE_SAVE_services = Array(
 	"webnews" => Array(
 		"name" => "Webnews",
 		"icon" => "webnews",
-	),
-	"windows_live_favorites" => Array(
-		"name" => "Windows Live Favorites",
-		"icon" => "live",
-	),
-	"windows_live_spaces" => Array(
-		"name" => "Windows Live Spaces",
-		"icon" => "spaces",
 	),
 	"wink" => Array(
 		"name" => "Wink",

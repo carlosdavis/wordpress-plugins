@@ -1,12 +1,12 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
 <div class="wrap">
 	<?php screen_icon(); ?>
-	<?php $this->render_admin('annoy')?>
+	<?php $this->render_admin( 'annoy' ); ?>
 	
 	<h2><?php _e ('Redirections for group', 'redirection'); ?>: <a href="<?php echo $this->base (); ?>?page=redirection.php&amp;sub=groups&amp;id=<?php echo $group->module_id ?>"><?php echo htmlspecialchars ($group->name); ?></a></h2>
 		
-	<?php $this->submenu (true); ?>
-	
+	<?php $this->render_admin( 'submenu' ); ?>
+
 	<div id="pager" class="pager">
 		<form method="get" action="<?php echo $this->url ($pager->url) ?>">
 			<input type="hidden" name="page" value="<?php echo $_GET['page'] ?>"/>
@@ -27,6 +27,9 @@
 		</form>
 	</div>
 	<br/>
+	
+	<a href="http://polldaddy.com/s/EE1960D4BC58B079">Take part in a survey about Redirection!</a>
+	<br/><br/>
 	
 	<ul id="redirections_header" class="redirections_header">
 		<li>
@@ -63,7 +66,7 @@
 
 		<?php _e ('Move To', 'redirection'); ?>:
 		<select name="move" id="move">
-			<?php echo $this->select ($modules)?>
+			<?php echo $this->select( $groups )?>
 		</select>
 		
 		<input class="button-secondary move-all" type="submit" value="<?php _e( 'Go', 'redirection'); ?>"/>
@@ -102,7 +105,7 @@ jQuery(document).ready( function() {
 		ajaxurl: '<?php echo esc_js( admin_url( 'admin-ajax.php' ) ) ?>',
 		nonce: '<?php echo esc_js( wp_create_nonce( 'redirection-items' ) ); ?>',
 		none_select: '<?php echo esc_js( __( 'No items have been selected', 'redirection' ) ); ?>',
-		are_you_sure: '<?php echo esc_js( __( 'Are you sure?', 'redirection') ); ?>',
+		are_you_sure: '<?php echo esc_js( __( 'Are you sure?', 'redirection') ); ?>', 
 		page: <?php echo ($pager->current_page - 1) * $pager->per_page ?>
 	});
 	

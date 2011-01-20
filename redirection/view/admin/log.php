@@ -5,7 +5,7 @@
 
 	<h2><?php _e ('Redirection Log', 'redirection'); ?></h2>
 
-	<?php $this->submenu (true); ?>
+	<?php $this->render_admin( 'submenu' ); ?>
 
 	<form method="get" action="<?php echo $this->url ($pager->url) ?>">
 		<input type="hidden" name="page" value="<?php echo esc_attr( $_GET['page'] ) ?>"/>
@@ -109,8 +109,8 @@ jQuery(document).ready( function() {
 		progress: '<img src="<?php echo $this->url () ?>/images/progress.gif" alt="loading" width="50" height="16"/>',
 		ajaxurl: '<?php echo admin_url( 'admin-ajax.php' ) ?>',
 		nonce: '<?php echo wp_create_nonce( 'redirection-items' ); ?>',
-		none_select: '<?php _e( 'No items have been selected', 'redirection' ); ?>',
-		are_you_sure: '<?php _e( 'Are you sure?', 'redirection'); ?>',
+		none_select: '<?php echo esc_js( __( 'No items have been selected', 'redirection' ) ); ?>',
+		are_you_sure: '<?php echo esc_js( __( 'Are you sure?', 'redirection') ); ?>',
 	});
 	redirection.logs();
 });

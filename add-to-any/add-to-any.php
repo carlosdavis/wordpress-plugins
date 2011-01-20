@@ -3,7 +3,7 @@
 Plugin Name: AddToAny: Share/Bookmark/Email Button
 Plugin URI: http://www.addtoany.com/
 Description: Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, Google Buzz, Digg and many more.  [<a href="options-general.php?page=add-to-any.php">Settings</a>]
-Version: .9.9.7
+Version: .9.9.7.4
 Author: AddToAny
 Author URI: http://www.addtoany.com/
 */
@@ -21,7 +21,7 @@ $A2A_SHARE_SAVE_plugin_basename = plugin_basename(dirname(__FILE__));
 $A2A_SHARE_SAVE_plugin_url_path = WP_PLUGIN_URL.'/'.$A2A_SHARE_SAVE_plugin_basename; // /wp-content/plugins/add-to-any
 
 // Fix SSL
-if (function_exists('is_ssl') && is_ssl()) // @since 2.6.0
+if (is_ssl())
 	$A2A_SHARE_SAVE_plugin_url_path = str_replace('http:', 'https:', $A2A_SHARE_SAVE_plugin_url_path);
 
 function A2A_SHARE_SAVE_textdomain() {
@@ -137,19 +137,16 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 				$custom_service = FALSE;
 			}
 	
-			if ( $custom_service && isset($service['icon_url']) )
-				$icon = $service['icon_url'];
-			elseif ( ! isset($service['icon']))
-				$icon = 'default';
-			else
-				$icon = $service['icon'];
+			$icon_url = (isset($service['icon_url'])) ? $service['icon_url'] : FALSE;
+			$icon = (isset($service['icon'])) ? $service['icon'] : 'default'; // Just the icon filename
 			$width = (isset($service['icon_width'])) ? $service['icon_width'] : '16';
 			$height = (isset($service['icon_height'])) ? $service['icon_height'] : '16'; 
 			
 			$url = ($custom_service) ? $href : "http://www.addtoany.com/add_to/" . $safe_name . "?linkurl=" . $linkurl_enc . "&amp;linkname=" . $linkname_enc;
-			$src = ($custom_service) ? $icon : $A2A_SHARE_SAVE_plugin_url_path."/icons/".$icon.".png";
+			$src = ($icon_url) ? $icon_url : $A2A_SHARE_SAVE_plugin_url_path."/icons/".$icon.".png";
+			$class_attr = ($custom_service) ? "" : " class=\"a2a_button_$safe_name\"";
 			
-			$link = $html_wrap_open."<a class=\"a2a_button_$safe_name\" href=\"$url\" title=\"$name\" rel=\"nofollow\" target=\"_blank\">";
+			$link = $html_wrap_open."<a$class_attr href=\"$url\" title=\"$name\" rel=\"nofollow\" target=\"_blank\">";
 			$link .= "<img src=\"$src\" width=\"$width\" height=\"$height\" alt=\"$name\"/>";
 			$link .= "</a>".$html_wrap_close;
 		}
@@ -193,7 +190,9 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 	
 	/* AddToAny button */
 	
-	$button_target	= '';
+	$is_feed = is_feed();
+	$button_target = '';
+	$button_href_querystring = ($is_feed) ? '#url=' . $linkurl_enc . '&amp;title=' . $linkname_enc  : '';
 	
 	if( !get_option('A2A_SHARE_SAVE_button') ) {
 		$button_fname	= 'share_save_171_16.png';
@@ -216,7 +215,7 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 	}
 	
 	if( $button_fname == 'favicon.png' || $button_fname == 'share_16_16.png' ) {
-		if( !is_feed() ) {
+		if( ! $is_feed) {
 			$style_bg	= 'background:url('.$A2A_SHARE_SAVE_plugin_url_path.'/'.$button_fname.') no-repeat scroll 9px 0px !important;';
 			$style		= ' style="'.$style_bg.'padding:0 0 0 30px;display:inline-block;height:16px;line-height:16px;vertical-align:middle"'; // padding-left:30+9 (9=other icons padding)
 		}
@@ -229,16 +228,13 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 		$button			= '<img src="'.$button_src.'"'.$button_width.$button_height.' alt="Share"/>';
 	}
 	
-	$button_html = $html_container_open.$html_wrap_open.'<a class="a2a_dd addtoany_share_save" href="http://www.addtoany.com/share_save"'
+	$button_html = $html_container_open . $html_wrap_open . '<a class="a2a_dd addtoany_share_save" href="http://www.addtoany.com/share_save' .$button_href_querystring . '"'
 		. $style . $button_target
 		. '>' . $button . '</a>' . $html_wrap_close . $html_container_close;
 	
 	// If not a feed
-	if( !is_feed() ) {
-		if (function_exists('is_ssl') ) // @since 2.6.0
-			$http_or_https = (is_ssl()) ? 'https' : 'http';
-		else
-			$http_or_https = 'http';
+	if( ! $is_feed ) {
+		$http_or_https = (is_ssl()) ? 'https' : 'http';
 	
 		global $A2A_SHARE_SAVE_external_script_called;
 		if ( ! $A2A_SHARE_SAVE_external_script_called ) {
@@ -386,6 +382,9 @@ function A2A_SHARE_SAVE_to_bottom_of_content($content) {
 	$is_feed = is_feed();
 	
 	if( ! $A2A_SHARE_SAVE_auto_placement_ready)
+		return $content;
+		
+	if (get_post_status(get_the_ID()) == 'private')
 		return $content;
 	
 	if ( 
@@ -632,7 +631,7 @@ function A2A_SHARE_SAVE_options_page() {
 							$site['icon'] = 'default';
 					?>
                         <li id="a2a_wp_<?php echo $service_safe_name; ?>" title="<?php echo $site['name']; ?>">
-                            <span><img src="<?php echo ($custom_service) ? $site['icon_url'] : $A2A_SHARE_SAVE_plugin_url_path.'/icons/'.$site['icon'].'.png'; ?>" width="<?php echo (isset($site['icon_width'])) ? $site['icon_width'] : '16'; ?>" height="<?php echo (isset($site['icon_height'])) ? $site['icon_height'] : '16'; ?>" alt="" /><?php echo $site['name']; ?></span>
+                            <span><img src="<?php echo ($site['icon_url']) ? $site['icon_url'] : $A2A_SHARE_SAVE_plugin_url_path.'/icons/'.$site['icon'].'.png'; ?>" width="<?php echo (isset($site['icon_width'])) ? $site['icon_width'] : '16'; ?>" height="<?php echo (isset($site['icon_height'])) ? $site['icon_height'] : '16'; ?>" alt="" /><?php echo $site['name']; ?></span>
                         </li>
 				<?php
                     } ?>

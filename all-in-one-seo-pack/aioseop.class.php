@@ -2,7 +2,7 @@
 
 class All_in_One_SEO_Pack {
 	
- 	var $version = "1.6.13";
+ 	var $version = "1.6.13.1";
  	
  	/** Max numbers of chars in auto-generated description */
  	var $maximum_description_length = 160;

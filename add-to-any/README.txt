@@ -1,9 +1,9 @@
 === AddToAny: Share/Bookmark/Email Button ===
 Contributors: micropat
-Tags: sharing, share, sharethis, bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, email, e-mail, seo, button, delicious, google buzz, buzz, google, digg, reddit, facebook, facebook like, like, myspace, twitter, tweet, messenger, stumbleupon, technorati, sociable, icon, icons, wpmu, addtoany, add
+Tags: sharing, share, sharethis, bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, email, e-mail, seo, button, delicious, google buzz, buzz, google, digg, reddit, facebook, facebook like, like, myspace, twitter, tweet, messenger, stumbleupon, technorati, sexybookmarks, sociable, sharedaddy, icon, icons, wpmu, addtoany, add
 Requires at least: 2.8
-Tested up to: 3.0
-Stable tag: 0.9.9.7
+Tested up to: 3.1
+Stable tag: 0.9.9.7.4
 
 Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, Google Buzz, Digg and many more.
 
@@ -27,7 +27,7 @@ Standalone **share icons** let you optimize your blog posts for specific social 
 * Easily customizable for beginners or advanced users, and highly extensible for developers and designers
 * Many more publisher and user features!
 
-After **years of ongoing development**, over **1 million downloads**, and **ongoing support from the community**, AddToAny still strives to be the best WordPress plugin for sharing. We hope it's perfect for everyone by version 1.0.
+After **years of active development**, over **1.3 million downloads**, and **ongoing support from the community**, AddToAny still strives to be the best WordPress plugin for sharing. We hope it's perfect for everyone by version 1.0.
 
 <a href="http://www.addtoany.com/share_save" title="Share">Share this plugin</a>
 
@@ -176,6 +176,31 @@ Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds"
 5. Color chooser for your AddToAny menus
 
 == Changelog ==
+
+= .9.9.7.4 =
+* Major fix for some setups to fix PHP header error due to newline in services.php
+
+= .9.9.7.3 =
+* Fix sharing button link in RSS feeds (thanks to Giuliano)
+* Add Rediff MyPage
+* Add Business Exchange
+* Remove detection against versions before 2.6 for SSL support
+
+= .9.9.7.2 =
+* Omit sharing on private posts
+
+= .9.9.7.1 =
+* New Print standalone service
+* Fix custom services added to plugin services array
+* Fix icons native vs. URL logic
+* Buttons updated
+* Myspace icon updated
+* Add Microsoft Messenger
+* Add Sina
+* Remove Windows Live Favorites
+* Remove Windows Live Spaces
+* Remove Propeller
+* German translation (by Richard Laufenberg of <a href="http://www.portavision.de/">MediaCenter Laufenberg</a>)
 
 = .9.9.7 =
 * W3C XHTML validation fix for the Twitter Tweet iframe

@@ -1,9 +1,10 @@
 === Contact Form 7 ===
 Contributors: takayukister
+Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 2.9
-Tested up to: 3.0.1
-Stable tag: 2.4.2
+Tested up to: 3.0.4
+Stable tag: 2.4.3
 
 Just another contact form plugin. Simple but flexible.
 
@@ -17,11 +18,16 @@ Contact Form 7 ([http://contactform7.com](http://contactform7.com/))
 
 * [Docs](http://contactform7.com/docs/) - [FAQ](http://contactform7.com/faq/) - [Support](http://contactform7.com/support/)
 
+= Contact Form 7 Needs Your Support =
+
+It is hard to continue development and support for this plugin without contributions from users like you. If you enjoy using Contact Form 7 and find it useful, please consider [__making a donation__](http://contactform7.com/donate/). Your donation will help encourage and support the plugin's continued development and better user support.
+
 = Translators =
 
 * Afrikaans (af) - [Schalk Burger](http://www.schalkburger.za.net/)
 * Albanian (sq) - [Olgi Zenullari](http://www.olgizenullari.com/)
-* Arabic (ar) - [Tarek Chaaban](http://www.chaaban.info/), Muhammed Lardi
+* Arabic (ar) - [Tarek Chaaban](http://www.chaaban.info/), Muhammed Lardi, [Yaser Mohammed](http://www.englize.com/)
+* Armenian (hy_AM) - [Emmanuelle Traduction](http://www.translatonline.com/)
 * Bangla (bn_BD) - [SM Mehdi Akram](http://www.shamokaldarpon.com/)
 * Bosnian (bs) - [Vedran](http://www.seorabbit.com/)
 * Brazilian Portuguese (pt_BR) - [Leonardo Pinheiro](http://www.eletrikabarbarella.com.br/), [Henrique Vianna](http://henriquevianna.com/), [Caciano Gabriel Batista](http://www.gn10.com.br/), [Gervásio Antônio](http://twitter.com/gervasioantonio)
@@ -32,7 +38,7 @@ Contact Form 7 ([http://contactform7.com](http://contactform7.com/))
 * Croatian (hr) - [tolingo Translation Services](http://www.tolingo.com)
 * Czech (cs_CZ) - Korry, [Radovan Fiser](http://algymsa.cz/)
 * Danish (da_DK) - [Jens Griebel](http://www.kompas-it.dk/), [Georg S. Adamsen](http://wordpress.blogos.dk/)
-* Dutch (nl_NL) - [Chris Devriese](http://www.100it.be/), [Martin Hein](http://www.split-a-pixel.nl/)
+* Dutch (nl_NL) - [Chris Devriese](http://www.100it.be/), [Martin Hein](http://www.split-a-pixel.nl/), [Rene](http://wpwebshop.com/)
 * Estonian (et) - [Peeter Rahuvarm](http://www.kraabus.ee), Egon Elbre
 * Finnish (fi) - [Miika Turunen](http://www.webwork.fi/), [Mediajalostamo](http://www.mediajalostamo.fi/)
 * French (fr_FR) - [Jillij](http://www.jillij.com/), [Oncle Tom](http://case.oncle-tom.net/), [Maître Mô](http://maitremo.fr/)
@@ -56,13 +62,14 @@ Contact Form 7 ([http://contactform7.com](http://contactform7.com/))
 * Persian (Farsi; fa_IR) - [Mohammad Musavi](http://www.musavis.com/)
 * Polish (pl_PL) - [Zbigniew Czernik](http://zibik.jogger.pl/), [Daniel Fruzynski](http://www.poradnik-webmastera.com)
 * Portuguese (pt_PT) - [Hugo Baeta](http://hugobaeta.com)
-* Russian (ru_RU) - [Dmitry Volotovich](http://www.volnov.com)
-* Romanian (ro_RO) - [Stas Sushkov](http://stas.nerd.ro/)
+* Russian (ru_RU) - Dmitry Volotovich
+* Romanian (ro_RO) - [Stas Sushkov](http://stas.nerd.ro/), Anunturi Jibo
 * Serbian (sr_RS) - [Vedran](http://www.seorabbit.com/), [Aleksandar Urošević](http://blog.urosevic.net/)
 * Slovak (sk) - [Patrik Bóna](http://www.mrhead.sk/)
 * Slovene (sl_SI) - [Mihael Simonič](http://smihael.bplaced.net)
 * Spanish (es_ES) - [Jordi Sancho](http://www.qasolutions.net/blog), [Vladimir Prieto](http://vladimir.prie.to/), [Federico Mikaelian](http://www.fedemika.com.ar/), [Matias Baldanza](http://matiasbaldanza.com/)
 * Swedish (sv_SE) - [Fredrik Jonsson](http://www.fredda-o-ac.se/), [the Swedish community](http://wp-support.se/)
+* Tamil (ta) - [Nitin Aggarwal](http://offshoreally.com/)
 * Thai (th) - [kazama](http://blog.wordthai.com/)
 * Turkish (tr_TR) - [Roman Neumuller](http://katpatuka.wordpress.com), [Hasan Yılmaz](http://hedefturkce.com/), [Emin Buğra Saral](http://www.rahmetli.info/)
 * Ukrainian (uk) - [Andrey Kovba](http://myserver.com.ua/), [Ukrainian WordPress localization team](http://wordpress.co.ua/plugins/contact-form-7.html)
@@ -95,6 +102,13 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 1. screenshot-1.png
 
 == Changelog ==
+
+= 2.4.3 =
+
+* Translation for Armenian has been created by Emmanuelle Traduction.
+* Translation for Tamil has been created by Nitin Aggarwal.
+* Translations for German (Ivan Graf), Dutch (Rene), Arabic (Yaser Mohammed) and Romanian (Anunturi Jibo) have been updated.
+* Bundled jquery.form has been updated to 2.52.
 
 = 2.4.2 =
 
