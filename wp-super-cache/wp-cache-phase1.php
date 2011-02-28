@@ -460,6 +460,11 @@ function wp_cache_user_agent_is_rejected() {
 
 function get_current_url_supercache_dir( $post_id = 0 ) {
 	global $cached_direct_pages, $cache_path, $wp_cache_request_uri;
+	static $saved_supercache_dir = array();
+
+	if ( isset( $saved_supercache_dir[ $post_id ] ) ) {
+		return $saved_supercache_dir[ $post_id ];
+	}
 
 	if ( $post_id != 0 ) {
 		$uri = str_replace( site_url(), '', get_permalink( $post_id ) );
@@ -468,15 +473,16 @@ function get_current_url_supercache_dir( $post_id = 0 ) {
 	}
 	$uri = preg_replace('/[ <>\'\"\r\n\t\(\)]/', '', str_replace( '/index.php', '/', str_replace( '..', '', preg_replace("/(\?.*)?$/", '', $uri ) ) ) );
 	$uri = str_replace( '\\', '', $uri );
-	$dir = strtolower(preg_replace('/:.*$/', '',  $_SERVER["HTTP_HOST"])) . $uri; // To avoid XSS attacks
+	$dir = preg_replace( '/:.*$/', '',  $_SERVER["HTTP_HOST"] ) . $uri; // To avoid XSS attacks
 	if ( function_exists( "apply_filters" ) )
 		$dir = apply_filters( 'supercache_dir', $dir );
 	$dir = $cache_path . 'supercache/' . $dir . '/';
 	if( is_array( $cached_direct_pages ) && in_array( $_SERVER[ 'REQUEST_URI' ], $cached_direct_pages ) ) {
 		$dir = ABSPATH . $uri . '/';
 	}
-	$dir = str_replace( '//', '/', $dir );
+	$dir = strtolower( str_replace( '//', '/', $dir ) );
 	if ( isset( $GLOBALS[ 'wp_super_cache_debug' ] ) && $GLOBALS[ 'wp_super_cache_debug' ] ) wp_cache_debug( "supercache dir: $dir", 5 );
+	$saved_supercache_dir[ $post_id ] = $dir;
 	return $dir;
 }
 

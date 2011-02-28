@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: add-to-any\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-20 01:02-0800\n"
+"POT-Creation-Date: 2011-02-23 20:40-0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Pat <no@no.com>\n"
 "Language-Team: \n"
@@ -13,267 +13,298 @@ msgstr ""
 "X-Poedit-Basepath: ../\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: add-to-any.php:258
+#: add-to-any.php:322
 msgid "Share"
-msgstr "Amparte"
+msgstr "distribuie"
 
-#: add-to-any.php:259
+#: add-to-any.php:323
 msgid "Save"
-msgstr "Salveaza"
+msgstr "salvează"
 
-#: add-to-any.php:260
+#: add-to-any.php:324
 msgid "Subscribe"
-msgstr "Inscriete"
+msgstr "abonează"
 
-#: add-to-any.php:261
+#: add-to-any.php:325
 msgid "E-mail"
-msgstr "E-mail"
+msgstr "e-mail"
 
-#: add-to-any.php:262
+#: add-to-any.php:326
 msgid "Bookmark"
-msgstr "Semneaza"
+msgstr "semn de carte"
 
-#: add-to-any.php:263
+#: add-to-any.php:327
 msgid "Show all"
-msgstr "Vezi Totul"
+msgstr "arată totul"
 
-#: add-to-any.php:264
+#: add-to-any.php:328
 msgid "Show less"
-msgstr "Strange"
+msgstr "arată mai puţine"
 
-#: add-to-any.php:265
+#: add-to-any.php:329
 msgid "Find service(s)"
-msgstr "Cauta servici"
+msgstr "găseşte serviciu/i"
 
-#: add-to-any.php:266
+#: add-to-any.php:330
 msgid "Instantly find any service to add to"
-msgstr "Cauta instantaneu tuoate servicile sa le pui a"
+msgstr "găseşte instantaneu orice serviciu de adăugat la"
 
-#: add-to-any.php:267
+#: add-to-any.php:331
 msgid "Powered by"
 msgstr "Powered by"
 
-#: add-to-any.php:268
+#: add-to-any.php:332
 msgid "Share via e-mail"
-msgstr "Amparte via e-mail"
+msgstr "distribuie via e-mail"
 
-#: add-to-any.php:269
+#: add-to-any.php:333
 msgid "Subscribe via e-mail"
-msgstr "Inscriete la via e-mail"
+msgstr "subscrie via e-mail"
 
-#: add-to-any.php:270
+#: add-to-any.php:334
 msgid "Bookmark in your browser"
-msgstr "Semneaza in al tau browser"
+msgstr "pune semn în browserul tău"
 
-#: add-to-any.php:271
+#: add-to-any.php:335
 msgid "Press Ctrl+D or &#8984;+D to bookmark this page"
-msgstr "Digiteaza  Ctrl+D sau &#8984;+D pentru semnare pagina asta"
+msgstr "apasă Ctrl+D sau &#8984;+D pentru a pune semn acestei pagini"
 
-#: add-to-any.php:272
+#: add-to-any.php:336
 msgid "Add to your favorites"
-msgstr "Ajunge la ai tai favoriti"
+msgstr "adaugă la pagini favorite"
 
-#: add-to-any.php:273
+#: add-to-any.php:337
 msgid "Send from any e-mail address or e-mail program"
-msgstr "Trimite de la fiecare email sau email client"
+msgstr "trimite de la orice adresă sau program de e-mail "
 
-#: add-to-any.php:274
+#: add-to-any.php:338
 msgid "E-mail program"
-msgstr "Email Client"
+msgstr "program e-mail "
 
-#: add-to-any.php:299
+#: add-to-any.php:363
 msgid "Your theme needs to be fixed. To fix your theme, use the <a href=\"theme-editor.php\">Theme Editor</a> to insert <code>&lt;?php wp_footer(); ?&gt;</code> just before the <code>&lt;/body&gt;</code> line of your theme's <code>footer.php</code> file."
-msgstr "Tema ta trebuie sa fie la zi. Pentru purtare modifca necesara,foloseste <a href=\"theme-editor.php\">editorul de tema</a> pentru a intra <code>&lt;?php wp_footer(); ?&gt;</code> imediat dupa tag de anchidere <code>&lt;/body&gt;</code> present an <code>footer.php</code> la tema ta."
+msgstr "Tema ta trebuie reparată. Pentru a o repara, foloseşte <a href=\"theme-editor.php\">Editorul de temă</a> pentru a insera <code>&lt;?php wp_footer(); ?&gt;</code> exact înainte de linia <code>&lt;/body&gt;</code> din fişierul <code>footer.php</code> al temei tale."
 
-#: add-to-any.php:490
+#: add-to-any.php:520
 #, php-format
 msgid "Unable to create directory %s. Is its parent directory writable by the server?"
-msgstr ""
+msgstr "Directorul %s nu poate fi creat. Serverul poate scrie în directorul-părinte?"
 
-#: add-to-any.php:566
-#: add-to-any.php:639
-#: add-to-any.php:643
-#: add-to-any.php:647
-#: add-to-any.php:651
-#: add-to-any.php:683
+#: add-to-any.php:654
+#: add-to-any.php:778
+#: add-to-any.php:782
+#: add-to-any.php:786
+#: add-to-any.php:790
+#: add-to-any.php:822
 msgid "Share/Bookmark"
-msgstr "Semneaza"
+msgstr "distribuie/pune semn"
 
-#: add-to-any.php:580
+#: add-to-any.php:667
 msgid "Settings saved."
-msgstr "Impostationi salvate"
-
-#: add-to-any.php:593
-msgid "AddToAny: Share/Save "
-msgstr "AddToAny: Amparte /Salveaza"
-
-#: add-to-any.php:593
-#: add-to-any.php:978
-#: add-to-any.php:1002
-msgid "Settings"
-msgstr "Impostationi"
-
-#: add-to-any.php:602
-msgid "Standalone Services"
-msgstr "Servitii independente"
-
-#: add-to-any.php:607
-msgid "Choose the services you want below. &nbsp;Click a chosen service again to remove. &nbsp;Reorder services by dragging and dropping as they appear above."
-msgstr "Alege aici dedesupt servitile care ati plac. &nbsp;Clicca la un servici active pentru a elimina.&nbsp;Ordineaza servicii prin drag and drop."
-
-#: add-to-any.php:634
-msgid "Button"
-msgstr "Buton"
-
-#: add-to-any.php:673
-msgid "Image URL"
-msgstr "Imagine URL"
-
-#: add-to-any.php:680
-msgid "Text only"
-msgstr "Duar text"
+msgstr "setări salvate."
 
 #: add-to-any.php:688
+msgid "bottom"
+msgstr ""
+
+#: add-to-any.php:692
+msgid "top"
+msgstr ""
+
+#: add-to-any.php:696
+msgid "top &amp; bottom"
+msgstr ""
+
+#: add-to-any.php:727
+msgid "AddToAny: Share/Save "
+msgstr "AddToAny: distribuie/salvează "
+
+#: add-to-any.php:727
+#: add-to-any.php:1132
+#: add-to-any.php:1163
+msgid "Settings"
+msgstr "setări"
+
+#: add-to-any.php:736
+msgid "Standalone Services"
+msgstr "servicii de sine stătătoare"
+
+#: add-to-any.php:741
+msgid "Choose the services you want below. &nbsp;Click a chosen service again to remove. &nbsp;Reorder services by dragging and dropping as they appear above."
+msgstr "Alege mai jos serviciile pe care le preferi. &nbsp;Clic a doua oara pe un serviciu selectat, pentru a-l elimina. &nbsp;Mută pozitia serviciilor alese cu drag-and-drop."
+
+#: add-to-any.php:773
+msgid "Button"
+msgstr "buton"
+
+#: add-to-any.php:812
+msgid "Image URL"
+msgstr "imagine URL"
+
+#: add-to-any.php:819
+msgid "Text only"
+msgstr "doar text"
+
+#: add-to-any.php:827
 msgid "Placement"
-msgstr "Pozitia"
+msgstr "poziţionare"
 
-#: add-to-any.php:697
-msgid "Display Share/Save button at the bottom of posts"
-msgstr "Priveste Amparte/Salveaza buton la sfarsitul articolului"
+#: add-to-any.php:832
+#, fuzzy, php-format
+msgid "Display at the %s of posts"
+msgstr "afişează butonul 'distribuie/salvează' în coada articolelor"
 
-#: add-to-any.php:704
-msgid "Display Share/Save button at the bottom of posts on the front page"
-msgstr "Priveste Amparte/Salveaza buton la sfarsitul articolului de la pagina principala"
+#: add-to-any.php:839
+#, php-format
+msgid "Display at the %s of post excerpts"
+msgstr ""
 
-#: add-to-any.php:711
-msgid "Display Share/Save button at the bottom of posts in the feed"
-msgstr "Priveste Amparte/Salveaza buton la sfarsitul de la feed"
+#: add-to-any.php:846
+#, fuzzy, php-format
+msgid "Display at the %s of posts on the front page"
+msgstr "afişează butonul 'distribuie/salvează' în coada articolelor de pe prima pagină"
 
-#: add-to-any.php:715
-msgid "Display Share/Save button at the bottom of pages"
-msgstr "Priveste Amparte/Salveaza buton la sfarsitul de la pagina"
+#: add-to-any.php:854
+#, fuzzy, php-format
+msgid "Display at the %s of posts in the feed"
+msgstr "afişează butonul 'distribuie/salvează' în coada articolelor din feed"
 
-#: add-to-any.php:719
+#: add-to-any.php:858
+#, fuzzy, php-format
+msgid "Display at the %s of pages"
+msgstr "afişează butonul 'distribuie/salvează' în josul paginilor"
+
+#: add-to-any.php:862
 msgid "If unchecked, be sure to place the following code in <a href=\"theme-editor.php\">your template pages</a> (within <code>index.php</code>, <code>single.php</code>, and/or <code>page.php</code>)"
-msgstr "Daca e dezactivat, trebuie sa fim siguri sa punem codul seguit <a href=\"theme-editor.php\">tema de la pagina</a> ( cu <code>index.php</code>, <code>single.php</code>, si/sau <code>page.php</code>)"
+msgstr "If unchecked, be sure to place the following code in <a href=\"theme-editor.php\">your template pages</a> (within <code>index.php</code>, <code>single.php</code>, and/or <code>page.php</code>)"
 
-#: add-to-any.php:728
+#: add-to-any.php:871
 msgid "Menu Style"
-msgstr "Stil menu"
+msgstr "stil meniu"
 
-#: add-to-any.php:730
+#: add-to-any.php:873
 msgid "Using AddToAny's Menu Styler, you can customize the colors of your Share/Save menu! When you're done, be sure to paste the generated code in the <a href=\"#\" onclick=\"document.getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();return false\">Additional Options</a> box below."
-msgstr "Folosind stilul de la menu de la AddToAny,poti sa configurezi culorile de al tau Amparte/Salveaza ! Daca ai modificat, pune codul asa obtinut an cuadru de la <a href=\"#\" onclick=\"document.getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();return false\">option ajunse</a> aici jos."
+msgstr "Folosind stilizatorul de meniu AddToAny, poti sa configurezi culorile meniului tău 'distribuie/salvează' ! După ce ai terminat, asigură-te ca ai înlocuit codul generat în căsuţa <a href=\"#\" onclick=\"document.getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();return false\">opţiuni suplimentare</a> de mai jos."
 
-#: add-to-any.php:732
+#: add-to-any.php:875
 msgid "Open the AddToAny Menu Styler in a new window"
-msgstr "Deschide an o noue fineastra pentru a personaliza il menu de la AddToAny"
+msgstr "Open the AddToAny Menu Styler in a new window"
 
-#: add-to-any.php:734
+#: add-to-any.php:877
 msgid "Open Menu Styler"
-msgstr "Stil menu"
+msgstr "deschide stilizatorul de meniu"
 
-#: add-to-any.php:739
+#: add-to-any.php:882
 msgid "Menu Options"
-msgstr "Optioni menu"
+msgstr "optiuni menu"
 
-#: add-to-any.php:744
-msgid "Show the title of the post (or page) within the menu"
-msgstr "Priveste titlul de la articolul (sau pagina) an menu"
-
-#: add-to-any.php:751
+#: add-to-any.php:887
 msgid "Only show the menu when the user clicks the Share/Save button"
-msgstr "Arata menu duar cand autorul clicca pe butonul Amparte/Salveaza"
+msgstr "arată meniul doar cand utilizatorul dă clic pe butonul distribuie/salvează"
 
-#: add-to-any.php:757
-msgid "Open the addtoany.com menu page in a new tab or window if the user clicks the Share/Save button"
-msgstr "Deschide meniul addtoany.com antro noua feneastra sau scheda daca autorul clicca pe butonul Amparte/Salveava"
+#: add-to-any.php:892
+msgid "Show the title of the post (or page) within the menu"
+msgstr "arată titlul articolului (paginii) in cadrul meniului"
 
-#: add-to-any.php:762
+#: add-to-any.php:897
 msgid "Additional Options"
-msgstr "Optioni adiţionale"
+msgstr "optiuni adiţionale"
 
-#: add-to-any.php:766
+#: add-to-any.php:901
 msgid "Paste the code from AddToAny's Menu Styler in the box below!"
-msgstr "Introduce aici jos codul personalizat pentru menu!"
+msgstr "introdu în căsuţa de mai jos codul din stilizatorul de meniu AddToAny!"
 
-#: add-to-any.php:770
+#: add-to-any.php:905
 msgid "Below you can set special JavaScript variables to apply to each Share/Save menu."
-msgstr "Aici jos e posibil impostare variabilele JavaScript applicate a fiecare  menu Amparte/Salveaza"
+msgstr "Mai jos poţi seta variabilele speciale JavaScript pentru a le aplica fiecărui meniu 'distribuie/salvează'."
 
-#: add-to-any.php:771
+#: add-to-any.php:906
 msgid "Advanced users might want to explore AddToAny's <a href=\"http://www.addtoany.com/buttons/customize/\" target=\"_blank\">additional options</a>."
-msgstr "Autorul poate sa vada de la <a href=\"http://www.addtoany.com/buttons/customize/\" target=\"_blank\">JavaScript API</a>."
+msgstr "Utilizatorii avansaţi pot explora <a href=\"http://www.addtoany.com/buttons/customize/\" target=\"_blank\">optiunile adiţionale</a> ale AddToAny."
 
-#: add-to-any.php:777
+#: add-to-any.php:912
 msgid "<strong>Note</strong>: If you're adding new code, be careful not to accidentally overwrite any previous code.</label>"
-msgstr "<strong>Nota</strong>: Daca ajungi un nou cod, atentione se nu soprascrieti din gresiala fiecare cod de prima.</label>"
+msgstr "<strong>Notă</strong>: dacă adaugi cod nou, ai grijă să nu suprascrii vreun cod anterior.</label>"
 
-#: add-to-any.php:782
-#, fuzzy
+#: add-to-any.php:917
 msgid "Advanced Options"
-msgstr "Optioni adiţionale"
+msgstr "Optiuni avansate"
 
-#: add-to-any.php:787
+#: add-to-any.php:922
 msgid "Use CSS stylesheet"
-msgstr ""
+msgstr "utilizează stylesheet CSS"
 
-#: add-to-any.php:792
+#: add-to-any.php:927
 msgid "Cache AddToAny locally with daily cache updates"
-msgstr ""
+msgstr "păstrează AddToAny local, in cache, cu actualizări zilnice ale cache-ului"
 
-#: add-to-any.php:796
-msgid "If unchecked, be sure to place the CSS in your theme's stylesheet:"
-msgstr ""
-
-#: add-to-any.php:801
+#: add-to-any.php:931
 msgid "Only consider for sites with frequently returning visitors. Since many visitors will have AddToAny cached in their browser already, serving AddToAny locally from your site will be slower for those visitors.  Be sure to set far future cache/expires headers for image files in your <code>uploads/addtoany</code> directory."
+msgstr "Ia în considerare doar pentru situri cu vizitatori care revin frecvent. Cum multi vizitatori vor avea AddToAny salvat deja in cache-ul browser-ului lor, a le oferi AddToAny în mod local, din situl tău, va fi mai lent.  Ai grijă să setezi cache/expires headers intr-un viitor îndepărtat pentru fişiere de imagini din directorul tău <code>uploads/addtoany</code>."
+
+#: add-to-any.php:938
+msgid "Save Changes"
+msgstr "salvează setările"
+
+#: add-to-any.php:939
+msgid "Are you sure you want to delete all AddToAny options?"
 msgstr ""
 
-#: add-to-any.php:808
-msgid "Save Changes"
-msgstr "Salveaza schimbarile"
+#: add-to-any.php:939
+msgid "Reset"
+msgstr ""
 
-#: add-to-any.php:813
+#: add-to-any.php:944
 msgid "Like this plugin?"
-msgstr "Ati place acest plugin?"
+msgstr "îti place acest plugin?"
 
-#: add-to-any.php:814
+#: add-to-any.php:945
 msgid "<a href=\"http://wordpress.org/extend/plugins/add-to-any/\">Give it a good rating</a> on WordPress.org."
-msgstr "<a href=\"http://wordpress.org/extend/plugins/add-to-any/\">Voteazama</a> sus WordPress.org."
+msgstr "<a href=\"http://wordpress.org/extend/plugins/add-to-any/\">Votează-l pozitiv</a> la WordPress.org."
 
-#: add-to-any.php:815
+#: add-to-any.php:946
 msgid "<a href=\"http://www.addtoany.com/share_save?linkname=WordPress%20Share%20%2F%20Bookmark%20Plugin%20by%20AddToAny.com&amp;linkurl=http%3A%2F%2Fwordpress.org%2Fextend%2Fplugins%2Fadd-to-any%2F\">Share it</a> with your friends."
-msgstr "<a href=\"http://www.addtoany.com/share_save?linkname=WordPress%20Share%20Plugin%20by%20AddToAny.com&amp;linkurl=http%3A%2F%2Fwordpress.org%2Fextend%2Fplugins%2Fadd-to-any%2F\">Amparte</a> cu prieteni tai."
+msgstr "<a href=\"http://www.addtoany.com/share_save?linkname=WordPress%20Share%20Plugin%20by%20AddToAny.com&amp;linkurl=http%3A%2F%2Fwordpress.org%2Fextend%2Fplugins%2Fadd-to-any%2F\">trimite-l</a> prietenilor tai."
 
-#: add-to-any.php:817
+#: add-to-any.php:948
 msgid "Need support?"
 msgstr "Ai nevoie de ajutor?"
 
-#: add-to-any.php:818
+#: add-to-any.php:949
 msgid "See the <a href=\"http://wordpress.org/extend/plugins/add-to-any/faq/\">FAQs</a>."
-msgstr "Priveste <a href=\"http://wordpress.org/extend/plugins/add-to-any/faq/\">FAQ</a>."
+msgstr "vezi <a href=\"http://wordpress.org/extend/plugins/add-to-any/faq/\">FAQ</a>."
 
-#: add-to-any.php:819
+#: add-to-any.php:950
 msgid "Search the <a href=\"http://wordpress.org/tags/add-to-any\">support forums</a>."
-msgstr "Cauta pe <a href=\"http://wordpress.org/tags/add-to-any\">forum</a>."
+msgstr "Caută în <a href=\"http://wordpress.org/tags/add-to-any\">forumuri</a>."
 
-#: add-to-any.php:926
+#: add-to-any.php:1075
 msgid "Add/Remove Services"
-msgstr "Ajunge/Elimina servitii"
+msgstr "adaugă/elimină servicii"
 
-#: add-to-any.php:978
+#: add-to-any.php:1132
 msgid "Share/Save"
-msgstr "Amparte/Salveaza"
+msgstr "distribuie/salvează"
 
-#: add-to-any.php:979
+#: add-to-any.php:1133
 msgid "Share/Save Buttons"
-msgstr "Amparte/Salveaza buton"
+msgstr "butoane 'distribuie/salvează'"
+
+#~ msgid ""
+#~ "Open the addtoany.com menu page in a new tab or window if the user clicks "
+#~ "the Share/Save button"
+#~ msgstr ""
+#~ "deschide pagina-meniu addtoany.com într-un tab/fereastră nouă, dacă "
+#~ "utilizatorul apasă pe butonul 'distribuie/salvează'"
+
+#~ msgid "If unchecked, be sure to place the CSS in your theme's stylesheet:"
+#~ msgstr ""
+#~ "dacă nu e bifat, ai grijă sa plasezi CSS-ul in stylesheet-ul temei tale "
+#~ "(şablonului tău):"
 
 #~ msgid ""
 #~ "Hide embedded objects (Flash, video, etc.) that intersect with the menu "
 #~ "when displayed"
 #~ msgstr ""
-#~ "Ascondi obiecte incorporate (Flash, video, etc.) care poti interferi cu "
-#~ "menu vazut"
-
+#~ "Hide embedded objects (Flash, video, etc.) that intersect with the menu "
+#~ "when displayed"

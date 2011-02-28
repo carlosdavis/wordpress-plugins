@@ -3,8 +3,8 @@ Contributors: takayukister
 Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 2.9
-Tested up to: 3.0.4
-Stable tag: 2.4.3
+Tested up to: 3.0.5
+Stable tag: 2.4.4
 
 Just another contact form plugin. Simple but flexible.
 
@@ -33,7 +33,7 @@ It is hard to continue development and support for this plugin without contribut
 * Brazilian Portuguese (pt_BR) - [Leonardo Pinheiro](http://www.eletrikabarbarella.com.br/), [Henrique Vianna](http://henriquevianna.com/), [Caciano Gabriel Batista](http://www.gn10.com.br/), [Gervásio Antônio](http://twitter.com/gervasioantonio)
 * Bulgarian (bg_BG) - [Iliyan Darganov](http://www.darganov.com/)
 * Catalan (ca) - [Jordi Sancho](http://www.qasolutions.net/blog), Robert Buj
-* Chinese, Simplified (zh_CN) - [Soz](http://www.webtoolol.com/)
+* Chinese, Simplified (zh_CN) - [Soz](http://www.webtoolol.com/), [Keefe Dunn](http://dengkefu.com/)
 * Chinese, Traditional (zh_TW) - [James Wu](http://jameswublog.com)
 * Croatian (hr) - [tolingo Translation Services](http://www.tolingo.com)
 * Czech (cs_CZ) - Korry, [Radovan Fiser](http://algymsa.cz/)
@@ -60,11 +60,12 @@ It is hard to continue development and support for this plugin without contribut
 * Malayalam (ml_IN) - [RAHUL.S.A](http://www.infution.co.cc/)
 * Norwegian (nb_NO) - Kjetil M. Bergem, [aanvik.net](http://www.aanvik.net), [Peter Holme](http://holme.se/nettsteder/)
 * Persian (Farsi; fa_IR) - [Mohammad Musavi](http://www.musavis.com/)
-* Polish (pl_PL) - [Zbigniew Czernik](http://zibik.jogger.pl/), [Daniel Fruzynski](http://www.poradnik-webmastera.com)
+* Polish (pl_PL) - [Zbigniew Czernik](http://zibik.jogger.pl/), [Daniel Fruzynski](http://www.poradnik-webmastera.com), [RafalDesign](http://www.rafaldesign.pl/)
 * Portuguese (pt_PT) - [Hugo Baeta](http://hugobaeta.com)
-* Russian (ru_RU) - Dmitry Volotovich
-* Romanian (ro_RO) - [Stas Sushkov](http://stas.nerd.ro/), Anunturi Jibo
+* Russian (ru_RU) - Dmitry Volotovich, [Denis Voituk](http://artprima.cz/)
+* Romanian (ro_RO) - [Stas Sushkov](http://stas.nerd.ro/), [Anunturi Jibo](http://www.jibo.ro/)
 * Serbian (sr_RS) - [Vedran](http://www.seorabbit.com/), [Aleksandar Urošević](http://blog.urosevic.net/)
+* Sinhala (si_LK) - [Nitin Aggarwal](http://offshoreally.com/)
 * Slovak (sk) - [Patrik Bóna](http://www.mrhead.sk/)
 * Slovene (sl_SI) - [Mihael Simonič](http://smihael.bplaced.net)
 * Spanish (es_ES) - [Jordi Sancho](http://www.qasolutions.net/blog), [Vladimir Prieto](http://vladimir.prie.to/), [Federico Mikaelian](http://www.fedemika.com.ar/), [Matias Baldanza](http://matiasbaldanza.com/)
@@ -102,6 +103,12 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 1. screenshot-1.png
 
 == Changelog ==
+
+= 2.4.4 =
+
+* Translation for Sinhala has been created by Nitin Aggarwal.
+* Translations for German (Ivan Graf), Russian (Denis Voituk), Simplified Chinese (Keefe Dunn) and Polish (RafalDesign) have been updated.
+* Fixed wrong [_url] special mail tag output.
 
 = 2.4.3 =
 
