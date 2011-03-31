@@ -1,25 +1,25 @@
-=== AddToAny: Share/Bookmark/Email Button ===
+=== AddToAny: Share/Bookmark/Email Buttons ===
 Contributors: micropat
-Tags: sharing, share, sharethis, bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, email, e-mail, seo, button, delicious, google buzz, buzz, google, digg, reddit, facebook, facebook like, like, myspace, twitter, tweet, messenger, stumbleupon, technorati, sexybookmarks, sociable, sharedaddy, icon, icons, wpmu, addtoany, add
+Tags: sharing, share, sharethis, bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, email, e-mail, seo, button, delicious, google buzz, buzz, google, digg, reddit, facebook, facebook like, like, myspace, twitter, tweet, messenger, stumbleupon, technorati, sexybookmarks, sociable, sharedaddy, icon, icons, wpmu, addtoany
 Requires at least: 2.8
 Tested up to: 3.1
-Stable tag: 0.9.9.7.7
+Stable tag: 0.9.9.7.10
 
-Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, Google Buzz, Digg and many more.
+Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, StumbleUpon, Digg and many more.
 
 == Description ==
 
-The WordPress plugin to help people **share**, **bookmark**, and **email** your posts and pages using **any service**, such as Facebook, Twitter, Google Buzz, Digg, Delicious, and well over 100 more sharing and social bookmarking sites. New: **Facebook Like Button** and **Twitter Tweet Button**.
+The WordPress plugin to help people **share**, **bookmark**, and **email** your posts and pages using any service, such as Facebook, Twitter, StumbleUpon, Google, Digg, Delicious, and well over 100 more sharing and social bookmarking sites. New: **Facebook Like Button** and **Twitter Tweet Button**.
 
 This sharing plugin comes with AddToAny's customizable Smart Menu, which places the services visitors use at the top of the menu, based on each visitor's browsing and usage history.
 
-<a href="http://www.addtoany.com/" title="Sharing and bookmarking button widget" target="_blank">Share Button</a> (demo)
+<a href="http://www.addtoany.com/" title="Sharing button widget" target="_blank">Share Button</a> (demo)
 
 The Email tab makes it easy to share via Google Gmail, Yahoo! Mail, Hotmail, AOL, and any other web-based emailer or desktop program. The Add to Favorites button (or Bookmark tab) helps users bookmark using any browser (Internet Explorer, Firefox, Chrome, Safari, Opera, etc.).
 
 Standalone **share icons** let you optimize your blog posts for specific social sites.  Choose from over 100 individual services.
 
-* AddToAny <a href="http://www.addtoany.com/blog/smart-menus-the-services-your-visitors-use-displayed-first/" target="_blank">Smart Menu</a> & <a href="http://www.addtoany.com/buttons/customize/standalone_services" target="_blank">AddToAny Kit</a>
+* AddToAny Smart Menu & <a href="http://www.addtoany.com/buttons/customize/standalone_services" target="_blank">AddToAny Kit</a>
 * Individual share links (like Sociable)
 * Includes all <a href="http://www.addtoany.com/services/" target="_blank">services</a>
 * Google Analytics integration (<a href="http://www.addtoany.com/ext/google_analytics/">access guide</a>)
@@ -27,15 +27,15 @@ Standalone **share icons** let you optimize your blog posts for specific social 
 * Easily customizable for beginners or advanced users, and highly extensible for developers and designers
 * Many more publisher and user features!
 
-After **years of active development**, over **1.46 million downloads**, and **ongoing support from the community**, AddToAny still strives to be the best WordPress plugin for sharing. We hope it's perfect for everyone by version 1.0.
+After **years of active development**, over **1.5 million downloads**, and **ongoing support from the community**, AddToAny still strives to be the best WordPress plugin for sharing. We hope it's perfect for everyone by version 1.0.
 
-<a href="http://www.addtoany.com/share_save" title="Share">Share this plugin</a>
+<a href="http://www.addtoany.com/share_save" title="Share">Share this</a> plugin
 
 See also:
 
-* The <a href="/extend/plugins/add-to-any-subscribe/" title="WordPress RSS Subscribe widget plugin">Subscribe button</a> plugin
-* The <a href="http://www.addtoany.com/buttons/for/wordpress_com" title="WordPress.com sharing button widget">Share button for WordPress.com</a> blogs
 * The standard <a href="http://www.addtoany.com/buttons/">Share button</a> widget
+* The <a href="http://www.addtoany.com/buttons/for/wordpress_com" title="WordPress.com sharing button widget">Share button for WordPress.com</a> blogs
+* The <a href="/extend/plugins/add-to-any-subscribe/" title="WordPress RSS Subscribe widget plugin">Subscribe button</a> plugin
 
 <a href="http://www.addtoany.com/blog/">AddToAny Blog</a> | <a href="http://www.addtoany.com/privacy">Privacy Policy</a>
 
@@ -176,6 +176,22 @@ Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds"
 5. Color chooser for your AddToAny menus
 
 == Changelog ==
+
+= .9.9.7.10 =
+* Fix initial button text for 16px icons in admin
+* Harden global options
+* Move conditional logic into hooks
+* Remove WP 2.6 version detection for jQuery UI and version globals
+
+= .9.9.7.9 =
+* Fix global options
+* Fix options variable debug mode notice
+* Suppress debug mode notices upon saving options
+
+= .9.9.7.8 =
+* New "Add to Favorites" & "Bookmark" standalone service for browser bookmarking
+* Support JS escaping for extending standalone services (A2A Kit)
+* Rename VK to the more recognized Vkontakte
 
 = .9.9.7.7 =
 * Fix <a href="http://wordpress.org/support/topic/plugin-addtoany-sharebookmarkemail-button-white-space-around-twitter-icon">IE iframe transparency issue</a> for Facebook Like & Twitter Tweet buttons

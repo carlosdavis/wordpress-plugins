@@ -62,6 +62,12 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "Blogger Post",
 		"icon" => "blogger",
 	),
+	"browser" => Array(
+		"name" => "Bookmark/Favorites",
+		"icon" => "bookmark",
+		"href" => "javascript:if(document.all){window.external.AddFavorite('A2A_LINKURL','A2A_LINKNAME')}else{var b=a2a_config.localize.BookmarkInstructions || 'Press Ctrl+D to bookmark this page';alert(a2a_config.localize.BookmarkInstructions)}",
+		"href_js_esc" => "TRUE",
+	),
 	"bookmarks_fr" => Array(
 		"name" => "Bookmarks.fr",
 		"icon" => "bookmarks_fr",
@@ -507,13 +513,13 @@ $A2A_SHARE_SAVE_services = Array(
 		"name" => "TypePad Post",
 		"icon" => "typepad",
 	),
-	"vk" => Array(
-		"name" => "VK",
-		"icon" => "vk",
-	),
 	"viadeo" => Array(
 		"name" => "Viadeo",
 		"icon" => "viadeo",
+	),
+	"vk" => Array(
+		"name" => "Vkontakte",
+		"icon" => "vk",
 	),
 	"vodpod" => Array(
 		"name" => "VodPod",
