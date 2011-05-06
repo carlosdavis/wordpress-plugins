@@ -3,7 +3,7 @@ Contributors: micropat
 Tags: sharing, share, sharethis, bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, email, e-mail, seo, button, delicious, google buzz, buzz, google, digg, reddit, facebook, facebook like, like, myspace, twitter, tweet, messenger, stumbleupon, technorati, sexybookmarks, sociable, sharedaddy, icon, icons, wpmu, addtoany
 Requires at least: 2.8
 Tested up to: 3.1
-Stable tag: 0.9.9.7.10
+Stable tag: 0.9.9.8
 
 Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, StumbleUpon, Digg and many more.
 
@@ -13,21 +13,21 @@ The WordPress plugin to help people **share**, **bookmark**, and **email** your 
 
 This sharing plugin comes with AddToAny's customizable Smart Menu, which places the services visitors use at the top of the menu, based on each visitor's browsing and usage history.
 
-<a href="http://www.addtoany.com/" title="Sharing button widget" target="_blank">Share Button</a> (demo)
+<a href="http://www.addtoany.com/" title="Sharing button widget">Share Button</a> (demo)
 
 The Email tab makes it easy to share via Google Gmail, Yahoo! Mail, Hotmail, AOL, and any other web-based emailer or desktop program. The Add to Favorites button (or Bookmark tab) helps users bookmark using any browser (Internet Explorer, Firefox, Chrome, Safari, Opera, etc.).
 
 Standalone **share icons** let you optimize your blog posts for specific social sites.  Choose from over 100 individual services.
 
-* AddToAny Smart Menu & <a href="http://www.addtoany.com/buttons/customize/standalone_services" target="_blank">AddToAny Kit</a>
+* AddToAny Smart Menu & <a href="http://www.addtoany.com/buttons/customize/standalone_services">AddToAny Kit</a>
 * Individual share links (like Sociable)
-* Includes all <a href="http://www.addtoany.com/services/" target="_blank">services</a>
+* Includes all <a href="http://www.addtoany.com/services/">services</a>
 * Google Analytics integration (<a href="http://www.addtoany.com/ext/google_analytics/">access guide</a>)
-* WordPress optimized, localized (English, Chinese, Spanish, Japanese, French, Portuguese, Italian, Dutch, Danish, Catalan, Persian, Russian, Albanian, Romanian, Belarusian)
+* WordPress optimized, localized (English, Chinese, Spanish, Japanese, French, Portuguese, Italian, Dutch, Danish, Catalan, Persian, Russian, Turkish, Albanian, Romanian, Belarusian, Greek)
 * Easily customizable for beginners or advanced users, and highly extensible for developers and designers
 * Many more publisher and user features!
 
-After **years of active development**, over **1.5 million downloads**, and **ongoing support from the community**, AddToAny still strives to be the best WordPress plugin for sharing. We hope it's perfect for everyone by version 1.0.
+After **years of active development**, over **1.6 million downloads**, and **ongoing support from the community**, AddToAny still strives to be the best WordPress plugin for sharing. We hope it's perfect for everyone by version 1.0.
 
 <a href="http://www.addtoany.com/share_save" title="Share">Share this</a> plugin
 
@@ -48,11 +48,13 @@ See also:
 
 = Where are the options? =
 
-In your Admin panel, go to `Settings` > `Share/Save Buttons`.  Among other options, you can choose which button, individual icons and advanced sharing buttons (Facebook Like Button and Twitter Tweet Button) to display, and where and how to display them. 
+In your Admin panel, go to `Settings` > `AddToAny`.  Among other options, you can choose which button, individual icons and advanced sharing buttons (Facebook Like Button and Twitter Tweet Button) to display, and where and how to display them.
+
+To place AddToAny as a "widget" in your theme (if your theme supports WordPress Widgets), go to `Appearance` > `Widgets`, then drag AddToAny to an available Widget Area and click `Save`.
 
 = Why isn't the drop-down menu appearing? =
 
-It's likely because your theme wasn't <a href="http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks" target="_blank">coded properly</a>.  With many themes you can use the Theme Editor to make sure that the following piece of code is included in your theme's `footer.php` file just before the `</body>` line:
+It's likely because your theme wasn't <a href="http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks">coded properly</a>.  With many themes you can use the Theme Editor to make sure that the following piece of code is included in your theme's `footer.php` file just before the `</body>` line:
 
 `<?php wp_footer(); ?>`
 
@@ -143,9 +145,13 @@ If your button isn't already set up to appear (it is by default), insert the fol
 
 = Why doesn't Facebook use the page title and how can I set the image Facebook uses? =
 
-Facebook does link sharing a little differently than most other services. Facebook will sometimes use the Meta Description of a shared page instead of the page's title or the title you have set for AddToAny.
+Facebook does link sharing a little differently than most other services. Facebook expects the Title, Description, and Thumbnail of a shared page to be defined in the actual HTML code of a shared page. Unlike other services, Facebook does not accept the values you have set for your AddToAny sharing widget. To change the title, description or image on Facebook, you will need to modify your theme.
 
-To change the title, description and/or image on Facebook, you will need to modify your theme header file according to <a href="http://wiki.developers.facebook.com/index.php/Facebook_Share/Specifying_Meta_Tags">Facebook's specification</a>. With WordPress, this can be accomplished with plugins like the <a href="http://wordpress.org/extend/plugins/all-in-one-seo-pack/">All in One SEO Pack plugin</a>.  Please see that plugin for details, and post in the WordPress or plugin author's forums for more support.
+Try running Facebook's <a href="http://developers.facebook.com/tools/lint">URL Linter</a> on your pages to see how Facebook is reading your site.
+
+To change the title, description and/or image on Facebook, you will need to modify your theme's header file according to <a href="http://developers.facebook.com/docs/opengraph/">Facebook's specification</a>. With WordPress, this can be accomplished with plugins like the <a href="http://wordpress.org/extend/plugins/all-in-one-seo-pack/">All in One SEO Pack plugin</a>.  Please see that plugin for details, and post in the WordPress or plugin author's forums for more support.
+
+For more technical information on setting your pages up for Facebook sharing, see "Step 2 - Get Open Graph Tags" in <a href="http://developers.facebook.com/docs/reference/plugins/like/">Facebook's documentation</a>.
 
 = Why does the Facebook Like Button have so much whitespace to the right of it? =
 
@@ -159,23 +165,78 @@ Yes, AddToAny outputs 100% W3C valid XHTML and W3C valid CSS 3.0.
 
 If you move the plugin's CSS code to your theme's stylesheet, note that one proprietary vendor prefix (`filter`) is used.  It's utilized for cross-browser compatibility with Internet Explorer.  For more information about the W3C CSS Validator and the `filter` property, see <a href="http://www.websitedev.de/css/validator-faq#extensions">Why don't my scrollbar properties, filters, etc. validate?</a>  If you feel compelled, you can move the line into an Internet Explorer-only stylesheet, or remove the line at the cost of the opacity hover effect in Internet Explorer.
 
+= Is there a shortcode for sharing? =
+
+Yes, you can place AddToAny exactly where you want it by inserting the following shortcode in a post or page:
+`[addtoany]`
+
+You can also customize the shared URL like so:
+`[addtoany url="http://www.example.com/page.html" title="Some Example Page"]`
+
 = How can I move the plugin's inline CSS into my theme's main external stylesheet? =
 
-Go to `Settings` > `Share/Save Buttons` > uncheck `Use inline CSS` and place the CSS code in your theme's main stylesheet.
+Go to `Settings` > `AddToAny` > uncheck `Use inline CSS` and place the CSS code in your theme's main stylesheet.
 
 = Why does the menu appear behind embedded objects (like Flash)? =
 
-Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds">this document</a> for an explanation and possible fix. For WordPress, an easier fix is to have AddToAny <a href="http://www.addtoany.com/buttons/customize/hide_embeds">hide intersecting embedded objects</a>. Just copy & paste the recommended code into the Additional Options box in `Settings` > `Share/Save Buttons`, then save changes.
+Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds">this document</a> for an explanation and possible fix. For WordPress, an easier fix is to have AddToAny <a href="http://www.addtoany.com/buttons/customize/hide_embeds">hide intersecting embedded objects</a>. Just copy & paste the recommended code into the Additional Options box in `Settings` > `AddToAny`, then save changes.
 
 == Screenshots ==
 
-1. AddToAny Share/Save button, featuring the Open Share Icon
+1. AddToAny Share/Save sharing button, featuring the Open Share Icon
 2. Drop-down menu that appears instantly when visitors use the share button
 3. Email tab, with direct links to the most popular web-based emailers' auto-filled Compose page, a web-based sender for use with any email address, and a link for desktop email clients
 4. Settings panel
 5. Color chooser for your AddToAny menus
 
 == Changelog ==
+
+= .9.9.8 =
+* WordPress widget for sharing
+ * In your Admin panel, go to `Appearance` > `Widgets`, then drag AddToAny to an available Widget Area (if your theme supports widgets) and click `Save`
+ * The widget will share the current page 
+* Shortcode for sharing
+ * Usage for sharing current post or page: `[addtoany]`
+ * Usage for sharing a specific URL: `[addtoany url="http://www.example.com/page.html" title="Some Example Page"]`
+* Add use_current_page boolean argument to PHP template code (default is false)
+
+= .9.9.7.14 =
+* Simplify plugin's option as "AddToAny"
+* Greek translation update (by Xaris from <a href="http://www.aggeliopolis.gr/">Aggeliopolis</a>)
+* Update Facebook FAQ
+* Update Facebook HTTP referrer
+* Update Microsoft Messenger (Windows Live) icon 
+
+= .9.9.7.13 =
+* Fix IE conditional comment bug that affects Facebook Like button & Twitter Tweet button iframes in some browsers
+
+= .9.9.7.12 =
+* Update Tumblr icon (thanks <a href="http://blog.mattalgren.com/">Matt</a>)
+* Reduce icon filesizes
+ * blip.png
+ * box.png
+ * business_exchange.png
+ * diary_ru.png
+ * folkd.png
+ * google_buzz.png
+ * grono.png
+ * identica.png
+ * meneame.png
+ * messenger.png
+ * mozillaca.png
+ * newstrust.png
+ * orkut.png
+ * posterous.png
+ * print.png
+ * printfriendly.png
+ * tuenti.png
+ * tumblr.png
+ * wykop.png
+ * xing.png
+
+= .9.9.7.11 =
+* Turkish translation (by Fatih Aker)
+* Russian translation update (by <a href="http://fweb.org.ru/">Elvis</a>)
 
 = .9.9.7.10 =
 * Fix initial button text for 16px icons in admin
@@ -344,7 +405,7 @@ Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds"
  * Avoids premature calling from miscellaneous the_content filters from themes and other plugins
  * Thesis theme workaround
 * French translation (by Julien)
-* Belarusian translation update (by <a href="http://pc.de/" target="_blank">Marcis G</a>)
+* Belarusian translation update (by <a href="http://pc.de/">Marcis G</a>)
 
 = .9.9.5.2 =
 * W3C XHTML validation fix (invalid from .9.9.5)
@@ -357,7 +418,7 @@ Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds"
 * Updated template code in admin
 * Switched API URL to customize URL in admin
 * Fixed unbracketed noscript tag in admin
-* Brazilian Portuguese translation (by <a href="http://www.raocubo.com.br/" target="_blank">Rodolfo Rodrigues</a>)
+* Brazilian Portuguese translation (by <a href="http://www.raocubo.com.br/">Rodolfo Rodrigues</a>)
 
 = .9.9.5.1 =
 * Fixed issue with excerpts (JavaScript text output within excerpts since .9.9.5)
@@ -404,7 +465,7 @@ Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds"
  * diHITT
 * Removed standalone service
  * Global Grind
-* Japanese translation (by <a href="http://wpxtreme.jp/" target="_blank">kz</a>)
+* Japanese translation (by <a href="http://wpxtreme.jp/">kz</a>)
 
 = .9.9.4.7 =
 * Just a slight rename
@@ -450,8 +511,8 @@ Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds"
 
 = .9.9.4.1 =
 * Twitter icon included in standard sharing button
-* Albanian translation (by <a href="http://www.romeolab.com/" target="_blank">Romeo Shuka</a>)
-* Romanian translation (by <a href="http://www.stefandes.com/" target="_blank">Stefan</a>)
+* Albanian translation (by <a href="http://www.romeolab.com/">Romeo Shuka</a>)
+* Romanian translation (by <a href="http://www.stefandes.com/">Stefan</a>)
 
 = .9.9.4 =
 * Custom standalone service support
@@ -542,7 +603,7 @@ Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds"
 * Fixed display when all standalone services are removed in admin
 * Services label renamed Standalone Services for clarity
 * Updates to Danish translation
-* Added Belarusian translation (by <a href="http://pc.de/" target="_blank">Marcis G</a>)
+* Added Belarusian translation (by <a href="http://pc.de/">Marcis G</a>)
 
 = .9.9.2.1 =
 * Feed icons shown inline, no longer displayed in unordered list
@@ -571,7 +632,7 @@ Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds"
 = .9.8.9 =
 * wp_footer() detection
 * Replaced short form of PHP's open tags with long form to work around configurations with shortopentag disabled
-* Spanish translation (by <a href="http://pablo.poo.cl/" target="_blank">Pablo</a>)
+* Spanish translation (by <a href="http://pablo.poo.cl/">Pablo</a>)
 
 = .9.8.8.4 =
 * Settings panel submits to current page instead of unreliable REQUEST_URI which can omit querystring on IIS
@@ -586,7 +647,7 @@ Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds"
 = .9.8.8.1 =
 * Refine conditionals
 * Highlight admin notices
-* Danish translation (by <a href="http://wordpress.blogos.dk/" target="_blank">Georg</a>)
+* Danish translation (by <a href="http://wordpress.blogos.dk/">Georg</a>)
 
 = .9.8.8 =
 * Now customize the optional text next to the 16 x 16px icons

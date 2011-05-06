@@ -3,7 +3,7 @@
 Plugin Name: AddToAny: Share/Bookmark/Email Buttons
 Plugin URI: http://www.addtoany.com/
 Description: Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, StumbleUpon, Digg and many more.  [<a href="options-general.php?page=add-to-any.php">Settings</a>]
-Version: .9.9.7.10
+Version: .9.9.8
 Author: AddToAny
 Author URI: http://www.addtoany.com/
 */
@@ -84,7 +84,7 @@ function ADDTOANY_SHARE_SAVE_KIT( $args = false ) {
     
 	$kit_html .= ADDTOANY_SHARE_SAVE_BUTTON($args);
 	
-	if($args['output_later'])
+	if (isset($args['output_later']) && $args['output_later'])
 		return $kit_html;
 	else
 		echo $kit_html;
@@ -205,6 +205,7 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 		'linkurl' => '',
 		'linkname_enc' => '',
 		'linkurl_enc' => '',
+		'use_current_page' => FALSE,
 		'output_later' => FALSE,
 		'html_container_open' => '',
 		'html_container_close' => '',
@@ -288,11 +289,15 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 			
 		$button_javascript = "\n" . '<script type="text/javascript">' . "<!--\n"
 			. $initial_js
-			. A2A_menu_locale()
-			. 'a2a_config.linkname="' . esc_js($linkname) . '";' . "\n"
-			. 'a2a_config.linkurl="' . $linkurl . '";' . "\n"
-			. $external_script_call . "\n\n";
-		
+			. A2A_menu_locale();
+		if ($use_current_page) {
+			$button_javascript .= 'a2a_config.linkname=document.title;' . "\n"
+				. 'a2a_config.linkurl=location.href;' . "\n";
+		} else {
+			$button_javascript .= 'a2a_config.linkname="' . esc_js($linkname) . '";' . "\n"
+				. 'a2a_config.linkurl="' . $linkurl . '";' . "\n";
+		}
+		$button_javascript .= $external_script_call . "\n\n";
 		$button_html .= $button_javascript;
 	
 	}
@@ -319,10 +324,10 @@ function ADDTOANY_SHARE_SAVE_SPECIAL($special_service_code, $args = array() ) {
 	// IE ridiculousness to support transparent iframes while maintaining W3C validity
 	$iframe_template = '<!--[if IE]>'
 		. $iframe_template_begin . ' allowTransparency="true"' . $iframe_template_end
-		. '<![endif]--><!--[if !IE]>-->' . $iframe_template . '<!--<![endif]-->';
+		. '<![endif]--><!--[if !IE]><!-->' . $iframe_template . '<!--<![endif]-->';
 	
 	if ($special_service_code == 'facebook_like')
-		$special_html = sprintf($iframe_template, $special_service_code, 'http://www.facebook.com/plugins/like.php?href=' . $linkurl_enc . '&amp;layout=button_count&amp;show_faces=false&amp;width=75&amp;action=like&amp;colorscheme=light&amp;height=20', 90);
+		$special_html = sprintf($iframe_template, $special_service_code, 'http://www.facebook.com/plugins/like.php?href=' . $linkurl_enc . '&amp;layout=button_count&amp;show_faces=false&amp;width=75&amp;action=like&amp;colorscheme=light&amp;height=20&amp;ref=addtoany', 90);
 	elseif ($special_service_code == 'twitter_tweet') 
 		$special_html = sprintf($iframe_template, $special_service_code, 'http://platform.twitter.com/widgets/tweet_button.html?url=' . $linkurl_enc . '&amp;counturl=' . $linkurl_enc . '&amp;count=horizontal&amp;text=' . $linkname_enc, 55);
 	
@@ -496,6 +501,24 @@ function A2A_SHARE_SAVE_add_to_content($content) {
 // Only automatically output button code after the_title has been called - to avoid premature calling from misc. the_content filters (especially meta description)
 add_filter('the_title', 'A2A_SHARE_SAVE_auto_placement', 9);
 add_filter('the_content', 'A2A_SHARE_SAVE_add_to_content', 98);
+
+
+// [addtoany url="http://example.com/page.html" title="Some Example Page"]
+function A2A_SHARE_SAVE_shortcode( $attributes ) {
+	extract( shortcode_atts( array(
+		'url' => 'something',
+		'title' => 'something else',
+	), $attributes ) );
+	
+	$linkname = (isset($attributes['title'])) ? $attributes['title'] : FALSE;
+	$linkurl = (isset($attributes['url'])) ? $attributes['url'] : FALSE;
+	$output_later = TRUE;
+
+	return ADDTOANY_SHARE_SAVE_KIT( compact('linkname', 'linkurl', 'output_later') );
+}
+
+add_shortcode( 'addtoany', 'A2A_SHARE_SAVE_shortcode' );
+
 
 
 function A2A_SHARE_SAVE_button_css_IE() {
@@ -1115,7 +1138,7 @@ function A2A_SHARE_SAVE_admin_head() {
 	#addtoany_services_selectable li:hover, #addtoany_services_selectable li.addtoany_selected{border:1px solid #AAA;background-color:#FFF;}
 	#addtoany_services_selectable li.addtoany_selected:hover{border-color:#F00;}
 	#addtoany_services_selectable li:active{border:1px solid #000;}
-  #addtoany_services_selectable img{margin:0 4px;width:16px;height:16px;border:0;vertical-align:middle;}
+	#addtoany_services_selectable img{margin:0 4px;width:16px;height:16px;border:0;vertical-align:middle;}
 	#addtoany_services_selectable .addtoany_special_service{padding:3px 6px;}
 	#addtoany_services_selectable .addtoany_special_service img{width:auto;height:20px;}
 	
@@ -1145,7 +1168,7 @@ function A2A_SHARE_SAVE_add_menu_link() {
 	if( current_user_can('manage_options') ) {
 		$page = add_options_page(
 			'AddToAny: '. __("Share/Save", "add-to-any"). " " . __("Settings")
-			, __("Share/Save Buttons", "add-to-any")
+			, __("AddToAny", "add-to-any")
 			, 'activate_plugins' 
 			, basename(__FILE__)
 			, 'A2A_SHARE_SAVE_options_page'
@@ -1160,11 +1183,20 @@ function A2A_SHARE_SAVE_scripts() {
 	wp_enqueue_script('jquery-ui-sortable');
 }
 
+
+function A2A_SHARE_SAVE_widget_init() {
+    require_once('add-to-any-wp-widget.php');
+    register_widget('A2A_SHARE_SAVE_Widget');
+}
+
+add_action('widgets_init', 'A2A_SHARE_SAVE_widget_init');
+
+
 add_filter('admin_menu', 'A2A_SHARE_SAVE_add_menu_link');
 
 // Place in Option List on Settings > Plugins page 
 function A2A_SHARE_SAVE_actlinks( $links, $file ){
-	//Static so we don't call plugin_basename on every plugin row.
+	// Static so we don't call plugin_basename on every plugin row.
 	static $this_plugin;
 	if ( ! $this_plugin ) $this_plugin = plugin_basename(__FILE__);
 	
