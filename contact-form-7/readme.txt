@@ -3,8 +3,8 @@ Contributors: takayukister
 Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 2.9
-Tested up to: 3.1.2
-Stable tag: 2.4.4
+Tested up to: 3.2
+Stable tag: 2.4.6
 
 Just another contact form plugin. Simple but flexible.
 
@@ -49,7 +49,7 @@ It is hard to continue development and support for this plugin without contribut
 * Hebrew (he_IL) - [Yaron Ofer](http://www.gadgetguru.co.il/)
 * Hindi (hi_IN) - [Tarun Joshi](http://www.readers-cafe.net/), [Ashish](http://outshinesolutions.com/)
 * Hungarian (hu_HU) - [Andras Hirschler](http://hia.itblog.hu/), [János Csárdi-Braunstein](http://blogocska.org/), [Farkas Győző](http://www.sakraft.hu/)
-* Indonesian (id_ID) - [Hendry Lee](http://blogbuildingu.com/)
+* Indonesian (Bahasa Indonesia; id_ID) - [Hendry Lee](http://blogbuildingu.com/), [Belajar Seo Indonesia](http://dhany.web.id/panduan-seo)
 * Italian (it_IT) - [Bruno](http://www.brunosalzano.com), [Gianni Diurno](http://gidibao.net/)
 * Japanese (ja) - [Takayuki Miyoshi](http://ideasilo.wordpress.com)
 * Korean (ko_KR) - Seong Eun Lee, [Jong-In Kim](http://incommunity.codex.kr/wordpress/)
@@ -74,9 +74,9 @@ It is hard to continue development and support for this plugin without contribut
 * Thai (th) - [kazama](http://blog.wordthai.com/)
 * Turkish (tr_TR) - [Roman Neumuller](http://katpatuka.wordpress.com), [Hasan Yılmaz](http://hedefturkce.com/), [Emin Buğra Saral](http://www.rahmetli.info/)
 * Ukrainian (uk) - [Andrey Kovba](http://myserver.com.ua/), [Ukrainian WordPress localization team](http://wordpress.co.ua/plugins/contact-form-7.html)
-* Vietnamese (vi) - Thanh Hải, Hà
+* Vietnamese (vi) - Thanh Hải, Hà, [Khang Minh](http://betterwp.net/)
 
-If you have created your own language pack, or have an update of an existing one, you can send [gettext PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [me](http://ideasilo.wordpress.com/about/) so that I can bundle it into Contact Form 7. You can [download the latest POT file from here](http://plugins.svn.wordpress.org/contact-form-7/trunk/languages/wpcf7.pot).
+If you have created your own language pack, or have an update of an existing one, you can send [gettext PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [me](http://ideasilo.wordpress.com/about/) so that I can bundle it into Contact Form 7. You can download the latest [POT file](http://plugins.svn.wordpress.org/contact-form-7/trunk/languages/wpcf7.pot), and [PO files in each language](http://plugins.svn.wordpress.org/contact-form-7/branches/languages/).
 
 == Installation ==
 
@@ -94,7 +94,7 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 1. [Docs](http://contactform7.com/docs/)
 1. [FAQ](http://contactform7.com/faq/)
 1. [Support Forum](http://wordpress.org/tags/contact-form-7?forum_id=10)
-1. [WordPress HelpCenter](http://wphelpcenter.com/)
+1. [WordPress HelpCenter](http://wphelpcenter.com/plugins/contact-form-7/)
 
 [Support](http://contactform7.com/support/)
 
@@ -103,6 +103,13 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 1. screenshot-1.png
 
 == Changelog ==
+
+= 2.4.6 =
+
+* Fixed the bug that didn't accept '0' as valid value of drop-down menu.
+* Fixed the incorrect shortcode regexp blocking use of multiline content of textarea.
+* Updated jquery.form.js to 2.83.
+* Translations for Vietnamese (Khang Minh), Brazilian Portuguese (Caciano Gabriel Batista), Traditional Chinese (James Wu), Bahasa Indonesia (Belajar Seo Indonesia), German (Ivan Graf) and Hungarian (Farkas Győző) have been updated.
 
 = 2.4.5 =
 

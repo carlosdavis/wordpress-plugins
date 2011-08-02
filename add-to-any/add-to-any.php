@@ -2,15 +2,15 @@
 /*
 Plugin Name: AddToAny: Share/Bookmark/Email Buttons
 Plugin URI: http://www.addtoany.com/
-Description: Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, StumbleUpon, Digg and many more.  [<a href="options-general.php?page=add-to-any.php">Settings</a>]
-Version: .9.9.8
+Description: Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, Google, StumbleUpon, Digg and many more.  [<a href="options-general.php?page=add-to-any.php">Settings</a>]
+Version: .9.9.9.3
 Author: AddToAny
 Author URI: http://www.addtoany.com/
 */
 
 if( !isset($A2A_locale) )
 	$A2A_locale = '';
-
+	
 // Pre-2.6 compatibility
 if ( ! defined('WP_CONTENT_URL') )
 	define( 'WP_CONTENT_URL', get_option('siteurl') . '/wp-content');
@@ -18,7 +18,20 @@ if ( ! defined( 'WP_PLUGIN_URL' ) )
 	define( 'WP_PLUGIN_URL', WP_CONTENT_URL . '/plugins' );
 	
 $A2A_SHARE_SAVE_plugin_basename = plugin_basename(dirname(__FILE__));
-$A2A_SHARE_SAVE_plugin_url_path = WP_PLUGIN_URL.'/'.$A2A_SHARE_SAVE_plugin_basename; // /wp-content/plugins/add-to-any
+
+// WordPress Must-Use?
+if ( basename(dirname(__FILE__)) == "mu-plugins" ) {
+	// __FILE__ expected in /wp-content/mu-plugins (parent directory for auto-execution)
+	// /wp-content/mu-plugins/add-to-any
+	$A2A_SHARE_SAVE_plugin_url_path = WPMU_PLUGIN_URL . '/add-to-any';
+	$A2A_SHARE_SAVE_plugin_dir = WPMU_PLUGIN_DIR . '/add-to-any';
+} 
+else {
+	// /wp-content/plugins/add-to-any
+	$A2A_SHARE_SAVE_plugin_url_path = WP_PLUGIN_URL . '/' . $A2A_SHARE_SAVE_plugin_basename;
+	$A2A_SHARE_SAVE_plugin_dir = WP_PLUGIN_DIR . '/' . $A2A_SHARE_SAVE_plugin_basename;
+}
+	
 
 // Fix SSL
 if (is_ssl())
@@ -59,13 +72,18 @@ function A2A_SHARE_SAVE_link_vars($linkname = FALSE, $linkurl = FALSE) {
 	return compact( 'linkname', 'linkname_enc', 'linkurl', 'linkurl_enc' );
 }
 
-include_once(dirname(__FILE__).'/' . 'services.php');
+include_once($A2A_SHARE_SAVE_plugin_dir . '/services.php');
 
 // Combine ADDTOANY_SHARE_SAVE_ICONS and ADDTOANY_SHARE_SAVE_BUTTON
 function ADDTOANY_SHARE_SAVE_KIT( $args = false ) {
+	global $_addtoany_counter;
 	
-	if ( ! isset($args['html_container_open']))
-		$args['html_container_open'] = "<div class=\"a2a_kit addtoany_list\">";
+	$_addtoany_counter++;
+	
+	if ( ! isset($args['html_container_open'])) {
+		$args['html_container_open'] = '<div class="a2a_kit a2a_target addtoany_list" id="wpa2a_' . $_addtoany_counter . '">';
+		$args['is_kit'] = TRUE;
+	}
 	if ( ! isset($args['html_container_close']))
 		$args['html_container_close'] = "</div>";
 	// Close container element in ADDTOANY_SHARE_SAVE_BUTTON, not prematurely in ADDTOANY_SHARE_SAVE_ICONS
@@ -122,7 +140,7 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 	$service_codes = array_keys($A2A_SHARE_SAVE_services);
 	
 	// Include Facebook Like and Twitter Tweet
-	array_unshift($service_codes, 'facebook_like', 'twitter_tweet');
+	array_unshift($service_codes, 'facebook_like', 'twitter_tweet', 'google_plusone');
 	
 	$options = get_option('addtoany_options');
   
@@ -138,7 +156,7 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 		if ( !in_array($active_service, $service_codes) )
 			continue;
 
-		if ($active_service == 'facebook_like' || $active_service == 'twitter_tweet') {
+		if ($active_service == 'facebook_like' || $active_service == 'twitter_tweet' || $active_service == 'google_plusone') {
 			$link = ADDTOANY_SHARE_SAVE_SPECIAL($active_service, $args);
 		}
 		else {
@@ -171,9 +189,8 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 			$url = ($custom_service) ? $href : "http://www.addtoany.com/add_to/" . $safe_name . "?linkurl=" . $linkurl_enc . "&amp;linkname=" . $linkname_enc;
 			$src = ($icon_url) ? $icon_url : $A2A_SHARE_SAVE_plugin_url_path."/icons/".$icon.".png";
 			$class_attr = ($custom_service) ? "" : " class=\"a2a_button_$safe_name\"";
-			$target_attr = (isset($service['href'])) ? "" : " target=\"_blank\"";
 			
-			$link = $html_wrap_open."<a$class_attr href=\"$url\" title=\"$name\" rel=\"nofollow\"$target_attr>";
+			$link = $html_wrap_open."<a$class_attr href=\"$url\" title=\"$name\" rel=\"nofollow\" target=\"_blank\">";
 			$link .= "<img src=\"$src\" width=\"$width\" height=\"$height\" alt=\"$name\"/>";
 			$link .= "</a>".$html_wrap_close;
 		}
@@ -193,10 +210,11 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 	
 	// $args array = output_later, html_container_open, html_container_close, html_wrap_open, html_wrap_close, linkname, linkurl
 
-	global $A2A_SHARE_SAVE_plugin_url_path;
+	global $A2A_SHARE_SAVE_plugin_url_path, $_addtoany_targets, $_addtoany_counter, $_addtoany_init;
 	
 	$linkname = (isset($args['linkname'])) ? $args['linkname'] : FALSE;
 	$linkurl = (isset($args['linkurl'])) ? $args['linkurl'] : FALSE;
+	$_addtoany_targets = (isset($_addtoany_targets)) ? $_addtoany_targets : array();
 
 	$args = array_merge($args, A2A_SHARE_SAVE_link_vars($linkname, $linkurl)); // linkname_enc, etc.
 	
@@ -207,6 +225,7 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 		'linkurl_enc' => '',
 		'use_current_page' => FALSE,
 		'output_later' => FALSE,
+		'is_kit' => FALSE,
 		'html_container_open' => '',
 		'html_container_close' => '',
 		'html_wrap_open' => '',
@@ -215,6 +234,16 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 	
 	$args = wp_parse_args( $args, $defaults );
 	extract( $args );
+	
+	// If not enclosed in an AddToAny Kit, count & target this button (instead of Kit) for async loading
+	if ( ! $args['is_kit']) {
+		$_addtoany_counter++;
+		$button_class = ' a2a_target';
+		$button_id = ' id="wpa2a_' . $_addtoany_counter . '"';
+	} else {
+		$button_class = '';
+		$button_id = '';
+	}
 	
 	/* AddToAny button */
 	
@@ -243,63 +272,46 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 		$button_text	= stripslashes($options['button_text']);
 	}
 	
-	if( $button_fname == 'favicon.png' || $button_fname == 'share_16_16.png' ) {
+	$style = '';
+	
+	if( isset($button_fname) && ($button_fname == 'favicon.png' || $button_fname == 'share_16_16.png') ) {
 		if( ! $is_feed) {
 			$style_bg	= 'background:url('.$A2A_SHARE_SAVE_plugin_url_path.'/'.$button_fname.') no-repeat scroll 9px 0px !important;';
 			$style		= ' style="'.$style_bg.'padding:0 0 0 30px;display:inline-block;height:16px;line-height:16px;vertical-align:middle"'; // padding-left:30+9 (9=other icons padding)
 		}
 	}
 	
-	if( $button_text && (!$button_fname || $button_fname == 'favicon.png' || $button_fname == 'share_16_16.png') ) {
+	if( isset($button_text) && $button_text && ( ! isset($button_fname) || ! $button_fname || $button_fname == 'favicon.png' || $button_fname == 'share_16_16.png') ) {
 		$button			= $button_text;
 	} else {
 		$style = '';
 		$button			= '<img src="'.$button_src.'"'.$button_width.$button_height.' alt="Share"/>';
 	}
 	
-	$button_html = $html_container_open . $html_wrap_open . '<a class="a2a_dd addtoany_share_save" href="http://www.addtoany.com/share_save' .$button_href_querystring . '"'
+	$button_html = $html_container_open . $html_wrap_open . '<a class="a2a_dd' . $button_class . ' addtoany_share_save" href="http://www.addtoany.com/share_save' .$button_href_querystring . '"' . $button_id
 		. $style . $button_target
 		. '>' . $button . '</a>' . $html_wrap_close . $html_container_close;
 	
 	// If not a feed
 	if( ! $is_feed ) {
-		$http_or_https = (is_ssl()) ? 'https' : 'http';
-	
-		global $A2A_SHARE_SAVE_external_script_called;
-		if ( ! $A2A_SHARE_SAVE_external_script_called ) {
-			// Use local cache?
-			$cache = ($options['cache']=='1') ? TRUE : FALSE;
-			$upload_dir = wp_upload_dir();
-			$static_server = ($cache) ? $upload_dir['baseurl'] . '/addtoany' : $http_or_https . '://static.addtoany.com/menu';
-			
-			// Enternal script call + initial JS + set-once variables
-			$initial_js = 'var a2a_config = a2a_config || {};' . "\n";
-			$additional_js = $options['additional_js_variables'];
-			$external_script_call = (($cache) ? 'a2a_config.static_server="' . $static_server . '";' . "\n" : '' )
-				. (($options['onclick']=='1') ? 'a2a_config.onclick=1;' . "\n" : '')
-				. (($options['show_title']=='1') ? 'a2a_config.show_title=1;' . "\n" : '')
-				. (($additional_js) ? stripslashes($additional_js) . "\n" : '')
-				. "//-->" . '</script><script type="text/javascript" src="' . $static_server . '/page.js"></script>';
-			$A2A_SHARE_SAVE_external_script_called = true;
-		}
-		else {
-			$external_script_call = "a2a.init('page');\n//--></script>";
-			$initial_js = '';
-		}
-			
-		$button_javascript = "\n" . '<script type="text/javascript">' . "<!--\n"
-			. $initial_js
-			. A2A_menu_locale();
 		if ($use_current_page) {
-			$button_javascript .= 'a2a_config.linkname=document.title;' . "\n"
-				. 'a2a_config.linkurl=location.href;' . "\n";
+			$_addtoany_targets[] = "\n{title:document.title,"
+				. "url:location.href}";
 		} else {
-			$button_javascript .= 'a2a_config.linkname="' . esc_js($linkname) . '";' . "\n"
-				. 'a2a_config.linkurl="' . $linkurl . '";' . "\n";
+			$_addtoany_targets[] = "\n{title:'". esc_js($linkname) . "',"
+				. "url:'" . $linkurl . "'}";
 		}
-		$button_javascript .= $external_script_call . "\n\n";
-		$button_html .= $button_javascript;
-	
+		
+		if ( ! $_addtoany_init) {
+			$javascript_load_early = "\n<script type=\"text/javascript\"><!--\n"
+				. "wpa2a.script_load();"			
+				. "\n//--></script>\n";
+		}
+		else
+			$javascript_load_early = "";
+		
+		$button_html .= $javascript_load_early;
+		$_addtoany_init = TRUE;
 	}
 	
 	if ( $output_later )
@@ -311,25 +323,52 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 function ADDTOANY_SHARE_SAVE_SPECIAL($special_service_code, $args = array() ) {
 	// $args array = output_later, linkname, linkurl
 	
+	$options = get_option('addtoany_options');
+	
 	$linkname = (isset($args['linkname'])) ? $args['linkname'] : FALSE;
 	$linkurl = (isset($args['linkurl'])) ? $args['linkurl'] : FALSE;
 	
 	$args = array_merge($args, A2A_SHARE_SAVE_link_vars($linkname, $linkurl)); // linkname_enc, etc.
 	extract( $args );
 	
+	$http_or_https = (is_ssl()) ? 'https' : 'http';
 	$iframe_template_begin = '<iframe';
-	$iframe_template_end = ' class="addtoany_special_service %1$s" src="%2$s" frameborder="0" scrolling="no" style="border:none;overflow:hidden;width:%3$dpx;height:20px"></iframe>';
+	$iframe_template_end = ' class="addtoany_special_service %1$s" src="%2$s" scrolling="no" style="border:none;overflow:hidden;width:%3$dpx;height:%4$dpx"></iframe>';
 	$iframe_template = $iframe_template_begin . $iframe_template_end;
 	
 	// IE ridiculousness to support transparent iframes while maintaining W3C validity
 	$iframe_template = '<!--[if IE]>'
-		. $iframe_template_begin . ' allowTransparency="true"' . $iframe_template_end
+		. $iframe_template_begin . ' frameborder="0" allowTransparency="true"' . $iframe_template_end
 		. '<![endif]--><!--[if !IE]><!-->' . $iframe_template . '<!--<![endif]-->';
 	
-	if ($special_service_code == 'facebook_like')
-		$special_html = sprintf($iframe_template, $special_service_code, 'http://www.facebook.com/plugins/like.php?href=' . $linkurl_enc . '&amp;layout=button_count&amp;show_faces=false&amp;width=75&amp;action=like&amp;colorscheme=light&amp;height=20&amp;ref=addtoany', 90);
-	elseif ($special_service_code == 'twitter_tweet') 
-		$special_html = sprintf($iframe_template, $special_service_code, 'http://platform.twitter.com/widgets/tweet_button.html?url=' . $linkurl_enc . '&amp;counturl=' . $linkurl_enc . '&amp;count=horizontal&amp;text=' . $linkname_enc, 55);
+	if ($special_service_code == 'facebook_like') {
+		if ($options['special_facebook_like_options']['verb'] == 'recommend') {
+			$action_param_value = 'recommend';
+		} else {
+			$action_param_value = 'like';
+		}
+		$special_html = sprintf($iframe_template, $special_service_code, $http_or_https . '://www.facebook.com/plugins/like.php?href=' . $linkurl_enc . '&amp;layout=button_count&amp;show_faces=false&amp;width=75&amp;action=' . $action_param_value . '&amp;colorscheme=light&amp;height=20&amp;ref=addtoany', 90, 21);
+	}
+	elseif ($special_service_code == 'twitter_tweet') {
+		if ($options['special_twitter_tweet_options']['show_count'] == '1') {
+			$count_param_value = 'horizontal';
+			$width = 130;
+		} else {
+			$count_param_value = 'none';
+			$width = 55;
+		}
+		$special_html = sprintf($iframe_template, $special_service_code, $http_or_https . '://platform.twitter.com/widgets/tweet_button.html?url=' . $linkurl_enc . '&amp;counturl=' . $linkurl_enc . '&amp;count=' . $count_param_value . '&amp;text=' . $linkname_enc, $width, 20);
+	}
+	elseif ($special_service_code == 'google_plusone') {
+		if ($options['special_google_plusone_options']['show_count'] == '1') {
+			$count_param_value = 'true';
+			$width = 90;
+		} else {
+			$count_param_value = 'false';
+			$width = 32;
+		}
+		$special_html = sprintf($iframe_template, $special_service_code, 'https://plusone.google.com/u/0/_/%2B1/button#url=' . $linkurl_enc . '&amp;size=medium&amp;count=' . $count_param_value, $width, 20);
+	}		
 	
 	if ( $output_later )
 		return $special_html;
@@ -368,27 +407,132 @@ if (!function_exists('A2A_menu_locale')) {
 	}
 }
 
-if (!function_exists('A2A_wp_footer_check')) {
-	function A2A_wp_footer_check()
-	{
-		// If footer.php exists in the current theme, scan for "wp_footer"
-		$file = get_template_directory() . '/footer.php';
-		if( is_file($file) ) {
-			$search_string = "wp_footer";
-			$file_lines = @file($file);
-			
-			foreach($file_lines as $line) {
-				$searchCount = substr_count($line, $search_string);
-				if($searchCount > 0) {
-					return true;
-					break;
-				}
+
+function A2A_SHARE_SAVE_head_script() {
+	if (is_admin())
+		return;
+		
+	$options = get_option('addtoany_options');
+	
+	$http_or_https = (is_ssl()) ? 'https' : 'http';
+	
+	global $A2A_SHARE_SAVE_external_script_called;
+	if ( ! $A2A_SHARE_SAVE_external_script_called ) {
+		// Use local cache?
+		$cache = ($options['cache']=='1') ? TRUE : FALSE;
+		$upload_dir = wp_upload_dir();
+		$static_server = ($cache) ? $upload_dir['baseurl'] . '/addtoany' : $http_or_https . '://static.addtoany.com/menu';
+		
+		// Enternal script call + initial JS + set-once variables
+		$additional_js = $options['additional_js_variables'];
+		$script_configs = (($cache) ? "\n" . 'a2a_config.static_server="' . $static_server . '";' : '' )
+			. (($options['onclick']=='1') ? "\n" . 'a2a_config.onclick=1;' : '')
+			. (($options['show_title']=='1') ? "\n" . 'a2a_config.show_title=1;' : '')
+			. (($additional_js) ? "\n" . stripslashes($additional_js)  : '');
+		$A2A_SHARE_SAVE_external_script_called = true;
+	}
+	else {
+		$script_configs = "";
+	}
+	
+	$javascript_header = "\n" . '<script type="text/javascript">' . "<!--\n"
+			. "var a2a_config=a2a_config||{},"
+			. "wpa2a={done:false,"
+			. "html_done:false,"
+			. "script_ready:false,"
+			. "script_load:function(){"
+				. "var a=document.createElement('script'),"
+					. "s=document.getElementsByTagName('script')[0];"
+				. "a.type='text/javascript';a.async=true;"
+				. "a.src='" . $static_server . "/page.js';"
+				. "s.parentNode.insertBefore(a,s);"
+				. "wpa2a.script_load=function(){};"
+			. "},"
+			. "script_onready:function(){"
+				. "if(a2a.type=='page'){" // Check a2a internal var to ensure script loaded is page.js not feed.js
+					. "wpa2a.script_ready=true;"
+					. "if(wpa2a.html_done)wpa2a.init();"
+				. "}"
+			. "},"
+			. "init:function(){"
+				. "for(var i=0,el,target,targets=wpa2a.targets,length=targets.length;i<length;i++){"
+					. "el=document.getElementById('wpa2a_'+(i+1));"
+					. "target=targets[i];"
+					. "a2a_config.linkname=target.title;"
+					. "a2a_config.linkurl=target.url;"
+					. "if(el)a2a.init('page',{target:el});wpa2a.done=true;"
+				. "}"
+			. "}"
+		. "};"
+		. "a2a_config.tracking_callback=['ready',wpa2a.script_onready];"
+		. A2A_menu_locale()
+		. $script_configs
+		. "\n//--></script>\n";
+	
+	 echo $javascript_header;
+}
+
+add_action('wp_head', 'A2A_SHARE_SAVE_head_script');
+
+function A2A_SHARE_SAVE_footer_script() {
+	global $_addtoany_targets;
+	
+	if (is_admin())
+		return;
+		
+	$_addtoany_targets = (isset($_addtoany_targets)) ? $_addtoany_targets : array();
+	
+	$javascript_footer = "\n" . '<script type="text/javascript">' . "<!--\n"
+		. "wpa2a.targets=["
+			. implode(",", $_addtoany_targets)
+		. "];\n"
+		. "wpa2a.html_done=true;"
+		. "if(wpa2a.script_ready&&!wpa2a.done)wpa2a.init();" // External script may load before html_done=true, but will only init if html_done=true.  So call wpa2a.init() if external script is ready, and if wpa2a.init() hasn't been called already.  Otherwise, wait for callback to call wpa2a.init()
+		. "wpa2a.script_load();" // Load external script if not already called with the first AddToAny button.  Fixes issues where first button code is processed internally but without actual code output
+		. "\n//--></script>\n";
+	echo $javascript_footer;
+}
+
+add_action('wp_footer', 'A2A_SHARE_SAVE_footer_script');
+
+
+
+function A2A_SHARE_SAVE_theme_hooks_check() {
+	$template_directory = get_template_directory();
+	
+	// If footer.php exists in the current theme, scan for "wp_footer"
+	$file = $template_directory . '/footer.php';
+	if (is_file($file)) {
+		$search_string = "wp_footer";
+		$file_lines = @file($file);
+		
+		foreach ($file_lines as $line) {
+			$searchCount = substr_count($line, $search_string);
+			if ($searchCount > 0) {
+				return true;
 			}
-			
-			// wp_footer() not found:
-			echo "<div class=\"plugin-update\">" . __("Your theme needs to be fixed. To fix your theme, use the <a href=\"theme-editor.php\">Theme Editor</a> to insert <code>&lt;?php wp_footer(); ?&gt;</code> just before the <code>&lt;/body&gt;</code> line of your theme's <code>footer.php</code> file.") . "</div>";
 		}
-	}  
+		
+		// wp_footer() not found:
+		echo "<div class=\"update-nag\">" . __("Your theme needs to be fixed. To fix your theme, use the <a href=\"theme-editor.php\">Theme Editor</a> to insert <code>&lt;?php wp_footer(); ?&gt;</code> just before the <code>&lt;/body&gt;</code> line of your theme's <code>footer.php</code> file.") . "</div>";
+	}
+	
+	// If header.php exists in the current theme, scan for "wp_head"
+	$file = $template_directory . '/header.php';
+	if (is_file($file)) {
+		$search_string = "wp_head";
+		$file_lines = @file($file);
+		
+		foreach ($file_lines as $line) {
+			$searchCount = substr_count($line, $search_string);
+			if ($searchCount > 0) {
+				return true;
+			}
+		}
+		
+		// wp_footer() not found:
+		echo "<div class=\"update-nag\">" . __("Your theme needs to be fixed. To fix your theme, use the <a href=\"theme-editor.php\">Theme Editor</a> to insert <code>&lt;?php wp_head(); ?&gt;</code> just before the <code>&lt;/head&gt;</code> line of your theme's <code>header.php</code> file.") . "</div>";
+	}
 }
 
 function A2A_SHARE_SAVE_auto_placement($title) {
@@ -470,18 +614,19 @@ function A2A_SHARE_SAVE_add_to_content($content) {
 	
 	$kit_args = array(
 		"output_later" => true,
-		"html_container_open" => ($is_feed) ? "" : "<div class=\"a2a_kit addtoany_list\">",
-		"html_container_close" => ($is_feed) ? "" : "</div>",
-		"html_wrap_open" => ($is_feed) ? "" : "",
-		"html_wrap_close" => ($is_feed) ? " " : "",
+		"is_kit" => ($is_feed) ? FALSE : TRUE,
 	);
 	
 	if ( ! $is_feed ) {
 		$container_wrap_open = '<div class="addtoany_share_save_container">';
 		$container_wrap_close = '</div>';
-	} else {
+	} else { // Is feed
 		$container_wrap_open = '<p>';
 		$container_wrap_close = '</p>';
+		$kit_args['html_container_open'] = '';
+		$kit_args['html_container_close'] = '';
+		$kit_args['html_wrap_open'] = '';
+		$kit_args['html_wrap_close'] = '';
 	}
 	
 	$options['position'] = isset($options['position']) ? $options['position'] : 'bottom';
@@ -704,7 +849,18 @@ function A2A_SHARE_SAVE_options_page() {
 			$active_services[] = substr($sitename, 7);
 		$new_options['active_services'] = $active_services;
 		
-		update_option('addtoany_options', $new_options);
+		// Store special service options
+		$new_options['special_facebook_like_options'] = array(
+			'verb' => ((@$_POST['addtoany_facebook_like_verb'] == 'recommend') ? 'recommend' : 'like')
+		);
+		$new_options['special_twitter_tweet_options'] = array(
+			'show_count' => ((@$_POST['addtoany_twitter_tweet_show_count'] == '1') ? '1' : '-1')
+		);
+		$new_options['special_google_plusone_options'] = array(
+			'show_count' => ((@$_POST['addtoany_google_plusone_show_count'] == '1') ? '1' : '-1')
+		);
+		
+    	update_option('addtoany_options', $new_options);
     
 		?>
     	<div class="updated fade"><p><strong><?php _e('Settings saved.'); ?></strong></p></div>
@@ -761,7 +917,7 @@ function A2A_SHARE_SAVE_options_page() {
 	
     ?>
     
-    <?php A2A_wp_footer_check(); ?>
+    <?php A2A_SHARE_SAVE_theme_hooks_check(); ?>
     
     <div class="wrap">
 	
@@ -787,6 +943,9 @@ function A2A_SHARE_SAVE_options_page() {
                     </li>
 					<li id="a2a_wp_twitter_tweet" class="addtoany_special_service" title="Twitter Tweet button">
                         <span><img src="<?php echo $A2A_SHARE_SAVE_plugin_url_path.'/icons/twitter_tweet.png'; ?>" width="55" height="20" alt="Twitter Tweet" /></span>
+                    </li>
+                    <li id="a2a_wp_google_plusone" class="addtoany_special_service" title="Google +1 button">
+                        <span><img src="<?php echo $A2A_SHARE_SAVE_plugin_url_path.'/icons/google_plusone.png'; ?>" width="32" height="20" alt="Google +1" /></span>
                     </li>
 				<?php
 					// Show all services
@@ -1029,9 +1188,19 @@ function A2A_SHARE_SAVE_admin_head() {
 				services_size = services_array.length;
 			if(services_size<1) return;
 			
-			for(var i=0;i<services_size;i++){
-				if(services_array[i]!='') // Exclude dummy icon
+			for(var i=0, service_name; i < services_size; i++){
+				if(services_array[i]!='') { // Exclude dummy icon
 					jQuery('form:first').append('<input name="A2A_SHARE_SAVE_active_services[]" type="hidden" value="'+services_array[i]+'"/>');
+					
+					// Special service options?
+					service_name = services_array[i].substr(7);
+					if (service_name == 'facebook_like' || service_name == 'twitter_tweet' || service_name == 'google_plusone') {
+						if ((service_name == 'twitter_tweet' || service_name == 'google_plusone') && jQuery('#' + services_array[i] + '_show_count').is(':checked'))
+							jQuery('form:first').append('<input name="addtoany_' + service_name + '_show_count" type="hidden" value="1"/>');
+						if ((service_name == 'facebook_like') && jQuery('#' + services_array[i] + '_verb').val() == 'recommend')
+							jQuery('form:first').append('<input name="addtoany_' + service_name + '_verb" type="hidden" value="recommend"/>');
+					}
+				}
 			}
 		};
 	
@@ -1046,19 +1215,46 @@ function A2A_SHARE_SAVE_admin_head() {
 		
 		// Service click = move to sortable list
 		var moveToSortableList = function(){
-			if( jQuery('#addtoany_services_sortable li').not('.dummy').length==0 )
-				jQuery('#addtoany_services_sortable').find('.dummy').hide();
+			var configurable_html = '',
+				this_service = jQuery(this),
+				this_service_name = this_service.attr('id').substr(7),
+				checked = '',
+				special_options = '';
 			
-			jQuery(this).toggleClass('addtoany_selected')
+			if (jQuery('#addtoany_services_sortable li').not('.dummy').length == 0)
+				jQuery('#addtoany_services_sortable').find('.dummy').hide();
+				
+			if (this_service.hasClass('addtoany_special_service')) {
+				if (this_service_name == 'facebook_like') {
+					if (service_options[this_service_name] && service_options[this_service_name].verb)
+						checked = ' selected="selected"';
+					special_options_html = '<select id="' + this_service.attr('id') + '_verb" name="' + this_service.attr('id') + '_verb">'
+						+ '<option value="like">Like</option>'
+						+ '<option' + checked + ' value="recommend">Recommend</option>'
+						+ '</select>';
+				} else {
+					// twitter_tweet & google_plusone
+					if (service_options[this_service_name] && service_options[this_service_name].show_count)
+						checked = ' checked="checked"';
+					special_options_html = '<label><input' + checked + ' id="' + this_service.attr('id') + '_show_count" name="' + this_service.attr('id') + '_show_count" type="checkbox" value="1"> Show count</label>';
+				}
+				
+				configurable_html = '<span class="down_arrow"></span><br style="clear:both"/><div class="special_options">' + special_options_html + '</div>';
+			}
+			
+			this_service.toggleClass('addtoany_selected')
 			.unbind('click', moveToSortableList)
 			.bind('click', moveToSelectableList)
 			.clone()
-			.html( jQuery(this).find('img').clone().attr('alt', jQuery(this).attr('title')) )
+			.html( this_service.find('img').clone().attr('alt', this_service.attr('title')) ).append(configurable_html)
+			.click(function(){
+				jQuery(this).not('.addtoany_special_service_options_selected').find('.special_options').slideDown('fast').parent().addClass('addtoany_special_service_options_selected');
+			})
 			.hide()
 			.insertBefore('#addtoany_services_sortable .dummy')
 			.fadeIn('fast');
 			
-			jQuery(this).attr( 'id', 'old_'+jQuery(this).attr('id') );
+			this_service.attr( 'id', 'old_'+this_service.attr('id') );
 		};
 		
 		// Service click again = move back to selectable list
@@ -1104,7 +1300,22 @@ function A2A_SHARE_SAVE_admin_head() {
 				$active_services_quoted .= ',';
 		}
 		?>
-        var services = [<?php echo $active_services_quoted; ?>];
+        var services = [<?php echo $active_services_quoted; ?>],
+        	service_options = {};
+        
+        <?php		
+		// Special service options
+		if ( $_POST['addtoany_facebook_like_verb'] == 'recommend' || $options['special_facebook_like_options']['verb'] == 'recommend') {
+			?>service_options.facebook_like = {verb: 'recommend'};<?php
+		}
+		if ( $_POST['addtoany_twitter_tweet_show_count'] == '1' || $options['special_twitter_tweet_options']['show_count'] == '1') {
+			?>service_options.twitter_tweet = {show_count: 1};<?php
+		}
+		if ( $_POST['addtoany_google_plusone_show_count'] == '1' || $options['special_google_plusone_options']['show_count'] == '1') {
+			?>service_options.google_plusone = {show_count: 1};<?php
+		}
+		?>
+        
         jQuery.each(services, function(i, val){
         	jQuery('#a2a_wp_'+val).click();
 		});
@@ -1146,7 +1357,11 @@ function A2A_SHARE_SAVE_admin_head() {
 	#addtoany_services_sortable li:hover{border:1px solid #AAA;background-color:#FFF;}
 	#addtoany_services_sortable li.dummy, #addtoany_services_sortable li.dummy:hover{cursor:auto;background-color:transparent;}
 	#addtoany_services_sortable img{width:16px;height:16px;border:0;vertical-align:middle;}
-	#addtoany_services_sortable .addtoany_special_service img{width:auto;height:20px;}
+	#addtoany_services_sortable .addtoany_special_service img{width:auto;height:20px;float:left;}
+	#addtoany_services_sortable .addtoany_special_service span.down_arrow{background:url(<?php echo admin_url( '/images/menu-bits.gif' ); ?>) no-repeat -2px -110px;float:right;height:30px;;margin:-5px 0 -6px 5px;width:20px;}
+	#addtoany_services_sortable .addtoany_special_service div.special_options{display:none;font-size:11px;margin-top:9px;}
+	#addtoany_services_sortable .addtoany_special_service_options_selected{border:1px solid #AAA;background-color:#FFF;}
+	#addtoany_services_sortable .addtoany_special_service_options_selected span.down_arrow{display:none;}
 	
 	li#addtoany_show_services{border:1px solid #DFDFDF;background-color:#FFF;cursor:pointer;}
 	li#addtoany_show_services:hover{border:1px solid #AAA;}
@@ -1185,7 +1400,9 @@ function A2A_SHARE_SAVE_scripts() {
 
 
 function A2A_SHARE_SAVE_widget_init() {
-    require_once('add-to-any-wp-widget.php');
+	global $A2A_SHARE_SAVE_plugin_dir;
+	
+    include_once($A2A_SHARE_SAVE_plugin_dir . '/add-to-any-wp-widget.php');
     register_widget('A2A_SHARE_SAVE_Widget');
 }
 

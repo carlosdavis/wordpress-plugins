@@ -10,7 +10,7 @@ if ( defined( 'STATS_VERSION' ) ) {
 }
 
 define( 'STATS_VERSION', '7' );
-define( 'STATS_DASHBOARD_SERVER', 'dashboard.wordpress.com' );
+defined( 'STATS_DASHBOARD_SERVER' ) or define( 'STATS_DASHBOARD_SERVER', 'dashboard.wordpress.com' );
 
 add_action( 'jetpack_modules_loaded', 'stats_load' );
 
@@ -256,7 +256,7 @@ function stats_reports_page() {
 
 	$url = add_query_arg( $q, $url );
 	$method = 'GET';
-	$timeout = 30;
+	$timeout = 90;
 	$user_id = 1; // means send the wp.com user_id, not 1
 
 	$get = Jetpack_Client::remote_request( compact( 'url', 'method', 'timeout', 'user_id' ) );
@@ -395,6 +395,10 @@ function stats_admin_bar_head() {
 	if ( !current_user_can( 'view_stats' ) )
 		return;
 
+	if ( function_exists( 'is_admin_bar_showing' ) && !is_admin_bar_showing() ) {
+		return;
+	}
+
 	add_action( 'admin_bar_menu', 'stats_admin_bar_menu', 100 );
 	?>
 
@@ -427,6 +431,9 @@ function stats_update_blog() {
 function stats_update_post( $post ) {
 	$post = get_post( $post );
 	if ( !in_array( $post->post_type, array( 'post', 'page', 'attachment' ) ) )
+		return;
+
+	if ( in_array( $post->post_status, array( 'auto-draft' ) ) )
 		return;
 
 	Jetpack::xmlrpc_async_call( 'jetpack.updatePost', stats_get_post( $post ) );
@@ -684,7 +691,7 @@ function stats_dashboard_widget_content() {
 
 	$url = add_query_arg( $q, $url );
 	$method = 'GET';
-	$timeout = 30;
+	$timeout = 90;
 	$user_id = 1; // means send the wp.com user_id, not 1
 
 	$get = Jetpack_Client::remote_request( compact( 'url', 'method', 'timeout', 'user_id' ) );
@@ -823,7 +830,7 @@ function stats_get_csv( $table, $args = null ) {
 
 function stats_get_remote_csv( $url ) {
 	$method = 'GET';
-	$timeout = 30;
+	$timeout = 90;
 	$user_id = 1; // means send the wp.com user_id, not 1
 
 	$get = Jetpack_Client::remote_request( compact( 'url', 'method', 'timeout', 'user_id' ) );

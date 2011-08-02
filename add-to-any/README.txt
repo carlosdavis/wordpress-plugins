@@ -1,15 +1,16 @@
 === AddToAny: Share/Bookmark/Email Buttons ===
 Contributors: micropat
-Tags: sharing, share, sharethis, bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, email, e-mail, seo, button, delicious, google buzz, buzz, google, digg, reddit, facebook, facebook like, like, myspace, twitter, tweet, messenger, stumbleupon, technorati, sexybookmarks, sociable, sharedaddy, icon, icons, wpmu, addtoany
+Tags: sharing, share, sharethis, bookmarking, social, social bookmarking, social bookmarks, bookmark, bookmarks, save, Post, posts, page, pages, images, image, admin, statistics, stats, links, plugin, widget, email, e-mail, seo, button, delicious, google buzz, buzz, google, digg, reddit, facebook, facebook like, like, myspace, twitter, tweet, +1, plus 1, google plus one, plus one, messenger, stumbleupon, technorati, addthis, sexybookmarks, sociable, sharedaddy, icon, icons, wpmu, addtoany
 Requires at least: 2.8
-Tested up to: 3.1
-Stable tag: 0.9.9.8
+Tested up to: 3.2
+Stable tag: 0.9.9.9.3
 
-Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, StumbleUpon, Digg and many more.
+Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, Google, StumbleUpon, Digg and many more.
 
 == Description ==
 
-The WordPress plugin to help people **share**, **bookmark**, and **email** your posts and pages using any service, such as Facebook, Twitter, StumbleUpon, Google, Digg, Delicious, and well over 100 more sharing and social bookmarking sites. New: **Facebook Like Button** and **Twitter Tweet Button**.
+The WordPress plugin to help people **share**, **bookmark**, and **email** your posts and pages using any service, such as Facebook, Twitter, StumbleUpon, Google, Digg, Delicious, and well over 100 more sharing and social bookmarking sites. 
+New: **Google +1 Button** in addition to the **Facebook Like Button** and **Twitter Tweet Button**.
 
 This sharing plugin comes with AddToAny's customizable Smart Menu, which places the services visitors use at the top of the menu, based on each visitor's browsing and usage history.
 
@@ -23,11 +24,12 @@ Standalone **share icons** let you optimize your blog posts for specific social 
 * Individual share links (like Sociable)
 * Includes all <a href="http://www.addtoany.com/services/">services</a>
 * Google Analytics integration (<a href="http://www.addtoany.com/ext/google_analytics/">access guide</a>)
-* WordPress optimized, localized (English, Chinese, Spanish, Japanese, French, Portuguese, Italian, Dutch, Danish, Catalan, Persian, Russian, Turkish, Albanian, Romanian, Belarusian, Greek)
+* WordPress optimized with asynchronous script loading
+* Localized in English, Chinese, Spanish, Japanese, French, Portuguese, Italian, Dutch, Danish, Catalan, Persian, Russian, Turkish, Albanian, Romanian, Belarusian, Greek, Irish
 * Easily customizable for beginners or advanced users, and highly extensible for developers and designers
 * Many more publisher and user features!
 
-After **years of active development**, over **1.6 million downloads**, and **ongoing support from the community**, AddToAny still strives to be the best WordPress plugin for sharing. We hope it's perfect for everyone by version 1.0.
+After **years of active development**, over **1.8 million downloads**, and **ongoing support from the community**, AddToAny still strives to be the best WordPress plugin for sharing. We hope it's perfect for everyone by version 1.0.
 
 <a href="http://www.addtoany.com/share_save" title="Share">Share this</a> plugin
 
@@ -48,14 +50,18 @@ See also:
 
 = Where are the options? =
 
-In your Admin panel, go to `Settings` > `AddToAny`.  Among other options, you can choose which button, individual icons and advanced sharing buttons (Facebook Like Button and Twitter Tweet Button) to display, and where and how to display them.
+In your Admin panel, go to `Settings` > `AddToAny`.  Among other options, you can choose which button, individual icons and advanced sharing buttons (Facebook Like Button, Twitter Tweet Button, Google +1 Button) to display, and where and how to display them.
 
 To place AddToAny as a "widget" in your theme (if your theme supports WordPress Widgets), go to `Appearance` > `Widgets`, then drag AddToAny to an available Widget Area and click `Save`.
 
 = Why isn't the drop-down menu appearing? =
 
-It's likely because your theme wasn't <a href="http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks">coded properly</a>.  With many themes you can use the Theme Editor to make sure that the following piece of code is included in your theme's `footer.php` file just before the `</body>` line:
+It's likely because your theme wasn't <a href="http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks">coded properly</a>.  With many themes you can use the Theme Editor to edit your theme's `header.php` and `footer.php` files.
 
+In `header.php` place the following line of code just before the `</head>` line:
+`<?php wp_head(); ?>`
+
+In `footer.php` place the following line of code just before the `</body>` line:
 `<?php wp_footer(); ?>`
 
 = How can I add both the button and the individual icons to another area of my theme? =
@@ -153,17 +159,25 @@ To change the title, description and/or image on Facebook, you will need to modi
 
 For more technical information on setting your pages up for Facebook sharing, see "Step 2 - Get Open Graph Tags" in <a href="http://developers.facebook.com/docs/reference/plugins/like/">Facebook's documentation</a>.
 
-= Why does the Facebook Like Button have so much whitespace to the right of it? =
+= Why does the Facebook Like Button, Twitter Tweet Button, or Google +1 Button have so much whitespace to the right of it? =
 
 The minimum width for the Facebook Like Button is 90 pixels. This is required to display the total number of Likes to the right of the button.  See Facebook's <a href="http://developers.facebook.com/docs/reference/plugins/like">Like Button documentation</a> for details.
 
 It's not recommended, but you can change the width of the Facebook Like Button using CSS code, for instance: `.facebook_like { width:50px !important; }`
 
+The Twitter Tweet Button with 'total count' enabled is 130 pixels. You can change the width using CSS code, for instance: `.twitter_tweet { width:100px !important; }`
+
+The Google +1 Button with 'total count' enabled is 90 pixels. You can change the width using CSS code, for instance: `.google_plusone { width:65px !important; }`
+
 = Does the plugin output W3C valid code? =
 
-Yes, AddToAny outputs 100% W3C valid XHTML and W3C valid CSS 3.0.
+Yes, AddToAny outputs 100% W3C valid XHTML & HTML5 and W3C valid CSS 3.0 by default.
 
-If you move the plugin's CSS code to your theme's stylesheet, note that one proprietary vendor prefix (`filter`) is used.  It's utilized for cross-browser compatibility with Internet Explorer.  For more information about the W3C CSS Validator and the `filter` property, see <a href="http://www.websitedev.de/css/validator-faq#extensions">Why don't my scrollbar properties, filters, etc. validate?</a>  If you feel compelled, you can move the line into an Internet Explorer-only stylesheet, or remove the line at the cost of the opacity hover effect in Internet Explorer.
+If you use the Facebook Like, Twitter Tweet or Google +1 buttons in an HTML5 theme, note that the button iframes use the `scrolling` attribute, which is valid XHTML but the attribute has been deprecated in HTML5. It's needed to prevent scrollbars from appearing over the Like, Tweet, and +1 buttons inside of the iframes.
+
+If you move the plugin's CSS code to your theme's stylesheet, note that one proprietary vendor prefix (`filter`) is used.  It's utilized for cross-browser compatibility with Internet Explorer.  For more information about the W3C CSS Validator and the `filter` property, see <a href="http://www.websitedev.de/css/validator-faq#extensions">Why don't [sic] my scrollbar properties, filters, etc. validate?</a>  If you feel compelled, you can move the line into an Internet Explorer-only stylesheet, or remove the line at the cost of the opacity hover effect in Internet Explorer.
+
+Regardless of circumstances for passing W3C tests, the AddToAny plugin will always output semantically valid and robot-readable code, so publishers do not have to worry about search engine crawler errors due to invalid code. Both <a href="http://en.wikipedia.org/wiki/Web_standards">web standards</a> and <a href="http://en.wikipedia.org/wiki/Cross-browser">cross-browser</a> are taken very seriously.
 
 = Is there a shortcode for sharing? =
 
@@ -181,6 +195,10 @@ Go to `Settings` > `AddToAny` > uncheck `Use inline CSS` and place the CSS code 
 
 Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds">this document</a> for an explanation and possible fix. For WordPress, an easier fix is to have AddToAny <a href="http://www.addtoany.com/buttons/customize/hide_embeds">hide intersecting embedded objects</a>. Just copy & paste the recommended code into the Additional Options box in `Settings` > `AddToAny`, then save changes.
 
+= For a WordPress Multisite Network (MS), how can I set the plugin as a "Must-Use" plugin to automatically execute for all blogs? =
+
+Upload the plugin directory (including all files and directories within) to the `/wp-content/mu-plugins/` folder, then move the `add-to-any.php` file from the plugin directory to the mu-plugins folder so that it can auto-execute.
+
 == Screenshots ==
 
 1. AddToAny Share/Save sharing button, featuring the Open Share Icon
@@ -190,6 +208,53 @@ Please read <a href="http://www.addtoany.com/buttons/customize/show_over_embeds"
 5. Color chooser for your AddToAny menus
 
 == Changelog ==
+
+= .9.9.9.3 =
+* W3C XHTML validation fix for the Google +1 Button iframe (thanks bobpeers)
+* Remove condition for displaying target attribute on standalone services so that custom service links open in a new window (thanks kg69design)
+* Irish translation (by <a href="http://letsbefamous.com/">Ray</a>)
+
+= .9.9.9.2 =
+* Facebook Like Button can be changed to Facebook Recommend Button (verb/action)
+* Twitter Tweet Button count (optional - see FAQ for width adjustment)
+* Google +1 Button count (optional - see FAQ for width adjustment)
+
+= .9.9.9.1 =
+* Major fixes
+* Fix execution of Additional Options
+* Fix PHP warning that appears when AddToAny is not on the current page
+* Add Google +1 button image for admin
+
+= .9.9.9 =
+* Asynchronous loading (faster, non-blocking, major new feature!)
+ * Supports most themes and additionally works around buggy themes that improperly process content for excerpts, featured/related posts, etc.
+ * Improperly-coded themes may prevent AddToAny from fully loading
+ * If your theme is coded improperly, you can switch to the previous plugin version (<a href="">download version .9.9.8.3</a>) until you switch to a working theme or your theme author fixes the issue
+  * See the FAQ entry for "Why isn't the drop-down menu appearing?" for more information
+* Google +1 button
+* HTTPS support for Facebook Like & Twitter Tweet buttons (Google +1 button always uses HTTPS)
+
+= .9.9.8.3 =
+* Fix Facebook Like cut-off issue in IE8
+ * Increase Facebook Like height by 1 pixel to accommodate IE8's calculated height for iframes
+
+= .9.9.8.2 =
+* Remove `frameborder` attribute (except for IE) on Tweet & Like iframes to support W3C validation against HTML5 themes
+* Note: 
+ * The `scrolling` attribute is considered obsolete in HTML5 but is needed to prevent scrollbars from appearing over Like & Tweet buttons
+ * AddToAny still outputs semantic and robot-readable code, so publishers do not have to worry about search engine crawler errors due to invalid code
+* Update icons and fix transparency issues on dark backgrounds
+ * AIM
+ * Amazon
+ * Netlog
+ * Orkut
+ * StumbleUpon
+ * WordPress
+ * Yahoo Messenger
+
+= .9.9.8.1 =
+* Add WordPress Must-Use plugin support for WordPress Multisite Networks
+* Fixes for debug mode notices
 
 = .9.9.8 =
 * WordPress widget for sharing

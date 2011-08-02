@@ -2,7 +2,7 @@
 
 class All_in_One_SEO_Pack {
 	
- 	var $version = "1.6.13.2";
+ 	var $version = "1.6.13.3";
  	
  	/** Max numbers of chars in auto-generated description */
  	var $maximum_description_length = 160;
@@ -1527,6 +1527,12 @@ href="http://twitter.com/michaeltorbert/"><img src="<?php //echo WP_PLUGIN_URL; 
 	alt="WebHostingHub.com" width="420" height="53" border="0" /></a>
 	</div>
 
+<div style="clear:both;">
+
+<div style="float:left;width:387px;padding-top:1px;">
+		<a href="http://www.bestthinking.com/invitation/visibility"><img src="http://www.bestthinking.com/content/images/wordpressseoad4.gif" width="371px"></a>
+</div>
+
 	<div style="float:left;background-color:white;padding:10px 10px 10px 10px;border:1px solid #ddd"> 
 			<div style="width:423px;height:130px"> 
 	    <h3>The Ultimate WordPress Backup Solution</h3> 
@@ -1534,6 +1540,9 @@ href="http://twitter.com/michaeltorbert/"><img src="<?php //echo WP_PLUGIN_URL; 
 	    	</div> 
 			<a title="Backup WordPress Easily" href="http://pluginbuddy.com/wordpress-backup/" target="_blank"><img src="http://ithemes.com/graphics/ads/bb-AIO-ad.png" alt="Backup WordPress Easily"></a> 
     </div>
+
+
+		
 
 <!--
 	<div style="float:left;background-color:white;padding: 10px 10px 10px 10px;border: 1px solid #ddd;">

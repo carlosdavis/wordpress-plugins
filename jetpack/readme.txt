@@ -1,9 +1,9 @@
 === Jetpack by WordPress.com ===
-Contributors: automattic, apeatling, beaulebens, hugobaeta, joen, mdawaffe, skeltoac
+Contributors: automattic, apeatling, beaulebens, hugobaeta, joen, mdawaffe, andy
 Tags: WordPress.com, statistics, stats, views, tweets, twitter, widget, gravatar, hovercards, profile, equations, latex, math, maths, youtube, shortcode, archives, audio, blip, bliptv, dailymotion, digg, flickr, googlevideo, google, kyte, kytetv, livevideo, redlasso, rockyou, scribd, slide, slideshare, soundcloud, vimeo, shortlinks, wp.me
 Requires at least: 3.0.5
-Tested up to: 3.1
-Stable tag: 1.1.2
+Tested up to: 3.2
+Stable tag: 1.1.3
 
 Supercharge your WordPress site with powerful features previously only available to WordPress.com users.
 
@@ -63,6 +63,16 @@ Use [shortcodes](http://support.wordpress.com/shortcodes/) to embed your media. 
 * [[youtube]](http://support.wordpress.com/videos/youtube/)
 
 == Changelog ==
+
+= 1.1.3 =
+* Bug Fix: Increase compatibility with WordPress 3.2's new `wp_remote_request()` API.
+* Bug Fix: Increase compatibility with Admin Bar.
+* Bug Fix: Stats: Improved performance when creating new posts.
+* Bug Fix: Twitter Widget: Fix PHP Notice.
+* Bug Fix: Sharedaddy: Fix PHP Warning.
+* Enhancement: AtD: Add spellcheck button to Distraction Free Writing screen.
+* Translations: Added: Bosnian, Danish, German, Finnish, Galician, Croatian, Indonesian,  Macedonian, Norwegian (Bokmål), Russian, Slovak, Serbian, Swedish
+* Translations: Updated: Spanish, French, Italian, Japanese, Brazilian Portuguese, Portuguese
 
 = 1.1.2 =
 * Bug Fix: Note, store, and keep fresh the time difference between the Jetpack site's host and the Jetpack servers at WordPress.com.  Should fix all "timestamp is too old" errors.
