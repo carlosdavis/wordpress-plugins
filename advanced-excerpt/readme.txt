@@ -1,33 +1,27 @@
 === Advanced Excerpt ===
 Contributors: basvd
 Tags: excerpt, advanced, post, posts, template, formatting
-Donate link: http://sparepencil.com/code/advanced-excerpt/
-Requires at least: 2.2
-Tested up to: 2.9
-Stable tag: 3.1
+Donate link: http://basvd.com/code/advanced-excerpt/
+Requires at least: 3.2
+Tested up to: 3.3
+Stable tag: 4.1.1
 
-Several improvements over WP's default excerpt. The size of the excerpt can be limited using character or word count, and HTML markup is not removed.
+Several improvements over WP's default excerpt. The size can be limited using character or word count, and HTML markup is not removed.
 
 == Description ==
 
 This plugin adds several improvements to WordPress' default way of creating excerpts.
 
-1. It can keep HTML markup in the excerpt (and you get to choose which tags are included)
-2. It trims the excerpt to a given length using either character count or word count
-3. You can customize the excerpt length and the ellipsis character that will be used when trimming
-4. A read-more link can be added automatically
-4. The excerpt length is *real* (everything belonging to HTML tags is not counted)
-5. Can ignore custom excerpts and use the generated one instead
-6. Theme developers can use `the_advanced_excerpt()` for even more control (see the FAQ)
+1. Keeps HTML markup in the excerpt (and you get to choose which tags are included)
+2. Trims the excerpt to a given length using either character count or word count
+3. Only the 'real' text is counted (HTML is ignored but kept)
+4. Customizes the excerpt length and the ellipsis character that are used
+5. Completes the last word or sentence in an excerpt (no weird cuts)
+6. Adds a *read-more* link to the text
+7. Ignores custom excerpts and use the generated one instead
+8. Theme developers can use `the_advanced_excerpt()` for even more control (see the FAQ)
 
-In addition to keeping HTML markup in the excerpt, the plugin also corrects HTML that might have been broken due to the trimming process.
-
-This plugin is also compatible with Shortcodes.
-
-Version 3.0 may not be backwards compatible. Check and re-apply the settings after you upgrade to make sure everything works correctly.
-
-Version 0.2.1 adds support for multibyte characters (e.g. Chinese and Japanese). This is slightly experimental, more details in the FAQ.
-Plugin translations are fully supported and language files are included for translation. The FAQ provides more info on this, also.
+Most of the above features are optional and/or can be customized by the user or theme developer.
 
 == Installation ==
 
@@ -35,10 +29,13 @@ After you've downloaded and extracted the files:
 
 1. Upload the complete `advanced-excerpt` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Go to 'Excerpt' under the 'Options' tab and configure the plugin
-
+3. Go to 'Excerpt' under the 'Settings' menu and configure the plugin
 
 == Frequently Asked Questions ==
+
+= What's an excerpt? =
+
+A short version of a post that is usually displayed wherever the whole post would be too much (eg. search results, news feeds, archives). You can write them yourself, but if you don't, WordPress will make a very basic one instead.
 
 = Why do I need this plugin? =
 
@@ -46,22 +43,23 @@ The default excerpt created by WordPress removes all HTML. If your theme uses `t
 
 = Does it work for WordPress version x.x.x? =
 
-I haven't had the chance to test the plugin on many versions of WordPress. It has recently been tested on 2.9, but it might work on other versions, too. You can safely try it yourself, because the plugin is unlikely to break anything (it's only an output filter). Please let me know if you successfully tested it on another version of WordPress.
+During development, the plugin is tested with the most recent version(s) of WordPress. The range of tested versions is listed on this page (3.2 - 3.3 at the moment). It might work on older versions, but it's better to just keep your installation up-to-date.
+
+The plugin requires PHP 5 to work. So if you are using WordPress before 3.2, make sure you have it (WP 3.2 and higher require PHP 5 already).
 
 = Is this plugin available in my language? / How do I translate this plugin? =
 
-The plugin comes bundled with a few languages. The correct language will automatically be selected to match your [WordPress locale](http://codex.wordpress.org/WordPress_in_Your_Language).
+The plugin comes bundled with a few (2) languages. The correct language will automatically be selected to match your [WordPress locale](http://codex.wordpress.org/WordPress_in_Your_Language).
 
 More information on translation will be added in the future.
 
 = Does this plugin support multibyte characters, such as Chinese? =
 
-First of all, it should be noted that word-based excerpt length only works if your language uses normal whitespace as a word separator. If you use another language, you have to uncheck the *Use words?* option.
+Before 4.1, multibyte characters were supported directly by this plugin. This feature has been removed because it added irrelevant code for a 'problem' that isn't actually specific to the plugin.
 
-PHP's support for multibyte characters is not perfect. The plugin provides support for these characters to the best of its ability, but there are no guarantees that everything will work.
-Your best bet is to use UTF-8 encoding (which WordPress uses by default). If you still encounter problems, check with your host if the *mbstring* PHP extension is enabled on your server.
+If you require multibyte character support on your website, you can [override the default text operations](http://www.php.net/manual/en/mbstring.overload.php) in PHP.
 
-= Can I manually call the filter in my WP templates, for example? =
+= Can I manually call the filter in my WP theme or plugin? =
 
 The plugin automatically hooks on `the_excerpt()` function and uses the parameters specified in the options panel.
 
@@ -73,6 +71,8 @@ The following parameters can be set:
 * `use_words`, if set to `1`, the excerpt length will be in words; if set to `0`, characters will be used for the count
 * `no_custom`, if set to `1`, an excerpt will be generated even if the post has a custom excerpt; if set to `0`, the custom excerpt will be used
 * `no_shortcode`, if set to `1`, shortcodes are removed from the excerpt; if set to `0`, shortcodes will be parsed
+* `finish_word`, if set to `1`, the last word in the excerpt will not be cut off; if set to `0`, no effort is made to finish the word
+* `finish_sentence`, if set to `1`, the last sentence in the excerpt will not be cut off; if set to `0`, no effort is made to include the full sentence
 * `ellipsis`, the string that will substitute the omitted part of the post; if you want to use HTML entities in the string, use `%26` instead of the `&` prefix to avoid breaking the query
 * `read_more`, the text used in the read-more link
 * `add_link`, if set to `1`, the read-more link will be appended; if `0`, no link will be added
@@ -85,10 +85,23 @@ A custom advanced excerpt call could look like this:
 
 = Does this plugin work outside the Loop? =
 
-No, this plugin fetches the post from The Loop and there is currently no way to pass a post ID or anything custom of that kind to it.
-You can, however, consider to [start The Loop manually](http://codex.wordpress.org/The_Loop#Multiple_Loops).
+No, this plugin fetches the post from The Loop and there is currently no way to pass a post ID or any custom input to it.
+However, you can [start The Loop manually](http://codex.wordpress.org/The_Loop#Multiple_Loops) and apply the plugin as usual.
 
 == Changelog ==
+
+= 4.1 =
+* Fix: Template function with custom options works again
+* Fix: Data before header bug (retro-fixed in 4.0)
+* Feature: Template function also works with array-style parameters
+* Removed multibyte support
+* Removed PHP 4 support (WP 3.2+ users should be fine, others should update)
+* Better code testing before release!
+
+= 4.0 =
+* Feature: Brand new parsing algorithm which should resolve some running time issues
+* Feature: Options to finish a word or sentence before cutting the excerpt
+* Fix: A few small bugs
 
 = 3.1 =
 

@@ -21,17 +21,16 @@ function wpcf7_select_shortcode_handler( $tag ) {
 	if ( empty( $name ) )
 		return '';
 
-	$atts = '';
-	$id_att = '';
-	$class_att = '';
-	$tabindex_att = '';
+	$validation_error = wpcf7_get_validation_error( $name );
+
+	$atts = $id_att = $tabindex_att = '';
 
 	$defaults = array();
 
-	$class_att .= ' wpcf7-select';
+	$class_att = wpcf7_form_controls_class( $type );
 
-	if ( 'select*' == $type )
-		$class_att .= ' wpcf7-validates-as-required';
+	if ( $validation_error )
+		$class_att .= ' wpcf7-not-valid';
 
 	foreach ( $options as $option ) {
 		if ( preg_match( '%^id:([-0-9a-zA-Z_]+)$%', $option, $matches ) ) {
@@ -64,7 +63,7 @@ function wpcf7_select_shortcode_handler( $tag ) {
 	$empty_select = empty( $values );
 	if ( $empty_select || $include_blank ) {
 		array_unshift( $labels, '---' );
-		array_unshift( $values, '---' );
+		array_unshift( $values, '' );
 	}
 
 	$html = '';
@@ -99,8 +98,6 @@ function wpcf7_select_shortcode_handler( $tag ) {
 
 	$html = '<select name="' . $name . ( $multiple ? '[]' : '' ) . '"' . $atts . '>' . $html . '</select>';
 
-	$validation_error = wpcf7_get_validation_error( $name );
-
 	$html = '<span class="wpcf7-form-control-wrap ' . $name . '">' . $html . $validation_error . '</span>';
 
 	return $html;
@@ -115,24 +112,16 @@ add_filter( 'wpcf7_validate_select*', 'wpcf7_select_validation_filter', 10, 2 );
 function wpcf7_select_validation_filter( $result, $tag ) {
 	$type = $tag['type'];
 	$name = $tag['name'];
-	$values = $tag['values'];
 
-	if ( ! empty( $_POST[$name] ) ) {
-		if ( is_array( $_POST[$name] ) ) {
-			foreach ( $_POST[$name] as $key => $value ) {
-				$value = stripslashes( $value );
-				if ( ! in_array( $value, (array) $values ) ) // Not in given choices.
-					unset( $_POST[$name][$key] );
-			}
-		} else {
-			$value = stripslashes( $_POST[$name] );
-			if ( ! in_array( $value, (array) $values ) ) //  Not in given choices.
-				$_POST[$name] = '';
+	if ( isset( $_POST[$name] ) && is_array( $_POST[$name] ) ) {
+		foreach ( $_POST[$name] as $key => $value ) {
+			if ( '' === $value )
+				unset( $_POST[$name][$key] );
 		}
 	}
 
 	if ( 'select*' == $type ) {
-		if ( empty( $_POST[$name] ) && '0' !== $_POST[$name] ) {
+		if ( ! isset( $_POST[$name] ) || empty( $_POST[$name] ) && '0' !== $_POST[$name] ) {
 			$result['valid'] = false;
 			$result['reason'][$name] = wpcf7_get_message( 'invalid_required' );
 		}

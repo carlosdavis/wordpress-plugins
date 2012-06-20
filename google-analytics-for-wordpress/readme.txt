@@ -1,10 +1,10 @@
-=== Google Analytics for WordPress ===
+﻿=== Google Analytics for WordPress ===
 Contributors: joostdevalk
 Donate link: http://yoast.com/donate/
 Tags: analytics, google analytics, statistics, tracking, stats, google
 Requires at least: 2.8
-Tested up to: 3.2
-Stable tag: 4.1.3
+Tested up to: 3.3
+Stable tag: 4.2.4
 
 Track your WordPress site easily and with lots of metadata: views per author & category, automatic tracking of outbound clicks and pageviews.
 
@@ -43,10 +43,9 @@ Full list of features:
 
 Other interesting stuff:
 
-* Check out the other [Wordpress plugins](http://yoast.com/wordpress/) by the same author.
+* Check out the other [WordPress Plugins](http://yoast.com/wordpress/) by the same author.
 * Want to increase traffic to your WordPress blog? Check out the [WordPress SEO](http://yoast.com/articles/wordpress-seo/) Guide!
 * Check out the authors [WordPress Hosting](http://yoast.com/articles/wordpress-hosting/) experience. Good hosting is hard to come by, but it doesn't have to be expensive, Joost tells you why!
-* If you've still not seen enough, or you'd rather listen than read, check out the [WordPress Podcast](http://wp-community.org/), hosted by the author of this plugin and Frederick Townes, the creator of [W3 Total Cache](http://wordpress.org/extend/plugins/w3-total-cache/).
 
 == Installation ==
 
@@ -59,9 +58,33 @@ This section describes how to install the plugin and get it working.
 
 == Changelog ==
 
+= 4.2.4 =
+
+* Fixed bug introduced with 4.2.3 that wouldn't allow saving settings.
+* Now only flushing enabled W3TC caches.
+
+= 4.2.3 =
+
+* Removed Dashboard widget.
+* Improvements to comment form tracking.
+
+= 4.2.2 =
+
+* Fix for OAuth issues, caused by other plugins that don't check for the existence of a class. Namespaced the whole thing to prevent it.
+
+= 4.2.1 =
+
+* Minor bugfix.
+
+= 4.2 =
+
+* Google Authentication now happens using OAuth. The requests have become signed as an extra security measure and tokens have become more stable, as opposed to the prior tokens used with AuthSub.
+* Added support for cross-domain tracking.
+* Fixed various small bugs.
+
 = 4.1.3 =
 
-* Security fix: badly crafted comments could lead to insertion of "weird" links into comments. They'd have to pass your moderation, but still... Immediate update advised. Props to [David Whitehouse](http://www.david-whitehouse.org/) and [James Slater](http://james.slaterspage.com/) for finding it.
+* Security fix: badly crafted comments could lead to insertion of "weird" links into comments. They'd have to pass your moderation, but still... Immediate update advised. Props to David Whitehouse and James Slater for finding it.
 
 = 4.1.2 =
 
@@ -323,7 +346,3 @@ Because that's where it belongs. It makes the page load faster (yes, faster, due
 5. Screenshot of the debugging mode in action.
 
 == Upgrade Notice ==
-
-= 4.1.3 =
-
-Security fix, please update ASAP. Old version is susceptible to link insertion.

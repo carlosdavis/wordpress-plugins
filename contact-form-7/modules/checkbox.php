@@ -22,24 +22,19 @@ function wpcf7_checkbox_shortcode_handler( $tag ) {
 	if ( empty( $name ) )
 		return '';
 
-	$atts = '';
-	$id_att = '';
-	$class_att = '';
-	$tabindex_att = '';
+	$validation_error = wpcf7_get_validation_error( $name );
+
+	$atts = $id_att = $tabindex_att = '';
 
 	$defaults = array();
 
 	$label_first = false;
 	$use_label_element = false;
 
-	if ( 'checkbox*' == $type )
-		$class_att .= ' wpcf7-validates-as-required';
+	$class_att = wpcf7_form_controls_class( $type );
 
-	if ( 'checkbox' == $type || 'checkbox*' == $type )
-		$class_att .= ' wpcf7-checkbox';
-
-	if ( 'radio' == $type )
-		$class_att .= ' wpcf7-radio';
+	if ( $validation_error )
+		$class_att .= ' wpcf7-not-valid';
 
 	foreach ( $options as $option ) {
 		if ( preg_match( '%^id:([-0-9a-zA-Z_]+)$%', $option, $matches ) ) {
@@ -131,8 +126,6 @@ function wpcf7_checkbox_shortcode_handler( $tag ) {
 
 	$html = '<span' . $atts . '>' . $html . '</span>';
 
-	$validation_error = wpcf7_get_validation_error( $name );
-
 	$html = '<span class="wpcf7-form-control-wrap ' . $name . '">' . $html . $validation_error . '</span>';
 
 	return $html;
@@ -148,21 +141,6 @@ add_filter( 'wpcf7_validate_radio', 'wpcf7_checkbox_validation_filter', 10, 2 );
 function wpcf7_checkbox_validation_filter( $result, $tag ) {
 	$type = $tag['type'];
 	$name = $tag['name'];
-	$values = $tag['values'];
-
-	if ( ! empty( $_POST[$name] ) ) {
-		if ( is_array( $_POST[$name] ) ) {
-			foreach ( $_POST[$name] as $key => $value ) {
-				$value = stripslashes( $value );
-				if ( ! in_array( $value, (array) $values ) ) // Not in given choices.
-					unset( $_POST[$name][$key] );
-			}
-		} else {
-			$value = stripslashes( $_POST[$name] );
-			if ( ! in_array( $value, (array) $values ) ) //  Not in given choices.
-				$_POST[$name] = '';
-		}
-	}
 
 	if ( 'checkbox*' == $type ) {
 		if ( empty( $_POST[$name] ) ) {

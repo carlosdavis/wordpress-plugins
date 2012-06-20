@@ -4,7 +4,7 @@ Donate link: http://jameslao.com/
 Tags: category, posts, widget
 Requires at least: 2.8
 Tested up to: 3.1
-Stable tag: 3.2
+Stable tag: 3.3
 
 Adds a widget that shows the most recent posts in a single category.
 
@@ -41,7 +41,12 @@ Note that version 3.0 drops support for [Simple Post Thumbnails plugin](http://w
 
 == Changelog ==
 
+3.3
+
+* Fixed random sort bug.
+
 3.2
+
 * Added option to change ordering of posts. Defaults to showing newest posts first.
 
 3.1

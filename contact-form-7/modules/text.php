@@ -22,21 +22,18 @@ function wpcf7_text_shortcode_handler( $tag ) {
 	if ( empty( $name ) )
 		return '';
 
-	$atts = '';
-	$id_att = '';
-	$class_att = '';
-	$size_att = '';
-	$maxlength_att = '';
-	$tabindex_att = '';
-	$title_att = '';
+	$validation_error = wpcf7_get_validation_error( $name );
 
-	$class_att .= ' wpcf7-text';
+	$atts = $id_att = $size_att = $maxlength_att = '';
+	$tabindex_att = $title_att = '';
+
+	$class_att = wpcf7_form_controls_class( $type, 'wpcf7-text' );
 
 	if ( 'email' == $type || 'email*' == $type )
 		$class_att .= ' wpcf7-validates-as-email';
 
-	if ( 'text*' == $type || 'email*' == $type )
-		$class_att .= ' wpcf7-validates-as-required';
+	if ( $validation_error )
+		$class_att .= ' wpcf7-not-valid';
 
 	foreach ( $options as $option ) {
 		if ( preg_match( '%^id:([-0-9a-zA-Z_]+)$%', $option, $matches ) ) {
@@ -61,6 +58,25 @@ function wpcf7_text_shortcode_handler( $tag ) {
 		$class_att .= ' wpcf7-use-title-as-watermark';
 		$title_att .= sprintf( ' %s', $value );
 		$value = '';
+
+	} elseif ( empty( $value ) && is_user_logged_in() ) {
+		$user = wp_get_current_user();
+
+		$user_options = array(
+			'default:user_login' => 'user_login',
+			'default:user_email' => 'user_email',
+			'default:user_url' => 'user_url',
+			'default:user_first_name' => 'first_name',
+			'default:user_last_name' => 'last_name',
+			'default:user_nickname' => 'nickname',
+			'default:user_display_name' => 'display_name' );
+
+		foreach ( $user_options as $option => $prop ) {
+			if ( preg_grep( '%^' . $option . '$%', $options ) ) {
+				$value = $user->{$prop};
+				break;
+			}
+		}
 	}
 
 	if ( wpcf7_is_posted() && isset( $_POST[$name] ) )
@@ -87,8 +103,6 @@ function wpcf7_text_shortcode_handler( $tag ) {
 		$atts .= sprintf( ' title="%s"', trim( esc_attr( $title_att ) ) );
 
 	$html = '<input type="text" name="' . $name . '" value="' . esc_attr( $value ) . '"' . $atts . ' />';
-
-	$validation_error = wpcf7_get_validation_error( $name );
 
 	$html = '<span class="wpcf7-form-control-wrap ' . $name . '">' . $html . $validation_error . '</span>';
 

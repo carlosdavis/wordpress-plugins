@@ -1,9 +1,9 @@
 === Jetpack by WordPress.com ===
-Contributors: automattic, apeatling, beaulebens, hugobaeta, joen, mdawaffe, andy
-Tags: WordPress.com, statistics, stats, views, tweets, twitter, widget, gravatar, hovercards, profile, equations, latex, math, maths, youtube, shortcode, archives, audio, blip, bliptv, dailymotion, digg, flickr, googlevideo, google, kyte, kytetv, livevideo, redlasso, rockyou, scribd, slide, slideshare, soundcloud, vimeo, shortlinks, wp.me
-Requires at least: 3.0.5
-Tested up to: 3.2
-Stable tag: 1.1.3
+Contributors: automattic, apeatling, beaulebens, hugobaeta, joen, mdawaffe, andy, designsimply, hew, westi, eoigal, tmoorewp
+Tags: WordPress.com, statistics, stats, views, tweets, twitter, widget, gravatar, hovercards, profile, equations, latex, math, maths, youtube, shortcode, archives, audio, blip, bliptv, dailymotion, digg, flickr, googlevideo, google, googlemaps, kyte, kytetv, livevideo, redlasso, rockyou, rss, scribd, slide, slideshare, soundcloud, vimeo, shortlinks, wp.me, subscriptions
+Requires at least: 3.2
+Tested up to: 3.4
+Stable tag: 1.4.1
 
 Supercharge your WordPress site with powerful features previously only available to WordPress.com users.
 
@@ -16,6 +16,9 @@ For more information, check out [Jetpack.me](http://jetpack.me/).
 Features include:
 
 * Simple, concise stats with no additional load on your server.  Previously provided by [WordPress.com Stats](http://wordpress.org/extend/plugins/stats/).
+* Email subscriptions for your blog's posts and your post's comments.
+* Social networking enabled comment system.
+* Simple, Akismet-backed contact forms.
 * The [WP.me URL shortener](http://wp.me/sf2B5-shorten).
 * Hovercard popups for your commenters via [Gravatar](http://gravatar.com/).
 * Easily embedded media from popular sites like YouTube, Digg, and Vimeo.
@@ -24,6 +27,8 @@ Features include:
 * Your readers can easily share your posts via email or their favorite social networks.  Previously provided by the [Sharedaddy](http://wordpress.org/extend/plugins/sharedaddy/) WordPress plugin.
 * Your writing will improve thanks to After the Deadline, an artificial intelligence based spell, style, and grammar checker.  Previously provided by the [After the Deadline](http://wordpress.org/extend/plugins/after-the-deadline/) WordPress plugin.
 * and *many* more to come!
+
+Note: The stats portion of Jetpack uses Quantcast to enhance its data.
 
 == Installation ==
 
@@ -56,13 +61,111 @@ Use [shortcodes](http://support.wordpress.com/shortcodes/) to embed your media. 
 * [[googlevideo]](http://support.wordpress.com/videos/google-video/)
 * [[polldaddy]](http://support.polldaddy.com/wordpress-shortcodes/)
 * [[scribd]](http://support.wordpress.com/scribd/)
-* [[slide]](http://support.wordpress.com/slideshows/slide/)
 * [[slideshare]](http://support.wordpress.com/slideshows/slideshare/)
 * [[soundcloud]](http://support.wordpress.com/audio/soundcloud-audio-player/)
 * [[vimeo]](http://support.wordpress.com/videos/vimeo/)
 * [[youtube]](http://support.wordpress.com/videos/youtube/)
+* [[googlemaps]](http://en.support.wordpress.com/google-maps/)
+
+== Screenshots ==
+
+1. Stats chart.
+2. Sharing buttons.
+3. Subscriptions widget.
+4. Gravatar Hovercards settings.
+5. Spelling and Grammar demo.
 
 == Changelog ==
+
+= 1.4.1 =
+* Bug Fix: Jetpack Comments / Subscriptions: Add checkboxes and logic control for the Subscription checkboxes.
+
+= 1.4 =
+* Enhancement: Add Jetpack Comments feature.
+* Bug Fix: Sharing: Make the sharing_label translatable.
+* Bug Fix: Sharing: Fixed the file type on the LinkedIn graphic.
+* Bug Fix: Sharing: Fixes for the Faceboox Like button language locales.
+* Bug Fix: Sharing: Updates for the "more" button when used with touch screen devices.
+* Bug Fix: Sharing: Properly scope the More button so that multiple More buttons on a page behave properly.
+* Bug Fix: Shortcodes: Update the YouTube and Audio shortcodes to better handle spaces in the URLs.
+* Bug Fix: Shortcodes: Make the YouTube shortcode respect embed settings in Settings -> Media when appropriate.
+* Bug Fix: Shortcodes: Removed the Slide.com shortcode; Slide.com no longer exists.
+* Bug Fix: Shortcodes: Match both http and https links in the [googlemaps] shortcode.
+* Bug Fix: After the Deadline: Code clean up and removal of inconsistencies.
+
+= 1.3.4 =
+* Bug Fix: Revert changes to the top level menu that are causing problems.
+
+= 1.3.3 =
+* Bug Fix: Fix notices caused by last update
+
+= 1.3.2 =
+* Bug Fix: Fix Jetpack menu so that Akismet and VaultPress submenus show up.
+
+= 1.3.1 = 
+* Enhancement: Add a new widget, the Facebook Likebox
+* Bug Fix: Sharing: Sharing buttons can now be used on custom post types.
+* Bug Fix: Contact Forms: Make Contact Forms widget shortcode less aggressive about the shortcodes it converts.
+* Bug Fix: Ensure contact forms are parsed correctly in text widgets.
+* Bug Fix: Connection notices now only appear on the Dashboard and plugin page.
+* Bug Fix: Connection notices are now dismissable if Jetpack is not network activated.
+* Bug Fix: Subscriptions: Fix an issue that was causing errors with new BuddyPress forum posts.
+
+= 1.3 =
+* Enhancement: Add Contact Forms feature.  Formerly Grunion Contact Forms.
+* Bug Fix: Tweak YouTube autoembedder to catch more YouTube URLs.
+* Bug Fix: Correctly load the Sharing CSS files.
+
+= 1.2.4 =
+* Bug Fix: Fix rare bug with static front pages
+
+= 1.2.3 =
+* Enhancement: Twitter Widget: Expand t.co URLs
+* Bug Fix: Various PHP Notices.
+* Bug Fix: WordPress Deprecated `add_contextual_help()` notices
+* Bug Fix: Don't display unimportant DB errors when processing Jetpack nonces
+* Bug Fix: Correctly sync data during certain MultiSite cases.
+* Bug Fix: Stats: Allow sparkline img to load even when there is a DB upgrade.
+* Bug Fix: Stats: Replace "loading title" with post title regardless of type and status.
+* Bug Fix: Stats: Avoid edge case infinite redirect for `show_on_front=page` sites where the `home_url()` conatins uppercase letters.
+* Bug Fix: Subscriptions: Don't send subscriptions if the feature is turned off in Jetpack.
+* Bug Fix: Subscriptions: Fix pagination of subscribers.
+* Bug Fix: Subscriptions: Sync data about categories/tags as well to improve subscription emails.
+* Bug Fix: Subscriptions: Better styling for the subscription success message.
+* Bug Fix: Shortcodes: Support for multiple Google Maps in one post.  Support for all Google Maps URLs.
+* Bug Fix: Shortcodes: Improved support for youtu.be URLs
+* Bug Fix: Shortcodes: Improved Vimeo embeds.
+* Bug Fix: Sharing: Switch to the 20px version of Google's +1 button for consistency.
+* Bug Fix: Sharing: Fix Google +1 button HTML validation issues.
+* Bug Fix: Sharing: Disable sharing buttons during preview.
+* Bug Fix: Spelling and Grammar: Properly handle proofreading settings.
+* Bug Fix: Spelling and Grammar: Don't prevent post save when proofreading service is unavailable.
+
+= 1.2.2 =
+* Bug Fix: Ensure expected modules get reactivated correctly during upgrade.
+* Bug Fix: Don't send subscription request during spam comment submission.
+* Bug Fix: Increased theme compatibility for subscriptions.
+* Bug Fix: Remove reference to unused background image.
+
+= 1.2.1 =
+* Bug Fix: Ensure Site Stats menu item is accessible.
+* Bug Fix: Fixed errors displayed during some upgrades.
+* Bug Fix: Fix inaccurate new modules "bubble" in menu for some upgrades.
+* Bug Fix: Fix VaultPress detection.
+* Bug Fix: Fix link to http://jetpack.me/faq/
+
+= 1.2 =
+* Enhancement: Add Subscriptions: Subscribe to site's posts and posts' comments.
+* Enhancement: Add Google Maps shortcode.
+* Enhancement: Add Image Widget.
+* Enhancement: Add RSS Links Widget.
+* Enhancement: Stats: More responsive stats dashboard.
+* Enhancement: Shortcodes: Google Maps, VideoPress
+* Enhancement: Sharing: Google+, LinkedIn
+* Enhancement: Enhanced Distribution: Added Jetpack blogs to http://en.wordpress.com/firehose/
+* Bug Fix: Spelling and Grammar: WordPress 3.3 compatibility.
+* Bug Fix: Translatable module names/descriptinos.
+* Bug Fix: Correctly detect host's ability to make outgoing HTTPS requests.
 
 = 1.1.3 =
 * Bug Fix: Increase compatibility with WordPress 3.2's new `wp_remote_request()` API.

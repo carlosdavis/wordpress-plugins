@@ -14,7 +14,7 @@ class A2A_SHARE_SAVE_Widget extends WP_Widget {
     /** @see WP_Widget::widget */	
 	function widget($args = array(), $instance) {
 	
-		global $A2A_SUBSCRIBE_plugin_url_path;
+		global $A2A_SHARE_SAVE_plugin_url_path;
 		
 		$defaults = array(
 			'before_widget' => '',

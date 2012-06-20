@@ -35,6 +35,8 @@ class Jetpack_XMLRPC_Server {
 			'jetpack.testConnection'    => array( $this, 'test_connection' ),
 			'jetpack.featuresAvailable' => array( $this, 'features_available' ),
 			'jetpack.featuresEnabled'   => array( $this, 'features_enabled' ),
+			'jetpack.getPost'           => array( $this, 'get_post' ),
+			'jetpack.getComment'        => array( $this, 'get_comment' ),  
 		) );
 	}
 
@@ -66,24 +68,24 @@ class Jetpack_XMLRPC_Server {
 			return $this->error( new Jetpack_Error( 'verify_secret_1_malformed', sprintf( 'The required "%s" parameter is malformed.', 'secret_1' ), 400 ) );
 		}
 
-		$secrets = get_option( 'jetpack_register' );
+		$secrets = Jetpack::get_option( 'register' );
 		if ( !$secrets || is_wp_error( $secrets ) ) {
-			delete_option( 'jetpack_register' );
+			Jetpack::delete_option( 'register' );
 			return $this->error( new Jetpack_Error( 'verify_secrets_missing', 'Verification took too long', 400 ) );
 		}
 
 		@list( $secret_1, $secret_2, $secret_eol ) = explode( ':', $secrets );
 		if ( empty( $secret_1 ) || empty( $secret_2 ) || empty( $secret_eol ) || $secret_eol < time() ) {
-			delete_option( 'jetpack_register' );
+			Jetpack::delete_option( 'register' );
 			return $this->error( new Jetpack_Error( 'verify_secrets_missing', 'Verification took too long', 400 ) );
 		}
 
 		if ( $verify_secret !== $secret_1 ) {
-			delete_option( 'jetpack_register' );
+			Jetpack::delete_option( 'register' );
 			return $this->error( new Jetpack_Error( 'verify_secrets_mismatch', 'Secret mismatch', 400 ) );
 		}
 
-		delete_option( 'jetpack_register' );
+		Jetpack::delete_option( 'register' );
 
 		return $secret_2;
 	}
@@ -97,13 +99,13 @@ class Jetpack_XMLRPC_Server {
 		$user = wp_authenticate( 'username', 'password' );
 		if ( is_wp_error( $user ) ) {
 			if ( 'authentication_failed' == $user->get_error_code() ) { // Generic error could mean most anything.
-				$this->error = new Jetpack_Error( 'invalid_request', 'Invalid Request', 403 );
+				$this->error =& new Jetpack_Error( 'invalid_request', 'Invalid Request', 403 );
 			} else {
 				$this->error = $user;
 			}
 			return false;
 		} else if ( !$user ) { // Shouldn't happen.
-			$this->error = new Jetpack_Error( 'invalid_request', 'Invalid Request', 403 );
+			$this->error =& new Jetpack_Error( 'invalid_request', 'Invalid Request', 403 );
 			return false;
 		}
 
@@ -154,7 +156,7 @@ class Jetpack_XMLRPC_Server {
 		$raw_modules = Jetpack::get_available_modules();
 		$modules = array();
 		foreach ( $raw_modules as $module ) {
-			$modules[] = str_replace( array( '/modules/', '.php' ), '', $module );
+			$modules[] = Jetpack::get_module_slug( $module );
 		}
 
 		return $modules;
@@ -169,9 +171,40 @@ class Jetpack_XMLRPC_Server {
 		$raw_modules = Jetpack::get_active_modules();
 		$modules = array();
 		foreach ( $raw_modules as $module ) {
-			$modules[] = str_replace( array( '/modules/', '.php' ), '', $module );
+			$modules[] = Jetpack::get_module_slug( $module );
 		}
 
 		return $modules;
+	}
+	
+	function get_post( $id ) {
+		if ( !$id = (int) $id ) {
+			return false;
+		}
+
+		$jetpack = Jetpack::init();
+		$post = $jetpack->get_post( $id );
+
+		if ( $jetpack->is_post_public( $post ) )
+			return $post;
+
+		return false;
+	}
+	
+	function get_comment( $id ) {
+		if ( !$id = (int) $id ) {
+			return false;
+		}
+
+		$jetpack = Jetpack::init();
+		$comment = $jetpack->get_comment( $id );
+
+		if ( !is_array( $comment ) )
+			return false;
+
+		if ( !$this->get_post( $comment['comment_post_ID'] ) )
+			return false;
+
+		return $comment;
 	}
 }

@@ -14,12 +14,9 @@ function wpcf7_submit_shortcode_handler( $tag ) {
 	$options = (array) $tag['options'];
 	$values = (array) $tag['values'];
 
-	$atts = '';
-	$id_att = '';
-	$class_att = '';
-	$tabindex_att = '';
+	$atts = $id_att = $tabindex_att = '';
 
-	$class_att .= ' wpcf7-submit';
+	$class_att = wpcf7_form_controls_class( 'submit' );
 
 	foreach ( $options as $option ) {
 		if ( preg_match( '%^id:([-0-9a-zA-Z_]+)$%', $option, $matches ) ) {
@@ -48,11 +45,6 @@ function wpcf7_submit_shortcode_handler( $tag ) {
 		$value = __( 'Send', 'wpcf7' );
 
 	$html = '<input type="submit" value="' . esc_attr( $value ) . '"' . $atts . ' />';
-
-	if ( wpcf7_script_is() ) {
-		$src = apply_filters( 'wpcf7_ajax_loader', wpcf7_plugin_url( 'images/ajax-loader.gif' ) );
-		$html .= '<img class="ajax-loader" style="visibility: hidden;" alt="' . esc_attr( __( 'Sending ...', 'wpcf7' ) ) . '" src="' . esc_url_raw( $src ) . '" />';
-	}
 
 	return $html;
 }

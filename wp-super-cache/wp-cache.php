@@ -3,13 +3,13 @@
 Plugin Name: WP Super Cache
 Plugin URI: http://ocaoimh.ie/wp-super-cache/
 Description: Very fast caching plugin for WordPress.
-Version: 0.9.9.9
+Version: 1.1
 Author: Donncha O Caoimh
 Author URI: http://ocaoimh.ie/
 */
 
 /*  Copyright 2005-2006  Ricardo Galli Granada  (email : gallir@uib.es)
-    Copyright 2007-2011 Donncha O Caoimh (http://ocaoimh.ie/) and many others.
+    Copyright 2007-2012 Donncha O Caoimh (http://ocaoimh.ie/) and many others.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -153,12 +153,12 @@ function wp_cache_network_pages() {
 add_action( 'network_admin_menu', 'wp_cache_network_pages' );
 
 function wp_cache_manager_error_checks() {
-	global $wpmu_version, $wp_cache_debug, $wp_cache_cron_check, $cache_enabled, $super_cache_enabled, $wp_cache_config_file, $wp_cache_mobile_browsers, $wp_cache_mobile_prefixes, $wp_cache_mobile_browsers, $wp_cache_mobile_enabled, $wp_cache_mod_rewrite;
+	global $wpmu_version, $wp_cache_debug, $wp_cache_cron_check, $cache_enabled, $super_cache_enabled, $wp_cache_config_file, $wp_cache_mobile_browsers, $wp_cache_mobile_prefixes, $wp_cache_mobile_browsers, $wp_cache_mobile_enabled, $wp_cache_mod_rewrite, $cache_path;
 
 	if ( !wpsupercache_site_admin() )
 		return false;
 	
-	if ( 1 == ini_get( 'safe_mode' ) || "on" == strtolower( ini_get( 'safe_mode' ) ) ) {
+	if ( version_compare( PHP_VERSION, '5.3.0', '<' ) && ( 1 == ini_get( 'safe_mode' ) || "on" == strtolower( ini_get( 'safe_mode' ) ) ) ) {
 		echo '<div id="message" class="updated fade"><h3>' . __( 'Warning! PHP Safe Mode Enabled!', 'wp-super-cache' ) . '</h3><p>' .
 			__( 'You may experience problems running this plugin because SAFE MODE is enabled.', 'wp-super-cache' ) . ' ';
 		
@@ -205,7 +205,7 @@ function wp_cache_manager_error_checks() {
 					<p><?php printf( __( 'Please see entry 16 in the <a href="%s">Troubleshooting section</a> of the readme.txt', 'wp-super-cache' ), 'http://wordpress.org/extend/plugins/wp-super-cache/faq/' ); ?></p>
 					</div>
 					<?php
-					return false;
+					return true;
 				} else {
 					wp_cache_replace_line('^ *\$wp_cache_cron_check', "\$wp_cache_cron_check = 1;", $wp_cache_config_file);
 				}
@@ -235,7 +235,8 @@ function wp_cache_manager_error_checks() {
 	}
 
 	if( !is_writeable_ACLSafe( $wp_cache_config_file ) ) {
-		define( "SUBMITDISABLED", 'disabled style="color: #aaa" ' );
+		if ( !defined( 'SUBMITDISABLED' ) )
+			define( "SUBMITDISABLED", 'disabled style="color: #aaa" ' );
 		?><div id="message" class="updated fade"><h3><?php _e( 'Read Only Mode. Configuration cannot be changed.', 'wp-super-cache' ); ?></h3>
 		<p><?php printf( __( 'The WP Super Cache configuration file is <code>%s/wp-cache-config.php</code> and cannot be modified. That file must be writeable by the webserver to make any changes.', 'wp-super-cache' ), WP_CONTENT_DIR ); ?>
 		<?php _e( 'A simple way of doing that is by changing the permissions temporarily using the CHMOD command or through your ftp client. Make sure it&#8217;s globally writeable and it should be fine.', 'wp-super-cache' ); ?></p>
@@ -243,7 +244,7 @@ function wp_cache_manager_error_checks() {
 		<?php _e( 'Writeable:', 'wp-super-cache' ); ?> <code>chmod 666 <?php echo WP_CONTENT_DIR; ?>/wp-cache-config.php</code>
 		<?php _e( 'Readonly:', 'wp-super-cache' ); ?> <code>chmod 644 <?php echo WP_CONTENT_DIR; ?>/wp-cache-config.php</code></p>
 		</div><?php
-	} else {
+	} elseif ( !defined( 'SUBMITDISABLED' ) ) {
 		define( "SUBMITDISABLED", ' ' );
 	}
 
@@ -251,8 +252,8 @@ function wp_cache_manager_error_checks() {
 	// writable, issue a warning only if the permissions aren't 755.
 	if( is_writeable_ACLSafe( WP_CONTENT_DIR . '/' ) ) {
 		$wp_content_stat = stat(WP_CONTENT_DIR . '/');
-		$wp_content_mode = ( $wp_content_stat[ 'mode' ] & 0777 );
-		if( $wp_content_mode != 0755 ) {
+		$wp_content_mode = decoct( $wp_content_stat[ 'mode' ] & 0777 );
+		if( substr( $wp_content_mode, -2 ) == '77' ) {
 			?><div id="message" class="updated fade"><h3><?php printf( __( 'Warning! %s is writeable!', 'wp-super-cache' ), WP_CONTENT_DIR ); ?></h3>
 			<p><?php printf( __( 'You should change the permissions on %s and make it more restrictive. Use your ftp client, or the following command to fix things:', 'wp-super-cache' ), WP_CONTENT_DIR ); ?> <code>chmod 755 <?php echo WP_CONTENT_DIR; ?>/</code></p>
 			<p><?php _e( '<a href="http://codex.wordpress.org/Changing_File_Permissions">This page</a> explains how to change file permissions.', 'wp-super-cache' ); ?></p></div>
@@ -267,8 +268,8 @@ function wp_cache_manager_error_checks() {
 		echo '<div id="message" class="updated fade"><h3>' . __( 'Mobile rewrite rules detected', 'wp-super-cache' ) . "</h3>";
 		echo "<p>" . __( 'For best performance you should enable "Mobile device support" or delete the mobile rewrite rules in your .htaccess. Look for the 2 lines with the text "2.0\ MMP|240x320" and delete those.', 'wp-super-cache' ) . "</p><p>" . __( 'This will have no affect on ordinary users but mobile users will see uncached pages.', 'wp-super-cache' ) . "</p></div>";
 	} elseif ( $wp_cache_mod_rewrite && $cache_enabled && $wp_cache_mobile_enabled && $scrules != '' && ( 
-		false === strpos( $scrules, addcslashes( implode( '|', $wp_cache_mobile_prefixes ), ' ' ) ) ||
-		false === strpos( $scrules, addcslashes( implode( '|', $wp_cache_mobile_browsers ), ' ' ) ) ) 
+		( false == empty( $wp_cache_mobile_prefixes ) && false === strpos( $scrules, addcslashes( implode( '|', $wp_cache_mobile_prefixes ), ' ' ) ) ) ||
+		( false == empty( $wp_cache_mobile_browsers ) && false === strpos( $scrules, addcslashes( implode( '|', $wp_cache_mobile_browsers ), ' ' ) ) ) )
 		) {
 		?>
 			<div id="message" class="updated fade"><h3><?php _e( 'Rewrite rules must be updated', 'wp-super-cache' ); ?></h3>
@@ -314,10 +315,26 @@ function wp_cache_manager_error_checks() {
 add_filter( 'wp_super_cache_error_checking', 'wp_cache_manager_error_checks' );
 
 function wp_cache_manager_updates() {
-	global $wp_cache_mobile_enabled, $wp_supercache_cache_list, $wp_cache_config_file, $wp_cache_hello_world, $wp_cache_clear_on_post_edit, $cache_rebuild_files, $wp_cache_mutex_disabled, $wp_cache_not_logged_in, $cache_path, $wp_cache_object_cache, $_wp_using_ext_object_cache, $wp_cache_refresh_single_only, $cache_compression, $wp_cache_mod_rewrite, $wp_supercache_304, $wp_super_cache_late_init, $wp_cache_front_page_checks;
+	global $wp_cache_mobile_enabled, $wp_supercache_cache_list, $wp_cache_config_file, $wp_cache_hello_world, $wp_cache_clear_on_post_edit, $cache_rebuild_files, $wp_cache_mutex_disabled, $wp_cache_not_logged_in, $wp_cache_make_known_anon, $cache_path, $wp_cache_object_cache, $_wp_using_ext_object_cache, $wp_cache_refresh_single_only, $cache_compression, $wp_cache_mod_rewrite, $wp_supercache_304, $wp_super_cache_late_init, $wp_cache_front_page_checks, $cache_page_secret, $wp_cache_disable_utf8, $wp_cache_no_cache_for_get;
 
 	if ( !wpsupercache_site_admin() )
 		return false;
+
+	if ( false == isset( $cache_page_secret ) ) {
+		$cache_page_secret = md5( date( 'H:i:s' ) . mt_rand() );
+		wp_cache_replace_line('^ *\$cache_page_secret', "\$cache_page_secret = '" . $cache_page_secret . "';", $wp_cache_config_file);
+	}
+
+	// Delete cache for a specific page
+	if ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'delete' && ( isset( $_GET[ '_wpnonce' ] ) ? wp_verify_nonce( $_REQUEST[ '_wpnonce' ], 'delete-cache' ) : false ) ) {
+		$path = get_supercache_dir() . preg_replace( '/:.*$/', '', $_GET[ 'path' ] );
+		$files = get_all_supercache_filenames( $path );
+		foreach( $files as $cache_file )
+			prune_super_cache( $path . $cache_file, true ); 
+
+		wp_redirect( preg_replace( '/[ <>\'\"\r\n\t\(\)]/', '', $_GET[ 'path' ] ) );
+		die();
+	}
 
 	$valid_nonce = isset($_REQUEST['_wpnonce']) ? wp_verify_nonce($_REQUEST['_wpnonce'], 'wp-cache') : false;
 	if ( $valid_nonce == false )
@@ -345,6 +362,20 @@ function wp_cache_manager_updates() {
 			$wp_super_cache_late_init = 0;
 		}
 		wp_cache_replace_line('^ *\$wp_super_cache_late_init', "\$wp_super_cache_late_init = " . $wp_super_cache_late_init . ";", $wp_cache_config_file);
+
+		if( isset( $_POST[ 'wp_cache_disable_utf8' ] ) ) {
+			$wp_cache_disable_utf8 = 1;
+		} else {
+			$wp_cache_disable_utf8 = 0;
+		}
+		wp_cache_replace_line('^ *\$wp_cache_disable_utf8', "\$wp_cache_disable_utf8 = " . $wp_cache_disable_utf8 . ";", $wp_cache_config_file);
+
+		if( isset( $_POST[ 'wp_cache_no_cache_for_get' ] ) ) {
+			$wp_cache_no_cache_for_get = 1;
+		} else {
+			$wp_cache_no_cache_for_get = 0;
+		}
+		wp_cache_replace_line('^ *\$wp_cache_no_cache_for_get', "\$wp_cache_no_cache_for_get = " . $wp_cache_no_cache_for_get . ";", $wp_cache_config_file);
 
 		if( isset( $_POST[ 'wp_supercache_304' ] ) ) {
 			$wp_supercache_304 = 1;
@@ -430,6 +461,15 @@ function wp_cache_manager_updates() {
 		}
 		wp_cache_replace_line('^ *\$wp_cache_not_logged_in', "\$wp_cache_not_logged_in = " . $wp_cache_not_logged_in . ";", $wp_cache_config_file);
 
+		if( isset( $_POST[ 'wp_cache_make_known_anon' ] ) ) {
+			if( $wp_cache_make_known_anon == 0 && function_exists( 'prune_super_cache' ) )
+				prune_super_cache ($cache_path, true);
+			$wp_cache_make_known_anon = 1;
+		} else {
+			$wp_cache_make_known_anon = 0;
+		}
+		wp_cache_replace_line('^ *\$wp_cache_make_known_anon', "\$wp_cache_make_known_anon = " . $wp_cache_make_known_anon . ";", $wp_cache_config_file);
+
 		if( $_wp_using_ext_object_cache && isset( $_POST[ 'wp_cache_object_cache' ] ) ) {
 			if( $wp_cache_object_cache == 0 && function_exists( 'prune_super_cache' ) )
 				prune_super_cache( $cache_path, true );
@@ -474,10 +514,10 @@ if ( isset( $_GET[ 'page' ] ) && $_GET[ 'page' ] == 'wpsupercache' )
 
 function wp_cache_manager() {
 	global $wp_cache_config_file, $valid_nonce, $supercachedir, $cache_path, $cache_enabled, $cache_compression, $super_cache_enabled, $wp_cache_hello_world;
-	global $wp_cache_clear_on_post_edit, $cache_rebuild_files, $wp_cache_mutex_disabled, $wp_cache_mobile_enabled, $wp_cache_mobile_browsers;
-	global $wp_cache_cron_check, $wp_cache_debug, $wp_cache_not_logged_in, $wp_supercache_cache_list;
+	global $wp_cache_clear_on_post_edit, $cache_rebuild_files, $wp_cache_mutex_disabled, $wp_cache_mobile_enabled, $wp_cache_mobile_browsers, $wp_cache_no_cache_for_get;
+	global $wp_cache_cron_check, $wp_cache_debug, $wp_cache_not_logged_in, $wp_cache_make_known_anon, $wp_supercache_cache_list, $cache_page_secret, $cache_home_path;
 	global $wp_super_cache_front_page_check, $wp_cache_object_cache, $_wp_using_ext_object_cache, $wp_cache_refresh_single_only, $wp_cache_mobile_prefixes;
-	global $wpmu_version, $cache_max_time, $wp_cache_mod_rewrite, $wp_supercache_304, $wp_super_cache_late_init, $wp_cache_front_page_checks;
+	global $wpmu_version, $cache_max_time, $wp_cache_mod_rewrite, $wp_supercache_304, $wp_super_cache_late_init, $wp_cache_front_page_checks, $wp_cache_disable_utf8;
 
 	if ( !wpsupercache_site_admin() )
 		return false;
@@ -498,13 +538,18 @@ function wp_cache_manager() {
 	}
 	$wp_cache_mobile_browsers = apply_filters( 'cached_mobile_browsers', $wp_cache_mobile_browsers ); // Allow mobile plugins access to modify the mobile UA list
 	$wp_cache_mobile_prefixes = apply_filters( 'cached_mobile_prefixes', $wp_cache_mobile_prefixes ); // Allow mobile plugins access to modify the mobile UA prefix list
+	if ( function_exists( 'do_cacheaction' ) ) {
+		$wp_cache_mobile_browsers = do_cacheaction( 'wp_super_cache_mobile_browsers', $wp_cache_mobile_browsers );
+		$wp_cache_mobile_prefixes = do_cacheaction( 'wp_super_cache_mobile_prefixes', $wp_cache_mobile_prefixes ); 
+	}
 	$mobile_groups = apply_filters( 'cached_mobile_groups', array() ); // Group mobile user agents by capabilities. Lump them all together by default
 	// mobile_groups = array( 'apple' => array( 'ipod', 'iphone' ), 'nokia' => array( 'nokia5800', 'symbianos' ) );
 
 	if ( false == apply_filters( 'wp_super_cache_error_checking', true ) )
 		return false;
 
-	$supercachedir = $cache_path . 'supercache/' . preg_replace('/:.*$/', '',  $_SERVER["HTTP_HOST"]);
+	if ( function_exists( 'get_supercache_dir' ) )
+		$supercachedir = get_supercache_dir();
 	if( get_option( 'gzipcompression' ) == 1 )
 		update_option( 'gzipcompression', 0 );
 	if( !isset( $cache_rebuild_files ) )
@@ -577,6 +622,13 @@ jQuery(document).ready(function(){
 	} else {
 		wp_cache_replace_line('^ *\$wp_cache_slash_check', "\$wp_cache_slash_check = 0;", $wp_cache_config_file);
 	}
+	$home_path = parse_url( site_url() );
+	$home_path = trailingslashit( array_key_exists( 'path', $home_path ) ? $home_path[ 'path' ] : '' );
+	if (! isset( $wp_cache_home_path ) )
+		$wp_cache_home_path = '/'; 
+	if ( "$home_path" != "$wp_cache_home_path" )
+		wp_cache_replace_line('^ *\$wp_cache_home_path', "\$wp_cache_home_path = '$home_path';", $wp_cache_config_file);
+	
 
 	if( $wp_cache_mobile_enabled == 1 ) {
 		update_cached_mobile_ua_list( $wp_cache_mobile_browsers, $wp_cache_mobile_prefixes, $mobile_groups );
@@ -597,7 +649,7 @@ jQuery(document).ready(function(){
 			wp_die( __( 'Caching must be enabled to use this feature', 'wp-super-cache' ) );
 		echo '<a name="preload"></a>';
 		if ( $super_cache_enabled == true && false == defined( 'DISABLESUPERCACHEPRELOADING' ) ) {
-			global $wp_cache_preload_interval, $wp_cache_preload_on, $wp_cache_preload_email_me, $wp_cache_preload_email_volume, $wp_cache_preload_posts, $wpdb;
+			global $wp_cache_preload_interval, $wp_cache_preload_on, $wp_cache_preload_taxonomies, $wp_cache_preload_email_me, $wp_cache_preload_email_volume, $wp_cache_preload_posts, $wpdb;
 			$count = $wpdb->get_var( "SELECT count(*) FROM {$wpdb->posts} WHERE post_status = 'publish'" );
 			if ( $count > 1000 ) {
 				$min_refresh_interval = 720;
@@ -620,7 +672,7 @@ jQuery(document).ready(function(){
 					}
 					$fp = @fopen( $cache_path . "stop_preload.txt", 'w' );
 					@fclose( $fp );
-					echo "<p><strong>" . __( 'Scheduled preloading of cache cancelled.', 'wp-super-cache' ) . "</strong></p>";
+					echo "<p><strong>" . __( 'Scheduled preloading of cache almost cancelled. It may take up to a minute for it to cancel completely.', 'wp-super-cache' ) . "</strong></p>";
 				} elseif ( isset( $_POST[ 'custom_preload_interval' ] ) && ( $_POST[ 'custom_preload_interval' ] == 0 || $_POST[ 'custom_preload_interval' ] >= $min_refresh_interval ) ) {
 					// if preload interval changes than unschedule any preload jobs and schedule any new one.
 					$_POST[ 'custom_preload_interval' ] = (int)$_POST[ 'custom_preload_interval' ];
@@ -651,6 +703,12 @@ jQuery(document).ready(function(){
 						$wp_cache_preload_email_volume = 'medium';
 					}
 					wp_cache_replace_line('^ *\$wp_cache_preload_email_volume', "\$wp_cache_preload_email_volume = '$wp_cache_preload_email_volume';", $wp_cache_config_file);
+					if ( isset( $_POST[ 'preload_taxonomies' ] ) ) {
+						$wp_cache_preload_taxonomies = 1;
+					} else {
+						$wp_cache_preload_taxonomies = 0;
+					}
+					wp_cache_replace_line('^ *\$wp_cache_preload_taxonomies', "\$wp_cache_preload_taxonomies = $wp_cache_preload_taxonomies;", $wp_cache_config_file);
 					if ( isset( $_POST[ 'preload_on' ] ) ) {
 						$wp_cache_preload_on = 1;
 					} else {
@@ -710,6 +768,9 @@ jQuery(document).ready(function(){
 			echo '<input type="checkbox" name="preload_on" value="1" ';
 			echo $wp_cache_preload_on == 1 ? 'checked=1' : '';
 			echo ' /> ' . __( 'Preload mode (garbage collection only on legacy cache files. Recommended.)', 'wp-super-cache' ) . '<br />';
+			echo '<input type="checkbox" name="preload_taxonomies" value="1" ';
+			echo $wp_cache_preload_taxonomies == 1 ? 'checked=1' : '';
+			echo ' /> ' . __( 'Preload tags, categories and other taxonomies.', 'wp-super-cache' ) . '<br />';
 			echo '<input type="checkbox" name="preload_email_me" value="1" ';
 			echo $wp_cache_preload_email_me == 1 ? 'checked=1' : '';
 			echo ' /> ' . __( 'Send me status emails when files are refreshed.', 'wp-super-cache' ) . '<br />';
@@ -790,15 +851,25 @@ jQuery(document).ready(function(){
 					<?php } else { ?>
 						<label><input type='checkbox' name='cache_compression' <?php if( $cache_compression ) echo "checked"; ?> value='1'> <?php _e( 'Compress pages so they&#8217;re served more quickly to visitors.', 'wp-super-cache' ); echo " <em>(" . __( "Recommended", "wp-super-cache" ) . ")</em>"; ?></label><br />
 						<em><?php _e( 'Compression is disabled by default because some hosts have problems with compressed files. Switching it on and off clears the cache.', 'wp-super-cache' ); ?></em><br />
-					<?php } ?>
-				<?php } ?>
-				<?php if ( 0 == $wp_cache_mod_rewrite ) { ?>
-					<label><input type='checkbox' name='wp_supercache_304' <?php if( $wp_supercache_304 ) echo "checked"; ?> value='1'> <?php _e( '304 Not Modified browser caching. Indicate when a page has not been modified since last requested.', 'wp-super-cache' ); echo " <em>(" . __( "Recommended", "wp-super-cache" ) . ")</em>"; ?></label><br />
-				<em><?php _e( '304 support is disabled by default because in the past GoDaddy had problems with some of the headers used.', 'wp-super-cache' ); ?></em><br />
-				<?php } ?>
-				<label><input type='checkbox' name='wp_cache_not_logged_in' <?php if( $wp_cache_not_logged_in ) echo "checked"; ?> value='1'> <?php _e( 'Don&#8217;t cache pages for <acronym title="Logged in users and those that comment">known users</acronym>.', 'wp-super-cache' ); echo " <em>(" . __( "Recommended", "wp-super-cache" ) . ")</em>"; ?></label><br />
+					<?php }
+				}
+				$disable_304 = true;
+				if ( 0 == $wp_cache_mod_rewrite )
+					$disable_304 = false;
+				if ( $disable_304 )
+					echo "<strike>";
+				?><label><input <?php if ( $disable_304 ) { echo "disabled"; } ?> type='checkbox' name='wp_supercache_304' <?php if( $wp_supercache_304 ) echo "checked"; ?> value='1'> <?php _e( '304 Not Modified browser caching. Indicate when a page has not been modified since last requested.', 'wp-super-cache' ); echo " <em>(" . __( "Recommended", "wp-super-cache" ) . ")</em>"; ?></label><br /><?php
+				if ( $disable_304 ) {
+					echo "</strike>";
+					echo "<p><strong>" . __( 'Warning! 304 browser caching is only supported when not using mod_rewrite caching.', 'wp-super-cache' ) . "</strong></p>";
+				} else {
+					?><em><?php _e( '304 support is disabled by default because in the past GoDaddy had problems with some of the headers used.', 'wp-super-cache' ); ?></em><br /><?php
+				}
+				?><label><input type='checkbox' name='wp_cache_not_logged_in' <?php if( $wp_cache_not_logged_in ) echo "checked"; ?> value='1'> <?php _e( 'Don&#8217;t cache pages for <acronym title="Logged in users and those that comment">known users</acronym>.', 'wp-super-cache' ); echo " <em>(" . __( "Recommended", "wp-super-cache" ) . ")</em>"; ?></label><br />
+				<label><input type='checkbox' name='wp_cache_no_cache_for_get' <?php if( $wp_cache_no_cache_for_get ) echo "checked"; ?> value='1'> <?php _e( 'Don&#8217;t cache pages with GET parameters. (?x=y at the end of a url)', 'wp-super-cache' ); ?></label><br />
+				<label><input type='checkbox' name='wp_cache_make_known_anon' <?php if( $wp_cache_make_known_anon ) echo "checked"; ?> value='1'> <?php _e( 'Make known users anonymous so they&#8217;re served supercached static files.', 'wp-super-cache' ); ?></label><br />
 				<label><input type='checkbox' name='cache_rebuild_files' <?php if( $cache_rebuild_files ) echo "checked"; ?> value='1'> <?php _e( 'Cache rebuild. Serve a supercache file to anonymous users while a new file is being generated.', 'wp-super-cache' ); echo " <em>(" . __( "Recommended", "wp-super-cache" ) . ")</em>"; ?></label><br />
-				<label><input type='checkbox' name='wp_cache_hello_world' <?php if( $wp_cache_hello_world ) echo "checked"; ?> value='1'> <?php _e( 'Proudly tell the world your server is Digg proof! (places a message in your blog&#8217;s footer)', 'wp-super-cache' ); ?></label><br />
+				<label><input type='checkbox' name='wp_cache_hello_world' <?php if( $wp_cache_hello_world ) echo "checked"; ?> value='1'> <?php printf( __( 'Proudly tell the world your server is <a href="%s">Stephen Fry proof</a>! (places a message in your blog&#8217;s footer)', 'wp-super-cache' ), 'https://twitter.com/#!/HibbsLupusTrust/statuses/136429993059291136' ); ?></label><br />
 				</legend>
 				</fieldset>
 			</td>
@@ -808,8 +879,12 @@ jQuery(document).ready(function(){
 			<td>
 				<fieldset>
 				<legend class="hidden">Advanced</legend>
-				<label><input type='checkbox' name='wp_cache_mobile_enabled' <?php if( $wp_cache_mobile_enabled ) echo "checked"; ?> value='1'> <?php _e( 'Mobile device support.', 'wp-super-cache' ); ?></label><br />
-				<label><input type='checkbox' name='wp_cache_clear_on_post_edit' <?php if( $wp_cache_clear_on_post_edit ) echo "checked"; ?> value='1'> <?php _e( 'Clear all cache files when a post or page is published.', 'wp-super-cache' ); ?></label><br />
+				<label><input type='checkbox' name='wp_cache_mobile_enabled' <?php if( $wp_cache_mobile_enabled ) echo "checked"; ?> value='1'> <?php _e( 'Mobile device support. (External plugin or theme required. See the <a href="http://wordpress.org/extend/plugins/wp-super-cache/faq/">FAQ</a> for further details.)', 'wp-super-cache' ); ?></label><br />
+				<?php if ( $wp_cache_mobile_enabled ) {
+					echo '<blockquote><h4>' . __( 'Mobile Browsers', 'wp-super-cache' ) . '</h4>' . implode( ', ', $wp_cache_mobile_browsers ) . "<br /><h4>" . __( 'Mobile Prefixes', 'wp-super-cache' ) . "</h4>" . implode( ', ', $wp_cache_mobile_prefixes ) . "<br /></blockquote>";
+				} ?>
+				<label><input type='checkbox' name='wp_cache_disable_utf8' <?php if( $wp_cache_disable_utf8 ) echo "checked"; ?> value='1'> <?php _e( 'Remove UTF8/blog charset support from .htaccess file. Only necessary if you see odd characters or punctuation looks incorrect. Requires rewrite rules update.', 'wp-super-cache' ); ?></label><br />
+				<label><input type='checkbox' name='wp_cache_clear_on_post_edit' <?php if( $wp_cache_clear_on_post_edit ) echo "checked"; ?> value='1'> <?php _e( 'Clear all cache files when a post or page is published or updated.', 'wp-super-cache' ); ?></label><br />
 				<label><input type='checkbox' name='wp_cache_front_page_checks' <?php if( $wp_cache_front_page_checks ) echo "checked"; ?> value='1'> <?php _e( 'Extra homepage checks. (Very occasionally stops homepage caching)', 'wp-super-cache' ); ?></label><?php echo " <em>(" . __( "Recommended", "wp-super-cache" ) . ")</em>"; ?><br />
 				<label><input type='checkbox' name='wp_cache_refresh_single_only' <?php if( $wp_cache_refresh_single_only ) echo "checked"; ?> value='1'> <?php _e( 'Only refresh current page when comments made.', 'wp-super-cache' ); ?></label><br />
 				<label><input type='checkbox' name='wp_supercache_cache_list' <?php if( $wp_supercache_cache_list ) echo "checked"; ?> value='1'> <?php _e( 'List the newest cached pages on this page.', 'wp-super-cache' ); ?></label><br />
@@ -820,6 +895,7 @@ jQuery(document).ready(function(){
 			<?php if ( $_wp_using_ext_object_cache ) { 
 				?><label><input type='checkbox' name='wp_cache_object_cache' <?php if( $wp_cache_object_cache ) echo "checked"; ?> value='1'> <?php echo __( 'Use object cache to store cached files.', 'wp-super-cache' ) . ' ' . __( '(Experimental)', 'wp-super-cache' ); ?></label><?php 
 			}?>
+			<?php printf( __( '<strong>DO NOT CACHE PAGE</strong> secret key: <a href="%s">%s</a>', 'wp-super-cache' ), trailingslashit( get_bloginfo( 'wpurl' ) ) . "?donotcachepage={$cache_page_secret}", $cache_page_secret ); ?>
 				</legend>
 				</fieldset>
 			</td>
@@ -891,26 +967,34 @@ jQuery(document).ready(function(){
 					// Prime the cache
 					echo "<p>" . sprintf(  __( 'Fetching %s to prime cache: ', 'wp-super-cache' ), $url );
 					$page = wp_remote_get( $url, array('timeout' => 60, 'blocking' => true ) );
-					echo '<strong>' . __( 'OK', 'wp-super-cache' ) . '</strong></p>';
+					echo '<span style="color: #0a0; font-weight: bold;">' . __( 'OK', 'wp-super-cache' ) . '</strong></p>';
 					sleep( 1 );
 					// Get the first copy
 					echo "<p>" . sprintf(  __( 'Fetching first copy of %s: ', 'wp-super-cache' ), $url );
 					$page = wp_remote_get( $url, array('timeout' => 60, 'blocking' => true ) );
-					$fp = fopen( $cache_path . "1.html", "w" );
-					fwrite( $fp, $page[ 'body' ] );
-					fclose( $fp );
-					echo '<strong>' . __( 'OK', 'wp-super-cache' ) . "</strong> (<a href='" . WP_CONTENT_URL . "/cache/1.html'>1.html</a>)</p>";
-					sleep( 1 );
+					if ( !is_wp_error( $page ) ) {
+						$fp = fopen( $cache_path . "1.html", "w" );
+						fwrite( $fp, $page[ 'body' ] );
+						fclose( $fp );
+						echo '<span style="color: #0a0; font-weight: bold;">' . __( 'OK', 'wp-super-cache' ) . "</span> (<a href='" . WP_CONTENT_URL . "/cache/1.html'>1.html</a>)</p>";
+						sleep( 1 );
+					} else {
+						echo '<span style="color: #a00; font-weight: bold;">' . __( 'FAILED', 'wp-super-cache' ) . "</span></p>";
+					}
 					// Get the second copy
 					echo "<p>" . sprintf(  __( 'Fetching second copy of %s: ', 'wp-super-cache' ), $url );
 					$page2 = wp_remote_get( $url, array('timeout' => 60, 'blocking' => true ) );
-					$fp = fopen( $cache_path . "2.html", "w" );
-					fwrite( $fp, $page2[ 'body' ] );
-					fclose( $fp );
-					echo '<strong>' . __( 'OK', 'wp-super-cache' ) . "</strong> (<a href='" . WP_CONTENT_URL . "/cache/2.html'>2.html</a>)</p>";
+					if ( !is_wp_error( $page2 ) ) {
+						$fp = fopen( $cache_path . "2.html", "w" );
+						fwrite( $fp, $page2[ 'body' ] );
+						fclose( $fp );
+						echo '<span style="color: #0a0; font-weight: bold;">' . __( 'OK', 'wp-super-cache' ) . "</span> (<a href='" . WP_CONTENT_URL . "/cache/2.html'>2.html</a>)</p>";
+					} else {
+						echo '<span style="color: #a00; font-weight: bold;">' . __( 'FAILED', 'wp-super-cache' ) . "</span></p>";
+					}
 
 					if ( is_wp_error( $page ) || is_wp_error( $page2 ) || $page[ 'response' ][ 'code' ] != 200 || $page2[ 'response' ][ 'code' ] != 200 ) {
-						echo '<p><strong>' . __( 'One or more page requests failed:', 'wp-super-cache' ) . '</strong></p>';
+						echo '<p><span style="color: #a00; font-weight: bold;">' . __( 'One or more page requests failed:', 'wp-super-cache' ) . '</span></p>';
 						$error = false;
 						if ( is_wp_error( $page ) ) {
 							$error = $page;
@@ -934,13 +1018,18 @@ jQuery(document).ready(function(){
 						}
 					}
 
-					if ( preg_match( '/(Cached page generated by WP-Super-Cache on) ([0-9]*-[0-9]*-[0-9]* [0-9]*:[0-9]*:[0-9]*)/', $page[ 'body' ], $matches1 ) &&
+					if ( ( !is_wp_error( $page ) && !is_wp_error( $page2 ) ) && preg_match( '/(Cached page generated by WP-Super-Cache on) ([0-9]*-[0-9]*-[0-9]* [0-9]*:[0-9]*:[0-9]*)/', $page[ 'body' ], $matches1 ) &&
 							preg_match( '/(Cached page generated by WP-Super-Cache on) ([0-9]*-[0-9]*-[0-9]* [0-9]*:[0-9]*:[0-9]*)/', $page2[ 'body' ], $matches2 ) && $matches1[2] == $matches2[2] ) {
 						echo '<p>' . sprintf( __( 'Page 1: %s', 'wp-super-cache' ), $matches1[ 2 ] ) . '</p>';
 						echo '<p>' . sprintf( __( 'Page 2: %s', 'wp-super-cache' ), $matches2[ 2 ] ) . '</p>';
-						echo '<p><strong>' . __( 'The timestamps on both pages match!', 'wp-super-cache' ) . '</strong></p>';
+						echo '<p><span style="color: #0a0; font-weight: bold;">' . __( 'The timestamps on both pages match!', 'wp-super-cache' ) . '</span></p>';
 					} else {
 						echo '<p><strong>' . __( 'The pages do not match! Timestamps differ or were not found!', 'wp-super-cache' ) . '</strong></p>';
+						echo '<p>' . __( 'Things you can do:', 'wp-super-cache' ) . '</p>';
+						echo '<ol><li>' . __( 'Load your homepage in a logged out browser, check the timestamp at the end of the html source. Load the page again and compare the timestamp. Caching is working if the timestamps match.', 'wp-super-cache' ) . '</li>';
+						echo '<li>' . __( 'Enable logging on the Debug page here. That should help you track down the problem.', 'wp-super-cache' ) . '</li>';
+						echo '<li>' . __( 'You should check Page 1 and Page 2 above for errors. Your local server configuration may not allow your website to access itself.', 'wp-super-cache' ) . '</li>';
+						echo "</ol>";
 
 					}
 				}
@@ -956,18 +1045,27 @@ jQuery(document).ready(function(){
 			echo "<p>" . __( "Cached pages are stored on your server as html and PHP files. If you need to delete them use the button below.", 'wp-super-cache' ) . "</p>";
 			echo '<form name="wp_cache_content_delete" action="?page=wpsupercache&tab=contents" method="post">';
 			echo '<input type="hidden" name="wp_delete_cache" />';
-			echo '<div class="submit"><input id="deletepost" type="submit" ' . SUBMITDISABLED . 'value="' . __( 'Delete Cache', 'wp-super-cache' ) . ' &raquo;" /></div>';
+			echo '<div class="submit" style="float:left;margin-left:10px"><input id="deletepost" type="submit" ' . SUBMITDISABLED . 'value="' . __( 'Delete Cache', 'wp-super-cache' ) . ' &raquo;" /></div>';
 			wp_nonce_field('wp-cache');
 			echo "</form>\n";
+
+			if ( ( defined( 'VHOST' ) || ( defined( 'WP_ALLOW_MULTISITE' ) && constant( 'WP_ALLOW_MULTISITE' ) == true ) ) && wpsupercache_site_admin() ) {
+				echo '<form name="wp_cache_content_delete" action="#listfiles" method="post">';
+				echo '<input type="hidden" name="wp_delete_all_cache" />';
+				echo '<div class="submit" style="float:left;margin-left:10px"><input id="deleteallpost" type="submit" ' . SUBMITDISABLED . 'value="' . __( 'Delete Cache On All Blogs', 'wp-super-cache' ) . ' &raquo;" />';
+				wp_nonce_field('wp-cache');
+				echo "</form><br />\n";
+			}
 			?>
 			<h3><?php _e( 'Recommended Links and Plugins', 'wp-super-cache' ); ?></h3>
 			<p><?php _e( 'Caching is only one part of making a website faster. Here are some other plugins that will help:', 'wp-super-cache' ); ?></p>
-			<ol><li><?php printf( __( '<a href="%s">WP Minify</a> reduces the number of files served by your web server by joining Javascript and CSS files together. Alternatively you can use <a href="%s">WPSCMin</a>, a Supercache plugin that minifies cached pages. It does not however join JS/CSS files together.', 'wp-super-cache' ), 'http://wordpress.org/extend/plugins/wp-minify/', 'http://lyncd.com/wpscmin/' ); ?></li>
+			<ol><li><?php printf( __( '<a href="%s">WPSCMin</a>, a Supercache plugin that minifies cached pages by removing whitespaces and extra characters ', 'wp-super-cache' ), 'http://lyncd.com/wpscmin/' ); ?></li>
 			<li><?php printf( __( '<a href="%s">Yahoo! Yslow</a> is an extension for the Firefox add-on Firebug. It analyzes web pages and suggests ways to improve their performance based on a set of rules for high performance web pages. Also try the performance tools online at <a href="%s">GTMetrix</a>.', 'wp-super-cache' ), 'http://developer.yahoo.com/yslow/', 'http://gtmetrix.com/' ); ?></li>
 			<li><?php printf( __( '<a href="%s">Use Google Libraries</a> allows you to load some commonly used Javascript libraries from Google webservers. Ironically it may reduce your Yslow score.', 'wp-super-cache' ), 'http://wordpress.org/extend/plugins/use-google-libraries/' ); ?></li>
 			<li><?php printf( __( 'The <a href="%1$s">CDN Sync Tool</a> plugin will help upload files to Amazon S3/Cloudfront if you would rather not depend on origin pull. See the <a href="%2$s">plugin support forum</a> if you have any queries about this plugin.', 'wp-super-cache' ), 'http://wordpress.org/extend/plugins/cdn-sync-tool/', 'http://wordpress.org/tags/cdn-sync-tool?forum_id=10' ); ?></li>
 			<li><?php printf( __( '<strong>Advanced users only:</strong> <a href="%s">Speed up your site with Caching and cache-control</a> explains how to make your site more cacheable with .htaccess rules.', 'wp-super-cache' ), 'http://www.askapache.com/htaccess/speed-up-your-site-with-caching-and-cache-control.html' ); ?></li>
 			<li><?php printf( __( '<strong>Advanced users only:</strong> Install an object cache. Choose from <a href="%s">Memcached</a>, <a href="%s">XCache</a>, <a href="%s">eAcccelerator</a> and others.', 'wp-super-cache' ), 'http://wordpress.org/extend/plugins/memcached/', 'http://neosmart.net/dl.php?id=12', 'http://neosmart.net/dl.php?id=13' ); ?></li>
+			<li><?php printf( __( '<a href="%s">Cron View</a> is a useful plugin to use when trying to debug garbage collection and preload problems.', 'wp-super-cache' ), 'http://wordpress.org/extend/plugins/cron-view/' ); ?></li>
 			</ol>
 			
 			<?php
@@ -984,6 +1082,7 @@ jQuery(document).ready(function(){
 	<p><?php printf( __( 'Please say hi to him on %s too!', 'wp-super-cache' ), '<a href="http://twitter.com/donncha/">Twitter</a>' ); ?></p>
 	<h3 align='center'><?php _e( 'Need Help?', 'wp-super-cache' ); ?></h3>
 	<ol>
+	<li><?php _e( 'Use the debug system in the Debug tab above. It will tell you what the plugin is doing.', 'wp-super-cache' ); ?></li>
 	<li><?php printf( __( '<a href="%1$s">Installation Help</a>', 'wp-super-cache' ), 'http://wordpress.org/extend/plugins/wp-super-cache/installation/' ); ?></li>
 	<li><?php printf( __( '<a href="%1$s">Frequently Asked Questions</a>', 'wp-super-cache' ), 'http://wordpress.org/extend/plugins/wp-super-cache/faq/' ); ?></li>
 	<li><?php printf( __( '<a href="%1$s">Support Forum</a>', 'wp-super-cache' ), 'http://wordpress.org/tags/wp-super-cache' ); ?></li>
@@ -1146,15 +1245,15 @@ function wsc_mod_rewrite() {
 		if ( $rules != $scrules ) {
 			?><p style='padding:0 8px;color:#9f6000;background-color:#feefb3;border:1px solid #9f6000;'><?php _e( 'A difference between the rules in your .htaccess file and the plugin rewrite rules has been found. This could be simple whitespace differences but you should compare the rules in the file with those below as soon as possible. Click the &#8217;Update Mod_Rewrite Rules&#8217; button to update the rules.', 'wp-super-cache' ); ?></p><?php
 		}
-		?>
-		<a href="javascript:toggleLayer('rewriterules');" class="button"><?php _e( 'View Mod_Rewrite Rules', 'wp-super-cache' ); ?></a>
-		<?php wpsc_update_htaccess_form(); ?>
-		<div id='rewriterules' style='display: none;'>
-		<?php echo "<p><pre># BEGIN WPSuperCache\n" . esc_html( $rules ) . "# END WPSuperCache</pre></p>\n"; 
+		?><a href="javascript:toggleLayer('rewriterules');" class="button"><?php _e( 'View Mod_Rewrite Rules', 'wp-super-cache' ); ?></a><?php
+		wpsc_update_htaccess_form();
+		echo "<div id='rewriterules' style='display: none;'>";
+		if ( $rules != $scrules )
+			echo '<div style="background: #fff; border: 1px solid #333; margin: 2px;">' . wp_text_diff( $scrules, $rules, array( 'title' => 'Rewrite Rules', 'title_left' => 'Current Rules', 'title_right' => 'New Rules' ) ) . "</div>";
+		echo "<p><pre># BEGIN WPSuperCache\n" . esc_html( $rules ) . "# END WPSuperCache</pre></p>\n"; 
 		echo "<p>" . sprintf( __( 'Rules must be added to %s too:', 'wp-super-cache' ), WP_CONTENT_DIR . "/cache/.htaccess" ) . "</p>";
-		echo "<pre># BEGIN supercache\n" . esc_html( $gziprules ) . "# END supercache</pre></p>"; ?>
-		</div>
-		<?php
+		echo "<pre># BEGIN supercache\n" . esc_html( $gziprules ) . "# END supercache</pre></p>";
+		echo '</div>';
 	}
 	// http://allmybrain.com/2007/11/08/making-wp-super-cache-gzip-compression-work/
 	if( !is_file( $cache_path . '.htaccess' ) ) {
@@ -1294,7 +1393,11 @@ function wp_lock_down() {
 		$readonly = 'READONLY';
 		?><p style='padding:0 8px;color:#9f6000;background-color:#feefb3;border:1px solid #9f6000;'><strong><?php _e( 'Warning!', 'wp-super-cache' ); ?></strong> <?php printf( __( 'You must make %s writable to enable this feature. As this is a security risk please make it readonly after your page is generated.', 'wp-super-cache' ), ABSPATH ); ?></p><?php
 	} else {
-		?><p style='padding:0 8px;color:#9f6000;background-color:#feefb3;border:1px solid #9f6000;'><strong><?php _e( 'Warning!', 'wp-super-cache' ); ?></strong> <?php printf( __( '%s is writable. Please make it readonly after your page is generated as this is a security risk.', 'wp-super-cache' ), ABSPATH ); ?></p><?php
+		$abspath_stat = stat(ABSPATH . '/');
+		$abspath_mode = decoct( $abspath_stat[ 'mode' ] & 0777 );
+		if ( substr( $abspath_mode, -2 ) == '77' ) {
+			?><p style='padding:0 8px;color:#9f6000;background-color:#feefb3;border:1px solid #9f6000;'><strong><?php _e( 'Warning!', 'wp-super-cache' ); ?></strong> <?php printf( __( '%s is writable. Please make it readonly after your page is generated as this is a security risk.', 'wp-super-cache' ), ABSPATH ); ?></p><?php
+		}
 	}
 	echo '<form name="direct_page" action="#direct" method="post">';
 	if( is_array( $cached_direct_pages ) ) {
@@ -1349,24 +1452,131 @@ function RecursiveFolderDelete ( $folderPath ) { // from http://www.php.net/manu
 }
 
 function wp_cache_edit_max_time () {
-	global $cache_max_time, $wp_cache_config_file, $valid_nonce, $cache_enabled, $super_cache_enabled;
+	global $cache_max_time, $wp_cache_config_file, $valid_nonce, $cache_enabled, $super_cache_enabled, $cache_schedule_type, $cache_scheduled_time, $cache_schedule_interval, $cache_time_interval, $cache_gc_email_me, $wp_cache_preload_on;
 
-	if( !isset( $cache_max_time ) )
+	$timezone_format = _x('Y-m-d G:i:s', 'timezone date format');
+
+	if( !isset( $cache_schedule_type ) ) {
+		$cache_schedule_type = 'interval';
+		wp_cache_replace_line('^ *\$cache_schedule_type', "\$cache_schedule_type = '$cache_schedule_type';", $wp_cache_config_file);
+	}
+
+	if( !isset( $cache_scheduled_time ) ) {
+		$cache_scheduled_time = '00:00';
+		wp_cache_replace_line('^ *\$cache_scheduled_time', "\$cache_scheduled_time = '$cache_scheduled_time';", $wp_cache_config_file);
+	}
+
+	if( !isset( $cache_max_time ) ) {
 		$cache_max_time = 3600;
-
-	if(isset($_POST['wp_max_time']) && $valid_nonce) {
-		$max_time = (int)$_POST['wp_max_time'];
-		$cache_max_time = $max_time;
 		wp_cache_replace_line('^ *\$cache_max_time', "\$cache_max_time = $cache_max_time;", $wp_cache_config_file);
+	}
+
+	if ( !isset( $cache_time_interval ) ) {
+		$cache_time_interval = $cache_max_time;
+		wp_cache_replace_line('^ *\$cache_time_interval', "\$cache_time_interval = '$cache_time_interval';", $wp_cache_config_file);
+	}
+
+	if ( isset( $_POST['wp_max_time'] ) && $valid_nonce ) {
+		$cache_max_time = (int)$_POST['wp_max_time'];
+		wp_cache_replace_line('^ *\$cache_max_time', "\$cache_max_time = $cache_max_time;", $wp_cache_config_file);
+	}
+
+	if ( isset( $_POST[ 'cache_gc_email_me' ] ) && $valid_nonce ) {
+		$cache_gc_email_me = 1;
+		wp_cache_replace_line('^ *\$cache_gc_email_me', "\$cache_gc_email_me = $cache_gc_email_me;", $wp_cache_config_file); 
+	} elseif ( $valid_nonce ) {
+		$cache_gc_email_me = 0;
+		wp_cache_replace_line('^ *\$cache_gc_email_me', "\$cache_gc_email_me = $cache_gc_email_me;", $wp_cache_config_file); 
+	}
+	if ( $_POST[ 'cache_schedule_type' ] == 'interval' && isset( $_POST['cache_time_interval'] ) && $valid_nonce ) {
+		wp_clear_scheduled_hook( 'wp_cache_gc' );
+		$cache_schedule_type = 'interval';
+		if ( (int)$_POST[ 'cache_time_interval' ] == 0 )
+			$_POST[ 'cache_time_interval' ] = 600;
+		$cache_time_interval = (int)$_POST[ 'cache_time_interval' ];
+		wp_schedule_single_event( time() + $cache_time_interval, 'wp_cache_gc' );
+		wp_cache_replace_line('^ *\$cache_schedule_type', "\$cache_schedule_type = '$cache_schedule_type';", $wp_cache_config_file);
+		wp_cache_replace_line('^ *\$cache_time_interval', "\$cache_time_interval = '$cache_time_interval';", $wp_cache_config_file);
+	} elseif ( $valid_nonce ) { // clock
+		wp_clear_scheduled_hook( 'wp_cache_gc' );
+		$cache_schedule_type = 'time';
+		if ( $_POST[ 'cache_scheduled_time' ] == '' )
+			$_POST[ 'cache_scheduled_time' ] = '00:00';
+		$cache_scheduled_time = $_POST[ 'cache_scheduled_time' ];
+		$schedules = wp_get_schedules();
+		if ( isset( $schedules[ $_POST[ 'cache_schedule_interval' ] ] ) )
+			$cache_schedule_interval = $_POST[ 'cache_schedule_interval' ];
+		wp_schedule_single_event( strtotime( $cache_scheduled_time ), 'wp_cache_gc' );
+		wp_cache_replace_line('^ *\$cache_schedule_type', "\$cache_schedule_type = '$cache_schedule_type';", $wp_cache_config_file);
+		wp_cache_replace_line('^ *\$cache_schedule_interval', "\$cache_schedule_interval = '{$cache_schedule_interval}';", $wp_cache_config_file);
+		wp_cache_replace_line('^ *\$cache_scheduled_time', "\$cache_scheduled_time = '$cache_scheduled_time';", $wp_cache_config_file);
+		wp_schedule_event( strtotime( $cache_scheduled_time ), $cache_schedule_interval, 'wp_cache_gc' );
 	}
 	?><fieldset class="options"> 
 	<a name='expirytime'></a>
 	<h3><?php _e( 'Expiry Time &amp; Garbage Collection', 'wp-super-cache' ); ?></h3><?php
+
+	?><span id="utc-time"><?php printf(__('<abbr title="Coordinated Universal Time">UTC</abbr> time is <code>%s</code>'), date_i18n($timezone_format, false, 'gmt')); ?></span><?php
+	$current_offset = get_option('gmt_offset');
+	if ( get_option('timezone_string') || !empty($current_offset) ) {
+		?><span id="local-time"><?php printf(__('Local time is <code>%1$s</code>'), date_i18n($timezone_format)); ?></span><?php
+	}
+	$next_gc = wp_next_scheduled( 'wp_cache_gc' );
+	if ( $next_gc )
+		echo "<p>" . sprintf( __( 'Next scheduled garbage collection will be at <strong>%s UTC</strong>', 'wp-super-cache' ), date_i18n( $timezone_format, $next_gc, 'gmt' ) ) . "</p>";
+
+
+	if ( $wp_cache_preload_on )
+		echo "<p>" . __( 'Warning! <strong>PRELOAD MODE</strong> activated. Supercache files will not be deleted regardless of age.' ) . "</p>";
+
+	echo "<script type='text/javascript'>";
+	echo "jQuery(function () {
+		jQuery('#cache_interval_time').click(function () {
+			jQuery('#schedule_interval').attr('checked', true);
+		});
+		jQuery('#cache_scheduled_time').click(function () {
+			jQuery('#schedule_time').attr('checked', true);
+		});
+		jQuery('#cache_scheduled_select').click(function () {
+			jQuery('#schedule_time').attr('checked', true);
+		});
+		});";
+	echo "</script>";
 	echo '<form name="wp_edit_max_time" action="#expirytime" method="post">';
-	echo '<label for="wp_max_time">' . __( 'Expire time:', 'wp-super-cache' ) . '</label> ';
-	echo "<input type=\"text\" size=6 name=\"wp_max_time\" value=\"$cache_max_time\" /> " . __( "seconds", 'wp-super-cache' );
-	echo "<h4>" . __( 'Garbage Collection', 'wp-super-cache' ) . "</h4><p>" . __( 'If the expiry time is more than 1800 seconds (half an hour), garbage collection will be done every 10 minutes, otherwise it will happen 10 seconds after the expiry time above.', 'wp-super-cache' ) . "</p>";
-	echo "<p>" . __( 'Checking for and deleting expired files is expensive, but it&#8217;s expensive leaving them there too. On a very busy site you should set the expiry time to <em>300 seconds</em>. Experiment with different values and visit this page to see how many expired files remain at different times during the day. If you are using legacy caching aim to have less than 500 cached files if possible. You can have many times more cached files when using mod_rewrite or PHP caching.', 'wp-super-cache' ) . "</p>";
+	echo '<table class="form-table">';
+	echo '<tr><td><label for="wp_max_time"><strong>' . __( 'Cache Timeout', 'wp-super-cache' ) . '</strong></label></td>';
+	echo "<td><input type='text' id='wp_max_time' size=6 name='wp_max_time' value='$cache_max_time' /> " . __( "seconds", 'wp-super-cache' ) . "</td></tr>\n";
+	echo "<tr><td></td><td>" . __( 'How long should cached pages remain fresh? Set to 0 to disable garbage collection. A good starting point is 3600 seconds.', 'wp-super-cache' ) . "</td></tr>\n";
+	echo '<tr><td valign="top"><strong>' . __( 'Scheduler', 'wp-super-cache' ) . '</strong></td><td><table cellpadding=0 cellspacing=0><tr><td valign="top"><input type="radio" id="schedule_interval" name="cache_schedule_type" value="interval" ' . checked( 'interval', $cache_schedule_type, false ) . ' /></td><td valign="top"><label for="cache_interval_time">' . __( 'Timer:', 'wp-super-cache' ) . '</label></td>';
+	echo "<td><input type='text' id='cache_interval_time' size=6 name='cache_time_interval' value='$cache_time_interval' /> " . __( "seconds", 'wp-super-cache' ) . '<br />' . __( 'Check for stale cached files every <em>interval</em> seconds.', 'wp-super-cache' ) . "</td></tr>";
+	echo '<tr><td valign="top"><input type="radio" id="schedule_time" name="cache_schedule_type" value="time" ' . checked( 'time', $cache_schedule_type, false ) . ' /></td><td valign="top"><label for="schedule_time">' . __( 'Clock:', 'wp-super-cache' ) . '</label></td>';
+	echo "<td><input type=\"text\" size=5 id='cache_scheduled_time' name='cache_scheduled_time' value=\"$cache_scheduled_time\" /> " . __( "HH:MM", 'wp-super-cache' ) . "<br />" . __( 'Check for stale cached files at this time <strong>(UTC)</strong> or starting at this time every <em>interval</em> below.', 'wp-super-cache' ) . "</td></tr>";
+	$schedules = wp_get_schedules();
+	echo "<tr><td><br /></td><td><label for='cache_scheduled_select'>" . __( 'Interval:', 'wp-super-cache' ) . "</label></td><td><select id='cache_scheduled_select' name='cache_schedule_interval' size=1>";
+	foreach( $schedules as $desc => $details ) {
+		echo "<option value='$desc' " . selected( $desc, $cache_schedule_interval, false ) . " /> {$details[ 'display' ]}</option>";
+	}
+	echo "</select></td></tr>";
+	echo '</table></td></tr>';
+	echo '<tr><td><label for="cache_gc_email_me"><strong>' . __( 'Notification Emails', 'wp-super-cache' ) . '</strong></label></td>';
+	echo "<td><input type='checkbox' id='cache_gc_email_me' name='cache_gc_email_me' " . checked( $cache_gc_email_me, 1, false ) . " /> " . __( 'Email me when the garbage collection runs.', 'wp-super-cache' ) . "</td></tr>\n";
+	echo "</table>\n";
+	echo "<h4>" . __( 'Garbage Collection', 'wp-super-cache' ) . "</h4>";
+	echo "<ol><li>" . __( '<em>Garbage collection</em> is the simple act of throwing out your garbage. For this plugin that would be old or <em>stale</em> cached files that may be out of date. New cached files are described as <em>fresh</em>.', 'wp-super-cache' ) . "</li>\n";
+	echo "<li>" . __( 'Cached files are fresh for a limited length of time. You can set that time in the <em>Cache Timeout</em> text box on this page.', 'wp-super-cache' ) . "</li>\n";
+	echo "<li>" . __( 'Stale cached files are not removed as soon as they become stale. They have to be removed by the garbage collecter. That is why you have to tell the plugin when the garbage collector should run.', 'wp-super-cache' ) . "</li>\n";
+	echo "<li>" . __( 'Use the <em>Timer</em> or <em>Clock</em> schedulers to define when the garbage collector should run.', 'wp-super-cache' ) . "</li>\n";
+	echo "<li>" . __( 'The <em>Timer</em> scheduler tells the plugin to run the garbage collector at regular intervals. When one garbage collection is done, the next run is scheduled.', 'wp-super-cache' ) . "</li>\n";
+	echo "<li>" . __( 'Or, the <em>Clock</em> scheduler allows the garbage collection to run at specific times. If set to run hourly or twicedaily the garbage collector will be first scheduled for the time you enter here. It will then run again at the indicated interval. If set to run daily it will run once a day at the time specified.', 'wp-super-cache' ) . "</li>\n";
+	echo "</ol>";
+	echo "<p>" . __( 'There are no best garbage collection settings but here are a few scenarios. Garbage collection is separate to other actions that clear our cached files like leaving a comment or publishing a post.', 'wp-super-cache' ) . "</p>\n";
+	echo "<ol>";
+	echo "<li>" . __( 'Sites that want to serve lots of newly generated data should set the <em>Cache Timeout</em> to 60 and use the <em>Timer</em> scheduler set to 90 seconds.', 'wp-super-cache' ) . "</li>\n";
+	echo "<li>" . __( 'Sites with widgets and rss feeds in their sidebar should probably use a timeout of 3600 seconds and set the timer to 600 seconds. Stale files will be caught within 10 minutes of going stale.', 'wp-super-cache' ) . "</li>\n";
+	echo "<li>" . __( 'Sites with lots of static content, no widgets or rss feeds in their sidebar can use a timeout of 86400 seconds or even more and set the timer to something equally long.', 'wp-super-cache' ) . "</li>\n";
+	echo "<li>" . __( 'Sites where an external data source updates at a particular time every day should set the timeout to 86400 seconds and use the Clock scheduler set appropriately.', 'wp-super-cache' ) . "</li>\n";
+	echo "</ol>";
+	echo "<p>" . __( 'Checking for and deleting expired files is expensive, but it&#8217;s expensive leaving them there too. On a very busy site you should set the expiry time to <em>600 seconds</em>. Experiment with different values and visit this page to see how many expired files remain at different times during the day. If you are using legacy caching aim to have less than 500 cached files if possible. You can have many times more cached files when using mod_rewrite or PHP caching.', 'wp-super-cache' ) . "</p>";
 	echo "<p>" . __( 'Set the expiry time to 0 seconds to disable garbage collection.', 'wp-super-cache' ) . "</p>";
 	echo '<div class="submit"><input type="submit" ' . SUBMITDISABLED . 'value="' . __( 'Change Expiration', 'wp-super-cache' ) . ' &raquo;" /></div>';
 	wp_nonce_field('wp-cache');
@@ -1430,7 +1640,7 @@ function wp_cache_edit_rejected_pages() {
 	global $wp_cache_config_file, $valid_nonce, $wp_cache_pages;
 
 	if ( isset( $_POST[ 'wp_edit_rejected_pages' ] ) && $valid_nonce ) {
-		$pages = array( 'single', 'pages', 'archives', 'tag', 'frontpage', 'home', 'category', 'feed', 'search' );
+		$pages = array( 'single', 'pages', 'archives', 'tag', 'frontpage', 'home', 'category', 'feed', 'author', 'search' );
 		foreach( $pages as $page ) {
 			if ( isset( $_POST[ 'wp_cache_pages' ][ $page ] ) ) {
 				$value = 1;
@@ -1455,6 +1665,7 @@ function wp_cache_edit_rejected_pages() {
 	echo '&nbsp;&nbsp;<label><input type="checkbox" value="1" name="wp_cache_pages[category]" ' . checked( 1, $wp_cache_pages[ 'category' ], false ) . ' /> ' . __( 'Category', 'wp-super-cache' ) . ' (is_category)</label><br />';
 	echo '<label><input type="checkbox" value="1" name="wp_cache_pages[feed]" ' . checked( 1, $wp_cache_pages[ 'feed' ], false ) . ' /> ' . __( 'Feeds', 'wp-super-cache' ) . ' (is_feed)</label><br />';
 	echo '<label><input type="checkbox" value="1" name="wp_cache_pages[search]" ' . checked( 1, $wp_cache_pages[ 'search' ], false ) . ' /> ' . __( 'Search Pages', 'wp-super-cache' ) . ' (is_search)</label><br />';
+	echo '<label><input type="checkbox" value="1" name="wp_cache_pages[author]" ' . checked( 1, $wp_cache_pages[ 'author' ], false ) . ' /> ' . __( 'Author Pages', 'wp-super-cache' ) . ' (is_author)</label><br />';
 
 	echo '<div class="submit"><input type="submit" ' . SUBMITDISABLED . 'value="' . __( 'Save' ) . ' &raquo;" /></div>';
 	wp_nonce_field('wp-cache');
@@ -1507,11 +1718,9 @@ function wp_cache_edit_accepted() {
 }
 
 function wp_cache_debug_settings() {
-	global $wp_super_cache_debug, $wp_cache_debug_log, $wp_cache_debug_level, $wp_cache_debug_ip, $cache_path, $valid_nonce, $wp_cache_config_file;
+	global $wp_super_cache_debug, $wp_cache_debug_log, $wp_cache_debug_ip, $cache_path, $valid_nonce, $wp_cache_config_file;
 	global $wp_super_cache_front_page_check, $wp_super_cache_front_page_clear, $wp_super_cache_front_page_text, $wp_super_cache_front_page_notification, $wp_super_cache_advanced_debug;
 
-	if ( !isset( $wp_cache_debug_level ) )
-		$wp_cache_debug_level = 1;
 	if ( isset( $_POST[ 'wp_cache_debug' ] ) && $valid_nonce ) {
 		$wp_super_cache_debug = intval( $_POST[ 'wp_super_cache_debug' ] );
 		wp_cache_replace_line('^ *\$wp_super_cache_debug', "\$wp_super_cache_debug = '$wp_super_cache_debug';", $wp_cache_config_file);
@@ -1523,8 +1732,6 @@ function wp_cache_debug_settings() {
 		wp_cache_replace_line('^ *\$wp_cache_debug_log', "\$wp_cache_debug_log = '$wp_cache_debug_log';", $wp_cache_config_file);
 		$wp_cache_debug_ip = esc_html( $_POST[ 'wp_cache_debug_ip' ] );
 		wp_cache_replace_line('^ *\$wp_cache_debug_ip', "\$wp_cache_debug_ip = '$wp_cache_debug_ip';", $wp_cache_config_file);
-		$wp_cache_debug_level = (int)$_POST[ 'wp_cache_debug_level' ];
-		wp_cache_replace_line('^ *\$wp_cache_debug_level', "\$wp_cache_debug_level = '$wp_cache_debug_level';", $wp_cache_config_file);
 		$wp_super_cache_front_page_check = (int)$_POST[ 'wp_super_cache_front_page_check' ];
 		wp_cache_replace_line('^ *\$wp_super_cache_front_page_check', "\$wp_super_cache_front_page_check = '$wp_super_cache_front_page_check';", $wp_cache_config_file);
 		$wp_super_cache_front_page_clear = (int)$_POST[ 'wp_super_cache_front_page_clear' ];
@@ -1551,13 +1758,6 @@ function wp_cache_debug_settings() {
 	echo "<table class='form-table'>";
 	echo "<tr><td>" . __( 'Debugging', 'wp-super-cache' ) . "</td><td><input type='checkbox' name='wp_super_cache_debug' value='1' " . checked( 1, $wp_super_cache_debug, false ) . " /> " . __( 'enabled', 'wp-super-cache' ) . "</td></tr>";
 	echo "<tr><td>" . __( 'IP Address', 'wp-super-cache' ) . "</td><td> <input type='text' size='20' name='wp_cache_debug_ip' value='{$wp_cache_debug_ip}' /> " . sprintf( __( '(only log requests from this IP address. Your IP is %s)', 'wp-super-cache' ), $_SERVER[ 'REMOTE_ADDR' ] ) . "</td></tr>";
-	echo "<tr><td>" . __( 'Log level', 'wp-super-cache' ) . "</td><td> ";
-	for( $t = 1; $t <= 5; $t++ ) {
-		echo "<input type='radio' name='wp_cache_debug_level' value='$t' ";
-		echo $wp_cache_debug_level == $t ? "checked='checked' " : '';
-		echo "/> $t ";
-	}
-	echo " " . __( '(1 = less, 5 = more, may cause severe server load.)', 'wp-super-cache' ) . "</td></tr>";
 	echo "</table>\n";
 	if ( isset( $wp_super_cache_advanced_debug ) ) {
 	echo "<h4>" . __( 'Advanced', 'wp-super-cache' ) . "</h4><p>" . __( 'In very rare cases two problems may arise on some blogs:<ol><li> The front page may start downloading as a zip file.</li><li> The wrong page is occasionally cached as the front page if your blog uses a static front page and the permalink structure is <em>/%category%/%postname%/</em>.</li></ol>', 'wp-super-cache' ) . '</p>';
@@ -1750,7 +1950,7 @@ function wp_cache_verify_config_file() {
 		$new = true;
 	}
 	if( $sem_id == 5419 && $cache_path != '' ) {
-		$sem_id = crc32( $_SERVER[ 'HTTP_HOST' ] . $cache_path ) & 0x7fffffff;
+		$sem_id = crc32( $_SERVER[ 'SERVER_NAME' ] . $cache_path ) & 0x7fffffff;
 		wp_cache_replace_line('sem_id', '$sem_id = ' . $sem_id . ';', $wp_cache_config_file);
 	}
 	require($wp_cache_config_file);
@@ -1828,7 +2028,7 @@ function wp_cache_check_global_config() {
 		}
 		return false;
 	}  else {
-		echo "<div style='border: 1px solid #333; background: #ffffaa; padding: 2px;'>" . __( '<h3>WP_CACHE constant added to wp-config.php</h3><p>If you continue to see this warning message please see point 5 of the <a href="http://wordpress.org/extend/plugins/wp-super-cache/faq/">FAQ</a>. The WP_CACHE line must be moved up.', 'wp-super-cache' ) . "</p></div>";
+		echo "<div style='border: 1px solid #333; background: #ffffaa; padding: 2px;'>" . __( '<h3>WP_CACHE constant added to wp-config.php</h3><p>If you continue to see this warning message please see point 5 of the <a href="http://wordpress.org/extend/plugins/wp-super-cache/faq/">Troubleshooting Guide</a>. The WP_CACHE line must be moved up.', 'wp-super-cache' ) . "</p></div>";
 	}
 	return true;
 }
@@ -1844,6 +2044,10 @@ function wp_cache_files() {
 	if ( $valid_nonce ) {
 		if(isset($_REQUEST['wp_delete_cache'])) {
 			wp_cache_clean_cache($file_prefix);
+			$_GET[ 'action' ] = 'regenerate_cache_stats';
+		}
+		if ( isset( $_REQUEST[ 'wp_delete_all_cache' ] ) ) {
+			wp_cache_clean_cache( $file_prefix, true );
 			$_GET[ 'action' ] = 'regenerate_cache_stats';
 		}
 		if(isset($_REQUEST['wp_delete_expired'])) {
@@ -1862,7 +2066,7 @@ function wp_cache_files() {
 	}
 
 	$cache_stats = get_option( 'supercache_stats' );
-	if ( !is_array( $cache_stats ) || ( $valid_nonce && array_key_exists('action', $_GET) && $_GET[ 'action' ] == 'regenerate_cache_stats' ) ) {
+	if ( !is_array( $cache_stats ) || ( isset( $_GET[ 'listfiles' ] ) ) || ( $valid_nonce && array_key_exists('action', $_GET) && $_GET[ 'action' ] == 'regenerate_cache_stats' ) ) {
 	$list_files = false; // it doesn't list supercached files, and removing single pages is buggy
 	$count = 0;
 	$expired = 0;
@@ -1993,7 +2197,7 @@ function wp_cache_files() {
 			$age = 0;
 		echo "<li>" . sprintf( __( '%s Expired Pages', 'wp-super-cache' ), intval( $cache_stats[ 'supercache' ][ 'expired' ] / $divisor ) ) . "</li></ul>";
 		if ( $valid_nonce && array_key_exists('listfiles', $_GET) && $_GET[ 'listfiles' ] ) {
-			echo "<div style='padding: 10px; border: 1px solid #333; height: 400px; width: 70%; overflow: auto'>";
+			echo "<div style='padding: 10px; border: 1px solid #333; height: 400px; width: 90%; overflow: auto'>";
 			if ( is_array( $cached_list ) && !empty( $cached_list ) ) {
 				echo "<h4>" . __( 'Fresh WP-Cached Files', 'wp-super-cache' ) . "</h4>";
 				echo "<table class='widefat'><tr><th>#</th><th>" . __( 'URI', 'wp-super-cache' ) . "</th><th>" . __( 'Key', 'wp-super-cache' ) . "</th><th>" . __( 'Age', 'wp-super-cache' ) . "</th><th>" . __( 'Delete', 'wp-super-cache' ) . "</th></tr>";
@@ -2059,18 +2263,11 @@ function wp_cache_files() {
 				echo "</table>";
 			}
 			echo "</div>";
-			echo "<p><a href='?page=wpsupercache#top'>" . __( 'Hide file list', 'wp-super-cache' ) . "</a></p>";
-		} elseif ( $cache_stats[ 'supercache' ][ 'cached' ] > 300 || $cache_stats[ 'supercache' ][ 'expired' ] > 300 || ( $cache_stats[ 'wpcache' ][ 'cached' ] / $divisor ) > 300 || ( $cache_stats[ 'wpcache' ][ 'expired' ] / $divisor) > 300 ) {
+			echo "<p><a href='?page=wpsupercache&tab=contents#top'>" . __( 'Hide file list', 'wp-super-cache' ) . "</a></p>";
+		} elseif ( $cache_stats[ 'supercache' ][ 'cached' ] > 500 || $cache_stats[ 'supercache' ][ 'expired' ] > 500 || ( $cache_stats[ 'wpcache' ][ 'cached' ] / $divisor ) > 500 || ( $cache_stats[ 'wpcache' ][ 'expired' ] / $divisor) > 500 ) {
 			echo "<p><em>" . __( 'Too many cached files, no listing possible.', 'wp-super-cache' ) . "</em></p>";
 		} else {
 			echo "<p><a href='" . wp_nonce_url( add_query_arg( array( 'page' => 'wpsupercache', 'listfiles' => '1' ) ), 'wp-cache' ) . "#listfiles'>" . __( 'List all cached files', 'wp-super-cache' ) . "</a></p>";
-		}
-		$last_gc = get_option( "wpsupercache_gc_time" );
-		if ( $cache_max_time > 0 && $last_gc ) {
-			$next_gc = $cache_max_time < 1800 ? $cache_max_time : 600;
-			$next_gc_mins = ( time() - $last_gc );
-			echo "<p>" . sprintf( __( '<strong>Garbage Collection</strong><br />Last GC was <strong>%s</strong> minutes ago<br />', 'wp-super-cache' ), date( 'i:s', $next_gc_mins ) );
-			printf( __( "Next GC in <strong>%s</strong> minutes", 'wp-super-cache' ), date( 'i:s', $next_gc - $next_gc_mins ) ) . "</p>";
 		}
 		if ( $cache_max_time > 0 )
 			echo "<p>" . sprintf( __( 'Expired files are files older than %s seconds. They are still used by the plugin and are deleted periodically.', 'wp-super-cache' ), $cache_max_time ) . "</p>";
@@ -2093,6 +2290,13 @@ function wp_cache_delete_buttons() {
 	echo '<div class="submit" style="float:left;margin-left:10px"><input id="deletepost" type="submit" ' . SUBMITDISABLED . 'value="' . __( 'Delete Cache', 'wp-super-cache' ) . ' &raquo;" /></div>';
 	wp_nonce_field('wp-cache');
 	echo "</form>\n";
+	if ( ( defined( 'VHOST' ) || ( defined( 'WP_ALLOW_MULTISITE' ) && constant( 'WP_ALLOW_MULTISITE' ) == true ) ) && wpsupercache_site_admin() ) {
+		echo '<form name="wp_cache_content_delete" action="#listfiles" method="post">';
+		echo '<input type="hidden" name="wp_delete_all_cache" />';
+		echo '<div class="submit" style="float:left;margin-left:10px"><input id="deleteallpost" type="submit" ' . SUBMITDISABLED . 'value="' . __( 'Delete Cache On All Blogs', 'wp-super-cache' ) . ' &raquo;" />';
+		wp_nonce_field('wp-cache');
+		echo "</form>\n";
+	}
 }
 
 function delete_cache_dashboard() {
@@ -2140,33 +2344,41 @@ function wpsc_dirsize($directory, $sizes) {
 	return $sizes;
 }
 
-
-function wp_cache_clean_cache($file_prefix) {
-	global $cache_path, $supercachedir, $blog_cache_dir, $wp_cache_object_cache;
+function wp_cache_clean_cache( $file_prefix, $all = false ) {
+	global $wpdb, $cache_path, $supercachedir, $blog_cache_dir, $wp_cache_object_cache;
 
 	if ( $wp_cache_object_cache && function_exists( "reset_oc_version" ) )
 		reset_oc_version();
 
-	// If phase2 was compiled, use its function to avoid race-conditions
-	if(function_exists('wp_cache_phase2_clean_cache')) {
-		if (function_exists ('prune_super_cache')) {
-			if( is_dir( $supercachedir ) ) {
-				prune_super_cache( $supercachedir, true );
-			} elseif( is_dir( $supercachedir . '.disabled' ) ) {
-				prune_super_cache( $supercachedir . '.disabled', true );
-			}
-			prune_super_cache( $cache_path, true );
-			$_POST[ 'super_cache_stats' ] = 1; // regenerate super cache stats;
-		} elseif ( isset( $GLOBALS[ 'wp_super_cache_debug' ] ) && $GLOBALS[ 'wp_super_cache_debug' ] ) wp_cache_debug( 'Warning! prune_super_cache() not found in wp-cache.php', 1 );
-		return wp_cache_phase2_clean_cache($file_prefix);
-	} elseif ( isset( $GLOBALS[ 'wp_super_cache_debug' ] ) && $GLOBALS[ 'wp_super_cache_debug' ] ) wp_cache_debug( 'Warning! wp_cache_phase2_clean_cache() not found in wp-cache.php', 1 );
+	if ( $all == true && wpsupercache_site_admin() && function_exists( 'prune_super_cache' ) ) {
+		prune_super_cache( $cache_path, true );
+		return true;
+	}
 
-	$expr = "/^$file_prefix/";
-	if ( ($handle = @opendir( $blog_cache_dir )) ) { 
+	if (function_exists ('prune_super_cache')) {
+		if( is_dir( $supercachedir ) ) {
+			prune_super_cache( $supercachedir, true );
+		} elseif( is_dir( $supercachedir . '.disabled' ) ) {
+			prune_super_cache( $supercachedir . '.disabled', true );
+		}
+		$_POST[ 'super_cache_stats' ] = 1; // regenerate super cache stats;
+	} elseif ( isset( $GLOBALS[ 'wp_super_cache_debug' ] ) && $GLOBALS[ 'wp_super_cache_debug' ] ) wp_cache_debug( 'Warning! prune_super_cache() not found in wp-cache.php', 1 );
+
+	wp_cache_clean_legacy_files( $blog_cache_dir, $file_prefix );
+	wp_cache_clean_legacy_files( $cache_path, $file_prefix );
+
+}
+
+function wp_cache_clean_legacy_files( $dir, $file_prefix ) {
+	global $wpdb;
+	if ( $handle = @opendir( $dir . 'meta/' ) ) { 
 		while ( false !== ($file = readdir($handle))) {
-			if ( preg_match($expr, $file) ) {
-				@unlink( $blog_cache_dir . $file);
-				@unlink( $blog_cache_dir . 'meta/' . str_replace( '.html', '.meta', $file ) );
+			if ( preg_match( "/^$file_prefix/", $file ) ) {
+				$meta = unserialize( file_get_contents( $dir . 'meta/' . $file ) );
+				if ( ( defined( 'VHOST' ) || ( defined( 'WP_ALLOW_MULTISITE' ) && constant( 'WP_ALLOW_MULTISITE' ) == true ) ) && $meta[ 'blog_id' ] != $wpdb->blogid )
+					continue;
+				@unlink( $dir . 'meta/' . $file);
+				@unlink( $dir .  str_replace( '.meta', '.html', $file ) );
 			}
 		}
 		closedir($handle);
@@ -2183,7 +2395,7 @@ function wp_cache_clean_expired($file_prefix) {
 	// If phase2 was compiled, use its function to avoid race-conditions
 	if(function_exists('wp_cache_phase2_clean_expired')) {
 		if ( $wp_cache_preload_on != 1 && function_exists ('prune_super_cache')) {
-			$dir = $cache_path . 'supercache/' . preg_replace('/:.*$/', '',  $_SERVER["HTTP_HOST"]);
+			$dir = get_supercache_dir();
 			if( is_dir( $dir ) ) {
 				prune_super_cache( $dir );
 			} elseif( is_dir( $dir . '.disabled' ) ) {
@@ -2241,7 +2453,7 @@ function wpsc_remove_marker( $filename, $marker ) {
 }
 
 function wp_super_cache_footer() {
-	?><p id='supercache'><?php printf( __( '%1$s is Digg proof thanks to caching by %2$s', 'wp-super-cache' ), bloginfo( 'name' ), '<a href="http://ocaoimh.ie/wp-super-cache/">WP Super Cache</a>' ); ?></p><?php
+	?><p id='supercache'><?php printf( __( '%1$s is Stephen Fry proof thanks to caching by %2$s', 'wp-super-cache' ), bloginfo( 'name' ), '<a href="http://ocaoimh.ie/wp-super-cache/">WP Super Cache</a>' ); ?></p><?php
 }
 if( isset( $wp_cache_hello_world ) && $wp_cache_hello_world )
 	add_action( 'wp_footer', 'wp_super_cache_footer' );
@@ -2395,7 +2607,7 @@ function wpsc_update_htaccess_form( $short_form = true ) {
 }
 
 function wpsc_get_htaccess_info() {
-	global $wp_cache_mobile_enabled, $wp_cache_mobile_prefixes, $wp_cache_mobile_browsers;
+	global $wp_cache_mobile_enabled, $wp_cache_mobile_prefixes, $wp_cache_mobile_browsers, $wp_cache_disable_utf8;
 	if ( isset( $_SERVER[ "PHP_DOCUMENT_ROOT" ] ) ) {
 		$document_root = $_SERVER[ "PHP_DOCUMENT_ROOT" ];
 		$apache_root = $_SERVER[ "PHP_DOCUMENT_ROOT" ];
@@ -2424,6 +2636,7 @@ function wpsc_get_htaccess_info() {
 	$home_path = get_home_path();
 	$home_root = parse_url(get_bloginfo('url'));
 	$home_root = isset( $home_root['path'] ) ? trailingslashit( $home_root['path'] ) : '/';
+	$home_root_lc = str_replace( '//', '/', strtolower( $home_root ) );
 	$inst_root = str_replace( '//', '/', '/' . trailingslashit( str_replace( $content_dir_root, '', str_replace( '\\', '/', WP_CONTENT_DIR ) ) ) );
 	$wprules = implode( "\n", extract_from_markers( $home_path.'.htaccess', 'WordPress' ) );
 	$wprules = str_replace( "RewriteEngine On\n", '', $wprules );
@@ -2440,24 +2653,43 @@ function wpsc_get_htaccess_info() {
 	$condition_rules[] = "RewriteCond %{HTTP:X-Wap-Profile} !^[a-z0-9\\\"]+ [NC]";
 	$condition_rules[] = "RewriteCond %{HTTP:Profile} !^[a-z0-9\\\"]+ [NC]";
 	if ( $wp_cache_mobile_enabled ) {
-		$condition_rules[] = "RewriteCond %{HTTP_USER_AGENT} !^.*(" . addcslashes( implode( '|', $wp_cache_mobile_browsers ), ' ' ) . ").* [NC]";
-		$condition_rules[] = "RewriteCond %{HTTP_user_agent} !^(" . addcslashes( implode( '|', $wp_cache_mobile_prefixes ), ' ' ) . ").* [NC]";
+		if ( false == empty( $wp_cache_mobile_browsers ) ) 
+			$condition_rules[] = "RewriteCond %{HTTP_USER_AGENT} !^.*(" . addcslashes( implode( '|', $wp_cache_mobile_browsers ), ' ' ) . ").* [NC]";
+		if ( false == empty( $wp_cache_mobile_prefixes ) ) 
+			$condition_rules[] = "RewriteCond %{HTTP_user_agent} !^(" . addcslashes( implode( '|', $wp_cache_mobile_prefixes ), ' ' ) . ").* [NC]";
 	}
 	$condition_rules = apply_filters( 'supercacherewriteconditions', $condition_rules );
 
 	$rules = "<IfModule mod_rewrite.c>\n";
 	$rules .= "RewriteEngine On\n";
 	$rules .= "RewriteBase $home_root\n"; // props Chris Messina
-	$charset = get_option('blog_charset') == '' ? 'UTF-8' : get_option('blog_charset');
-	$rules .= "AddDefaultCharset {$charset}\n";
-	$rules .= "CONDITION_RULES";
-	$rules .= "RewriteCond %{HTTP:Accept-Encoding} gzip\n";
-	$rules .= "RewriteCond {$apache_root}{$inst_root}cache/supercache/%{HTTP_HOST}{$home_root}$1/index.html.gz -f\n";
-	$rules .= "RewriteRule ^(.*) \"{$inst_root}cache/supercache/%{HTTP_HOST}{$home_root}$1/index.html.gz\" [L]\n\n";
+	$rules .= "#If you serve pages from behind a proxy you may want to change 'RewriteCond %{HTTPS} on' to something more sensible\n";
+	if ( isset( $wp_cache_disable_utf8 ) == false || $wp_cache_disable_utf8 == 0 ) {
+		$charset = get_option('blog_charset') == '' ? 'UTF-8' : get_option('blog_charset');
+		$rules .= "AddDefaultCharset {$charset}\n";
+	}
 
 	$rules .= "CONDITION_RULES";
-	$rules .= "RewriteCond {$apache_root}{$inst_root}cache/supercache/%{HTTP_HOST}{$home_root}$1/index.html -f\n";
-	$rules .= "RewriteRule ^(.*) \"{$inst_root}cache/supercache/%{HTTP_HOST}{$home_root}$1/index.html\" [L]\n";
+	$rules .= "RewriteCond %{HTTP:Accept-Encoding} gzip\n";
+	$rules .= "RewriteCond %{HTTPS} on\n";
+	$rules .= "RewriteCond {$apache_root}{$inst_root}cache/supercache/%{SERVER_NAME}{$home_root_lc}$1/index-https.html.gz -f\n";
+	$rules .= "RewriteRule ^(.*) \"{$inst_root}cache/supercache/%{SERVER_NAME}{$home_root_lc}$1/index-https.html.gz\" [L]\n\n";
+
+	$rules .= "CONDITION_RULES";
+	$rules .= "RewriteCond %{HTTP:Accept-Encoding} gzip\n";
+	$rules .= "RewriteCond %{HTTPS} !on\n";
+	$rules .= "RewriteCond {$apache_root}{$inst_root}cache/supercache/%{SERVER_NAME}{$home_root_lc}$1/index.html.gz -f\n";
+	$rules .= "RewriteRule ^(.*) \"{$inst_root}cache/supercache/%{SERVER_NAME}{$home_root_lc}$1/index.html.gz\" [L]\n\n";
+
+	$rules .= "CONDITION_RULES";
+	$rules .= "RewriteCond %{HTTPS} on\n";
+	$rules .= "RewriteCond {$apache_root}{$inst_root}cache/supercache/%{SERVER_NAME}{$home_root_lc}$1/index-https.html -f\n";
+	$rules .= "RewriteRule ^(.*) \"{$inst_root}cache/supercache/%{SERVER_NAME}{$home_root_lc}$1/index-https.html\" [L]\n\n";
+
+	$rules .= "CONDITION_RULES";
+	$rules .= "RewriteCond %{HTTPS} !on\n";
+	$rules .= "RewriteCond {$apache_root}{$inst_root}cache/supercache/%{SERVER_NAME}{$home_root_lc}$1/index.html -f\n";
+	$rules .= "RewriteRule ^(.*) \"{$inst_root}cache/supercache/%{SERVER_NAME}{$home_root_lc}$1/index.html\" [L]\n";
 	$rules .= "</IfModule>\n";
 	$rules = apply_filters( 'supercacherewriterules', $rules );
 
@@ -2465,34 +2697,42 @@ function wpsc_get_htaccess_info() {
 
 	$gziprules =  "<IfModule mod_mime.c>\n  <FilesMatch \"\\.html\\.gz\$\">\n    ForceType text/html\n    FileETag None\n  </FilesMatch>\n  AddEncoding gzip .gz\n  AddType text/html .gz\n</IfModule>\n";
 	$gziprules .= "<IfModule mod_deflate.c>\n  SetEnvIfNoCase Request_URI \.gz$ no-gzip\n</IfModule>\n";
-	$gziprules .= "<IfModule mod_headers.c>\n  Header set Vary \"Accept-Encoding, Cookie\"\n  Header set Cache-Control 'max-age=300, must-revalidate'\n</IfModule>\n";
-	$gziprules .= "<IfModule mod_expires.c>\n  ExpiresActive On\n  ExpiresByType text/html A300\n</IfModule>\n";
-	return array( "document_root" => $document_root, "apache_root" => $apache_root, "home_path" => $home_path, "home_root" => $home_root, "inst_root" => $inst_root, "wprules" => $wprules, "scrules" => $scrules, "condition_rules" => $condition_rules, "rules" => $rules, "gziprules" => $gziprules );
+	$gziprules .= "<IfModule mod_headers.c>\n  Header set Vary \"Accept-Encoding, Cookie\"\n  Header set Cache-Control 'max-age=3, must-revalidate'\n</IfModule>\n";
+	$gziprules .= "<IfModule mod_expires.c>\n  ExpiresActive On\n  ExpiresByType text/html A3\n</IfModule>\n";
+	return array( "document_root" => $document_root, "apache_root" => $apache_root, "home_path" => $home_path, "home_root" => $home_root, "home_root_lc" => $home_root_lc, "inst_root" => $inst_root, "wprules" => $wprules, "scrules" => $scrules, "condition_rules" => $condition_rules, "rules" => $rules, "gziprules" => $gziprules );
 }
 
 function clear_post_supercache( $post_id ) {
 	$dir = get_current_url_supercache_dir( $post_id );
-	if ( file_exists( $dir . 'index.html' ) ) {
-		@unlink( $dir . 'index.html' );
-	}
-	if ( file_exists( $dir . 'index.html.gz' ) ) {
-		@unlink( $dir . 'index.html.gz' );
+	if ( false == @is_dir( $dir ) )
+		return false;
+
+	if ( !function_exists( 'prune_super_cache' ) )
+		include_once( 'wp-cache-phase2.php' );
+
+	if ( isset( $GLOBALS[ 'wp_super_cache_debug' ] ) && $GLOBALS[ 'wp_super_cache_debug' ] ) wp_cache_debug( "clear_post_supercache: deleting $dir/index*.html files", 2 );
+	$files_to_check = get_all_supercache_filenames( $dir );
+	foreach( $files_to_check as $cache_file ) {
+		prune_super_cache( $dir . $cache_file, true ); 
 	}
 }
 
 function wp_cron_preload_cache() {
-	global $wpdb, $wp_cache_preload_interval, $wp_cache_preload_posts, $wp_cache_preload_email_me, $wp_cache_preload_email_volume, $cache_path;
+	global $wpdb, $wp_cache_preload_interval, $wp_cache_preload_posts, $wp_cache_preload_email_me, $wp_cache_preload_email_volume, $cache_path, $wp_cache_preload_taxonomies;
 
 	if ( get_option( 'preload_cache_stop' ) ) {
 		delete_option( 'preload_cache_stop' );
+		if ( isset( $GLOBALS[ 'wp_super_cache_debug' ] ) && $GLOBALS[ 'wp_super_cache_debug' ] ) wp_cache_debug( "wp_cron_preload_cache: preload cancelled", 1 );
 		return true;
 	}
 	$mutex = $cache_path . "preload_mutex.tmp";
 	sleep( 3 + mt_rand( 1, 5 ) );
 	if ( @file_exists( $mutex ) ) {
 		if ( @filemtime( $mutex ) > ( time() - 600 ) ) {
+			if ( isset( $GLOBALS[ 'wp_super_cache_debug' ] ) && $GLOBALS[ 'wp_super_cache_debug' ] ) wp_cache_debug( "wp_cron_preload_cache: preload mutex found and less than 600 seconds old. Aborting preload.", 1 );
 			return true;
 		} else {
+			if ( isset( $GLOBALS[ 'wp_super_cache_debug' ] ) && $GLOBALS[ 'wp_super_cache_debug' ] ) wp_cache_debug( "wp_cron_preload_cache: old preload mutex found and deleted. Preload continues.", 1 );
 			@unlink( $mutex );
 		}
 	}
@@ -2500,26 +2740,100 @@ function wp_cron_preload_cache() {
 	@fclose( $fp );
 
 	$counter = get_option( 'preload_cache_counter' );
+	if ( is_array( $counter ) == false ) {
+		if ( isset( $GLOBALS[ 'wp_super_cache_debug' ] ) && $GLOBALS[ 'wp_super_cache_debug' ] ) wp_cache_debug( "wp_cron_preload_cache: setting up preload for the first time!", 5 );
+		$counter = array( 'c' => 0, 't' => time() );
+		update_option( 'preload_cache_counter', $counter );
+	}
 	$c = $counter[ 'c' ];
-	if ( $wp_cache_preload_posts == 'all' || $c <= $wp_cache_preload_posts ) {
-		$posts = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} WHERE (post_type = 'post' OR post_type='page') AND post_status = 'publish' ORDER BY post_date DESC LIMIT $c, 100" );
+
+	update_option( 'preload_cache_counter', array( 'c' => ( $c + 100 ), 't' => time() ) );
+
+	if ( $wp_cache_preload_email_me && $c == 0 )
+		wp_mail( get_option( 'admin_email' ), sprintf( __( '[%1$s] Cache Preload Started', 'wp-super-cache' ), site_url(), '' ), ' ' );
+
+	if ( $wp_cache_preload_posts == 'all' || $c < $wp_cache_preload_posts ) {
+		if ( isset( $GLOBALS[ 'wp_super_cache_debug' ] ) && $GLOBALS[ 'wp_super_cache_debug' ] ) wp_cache_debug( "wp_cron_preload_cache: doing taxonomy preload.", 5 );
+		$permalink_counter_msg = $cache_path . "preload_permalink.txt";
+		if ( isset( $wp_cache_preload_taxonomies ) && $wp_cache_preload_taxonomies ) {
+			$taxonomies = apply_filters( 'wp_cache_preload_taxonomies', array( 'post_tag' => 'tag', 'category' => 'category' ) );
+			foreach( $taxonomies as $taxonomy => $path ) {
+				$taxonomy_filename = $cache_path . "taxonomy_" . $taxonomy . ".txt";
+				if ( $c == 0 )
+					@unlink( $taxonomy_filename );
+
+				if ( false == @file_exists( $taxonomy_filename ) ) {
+					$out = '';
+					$records = get_terms( $taxonomy );
+					foreach( $records as $term ) {
+						$out .= site_url( $path . "/" . $term->slug . "/" ) . "\n";
+					}
+					$fp = fopen( $taxonomy_filename, 'w' );
+					if ( $fp ) {
+						fwrite( $fp, $out );
+						fclose( $fp );
+					}
+					$details = explode( "\n", $out );
+				} else {
+					$details = explode( "\n", file_get_contents( $taxonomy_filename ) );
+				}
+				if ( count( $details ) != 1 && $details[ 0 ] != '' ) {
+					$rows = array_splice( $details, 0, 50 );
+					if ( $wp_cache_preload_email_me && $wp_cache_preload_email_volume == 'many' )
+						wp_mail( get_option( 'admin_email' ), sprintf( __( '[%1$s] Refreshing %2$s taxonomy from %3$d to %4$d', 'wp-super-cache' ), site_url(), $taxonomy, $c, ($c+100) ), 'Refreshing: ' . print_r( $rows, 1 ) );
+					foreach( (array)$rows as $url ) {
+						set_time_limit( 60 );
+						if ( $url == '' )
+							continue;
+						$url_info = parse_url( $url );
+						$dir = get_supercache_dir() . $url_info[ 'path' ];
+						if ( isset( $GLOBALS[ 'wp_super_cache_debug' ] ) && $GLOBALS[ 'wp_super_cache_debug' ] ) wp_cache_debug( "wp_cron_preload_cache: delete $dir", 5 );
+						prune_super_cache( $dir );
+						$fp = @fopen( $permalink_counter_msg, 'w' );
+						if ( $fp ) {
+							@fwrite( $fp, "$taxonomy: $url" );
+							@fclose( $fp );
+						}
+						wp_remote_get( $url, array('timeout' => 60, 'blocking' => true ) );
+						if ( isset( $GLOBALS[ 'wp_super_cache_debug' ] ) && $GLOBALS[ 'wp_super_cache_debug' ] ) wp_cache_debug( "wp_cron_preload_cache: fetched $url", 5 );
+						sleep( 1 );
+					}
+					$fp = fopen( $taxonomy_filename, 'w' );
+					if ( $fp ) {
+						fwrite( $fp, implode( "\n", $details ) );
+						fclose( $fp );
+					}
+				}
+			}
+		}
+	}
+
+	if ( $wp_cache_preload_posts == 'all' || $c < $wp_cache_preload_posts ) {
+		$posts = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} WHERE ( post_type != 'revision' AND post_type != 'nav_menu_item' ) AND post_status = 'publish' ORDER BY ID ASC LIMIT $c, 100" );
+		if ( isset( $GLOBALS[ 'wp_super_cache_debug' ] ) && $GLOBALS[ 'wp_super_cache_debug' ] ) wp_cache_debug( "wp_cron_preload_cache: got 100 posts from position $c.", 5 );
 	} else {
+		if ( isset( $GLOBALS[ 'wp_super_cache_debug' ] ) && $GLOBALS[ 'wp_super_cache_debug' ] ) wp_cache_debug( "wp_cron_preload_cache: no more posts to get. Limit ($wp_cache_preload_posts) reached.", 5 );
 		$posts = false;
 	}
 	if ( !isset( $wp_cache_preload_email_volume ) )
 		$wp_cache_preload_email_volume = 'medium';
 
-	update_option( 'preload_cache_counter', array( 'c' => ( $c + 100 ), 't' => time() ) );
 	if ( $posts ) {
-		if ( $wp_cache_preload_email_me && $c == 0 )
-			wp_mail( get_option( 'admin_email' ), sprintf( __( '[%1$s] Cache Preload Started', 'wp-super-cache' ), site_url(), '' ), '' );
+		if ( get_option( 'show_on_front' ) == 'page' ) {
+			$page_on_front = get_option( 'page_on_front' );
+			$page_for_posts = get_option( 'page_for_posts' );
+		} else {
+			$page_on_front = $page_for_posts = 0;
+		}
 		if ( $wp_cache_preload_email_me && $wp_cache_preload_email_volume == 'many' )
-			wp_mail( get_option( 'admin_email' ), sprintf( __( '[%1$s] Refreshing posts from %2$d to %3$d', 'wp-super-cache' ), site_url(), $c, ($c+100) ), '' );
+			wp_mail( get_option( 'admin_email' ), sprintf( __( '[%1$s] Refreshing posts from %2$d to %3$d', 'wp-super-cache' ), site_url(), $c, ($c+100) ), ' ' );
 		$msg = '';
 		$count = $c + 1;
 		$permalink_counter_msg = $cache_path . "preload_permalink.txt";
 		foreach( $posts as $post_id ) {
 			set_time_limit( 60 );
+			if ( $page_on_front != 0 && ( $post_id == $page_on_front || $post_id == $page_for_posts ) )
+				continue;
 			clear_post_supercache( $post_id );
 			$url = get_permalink( $post_id );
 			$fp = @fopen( $permalink_counter_msg, 'w' );
@@ -2528,21 +2842,24 @@ function wp_cron_preload_cache() {
 				@fclose( $fp );
 			}
 			if ( @file_exists( $cache_path . "stop_preload.txt" ) ) {
+				if ( isset( $GLOBALS[ 'wp_super_cache_debug' ] ) && $GLOBALS[ 'wp_super_cache_debug' ] ) wp_cache_debug( "wp_cron_preload_cache: cancelling preload. stop_preload.txt found.", 5 );
 				@unlink( $mutex );
 				@unlink( $cache_path . "stop_preload.txt" );
 				update_option( 'preload_cache_counter', array( 'c' => 0, 't' => time() ) );
 				if ( $wp_cache_preload_email_me )
-					wp_mail( get_option( 'admin_email' ), sprintf( __( '[%1$s] Cache Preload Stopped', 'wp-super-cache' ), site_url(), '' ), '' );
+					wp_mail( get_option( 'admin_email' ), sprintf( __( '[%1$s] Cache Preload Stopped', 'wp-super-cache' ), site_url(), '' ), ' ' );
 				return true;
 			}
 			$msg .= "$url\n";
 			wp_remote_get( $url, array('timeout' => 60, 'blocking' => true ) );
+			if ( isset( $GLOBALS[ 'wp_super_cache_debug' ] ) && $GLOBALS[ 'wp_super_cache_debug' ] ) wp_cache_debug( "wp_cron_preload_cache: fetched $url", 5 );
 			sleep( 1 );
 			$count++;
 		}
 		if ( $wp_cache_preload_email_me && $wp_cache_preload_email_volume != 'less' )
-			wp_mail( get_option( 'admin_email' ), sprintf( __( '[%1$s] %2$d posts refreshed', 'wp-super-cache' ), $_SERVER[ 'HTTP_HOST' ], ($c+100) ), __( "Refreshed the following posts:", 'wp-super-cache' ) . "\n$msg" );
+			wp_mail( get_option( 'admin_email' ), sprintf( __( '[%1$s] %2$d posts refreshed', 'wp-super-cache' ), $_SERVER[ 'SERVER_NAME' ], ($c+100) ), __( "Refreshed the following posts:", 'wp-super-cache' ) . "\n$msg" );
 		if ( defined( 'DOING_CRON' ) ) {
+			if ( isset( $GLOBALS[ 'wp_super_cache_debug' ] ) && $GLOBALS[ 'wp_super_cache_debug' ] ) wp_cache_debug( "wp_cron_preload_cache: scheduling the next preload in 30 seconds.", 5 );
 			wp_schedule_single_event( time() + 30, 'wp_cache_preload_hook' );
 		}
 	} else {
@@ -2551,6 +2868,7 @@ function wp_cron_preload_cache() {
 		if ( (int)$wp_cache_preload_interval && defined( 'DOING_CRON' ) ) {
 			if ( $wp_cache_preload_email_me )
 				$msg = sprintf( __( 'Scheduling next preload refresh in %d minutes.', 'wp-super-cache' ), (int)$wp_cache_preload_interval );
+			if ( isset( $GLOBALS[ 'wp_super_cache_debug' ] ) && $GLOBALS[ 'wp_super_cache_debug' ] ) wp_cache_debug( "wp_cron_preload_cache: no more posts. scheduling next preload in $wp_cache_preload_interval minutes.", 5 );
 			wp_schedule_single_event( time() + ( (int)$wp_cache_preload_interval * 60 ), 'wp_cache_full_preload_hook' );
 		}
 		global $file_prefix, $cache_max_time;
@@ -2561,6 +2879,7 @@ function wp_cron_preload_cache() {
 		}
 		if ( $wp_cache_preload_email_me )
 			wp_mail( get_option( 'admin_email' ), sprintf( __( '[%s] Cache Preload Completed', 'wp-super-cache' ), site_url() ), __( "Cleaning up old supercache files.", 'wp-super-cache' ) . "\n" . $msg );
+		if ( isset( $GLOBALS[ 'wp_super_cache_debug' ] ) && $GLOBALS[ 'wp_super_cache_debug' ] ) wp_cache_debug( "wp_cron_preload_cache: clean expired cache files older than $cache_max_time seconds.", 5 );
 		wp_cache_phase2_clean_expired( $file_prefix, true ); // force cleanup of old files.
 	}
 	@unlink( $mutex );
@@ -2669,4 +2988,23 @@ function uninstall_supercache( $folderPath ) { // from http://www.php.net/manual
 		return false;
 	}
 }
+
+function supercache_admin_bar_render() {
+	global $wp_admin_bar, $wp_cache_not_logged_in;
+	if ( !is_user_logged_in() || !$wp_cache_not_logged_in ) 
+		return false;
+
+	if ( !wpsupercache_site_admin() )
+		return false;
+
+	$wp_admin_bar->add_menu( array(
+				'parent' => '',
+				'id' => 'delete-cache',
+				'title' => __( 'Delete Cache', 'wp-super-cache' ),
+				'meta' => array( 'title' => __( 'Delete cache of the current page', 'wp-super-cache' ) ),
+				'href' => wp_nonce_url( admin_url( 'options-general.php?page=wpsupercache&action=delete&path=' . urlencode( $_SERVER[ 'REQUEST_URI' ] ) ), 'delete-cache' )
+				) );
+}
+add_action( 'wp_before_admin_bar_render', 'supercache_admin_bar_render' );
+
 ?>

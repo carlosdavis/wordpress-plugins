@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: AddToAny: Share/Bookmark/Email Buttons
-Plugin URI: http://www.addtoany.com/
-Description: Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, Google, StumbleUpon, Digg and many more.  [<a href="options-general.php?page=add-to-any.php">Settings</a>]
-Version: .9.9.9.3
-Author: AddToAny
-Author URI: http://www.addtoany.com/
+Plugin Name: Share Buttons by Lockerz / AddToAny
+Plugin URI: http://share.lockerz.com/
+Description: Help people share, bookmark, and email your posts & pages using any service, such as Facebook, Twitter, Google, StumbleUpon, LinkedIn and many more.  [<a href="options-general.php?page=add-to-any.php">Settings</a>]
+Version: 1.0.3
+Author: micropat
+Author URI: http://share.lockerz.com/
 */
 
 if( !isset($A2A_locale) )
@@ -65,9 +65,9 @@ function A2A_SHARE_SAVE_link_vars($linkname = FALSE, $linkurl = FALSE) {
 	global $post;
 	
 	$linkname		= ($linkname) ? $linkname : get_the_title($post->ID);
-	$linkname_enc	= rawurlencode( $linkname );
+	$linkname_enc	= rawurlencode( html_entity_decode($linkname, ENT_QUOTES, 'UTF-8') );
 	$linkurl		= ($linkurl) ? $linkurl : get_permalink($post->ID);
-	$linkurl_enc	= rawurlencode( $linkurl );	
+	$linkurl_enc	= rawurlencode( $linkurl );
 	
 	return compact( 'linkname', 'linkname_enc', 'linkurl', 'linkurl_enc' );
 }
@@ -137,10 +137,10 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 	// Make available services extensible via plugins, themes (functions.php), etc.
 	$A2A_SHARE_SAVE_services = apply_filters('A2A_SHARE_SAVE_services', $A2A_SHARE_SAVE_services);
 	
-	$service_codes = array_keys($A2A_SHARE_SAVE_services);
+	$service_codes = (is_array($A2A_SHARE_SAVE_services)) ? array_keys($A2A_SHARE_SAVE_services) : Array();
 	
-	// Include Facebook Like and Twitter Tweet
-	array_unshift($service_codes, 'facebook_like', 'twitter_tweet', 'google_plusone');
+	// Include Facebook Like and Twitter Tweet etc.
+	array_unshift($service_codes, 'facebook_like', 'twitter_tweet', 'google_plusone', 'google_plus_share');
 	
 	$options = get_option('addtoany_options');
   
@@ -156,8 +156,10 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 		if ( !in_array($active_service, $service_codes) )
 			continue;
 
-		if ($active_service == 'facebook_like' || $active_service == 'twitter_tweet' || $active_service == 'google_plusone') {
-			$link = ADDTOANY_SHARE_SAVE_SPECIAL($active_service, $args);
+		if ($active_service == 'facebook_like' || $active_service == 'twitter_tweet' || $active_service == 'google_plusone' || $active_service == 'google_plus_share') {
+			$special_args = $args;
+			$special_args['output_later'] = TRUE;
+			$link = ADDTOANY_SHARE_SAVE_SPECIAL($active_service, $special_args);
 		}
 		else {
 			$service = $A2A_SHARE_SAVE_services[$active_service];
@@ -331,44 +333,33 @@ function ADDTOANY_SHARE_SAVE_SPECIAL($special_service_code, $args = array() ) {
 	$args = array_merge($args, A2A_SHARE_SAVE_link_vars($linkname, $linkurl)); // linkname_enc, etc.
 	extract( $args );
 	
-	$http_or_https = (is_ssl()) ? 'https' : 'http';
-	$iframe_template_begin = '<iframe';
-	$iframe_template_end = ' class="addtoany_special_service %1$s" src="%2$s" scrolling="no" style="border:none;overflow:hidden;width:%3$dpx;height:%4$dpx"></iframe>';
-	$iframe_template = $iframe_template_begin . $iframe_template_end;
-	
-	// IE ridiculousness to support transparent iframes while maintaining W3C validity
-	$iframe_template = '<!--[if IE]>'
-		. $iframe_template_begin . ' frameborder="0" allowTransparency="true"' . $iframe_template_end
-		. '<![endif]--><!--[if !IE]><!-->' . $iframe_template . '<!--<![endif]-->';
+	$special_anchor_template = '<a class="a2a_button_%1$s addtoany_special_service"%2$s></a>';
+	$custom_attributes = '';
 	
 	if ($special_service_code == 'facebook_like') {
-		if ($options['special_facebook_like_options']['verb'] == 'recommend') {
-			$action_param_value = 'recommend';
-		} else {
-			$action_param_value = 'like';
-		}
-		$special_html = sprintf($iframe_template, $special_service_code, $http_or_https . '://www.facebook.com/plugins/like.php?href=' . $linkurl_enc . '&amp;layout=button_count&amp;show_faces=false&amp;width=75&amp;action=' . $action_param_value . '&amp;colorscheme=light&amp;height=20&amp;ref=addtoany', 90, 21);
+		$custom_attributes .= ($options['special_facebook_like_options']['verb'] == 'recommend') ? ' data-action="recommend"'  : '';
+		$custom_attributes .= ' data-href="' . $linkurl . '"';
+		$special_html = sprintf($special_anchor_template, $special_service_code, $custom_attributes);
 	}
+	
 	elseif ($special_service_code == 'twitter_tweet') {
-		if ($options['special_twitter_tweet_options']['show_count'] == '1') {
-			$count_param_value = 'horizontal';
-			$width = 130;
-		} else {
-			$count_param_value = 'none';
-			$width = 55;
-		}
-		$special_html = sprintf($iframe_template, $special_service_code, $http_or_https . '://platform.twitter.com/widgets/tweet_button.html?url=' . $linkurl_enc . '&amp;counturl=' . $linkurl_enc . '&amp;count=' . $count_param_value . '&amp;text=' . $linkname_enc, $width, 20);
+		$custom_attributes .= ($options['special_twitter_tweet_options']['show_count'] == '1') ? ' data-count="horizontal"'  : ' data-count="none"';
+		$custom_attributes .= ' data-url="' . $linkurl . '"';
+		$custom_attributes .= ' data-text="' . $linkname . '"';
+		$special_html = sprintf($special_anchor_template, $special_service_code, $custom_attributes);
 	}
+	
 	elseif ($special_service_code == 'google_plusone') {
-		if ($options['special_google_plusone_options']['show_count'] == '1') {
-			$count_param_value = 'true';
-			$width = 90;
-		} else {
-			$count_param_value = 'false';
-			$width = 32;
-		}
-		$special_html = sprintf($iframe_template, $special_service_code, 'https://plusone.google.com/u/0/_/%2B1/button#url=' . $linkurl_enc . '&amp;size=medium&amp;count=' . $count_param_value, $width, 20);
-	}		
+		$custom_attributes .= ($options['special_google_plusone_options']['show_count'] == '1') ? ''  : ' data-annotation="none"';
+		$custom_attributes .= ' data-href="' . $linkurl . '"';
+		$special_html = sprintf($special_anchor_template, $special_service_code, $custom_attributes);
+	}
+	
+	elseif ($special_service_code == 'google_plus_share') {
+		$custom_attributes .= ($options['special_google_plus_share_options']['show_count'] == '1') ? ''  : ' data-annotation="none"';
+		$custom_attributes .= ' data-href="' . $linkurl . '"';
+		$special_html = sprintf($special_anchor_template, $special_service_code, $custom_attributes);
+	}
 	
 	if ( $output_later )
 		return $special_html;
@@ -397,7 +388,7 @@ if (!function_exists('A2A_menu_locale')) {
 	ShareViaEmail: "' . __("Share via e-mail", "add-to-any") . '",
 	SubscribeViaEmail: "' . __("Subscribe via e-mail", "add-to-any") . '",
 	BookmarkInYourBrowser: "' . __("Bookmark in your browser", "add-to-any") . '",
-	BookmarkInstructions: "' . __("Press Ctrl+D or &#8984;+D to bookmark this page", "add-to-any") . '",
+	BookmarkInstructions: "' . __("Press Ctrl+D or \u2318+D to bookmark this page", "add-to-any") . '",
 	AddToYourFavorites: "' . __("Add to your favorites", "add-to-any") . '",
 	SendFromWebOrProgram: "' . __("Send from any e-mail address or e-mail program", "add-to-any") . '",
     EmailProgram: "' . __("E-mail program", "add-to-any") . '"
@@ -589,16 +580,10 @@ function A2A_SHARE_SAVE_add_to_content($content) {
 			( ! is_page() && $options['display_in_posts']=='-1' ) ||
 			// Front page posts		
 			( is_home() && $options['display_in_posts_on_front_page']=='-1' ) ||
-			// Category posts (same as Front page option)
-			( is_category() && $options['display_in_posts_on_front_page']=='-1' ) ||
-			// Tag Cloud posts (same as Front page option) - WP version 2.3+ only
-			( function_exists('is_tag') && is_tag() && $options['display_in_posts_on_front_page']=='-1' ) ||
-			// Date-based archives posts (same as Front page option)
-			( is_date() && $options['display_in_posts_on_front_page']=='-1' ) ||
-			// Author posts (same as Front page option)	
-			( is_author() && $options['display_in_posts_on_front_page']=='-1' ) ||
-			// Search results posts (same as Front page option)
-			( is_search() && $options['display_in_posts_on_front_page']=='-1' ) || 
+			// Archive page posts (Category, Tag, Author and Date pages)
+			( is_archive() && $options['display_in_posts_on_archive_pages']=='-1' ) ||
+			// Search results posts (same as Archive page posts option)
+			( is_search() && $options['display_in_posts_on_archive_pages']=='-1' ) || 
 			// Posts in feed
 			( $is_feed && ($options['display_in_feed']=='-1' ) ||
 			
@@ -682,7 +667,7 @@ function A2A_SHARE_SAVE_stylesheet() {
 	
 	// Use stylesheet?
 	if ($A2A_SHARE_SAVE_options['inline_css'] != '-1' && ! is_admin()) {
-		wp_enqueue_style('A2A_SHARE_SAVE', $A2A_SHARE_SAVE_plugin_url_path . '/addtoany.min.css', false, '1.3');
+		wp_enqueue_style('A2A_SHARE_SAVE', $A2A_SHARE_SAVE_plugin_url_path . '/addtoany.min.css', false, '1.4');
 		
 		// Conditional inline CSS stylesheet for IE
 		add_filter('wp_head', 'A2A_SHARE_SAVE_button_css_IE');
@@ -747,6 +732,7 @@ function A2A_SHARE_SAVE_migrate_options() {
 		'inline_css' => '1', // Modernly used for "Use CSS Stylesheet?"
 		'cache' => '-1',
 		'display_in_posts_on_front_page' => '1',
+		'display_in_posts_on_archive_pages' => '1',
 		'display_in_posts' => '1',
 		'display_in_pages' => '1',
 		'display_in_feed' => '1',
@@ -813,6 +799,7 @@ function A2A_SHARE_SAVE_options_page() {
 
 		$new_options['position'] = ($_POST['A2A_SHARE_SAVE_position']) ? @$_POST['A2A_SHARE_SAVE_position'] : 'bottom';
 		$new_options['display_in_posts_on_front_page'] = (@$_POST['A2A_SHARE_SAVE_display_in_posts_on_front_page']=='1') ? '1':'-1';
+		$new_options['display_in_posts_on_archive_pages'] = (@$_POST['A2A_SHARE_SAVE_display_in_posts_on_archive_pages']=='1') ? '1':'-1';
 		$new_options['display_in_excerpts'] = (@$_POST['A2A_SHARE_SAVE_display_in_excerpts']=='1') ? '1':'-1';
 		$new_options['display_in_posts'] = (@$_POST['A2A_SHARE_SAVE_display_in_posts']=='1') ? '1':'-1';
 		$new_options['display_in_pages'] = (@$_POST['A2A_SHARE_SAVE_display_in_pages']=='1') ? '1':'-1';
@@ -858,6 +845,9 @@ function A2A_SHARE_SAVE_options_page() {
 		);
 		$new_options['special_google_plusone_options'] = array(
 			'show_count' => ((@$_POST['addtoany_google_plusone_show_count'] == '1') ? '1' : '-1')
+		);
+		$new_options['special_google_plus_share_options'] = array(
+			'show_count' => ((@$_POST['addtoany_google_plus_share_show_count'] == '1') ? '1' : '-1')
 		);
 		
     	update_option('addtoany_options', $new_options);
@@ -946,6 +936,9 @@ function A2A_SHARE_SAVE_options_page() {
                     </li>
                     <li id="a2a_wp_google_plusone" class="addtoany_special_service" title="Google +1 button">
                         <span><img src="<?php echo $A2A_SHARE_SAVE_plugin_url_path.'/icons/google_plusone.png'; ?>" width="32" height="20" alt="Google +1" /></span>
+                    </li>
+                    <li id="a2a_wp_google_plus_share" class="addtoany_special_service" title="Google+ Share button">
+                        <span><img src="<?php echo $A2A_SHARE_SAVE_plugin_url_path.'/icons/google_plus_share.png'; ?>" width="57" height="20" alt="Google+ Share Button" /></span>
                     </li>
 				<?php
 					// Show all services
@@ -1045,7 +1038,13 @@ function A2A_SHARE_SAVE_options_page() {
 						?> value="1"/>
                     <?php printf(__('Display at the %s of posts on the front page', 'add-to-any'), position_in_content($options)); ?>
 				</label><br/>
-                
+				<label>
+                	&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_posts_on_archive_pages" type="checkbox"<?php 
+						if($options['display_in_posts_on_archive_pages']!='-1') echo ' checked="checked"';
+						if($options['display_in_posts']=='-1') echo ' disabled="disabled"';
+						?> value="1"/>
+                    <?php printf(__('Display at the %s of posts on archive pages', 'add-to-any'), position_in_content($options)); ?>
+				</label><br/>
 				<label>
                 	&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_feed" type="checkbox"<?php 
 						if($options['display_in_feed']!='-1') echo ' checked="checked"'; 
@@ -1194,8 +1193,8 @@ function A2A_SHARE_SAVE_admin_head() {
 					
 					// Special service options?
 					service_name = services_array[i].substr(7);
-					if (service_name == 'facebook_like' || service_name == 'twitter_tweet' || service_name == 'google_plusone') {
-						if ((service_name == 'twitter_tweet' || service_name == 'google_plusone') && jQuery('#' + services_array[i] + '_show_count').is(':checked'))
+					if (service_name == 'facebook_like' || service_name == 'twitter_tweet' || service_name == 'google_plusone' || service_name == 'google_plus_share') {
+						if ((service_name == 'twitter_tweet' || service_name == 'google_plusone' || service_name == 'google_plus_share') && jQuery('#' + services_array[i] + '_show_count').is(':checked'))
 							jQuery('form:first').append('<input name="addtoany_' + service_name + '_show_count" type="hidden" value="1"/>');
 						if ((service_name == 'facebook_like') && jQuery('#' + services_array[i] + '_verb').val() == 'recommend')
 							jQuery('form:first').append('<input name="addtoany_' + service_name + '_verb" type="hidden" value="recommend"/>');
@@ -1233,7 +1232,7 @@ function A2A_SHARE_SAVE_admin_head() {
 						+ '<option' + checked + ' value="recommend">Recommend</option>'
 						+ '</select>';
 				} else {
-					// twitter_tweet & google_plusone
+					// twitter_tweet & google_plusone & google_plus_share
 					if (service_options[this_service_name] && service_options[this_service_name].show_count)
 						checked = ' checked="checked"';
 					special_options_html = '<label><input' + checked + ' id="' + this_service.attr('id') + '_show_count" name="' + this_service.attr('id') + '_show_count" type="checkbox" value="1"> Show count</label>';
@@ -1313,6 +1312,9 @@ function A2A_SHARE_SAVE_admin_head() {
 		}
 		if ( $_POST['addtoany_google_plusone_show_count'] == '1' || $options['special_google_plusone_options']['show_count'] == '1') {
 			?>service_options.google_plusone = {show_count: 1};<?php
+		}
+		if ( $_POST['addtoany_google_plus_share_show_count'] == '1' || $options['special_google_plus_share_options']['show_count'] == '1') {
+			?>service_options.google_plus_share = {show_count: 1};<?php
 		}
 		?>
         

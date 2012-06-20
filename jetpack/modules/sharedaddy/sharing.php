@@ -9,17 +9,14 @@ class Sharing_Admin {
 		
 		require_once WP_SHARING_PLUGIN_DIR.'sharing-service.php';
 
-		add_action( 'admin_init', array( &$this, 'admin_init' ) );
-		add_action( 'admin_menu', array( &$this, 'subscription_menu' ) );
-
-		// Insert our CSS and JS
-		add_action( 'load-settings_page_sharing', array( &$this, 'sharing_head' ) );
+		add_action( 'admin_init', array( $this, 'admin_init' ) );
+		add_action( 'admin_menu', array( $this, 'subscription_menu' ) );
 
 		// Catch AJAX
-		add_action( 'wp_ajax_sharing_save_services', array( &$this, 'ajax_save_services' ) );
-		add_action( 'wp_ajax_sharing_save_options', array( &$this, 'ajax_save_options' ) );
-		add_action( 'wp_ajax_sharing_new_service', array( &$this, 'ajax_new_service' ) );
-		add_action( 'wp_ajax_sharing_delete_service', array( &$this, 'ajax_delete_service' ) );
+		add_action( 'wp_ajax_sharing_save_services', array( $this, 'ajax_save_services' ) );
+		add_action( 'wp_ajax_sharing_save_options', array( $this, 'ajax_save_options' ) );
+		add_action( 'wp_ajax_sharing_new_service', array( $this, 'ajax_new_service' ) );
+		add_action( 'wp_ajax_sharing_delete_service', array( $this, 'ajax_delete_service' ) );
 	}
 	
 	public function sharing_head() {
@@ -40,13 +37,16 @@ class Sharing_Admin {
 			$sharer->set_global_options( $_POST );
 			do_action( 'sharing_admin_update' );
 			
-			wp_redirect( admin_url( 'options-general.php?page=sharing&update=saved' ) );
+			wp_safe_redirect( admin_url( 'options-general.php?page=sharing&update=saved' ) );
 			die();
 		}
 	}
 	
 	public function subscription_menu( $user ) {
-		add_submenu_page( 'options-general.php', __( 'Sharing Settings', 'jetpack' ), __( 'Sharing', 'jetpack' ), 'manage_options', 'sharing', array( &$this, 'management_page' ) );
+		$hook = add_submenu_page( 'options-general.php', __( 'Sharing Settings', 'jetpack' ), __( 'Sharing', 'jetpack' ), 'manage_options', 'sharing', array( $this, 'management_page' ) );
+
+		// Insert our CSS and JS
+		add_action( "load-$hook", array( $this, 'sharing_head' ) );
 	}
 	
 	public function ajax_save_services() {
@@ -140,6 +140,10 @@ class Sharing_Admin {
 		$sharer  = new Sharing_Service();
 		$enabled = $sharer->get_blog_services();
 		$global  = $sharer->get_global_options();
+
+		$shows = array_values( get_post_types( array( 'public' => true ) ) );
+		array_unshift( $shows, 'index' );
+
 		if ( false == function_exists( 'mb_stripos' ) ) {
 			echo '<div id="message" class="updated fade"><h3>' . __( 'Warning! Multibyte support missing!', 'jetpack' ) . '</h3>';
 			echo "<p>" . sprintf( __( 'This plugin will work without it, but multibyte support is used <a href="%s">if available</a>. You may see minor problems with Tweets and other sharing services.', 'jetpack' ), "http://www.php.net/manual/en/mbstring.installation.php" ) . '</p></div>';
@@ -308,7 +312,7 @@ class Sharing_Admin {
 	  				<tr valign="top">
 	  					<th scope="row"><label><?php _e( 'Sharing label', 'jetpack' ); ?></label></th>
 	  					<td>
-	  						<input type="text" name="sharing_label" value="<?php echo esc_attr( $global['sharing_label'] ); ?>" />
+	  						<input type="text" name="sharing_label" value="<?php echo ( FALSE === $global['sharing_label'] ) ? __( 'Share this:', 'jetpack' ) : $global['sharing_label']; ?>" />
 	  					</td>
 	  				</tr>
 	  				<tr valign="top">
@@ -323,11 +327,18 @@ class Sharing_Admin {
 	  				<tr valign="top">
 	  					<th scope="row"><label><?php _e( 'Show sharing buttons on', 'jetpack' ); ?></label></th>
 	  					<td>
-	  						<select name="show">
-	  							<option<?php if ( $global['show'] == 'posts-index' ) echo ' selected="selected"';?> value="posts-index"><?php _e( 'Posts, pages, and index pages', 'jetpack' ); ?></option>
-	  							<option<?php if ( $global['show'] == 'posts' ) echo ' selected="selected"';?> value="posts"><?php _e( 'Posts and pages only', 'jetpack' ); ?></option>
-	  							<option<?php if ( $global['show'] == 'index' ) echo ' selected="selected"';?> value="index"><?php _e( 'Index pages only', 'jetpack' ); ?></option>
-	  						</select>
+						<?php
+							$br = false;
+							foreach ( $shows as $show ) :
+								if ( 'index' == $show ) {
+									$label = __( 'Front Page, Archive Pages, and Search Results', 'jetpack' );
+								} else {
+									$post_type_object = get_post_type_object( $show );
+									$label = $post_type_object->labels->name;
+								}
+						?>
+							<?php if ( $br ) echo '<br />'; ?><label><input type="checkbox"<?php checked( in_array( $show, $global['show'] ) ); ?> name="show[]" value="<?php echo esc_attr( $show ); ?>" /> <?php echo esc_html( $label ); ?></label>
+						<?php	$br = true; endforeach; ?>
 	  					</td>
 	  				</tr>
 	  				

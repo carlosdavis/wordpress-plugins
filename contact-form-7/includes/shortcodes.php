@@ -36,8 +36,10 @@ class WPCF7_ShortcodeManager {
 			return $m[0];
 
 		$tag = $m[2];
-		$attr = trim( preg_replace( '/\s+/', ' ', $m[3] ) );
+		$attr = trim( preg_replace( '/[\r\n\t ]+/', ' ', $m[3] ) );
 		$content = trim( $m[5] );
+
+		$content = str_replace( "\n", '<WPPreserveNewline />', $content );
 
 		$result = $m[1] . '[' . $tag
 			. ( $attr ? ' ' . $attr : '' )
@@ -71,7 +73,7 @@ class WPCF7_ShortcodeManager {
 		$tagregexp = join( '|', array_map( 'preg_quote', $tagnames ) );
 
 		return '(\[?)'
-			. '\[(' . $tagregexp . ')(?:\s(.*?))?(?:\s(\/))?\]'
+			. '\[(' . $tagregexp . ')(?:[\r\n\t ](.*?))?(?:[\r\n\t ](\/))?\]'
 			. '(?:([^[]*?)\[\/\2\])?'
 			. '(\]?)';
 	}
@@ -85,8 +87,16 @@ class WPCF7_ShortcodeManager {
 		$tag = $m[2];
 		$attr = $this->shortcode_parse_atts( $m[3] );
 
-		$scanned_tag = array();
-		$scanned_tag['type'] = $tag;
+		$scanned_tag = array(
+			'type' => $tag,
+			'name' => '',
+			'options' => array(),
+			'raw_values' => array(),
+			'values' => array(),
+			'pipes' => null,
+			'labels' => array(),
+			'attr' => '',
+			'content' => '' );
 
 		if ( is_array( $attr ) ) {
 			if ( is_array( $attr['options'] ) ) {
@@ -117,7 +127,7 @@ class WPCF7_ShortcodeManager {
 		}
 
 		$content = trim( $m[5] );
-		$content = preg_replace( "/<br\s*\/?>$/m", '', $content );
+		$content = preg_replace( "/<br[\r\n\t ]*\/?>$/m", '', $content );
 		$scanned_tag['content'] = $content;
 
 		$scanned_tag = apply_filters( 'wpcf7_form_tag', $scanned_tag, $this->exec );
@@ -137,11 +147,11 @@ class WPCF7_ShortcodeManager {
 		$text = preg_replace( "/[\x{00a0}\x{200b}]+/u", " ", $text );
 		$text = stripcslashes( trim( $text ) );
 
-		$pattern = '%^([-+*=0-9a-zA-Z:.!?#$&@_/|\%\s]*?)((?:\s*"[^"]*"|\s*\'[^\']*\')*)$%';
+		$pattern = '%^([-+*=0-9a-zA-Z:.!?#$&@_/|\%\r\n\t ]*?)((?:[\r\n\t ]*"[^"]*"|[\r\n\t ]*\'[^\']*\')*)$%';
 
 		if ( preg_match( $pattern, $text, $match ) ) {
 			if ( ! empty( $match[1] ) ) {
-				$atts['options'] = preg_split( '/[\s]+/', trim( $match[1] ) );
+				$atts['options'] = preg_split( '/[\r\n\t ]+/', trim( $match[1] ) );
 			}
 			if ( ! empty( $match[2] ) ) {
 				preg_match_all( '/"[^"]*"|\'[^\']*\'/', $match[2], $matched_values );

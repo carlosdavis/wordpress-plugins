@@ -10,16 +10,7 @@ function AtD_print_option( $name, $value, $options ) {
 	// Attribute-safe version of $name
 	$attr_name = sanitize_title($name); // Using sanitize_title since there's no comparable function for attributes
 ?>
-   <input type="checkbox" id="atd_<?php echo ($attr_name) ?>" name="<?php echo $options['name'] ?>[<?php echo $name; ?>]" value="1" <?php checked( '1', $options[$name] ); ?>> <label for="atd_<?php echo $attr_name ?>"><?php echo $value; ?></label>
-<?php
-}
-
-/*
- *  Print a message saying AtD s not available due to the language settings
- */
-function AtD_process_not_supported() {
-?>
-   <p><?php printf( __( 'WordPress checks your grammar, spelling, and misused words with <a href="%s">After the Deadline</a>. This feature is available to blogs set to the English language. Blogs in other languages will continue to have access to the old spellchecker.', 'jetpack' ), 'http://www.afterthedeadline.com' ); ?></p>
+   <input type="checkbox" id="atd_<?php echo ($attr_name) ?>" name="<?php echo $options['name'] ?>[<?php echo $name; ?>]" value="1" <?php checked( '1', isset( $options[$name] ) ? $options[$name] : false ); ?>> <label for="atd_<?php echo $attr_name ?>"><?php echo $value; ?></label>
 <?php
 }
 
@@ -94,7 +85,11 @@ function AtD_display_options_form() {
 
    <p style="font-weight: bold"><?php _e( 'Language', 'jetpack' ); ?></font>
 
-   <p><?php printf( __( 'The proofreader supports English, French, German, Portuguese, and Spanish. Your <a href="%s">WPLANG</a> value is the default proofreading language.', 'jetpack' ), 'http://codex.wordpress.org/Installing_WordPress_in_Your_Language' ); ?></p>
+   <p><?php printf(
+	_x( 'The proofreader supports English, French, German, Portuguese, and Spanish. Your <a href="%1$s">%2%s</a> value is the default proofreading language.', '%1$s = http://codex.wordpress.org/Installing_WordPress_in_Your_Language, %2$s = WPLANG', 'jetpack' ),
+	'http://codex.wordpress.org/Installing_WordPress_in_Your_Language',
+	'WPLANG'
+   ); ?></p>
 
    <p><?php
 	AtD_print_option( 'true', __('Use automatically detected language to proofread posts and pages', 'jetpack' ), $options_guess_lang );
@@ -124,11 +119,10 @@ function AtD_get_options( $user_id, $name ) {
  */
 function AtD_update_options( $user_id, $name ) {
 	/* We should probably run $_POST[name] through an esc_*() function... */
-	if ( is_array( $_POST[$name] ) ) {
+	if ( isset( $_POST[$name] ) && is_array( $_POST[$name] ) ) {
 		$copy = array_map( 'strip_tags', array_keys( $_POST[$name] ) );
 		AtD_update_setting( $user_id, AtD_sanitize( $name ), implode( ',', $copy )  );
-	}
-	else {
+	} else {
 		AtD_update_setting( $user_id, AtD_sanitize( $name ), '');
 	}
 	
