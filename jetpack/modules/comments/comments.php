@@ -113,9 +113,49 @@ class Jetpack_Comments extends Highlander_Comments_Base {
 
 		// After a comment is posted
 		add_action( 'comment_post', array( $this, 'add_comment_meta' ) );
+	}
 
-		// Add some JS to the footer
-		add_action( 'wp_footer', array( $this, 'watch_comment_parent' ), 100 );
+	/**
+	 * Setup filters for methods in this class
+	 * @since 1.6.2
+	 */
+	protected function setup_filters() {
+		parent::setup_filters();
+
+		add_filter( 'comment_post_redirect', array( $this, 'capture_comment_post_redirect_to_reload_parent_frame' ), 100 );
+		add_filter( 'get_avatar',            array( $this, 'get_avatar' ), 10, 4 );
+	}
+
+	/**
+	 * Get the comment avatar from Gravatar, Twitter, or Facebook
+	 *
+	 * @since JetpackComments (1.4)
+	 * @param string $avatar Current avatar URL
+	 * @param string $comment Comment for the avatar
+	 * @param int $size Size of the avatar
+	 * @param string $default Not used
+	 * @return string New avatar
+	 */
+	public function get_avatar( $avatar, $comment, $size, $default ) {
+		if ( ! isset( $comment->comment_post_ID ) || ! isset( $comment->comment_ID ) ) {
+			// it's not a comment - bail
+			return $avatar;
+		}
+	
+		if ( false === strpos( $comment->comment_author_url, '/www.facebook.com/' ) && false === strpos( $comment->comment_author_url, '/twitter.com/' ) ) {
+			// It's neither FB nor Twitter - bail
+			return $avatar;
+		}
+	
+		// It's a FB or Twitter avatar
+		$foreign_avatar = get_comment_meta( $comment->comment_ID, 'hc_avatar', true );
+		if ( empty( $foreign_avatar ) ) {
+			// Can't find the avatar details - bail
+			return $avatar;
+		}
+	
+		// Return the FB or Twitter avatar
+		return preg_replace( '#src=([\'"])[^\'"]+\\1#', 'src=\\1' . esc_url( $this->photon_avatar( $foreign_avatar, $size ) ) . '\\1', $avatar );
 	}
 
 	/** Output Methods ********************************************************/
@@ -125,6 +165,9 @@ class Jetpack_Comments extends Highlander_Comments_Base {
 	 * @since JetpackComments (1.4)
 	 */
 	public function comment_form_before() {
+		// Add some JS to the footer
+		add_action( 'wp_footer', array( $this, 'watch_comment_parent' ), 100 );
+
 		ob_start();
 	}
 
@@ -168,6 +211,7 @@ class Jetpack_Comments extends Highlander_Comments_Base {
 			'greeting'             => get_option( 'highlander_comment_form_prompt', __( 'Leave a Reply', 'jetpack' ) ),
 			'color_scheme'         => get_option( 'jetpack_comment_form_color_scheme', $this->default_color_scheme ),
 			'lang'                 => get_bloginfo( 'language' ),
+			'jetpack_version'      => JETPACK__VERSION,
 		);
 
 		// Extra parameters for logged in user
@@ -203,8 +247,10 @@ class Jetpack_Comments extends Highlander_Comments_Base {
 		?>
 
 		<div id="respond">
-			<div id="cancel-comment-reply-link" style="display:none; float:right;"><a href="#"><?php echo esc_html( __( 'Cancel Reply', 'jetpack' ) ); ?></a></div>
-			<iframe src="<?php echo esc_url( $url ); ?>" allowtransparency="<?php echo $transparent; ?>" style="width:100%; height: <?php echo $height; ?>px;border:0px;" frameBorder="0" scrolling="no" name="jetpack_remote_comment" id="jetpack_remote_comment"></iframe>
+			<div id="commentform">
+				<div id="cancel-comment-reply-link" style="display:none; float:right;"><a href="#"><?php echo esc_html( __( 'Cancel Reply', 'jetpack' ) ); ?></a></div>
+				<iframe src="<?php echo esc_url( $url ); ?>" allowtransparency="<?php echo $transparent; ?>" style="width:100%; height: <?php echo $height; ?>px;border:0px;" frameBorder="0" scrolling="no" name="jetpack_remote_comment" id="jetpack_remote_comment"></iframe>
+			</div>
 		</div>
 
 		<?php // Below is required for comment reply JS to work ?>
@@ -223,8 +269,17 @@ class Jetpack_Comments extends Highlander_Comments_Base {
 		$url_origin = ( is_ssl() ? 'https' : 'http' ) . '://jetpack.wordpress.com';
 	?>
 
+		<!--[if IE]>
 		<script type="text/javascript">
-			var comm_par = document.getElementById( 'comment_parent' ).value,
+		if ( 0 === window.location.hash.indexOf( '#comment-' ) ) {
+			// window.location.reload() doesn't respect the Hash in IE
+			window.location.hash = window.location.hash;
+		}
+		</script>
+		<![endif]-->
+		<script type="text/javascript">
+			var comm_par_el = document.getElementById( 'comment_parent' ),
+			    comm_par = (comm_par_el && comm_par_el.value) ? comm_par_el.value : '',
 			    frame = document.getElementById( 'jetpack_remote_comment' ),
 			    tellFrameNewParent;
 
@@ -236,51 +291,67 @@ class Jetpack_Comments extends Highlander_Comments_Base {
 				}
 			};
 
-			addComment._Jetpack_moveForm = addComment.moveForm;
+	<?php if ( get_option( 'thread_comments' ) && get_option( 'thread_comments_depth' ) ) : ?>
 
-			addComment.moveForm = function( commId, parentId, respondId, postId ) {
-				var returnValue = addComment._Jetpack_moveForm( commId, parentId, respondId, postId ), cancelClick, cancel;
+			if ( 'undefined' !== typeof addComment ) {
+				addComment._Jetpack_moveForm = addComment.moveForm;
 
-				if ( false === returnValue ) {
-					cancel = document.getElementById( 'cancel-comment-reply-link' );
-					cancelClick = cancel.onclick;
-					cancel.onclick = function() {
-						var cancelReturn = cancelClick.call( this );
-						if ( false !== cancelReturn ) {
+				addComment.moveForm = function( commId, parentId, respondId, postId ) {
+					var returnValue = addComment._Jetpack_moveForm( commId, parentId, respondId, postId ), cancelClick, cancel;
+
+					if ( false === returnValue ) {
+						cancel = document.getElementById( 'cancel-comment-reply-link' );
+						cancelClick = cancel.onclick;
+						cancel.onclick = function() {
+							var cancelReturn = cancelClick.call( this );
+							if ( false !== cancelReturn ) {
+								return cancelReturn;
+							}
+
+							if ( !comm_par ) {
+								return cancelReturn;
+							}
+
+							comm_par = 0;
+
+							tellFrameNewParent();
+
 							return cancelReturn;
-						}
-
-						if ( !comm_par ) {
-							return cancelReturn;
-						}
-
-						comm_par = 0;
-
-						tellFrameNewParent();
-
-						return cancelReturn;
-					};
-				}
-
-				if ( comm_par == parentId ) {
-					return returnValue;
-				}
-
-				comm_par = parentId;
-
-				tellFrameNewParent();
-
-				return returnValue;
-			};
-
-			if ( window.postMessage ) {
-				window.addEventListener( 'message', function( event ) {
-					if ( <?php echo json_encode( esc_url_raw( $url_origin ) ); ?> !== event.origin ) {
-						return;
+						};
 					}
 
-					jQuery( frame ).height( event.data );
-				} );
+					if ( comm_par == parentId ) {
+						return returnValue;
+					}
+
+					comm_par = parentId;
+
+					tellFrameNewParent();
+
+					return returnValue;
+				};
+			}
+
+	<?php endif; ?>
+
+			if ( window.postMessage ) {
+				if ( document.addEventListener ) {
+					window.addEventListener( 'message', function( event ) {
+						if ( <?php echo json_encode( esc_url_raw( $url_origin ) ); ?> !== event.origin ) {
+							return;
+						}
+
+						jQuery( frame ).height( event.data );
+					} );
+				} else if ( document.attachEvent ) {
+					window.attachEvent( 'message', function( event ) {
+						if ( <?php echo json_encode( esc_url_raw( $url_origin ) ); ?> !== event.origin ) {
+							return;
+						}
+
+						jQuery( frame ).height( event.data );
+					} );
+				}
 			}
 		</script>
 
@@ -344,6 +415,7 @@ class Jetpack_Comments extends Highlander_Comments_Base {
 				$comment_meta['hc_post_as']         = 'wordpress';
 				$comment_meta['hc_avatar']          = stripslashes( $_POST['hc_avatar'] );
 				$comment_meta['hc_foreign_user_id'] = stripslashes( $_POST['hc_userid'] );
+				$comment_meta['hc_wpcom_id_sig']    = stripslashes( $_POST['hc_wpcom_id_sig'] ); //since 1.9
 				break;
 
 			case 'jetpack' :
@@ -361,6 +433,87 @@ class Jetpack_Comments extends Highlander_Comments_Base {
 		// Loop through extra meta and add values
 		foreach ( $comment_meta as $key => $value )
 			add_comment_meta( $comment_id, $key, $value, true );
+	}
+	function capture_comment_post_redirect_to_reload_parent_frame( $url ) {
+		if ( !isset( $_GET['for'] ) || 'jetpack' != $_GET['for'] ) {
+			return $url;
+		}
+?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<!--<![endif]-->
+<head>
+<meta charset="<?php bloginfo( 'charset' ); ?>" />
+<title><?php printf( __( 'Submitting Comment%s', 'jetpack' ), '&hellip;' ); ?></title>
+<style type="text/css">
+body {
+	display: table;
+	width: 100%;
+	height: 60%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	color: #333;
+}
+
+h1 {
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	display: table-cell;
+	vertical-align: middle;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", sans-serif;
+	font-weight: normal;
+}
+
+.hidden {
+	opacity: 0;
+}
+
+h1 span {
+	-moz-transition-property: opacity;
+	-moz-transition-duration: 1s;
+	-moz-transition-timing-function: ease-in-out;
+
+	-webkit-transition-property: opacity;
+	-webkit-transition-duration: 1s;
+	-webbit-transition-timing-function: ease-in-out;
+
+	-o-transition-property: opacity;
+	-o-transition-duration: 1s;
+	-o-transition-timing-function: ease-in-out;
+
+	-ms-transition-property: opacity;
+	-ms-transition-duration: 1s;
+	-ms-transition-timing-function: ease-in-out;
+
+	transition-property: opacity;
+	transition-duration: 1s;
+	transition-timing-function: ease-in-out;
+}
+</style>
+</head>
+<body>
+        <h1><?php printf( __( 'Submitting Comment%s', 'jetpack' ), '<span id="ellipsis" class="hidden">&hellip;</span>' ); ?></h1>
+<script type="text/javascript">
+try {
+	window.parent.location = <?php echo json_encode( $url ); ?>;
+	window.parent.location.reload( true );
+} catch ( e ) {
+	window.location = <?php echo json_encode( $url ); ?>;
+	window.location.reload( true );
+}
+ellipsis = document.getElementById( 'ellipsis' );
+function toggleEllipsis() {
+        ellipsis.className = ellipsis.className ? '' : 'hidden';
+}
+setInterval( toggleEllipsis, 1200 );
+</script>
+</body>
+</html>
+<?php
+		exit;
 	}
 }
 

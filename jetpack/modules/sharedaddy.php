@@ -1,10 +1,11 @@
-<?php 
+<?php
 /**
  * Module Name: Sharing
  * Module Description: The most super duper sharing tool on the interwebs. Share content with Facebook, Twitter, and many more.
- * Sort Order: 4
+ * Sort Order: 5
  * First Introduced: 1.1
  * Major Changes In: 1.2
+ * Requires Connection: No
  */
 
 if ( !function_exists( 'sharing_init' ) )
@@ -18,6 +19,6 @@ function sharedaddy_loaded() {
 }
 
 function sharedaddy_configuration_load() {
-        wp_safe_redirect( menu_page_url( 'sharing', false ) );
+        wp_safe_redirect( menu_page_url( 'sharing', false ) . "#sharing-buttons" );
         exit;
 }

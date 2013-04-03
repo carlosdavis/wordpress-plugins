@@ -35,7 +35,6 @@ class Highlander_Comments_Base {
 	protected function setup_filters() {
 		add_filter( 'comments_array',     array( $this, 'comments_array' ) );
 		add_filter( 'preprocess_comment', array( $this, 'allow_logged_in_user_to_comment_as_guest' ), 0 );
-		add_filter( 'get_avatar',         array( $this, 'get_avatar' ), 10, 4 );
 	}
 
 	/**
@@ -273,56 +272,16 @@ class Highlander_Comments_Base {
 	}
 
 	/**
-	 * Get the comment avatar from Gravatar, Twitter, or Facebook
-	 *
-	 * @since JetpackComments (1.4)
-	 * @param string $avatar Current avatar URL
-	 * @param string $comment Comment for the avatar
-	 * @param int $size Size of the avatar
-	 * @param string $default Not used
-	 * @return string New avatar
-	 */
-	public function get_avatar( $avatar, $comment, $size, $default ) {
-		if ( ! isset( $comment->comment_post_ID ) || ! isset( $comment->comment_ID ) ) {
-			// it's not a comment - bail
-			return $avatar;
-		}
-	
-		if ( false === strpos( $comment->comment_author_url, '/www.facebook.com/' ) && false === strpos( $comment->comment_author_url, '/twitter.com/' ) ) {
-			// It's neither FB nor Twitter - bail
-			return $avatar;
-		}
-	
-		// It's a FB or Twitter avatar
-		$foreign_avatar = get_comment_meta( $comment->comment_ID, 'hc_avatar', true );
-		if ( empty( $foreign_avatar ) ) {
-			// Can't find the avatar details - bail
-			return $avatar;
-		}
-	
-		// Return the FB or Twitter avatar
-		return preg_replace( '#src=([\'"])[^\'"]+\\1#', 'src=\\1' . esc_url( $this->imgpress_avatar( $foreign_avatar, $size ) ) . '\\1', $avatar );
-	}
-
-	/**
- 	 * Get an avatar from Imgpress
+ 	 * Get an avatar from Photon
  	 *
  	 * @since JetpackComments (1.4)
  	 * @param string $url
  	 * @param int $size
  	 * @return string
  	 */
-	protected function imgpress_avatar( $url, $size ) {
+	protected function photon_avatar( $url, $size ) {
 		$size = (int) $size;
 
-		$args = urlencode_deep( array(
-			'url'    => $url,
-			'resize' => "$size,$size",
-		) );
-
-		$url = apply_filters( 'jetpack_static_url', ( is_ssl() ? 'https://s-ssl.wordpress.com' : 'http://s.wordpress.com' ) . '/imgpress' );
-		$url = add_query_arg( $args, $url );
-
-		return $url;
+		return jetpack_photon_url( $url, array( 'resize' => "$size,$size" ) );
 	}
 }

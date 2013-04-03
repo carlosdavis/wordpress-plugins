@@ -3,9 +3,10 @@
  * Module Name: VaultPress
  * Module Description: Realtime backup and security scanning for your WordPress site.
  * First Introduced: 0:1.2
- * Sort Order: 5
+ * Sort Order: 7
  * Deactivate: false
  * Free: false
+ * Requires Connection: Yes
  */
 
 add_action( 'jetpack_modules_loaded', 'vaultpress_jetpack_stub' );

@@ -6,7 +6,7 @@
 class AudioShortcode {
 
 	static $add_script = false;
-	
+
 	/**
 	 * Add all the actions & resgister the shortcode
 	 */
@@ -80,7 +80,7 @@ class AudioShortcode {
 		$sound_file = $data[0];
 		$sound_files = explode( ',', $sound_file );
 		$sound_files = array_map( 'trim', $sound_files );
-		$sound_files = array_map( array( $this, 'unbreak_spacey_url' ), $sound_files );
+		$sound_files = array_map( array( $this, 'rawurlencode_spaces' ), $sound_files );
 		$sound_files = array_map( 'esc_url_raw', $sound_files ); // Ensure each is a valid URL
 		$num_files = count( $sound_files );
 		$sound_types = array(
@@ -104,7 +104,7 @@ class AudioShortcode {
 		// (runtime options overwrite default options)
 		foreach ( $ap_options as $key => $default ) {
 			if ( isset( $options[$key] ) ) {
-				if ( preg_match( '/^0x[a-f0-9]{6}$/i', $default ) && !preg_match( '/^0x[a-f0-9]{6}$/i', $options[$key] ) ) {
+				if ( preg_match( '/^(0x)?[a-f0-9]{6}$/i', $default ) && !preg_match( '/^(0x)?[a-f0-9]{6}$/i', $options[$key] ) ) {
 					// Default is a hex color, but input is not
 					$options[$key] = $default;
 				}
@@ -121,8 +121,8 @@ class AudioShortcode {
 		$flash_vars = esc_attr( $flash_vars );
 
 		// extract some of the options to insert into the markup
-		if ( isset( $options['bgcolor'] ) && preg_match( '/^0x[a-f0-9]{6}$/i', $options['bgcolor'] ) ) {
-			$bgcolor = preg_replace( '/^0x/', '#', $options['bgcolor'] );
+		if ( isset( $options['bgcolor'] ) && preg_match( '/^(0x)?[a-f0-9]{6}$/i', $options['bgcolor'] ) ) {
+			$bgcolor = preg_replace( '/^(0x)?/', '#', $options['bgcolor'] );
 			$bgcolor = esc_attr( $bgcolor );
 		} else {
 			$bgcolor = '#FFFFFF';
@@ -161,8 +161,8 @@ class AudioShortcode {
 
 		// generate default titles
 		$file_titles = array();
-		for ( $i = 0; $i < $num_files; $i++ ) { 
-			$file_titles[] = 'Track #' . ($i+1); 
+		for ( $i = 0; $i < $num_files; $i++ ) {
+			$file_titles[] = 'Track #' . ($i+1);
 		}
 
 		// replace with real titles if they exist
@@ -190,7 +190,7 @@ class AudioShortcode {
 		$to_remove = array();
 		foreach ( $sound_files as $i => $sfile ) {
 			$file_extension = pathinfo( $sfile, PATHINFO_EXTENSION );
-			if ( ! preg_match( '/^(mp3|wav|ogg|oga|m4a|aac|webm)$/', $file_extension ) ) {
+			if ( ! preg_match( '/^(mp3|wav|ogg|oga|m4a|aac|webm)$/i', $file_extension ) ) {
 				$html5_audio .= '<!-- Audio shortcode unsupported audio format -->';
 				if ( 1 == $num_files ) {
 					$html5_audio .= $not_supported;
@@ -199,7 +199,7 @@ class AudioShortcode {
 				$to_remove[] = $i; // make a note of the bad files
 				$all_mp3 = false;
 				continue;
-			} elseif ( ! preg_match( '/^mp3$/', $file_extension ) ) {
+			} elseif ( ! preg_match( '/^mp3$/i', $file_extension ) ) {
 				$all_mp3 = false;
 			}
 
@@ -236,8 +236,14 @@ CONTROLS;
 			'jetpack_static_url',
 			'http://en.wordpress.com/wp-content/plugins/audio-player/player.swf' );
 
-		// process regular flash player, inserting HTML5 tags into object as fallback
+		// all the fancy javascript is causing Google Reader to break, just include flash in GReader
+		// override html5 audio code w/ just not supported code
+		if ( is_feed() ) {
+			$html5_audio = $not_supported;
+		}
+
 		if ( $all_mp3 ) {
+			// process regular flash player, inserting HTML5 tags into object as fallback
 			$audio_tags = <<<FLASH
 				<object id='wp-as-{$post->ID}_{$ap_playerID}-flash' type='application/x-shockwave-flash' data='$swfurl' width='$width' height='24'>
 					<param name='movie' value='$swfurl' />
@@ -262,7 +268,7 @@ FLASH;
 
 		// mashup the artist/titles for the script
 		$script_titles = array();
-		for ( $i = 0; $i < $num_files; $i++ ) { 
+		for ( $i = 0; $i < $num_files; $i++ ) {
 			$script_titles[] = $file_artists[$i] . $file_titles[$i];
 
 		}
@@ -273,24 +279,36 @@ FLASH;
 		$script = <<<SCRIPT
 			<script type='text/javascript'>
 			//<![CDATA[
-			jQuery(document).on( 'ready as-script-load', function($) {
-				if ( typeof window.audioshortcode != 'undefined' ) {
+			(function() {
+				var prep = function() {
+					if ( 'undefined' === typeof window.audioshortcode ) { return; }
 					audioshortcode.prep(
 						'{$post->ID}_{$ap_playerID}',
 						$script_files,
 						$script_titles,
 						$volume,
-						$script_loop );
+						$script_loop
+					);
+				};
+				if ( 'undefined' === typeof jQuery ) {
+					if ( document.addEventListener ) {
+						window.addEventListener( 'load', prep, false );
+					} else if ( document.attachEvent ) {
+						window.attachEvent( 'onload', prep );
+					}
+				} else {
+					jQuery(document).on( 'ready as-script-load', prep );
 				}
-			} );
+			})();
 			//]]>
 			</script>
 SCRIPT;
 
 		// add the special javascript, if needed
-		if ( 0 < $num_good ) {
+		if ( 0 < $num_good && ! is_feed() ) {
 			$audio_tags .= $script;
 		}
+
 		return "<span style='text-align:left;display:block;'><p>$audio_tags</p></span>";
 	}
 
@@ -298,10 +316,10 @@ SCRIPT;
 	 * If the theme uses infinite scroll, include jquery at the start
 	 */
 	function check_infinite() {
-		if ( current_theme_supports( 'infinite-scroll' ) ) {
+		if ( current_theme_supports( 'infinite-scroll' ) && class_exists( 'The_Neverending_Home_Page' ) && The_Neverending_Home_Page::archive_supports_infinity() )
 			wp_enqueue_script( 'jquery' );
-		}
 	}
+
 
 	/**
 	 * Dynamically load the .js, if needed
@@ -324,8 +342,8 @@ SCRIPT;
 					wp_as_js.type = 'text/javascript';
 					wp_as_js.src = $script_url;
 					wp_as_js.async = true;
-					wp_as_js.onload = function() { 
-						jQuery( document.body ).trigger( 'as-script-load' ); 
+					wp_as_js.onload = function() {
+						jQuery( document.body ).trigger( 'as-script-load' );
 					};
 					document.getElementsByTagName( 'head' )[0].appendChild( wp_as_js );
 				} else {
@@ -344,7 +362,7 @@ SCRIPT;
 	 * @param string $url
 	 * @return string
 	 */
-	function unbreak_spacey_url( $url ) {
+	function rawurlencode_spaces( $url ) {
 		return str_replace( ' ', rawurlencode( ' ' ), $url );
 	}
 }

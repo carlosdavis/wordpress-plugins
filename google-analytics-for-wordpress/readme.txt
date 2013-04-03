@@ -2,9 +2,9 @@
 Contributors: joostdevalk
 Donate link: http://yoast.com/donate/
 Tags: analytics, google analytics, statistics, tracking, stats, google
-Requires at least: 2.8
-Tested up to: 3.3
-Stable tag: 4.2.4
+Requires at least: 3.3
+Tested up to: 3.5
+Stable tag: 4.3.2
 
 Track your WordPress site easily and with lots of metadata: views per author & category, automatic tracking of outbound clicks and pageviews.
 
@@ -57,6 +57,37 @@ This section describes how to install the plugin and get it working.
 1. Go to the options panel under the 'Settings' menu and add your Analytics account number and set the settings you want.
 
 == Changelog ==
+
+= 4.3.2 =
+
+* Bugfix: Google Analytics crappy API output is different when you have a single GA account versus multiple. Annoying, but fixed now.
+ 
+= 4.3.1 =
+
+* Removes a left over JS alert.
+
+= 4.3 =
+
+* Major refactor of plugin code, to only load necessary code on front and backend.
+* Made entire plugin i18n ready.
+* Fixed Google Authentication process (thanks to [Jan Willem Eshuis](http://www.janwillemeshuis.nl/)).
+
+= 4.2.8 =
+
+* Fix a small bug in tracking that could potentially slow down admin.
+
+= 4.2.7 =
+
+* Fix to prevent far too agressive oAuth implementation from breaking other plugins.
+
+= 4.2.6 =
+
+* Fix to prevent far too agressive oAuth implementation from breaking other plugins.
+
+= 4.2.5 =
+
+* Fixed a couple notices.
+* Added tracking to better understand configurations to test the plugin with.
 
 = 4.2.4 =
 
